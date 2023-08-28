@@ -768,7 +768,7 @@
         ><input
           type="checkbox"
           formControlName="checkBonus"
-          (change)="changeCheckBonus($event)"
+          (change)="changeCheckBonus($event.target.checked)"
         />
         {{
           "CONTRIVANCE_MAMAGEMENT.LABEL.NOT_BENEFICIAL_VALUE" | translate
@@ -789,7 +789,6 @@
             ? 'input-field input-disabled'
             : 'input-field'
         "
-        [attr.disabled]="formUtils.control('checkBonus').value ? true : null"
         placeholder="{{
           'CONTRIVANCE_MAMAGEMENT.PLACEHOLDER.MONEY' | translate
         }}"
@@ -829,7 +828,6 @@
         }}"
         formControlName="bonus"
         maxlength="18"
-        [attr.disabled]="formUtils.control('checkBonus').value ? true : null"
       />
       <small
         class="form-text text-danger"
