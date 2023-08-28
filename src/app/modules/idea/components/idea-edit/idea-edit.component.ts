@@ -16,6 +16,7 @@ import { environment } from "@env/environment";
 import { DataService } from "../../../../shared/service/data.service";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { MatTableDataSource } from "@angular/material/table";
+import { NotificationService } from "@app/shared/service/notification.service";
 
 interface IdeaDetail {
   ideaId: number;
@@ -76,7 +77,8 @@ export class IdeaEditComponent implements OnInit {
     private route: ActivatedRoute,
     private http: HttpClient,
     public DataService: DataService,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private notificationService: NotificationService,
   ) {
     this.bsConfig = {
       dateInputFormat: 'DD/MM/YYYY',
@@ -509,7 +511,7 @@ export class IdeaEditComponent implements OnInit {
       modalRef.componentInstance.closeIcon = false;
       return false;
     }
-    if (startDate <= now || endDate <= now) {
+    if (startDate < now || endDate < now) {
       const modalRef = this.modalService.open(MessagePopupComponent, {
         size: "sm",
         backdrop: "static",
@@ -713,23 +715,23 @@ export class IdeaEditComponent implements OnInit {
       modalRef.componentInstance.closeIcon = false;
       return false;
     }
-    if (this.documentDTO.url == "") {
-      const modalRef = this.modalService.open(MessagePopupComponent, {
-        size: "sm",
-        backdrop: "static",
-        keyboard: false,
-        centered: true,
-      });
-      modalRef.componentInstance.type = "fail";
-      modalRef.componentInstance.title = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.ERROR`
-      );
-      modalRef.componentInstance.message = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.FILE`
-      );
-      modalRef.componentInstance.closeIcon = false;
-      return false;
-    }
+    // if (this.documentDTO.url == "") {
+    //   const modalRef = this.modalService.open(MessagePopupComponent, {
+    //     size: "sm",
+    //     backdrop: "static",
+    //     keyboard: false,
+    //     centered: true,
+    //   });
+    //   modalRef.componentInstance.type = "fail";
+    //   modalRef.componentInstance.title = this.translateService.instant(
+    //     `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+    //   );
+    //   modalRef.componentInstance.message = this.translateService.instant(
+    //     `ADD-INSIDE-IDEA.VALIDATE.FILE`
+    //   );
+    //   modalRef.componentInstance.closeIcon = false;
+    //   return false;
+    // }
     if (this.DataService.lstContributorDTOServiceEdit.value.length === 0) {
       const modalRef = this.modalService.open(MessagePopupComponent, {
         size: "sm",
@@ -779,8 +781,10 @@ export class IdeaEditComponent implements OnInit {
         return this.http.post<any>(url, requestBody, { headers }).subscribe(
           (res) => {
             if (res.errorCode === "0") {
+              this.notificationService.notify("success", res.description);
               this.router.navigate(["idea"]);
             } else {
+              this.notificationService.notify("fail", res.description);
             }
           },
           (error) => {
@@ -887,6 +891,8 @@ export class IdeaEditComponent implements OnInit {
       note: this.note,
       listUnitDTO: updatedListUnitDTO,
     };
+    console.log(this.ideaDTO);
+    
   }
   validateBeforeCheckDuplicate() {
     if (this.validate()) {

@@ -659,23 +659,23 @@ export class IdeaRegisterComponent implements OnInit {
       modalRef.componentInstance.closeIcon = false;
       return false;
     }
-    if (this.DataService.file.value.url == "") {
-      const modalRef = this.modalService.open(MessagePopupComponent, {
-        size: "sm",
-        backdrop: "static",
-        keyboard: false,
-        centered: true,
-      });
-      modalRef.componentInstance.type = "fail";
-      modalRef.componentInstance.title = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.ERROR`
-      );
-      modalRef.componentInstance.message = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.FILE`
-      );
-      modalRef.componentInstance.closeIcon = false;
-      return false;
-    }
+    // if (this.DataService.file.value.url == "") {
+    //   const modalRef = this.modalService.open(MessagePopupComponent, {
+    //     size: "sm",
+    //     backdrop: "static",
+    //     keyboard: false,
+    //     centered: true,
+    //   });
+    //   modalRef.componentInstance.type = "fail";
+    //   modalRef.componentInstance.title = this.translateService.instant(
+    //     `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+    //   );
+    //   modalRef.componentInstance.message = this.translateService.instant(
+    //     `ADD-INSIDE-IDEA.VALIDATE.FILE`
+    //   );
+    //   modalRef.componentInstance.closeIcon = false;
+    //   return false;
+    // }
     if (this.DataService.lstContributorDTOService.value.length === 0) {
       const modalRef = this.modalService.open(MessagePopupComponent, {
         size: "sm",
