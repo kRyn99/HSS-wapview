@@ -1,0 +1,122 @@
+//.btn-give-point {
+//  height: 20px;
+//  width: 20px;
+//  border-radius: 50%;
+//  background: #dedede;
+//  text-align: center;
+//
+//  .minus {
+//    color: #f13e17;
+//    line-height: 20px;
+//  }
+//  .plus {
+//    color: #00b027;
+//    line-height: 20px;
+//  }
+//}
+//.name {
+//  // font-family: SF Pro Text;
+//  font-weight: 600;
+//  font-size: 16px;
+//  line-height: 21px;
+//}
+//.time {
+//  // font-family: SF Pro Text;
+//  font-size: 12px;
+//  line-height: 21px;
+//  color: #929292;
+//  text-align: right;
+//}
+//.phone {
+//  // font-family: SF Pro Text;
+//  font-size: 12px;
+//  line-height: 21px;
+//  color: #929292;
+//}
+//.amount {
+//  // font-family: Roboto;
+//  font-size: 14px;
+//  line-height: 16px;
+//  text-align: right;
+//}
+
+.thumbnail:hover {
+  background-color: #ff950752;
+  opacity: 0.5;
+}
+
+// LongDC
+
+.thumbnail {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .ic {
+    //width: 10%;
+    margin-right: 25px;
+  }
+
+  .info-tran {
+    display: flex;
+    flex-direction: column;
+    //font-family: 'SFProText';
+    width: 100%;
+
+    .line1 {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+
+      .title-tran {
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 21px;
+        color: #000000;
+        max-width: 80%;
+
+        div {
+          //font-family: 'SFProText';
+        }
+      }
+
+      .time-tran {
+        //font-family: 'SFProText';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 21px;
+        color: #929292;
+      }
+    }
+
+    .line2 {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+
+      .isdn {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 21px;
+        color: #929292;
+
+        .phone {
+          //font-family: 'SFProText';
+        }
+      }
+
+      .amount {
+        //font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 16px;
+      }
+    }
+  }
+}

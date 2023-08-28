@@ -1,0 +1,39 @@
+<div class="form-group form-group-custom">
+  <label [for]="name" class="text-black"
+    >{{ label }} <span *ngIf="required">(*)</span></label
+  >
+  <input
+    class="form-control form-control-custom"
+    [type]="type"
+    [id]="name"
+    [name]="name"
+    [maxlength]="maxlength"
+    placeholder=" "
+    autocomplete="off"
+    [mask]="mask"
+    [pattern]="pattern"
+    [ngModelOptions]="{ standalone: true }"
+    [readonly]="readonly"
+    (paste)="onPaste($event)"
+    [(ngModel)]="value"
+    (ngModelChange)="onModelChange($event)"
+    (keypress)="onKeyPressOnlyNumber($event)"
+    (beforeinput)="onBeforeInput($event)"
+    (keyup)="onKeyUp($event)"
+	/>
+    <!-- (focus)="onFocus()"
+    (blur)="onBlur($event)" -->
+  <span [style.visibility]="errHidden ? 'hidden' : 'visible'" class="errmsg">{{
+    errmsg
+  }}</span>
+  <button
+    [style.visibility]="
+      !clearEnabled || !clearVisible || readonly ? 'hidden' : 'visible'
+    "
+    type="button"
+    class="btn bg-transparent clear-btn float-right"
+    (click)="onClear()"
+  >
+    <i class="fa fa-times"></i>
+  </button>
+</div>

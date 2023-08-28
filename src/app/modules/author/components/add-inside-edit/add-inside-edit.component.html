@@ -1,0 +1,135 @@
+<app-title-nav
+  [title]="'Thêm tác giả trong tập đoàn' | translate"
+  [backRoute]="backRoute + '/edit'"
+  
+></app-title-nav>
+<div class="body">
+  <div class="info-box">
+    <ng-select
+      [items]="listStaff"
+      bindLabel="staffCode"
+      placeholder="Nhập mã nhân viên"
+      [(ngModel)]="selectedStaffCode"
+      (change)="onSelectedStaffCodeChange($event)"
+    ></ng-select>
+
+    <div class="info-box">
+      <div class="info-title">{{ "Họ và tên" | translate }}</div>
+      <input
+        class="info-input"
+        [placeholder]="
+          (selectedStaffCodeSubject | async)?.fullName || 'Họ và tên'
+        "
+        style="background-color: #f3f3f3"
+        [readonly]="!isEdit"
+      />
+    </div>
+    <div class="info-box">
+      <div class="info-title">{{ "% đóng góp " | translate }}(<span
+        style="color: red"
+        >*</span
+      >)</div>
+      <input
+        NumbersOnly
+        type="text"
+        class="info-input"
+        [placeholder]="'Nhập % đóng góp của tác giả' | translate"
+        [(ngModel)]="percentageValue"
+        (ngModelChange)="percentageValueChange($event)"
+        maxlength="3"
+      />
+    </div>
+    <div class="info-box">
+      <div class="info-title">{{ "Số điện thoại " | translate }}(<span
+        style="color: red"
+        >*</span
+      >)</div>
+      <input
+        type="text"
+        class="info-input"
+        [placeholder]="
+          (selectedStaffCodeSubject | async)?.phoneNumber ||
+          'Nhập số điện thoại'
+        "
+        [(ngModel)]="phoneNumber"
+        
+        (input)="phoneNumberChange()"
+        NumbersOnly
+        maxlength="12"
+      />
+    </div>
+    <div class="info-box">
+      <div class="info-title">{{ "Email" | translate }}</div>
+      <input
+        type="text"
+        class="info-input"
+        [placeholder]=" (selectedStaffCodeSubject | async)?.email ||
+        'Nhập email'"
+        [(ngModel)]="email"
+        (input)="emailChange()"
+      />
+    </div>
+    <div class="info-box">
+      <div class="info-title">{{ "Ngày sinh" | translate }}</div>
+      <label class="date">
+        <input
+          [placeholder]=" (selectedStaffCodeSubject | async)?.birthday ||
+          'Nhập ngày sinh'"
+          type="text"
+          name="Date"
+          [bsConfig]="bsConfig"
+          class="date-text"
+          style="background-color: white; border: white"
+          #dprn="bsDatepicker"
+          #vDate
+          bsDatepicker
+          autocomplete="off"
+          [(ngModel)]="birthday"
+          (mousedown)="birthdayChange($event)"
+          readonly
+        />
+        <img src="assets/img/icon/calendar.svg" style="padding: 10px" />
+      </label>
+    </div>
+    <div class="info-box">
+      <div class="info-title">{{ "Nơi công tác" | translate }}</div>
+      <input
+        class="info-input"
+        [placeholder]="
+          (selectedStaffCodeSubject | async)?.jobAddress || 'Nơi công tác'
+        "
+        style="background-color: #f3f3f3"
+        [readonly]="!isEdit"
+      />
+    </div>
+    <div class="info-box">
+      <div class="info-title">{{ "Chức vụ" | translate }}</div>
+      <input
+        class="info-input"
+        [placeholder]="
+          (selectedStaffCodeSubject | async)?.jobPosition || 'Chức vụ'
+        "
+        style="background-color: #f3f3f3"
+        [readonly]="!isEdit"
+      />
+    </div>
+    <div class="info-box">
+      <div class="info-title">{{ "Trình độ chuyên môn" | translate }}</div>
+      <input
+        class="info-input"
+        [placeholder]="
+          (selectedStaffCodeSubject | async)?.proQualification ||
+          'Trình độ chuyên môn'
+        "
+        style="background-color: #f3f3f3"
+        [readonly]="!isEdit"
+      />
+    </div>
+  </div>
+</div>
+<div class="bottom-box">
+  <div (click)="addNew()" class="bottom-btn">
+    <img src="assets/img/icon/plus.svg" />
+    <div class="btn-text">{{ "Thêm mới" | translate }}</div>
+  </div>
+</div>

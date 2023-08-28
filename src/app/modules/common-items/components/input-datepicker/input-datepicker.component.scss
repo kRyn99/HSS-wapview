@@ -1,0 +1,32 @@
+.datepicker {
+  font-size: 20px;
+  line-height: 18px;
+  margin-right: 10px;
+  margin-top: -47px;
+  cursor: pointer;
+  color: #979797;
+}
+.form-control {
+  height: 44px;
+  padding-right: 30px;
+  &:focus {
+    outline: none;
+    box-shadow: none;
+    border-color: #f6601b;
+  }
+}
+@media screen and (max-width:600px){
+  ::ng-deep bs-datepicker-container{
+    transform: translate3d(calc(100vw - 280px), 240px, 0px) scale(0.8,0.8) !important;
+    z-index: 100000 !important;
+  }
+}
+.theme-green .bs-datepicker-head {
+  background-color: #fb741c !important;
+}
+.bs-datepicker-head .current span {
+  text-transform: capitalize !important;
+}
+.bs-datepicker-body table tbody tr td span {
+  text-transform: capitalize !important;
+}

@@ -1,0 +1,12 @@
+export enum Currency {
+    TEN_THOUSAND_YEN = 10000,
+    FIVE_THOUSAND_YEN = 5000,
+    TWO_THOUSAND_YEN = 2000,
+    ONE_THOUSAND_YEN = 1000,
+    FIVE_HUNDRED_YEN = 500,
+    ONE_HUNDRED_YEN = 100,
+    FIFTY_YEN = 50,
+    TEN_YEN = 10,
+    FIVE_YEN = 5,
+    ONE_YEN = 1
+}

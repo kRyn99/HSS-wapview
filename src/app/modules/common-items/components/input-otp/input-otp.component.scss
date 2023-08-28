@@ -1,0 +1,53 @@
+.link {
+  margin-right: 16px;
+  margin-top: -45px;
+  text-decoration-line: underline;
+  cursor: pointer;
+  //font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 18px;
+
+  /* primary color/ vàng unitel */
+  color: #f47920;
+}
+
+.link:active {
+  color: #f47920;
+}
+
+.form-control {
+  height: 44px;
+  padding-right: 90px;
+
+  &:focus {
+    outline: none;
+    box-shadow: none;
+    border-color: #f6601b;
+  }
+}
+
+.timer {
+  margin-right: 16px;
+  margin-top: -45px;
+  color: #ED5E0D;
+  //font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.message {
+  //font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 21px;
+  color: #979797;
+}
+
+.otp-box {
+  //font-family: 'Montserrat';
+}

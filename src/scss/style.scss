@@ -1,0 +1,42 @@
+// If you want to override variables do it here
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import "~@ng-select/ng-select/themes/default.theme.css";
+@import "variables";
+// Import styles with default layout.
+// If you are going to use dark layout please comment next line
+// @import "~@coreui/coreui/scss/coreui";
+@import "@coreui/coreui-pro/scss/coreui";
+
+// Import styles with dark layout
+// If you want to use dark layout uncomment next line
+//@import "~@coreui/coreui-pro/scss/themes/dark/coreui-dark";
+
+// If you want to add something do it here
+@import "custom";
+
+@import "input-reason";
+@import "jancode-input";
+
+// Import item search
+@import "item-search";
+
+@import "input-item-discount";
+// Spinkit
+$spinkit-spinner-color: $body-color;
+@import "spinkit/scss/spinkit.scss";
+
+@import "../../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css";
+
+@import "./vendors/bs-datepicker/mixins_bsDatepicker";
+
+@import '~@circlon/angular-tree-component/css/angular-tree-component.css';
+
+@import "ngx-toastr/toastr";
+
+//@import "~font-awesome/scss/font-awesome";
+@import "print";
+@import "management-screen";
+@import "./global";
+@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css";
+
+@import "../assets/css/fontawesome-pro-5.13.0/css/all.min.css";

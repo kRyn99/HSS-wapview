@@ -1,0 +1,95 @@
+.otp-popup-card {
+  margin: 15px;
+
+  .otp-label {
+    // //font-family: SF Pro Text;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 21px;
+    text-align: center;
+    margin-bottom: 18px;
+  }
+
+  .otp-input {
+    height: 40px;
+    margin-bottom: 18px;
+  }
+
+  .btn-cancel {
+    width: 48%;
+    height: 32px;
+    border: 1px solid #f47920;
+    box-sizing: border-box;
+    border-radius: 5px;
+    background-color: #fff;
+    // //font-family: SF Pro Text;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #f47920;
+  }
+
+  .btn-cancel:focus,
+  .btn-cancel:active,
+  .btn-cancel:hover {
+    background-color: #fff;
+    outline: #fab07a solid 2px;
+  }
+
+  .btn-next {
+    width: 48%;
+    height: 32px;
+    background: #f47920;
+    border-radius: 5px;
+    border: none;
+    // //font-family: SF Pro Text;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #fff;
+  }
+
+  .btn-next:focus,
+  .btn-next:active,
+  .btn-next:hover {
+    background-color: #f47920;
+    outline: #fab07a solid 2px;
+  }
+}
+
+.timer {
+  //font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 18px;
+  margin-right: 16px;
+  margin-top: -45px;
+  color: #ED5E0D;
+}
+
+.otp-content {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  color: #989898;
+  margin-bottom: 18px;
+}
+
+.otp-resend {
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  color: #c4c4c4;
+  margin-bottom: 15px;
+}
+
+.link {
+  text-decoration: underline;
+  color: #0066ff;
+  cursor: pointer;
+}

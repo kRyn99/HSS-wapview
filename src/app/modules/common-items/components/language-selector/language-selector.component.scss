@@ -1,0 +1,26 @@
+.btn.btn-icon:hover,
+.btn.btn-icon:active,
+.btn.btn-icon:focus,
+.show .btn.btn-clean.btn-dropdown {
+  background: #165ea7 !important;
+}
+
+.long-cus {
+  background-color: white;
+  border-radius: 18px !important;
+  padding: 5px 0;
+  height: 36px;
+  width: 36px;
+}
+
+.dropdown-toggle::after {
+  display:none;
+}
+
+.text-align-center{
+  text-align: center;
+}
+
+.navi-item{
+  list-style: none;
+}

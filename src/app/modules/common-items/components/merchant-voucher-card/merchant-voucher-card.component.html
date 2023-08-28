@@ -1,0 +1,55 @@
+<div class="voucher-card" [style]="styleTxt">
+  <div class="logo-image">
+    <img [src]="avatarUrl" />
+  </div>
+  <div class="holds-row">
+    <div [className]="index == 0? 'first-top-hold' : 'top-hold'"></div>
+    <div class="mid-hold"></div>
+    <div class="mid-hold"></div>
+    <div class="mid-hold"></div>
+    <div class="bot-hold"></div>
+  </div>
+
+  <!-- content for merchant -->
+  <div class="content-voucher" *ngIf="cardType == 1">
+    <div class="row1">{{ name | truncate: 20 }}</div>
+    <div class="row2">{{ price | number:'1.0':'en-US' }} UPoint</div>
+    <div class="row3">
+      <div class="content-left">
+        <div class="lb">{{ "VOUCHER.LABEL.TOTAL" | translate }}</div>
+        <div class="value">{{ totalNumber | number:'1.0':'en-US' }}</div>
+      </div>
+      <div class="content-right">
+        <div class="lb">{{ "VOUCHER.LABEL.EXCHANGED" | translate }}</div>
+        <div class="value">{{ exchangedNumber | number:'1.0':'en-US' }}</div>
+      </div>
+    </div>
+    <div class="row4">
+      <div class="content-left">
+        <div class="lb">{{ "VOUCHER.LABEL.REMAIN" | translate }}</div>
+        <div class="value">{{ remainNumber | number:'1.0':'en-US' }}</div>
+      </div>
+      <div class="content-right">
+        <div class="lb">{{ "VOUCHER.LABEL.USED" | translate }}</div>
+        <div class="value">{{ usedNumber | number:'1.0':'en-US' }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- content for end user -->
+  <div class="content-voucher" *ngIf="cardType == 2">
+    <div class="row1-end-user">{{ name | truncate: 20 }}</div>
+    <div class="row-filter-end-user" *ngIf="filterInfoEnabled">
+      <div *ngIf="activeFilter === listFilter.BEST_RATED"><img src="assets/img/icon/rate_star_on.svg" width="10px" height="10px" alt="">&nbsp;{{avgRating}}&nbsp;&nbsp;|&nbsp;&nbsp;</div>
+      <div *ngIf="activeFilter === listFilter.NEAR_BY"><img src="assets/img/icon/location.png" width="10px" height="10px" alt="">&nbsp;{{distance}}&nbsp;&nbsp;|&nbsp;&nbsp;</div>
+      <div *ngIf="activeFilter === listFilter.BEST_SELLERS"><img src="assets/img/icon/shopping-cart.png" width="10px" height="10px" alt="">&nbsp;{{totalBought}}&nbsp;&nbsp;|&nbsp;&nbsp;</div>
+      <div class="discount"><div class="subtract">-</div><span class="rate">{{discount}}%</span></div>
+    </div>
+    <div class="row2-end-user">{{ description | truncate : 100}}</div>
+    <div class="row3-end-user">
+      <span style="color: #929292;font-size: 12px;"
+            class="original-price" [ngStyle]="{'text-decoration': +usageAmount > +price ? 'line-through': 'none'}"><span *ngIf="usageAmount">{{ usageAmount | number:'1.0':'en-US' }}&nbsp;Kip</span></span>
+      {{ price | number:'1.0':'en-US' }}&nbsp;UPoint
+    </div>
+  </div>
+</div>

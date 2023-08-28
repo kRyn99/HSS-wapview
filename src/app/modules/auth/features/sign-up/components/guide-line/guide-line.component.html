@@ -1,0 +1,34 @@
+<app-title-nav [title]="'TITLE.GUIDE_LINE' | translate" backRoute="auth/sign-up/step-account-information"> </app-title-nav>
+
+<!--<div class="container">-->
+<!--  {{content}}-->
+<!--</div>-->
+
+<!--vietnamese-->
+<iframe *ngIf=" lang==='vi' && signUpService.guideLine==='getGuidelineForCreatingAccounts' " src="assets/file/guidline/account/vi.html"
+        style="margin-top: 35px;width: 100vw;height: calc(100vh - 85px);margin-bottom: -35px;"></iframe>
+<iframe *ngIf=" lang==='vi' && signUpService.guideLine==='getGuidelineForProductService' " src="assets/file/guidline/intro/vi.html"
+        style="margin-top: 35px;width: 100vw;height: calc(100vh - 85px);margin-bottom: -35px;"></iframe>
+<iframe *ngIf=" lang==='vi' && signUpService.guideLine==='getGuidelineForUploadPhoto' " src="assets/file/guidline/uploadPhoto/vi.html"
+        style="margin-top: 35px;width: 100vw;height: calc(100vh - 85px);margin-bottom: -35px;"></iframe>
+<!--english-->
+<iframe *ngIf=" lang==='en' && signUpService.guideLine==='getGuidelineForCreatingAccounts' " src="assets/file/guidline/account/en.html"
+        style="margin-top: 35px;width: 100vw;height: calc(100vh - 85px);margin-bottom: -35px;"></iframe>
+<iframe *ngIf=" lang==='en' && signUpService.guideLine==='getGuidelineForProductService' " src="assets/file/guidline/intro/en.html"
+        style="margin-top: 35px;width: 100vw;height: calc(100vh - 85px);margin-bottom: -35px;"></iframe>
+<iframe *ngIf=" lang==='en' && signUpService.guideLine==='getGuidelineForUploadPhoto' " src="assets/file/guidline/uploadPhoto/en.html"
+        style="margin-top: 35px;width: 100vw;height: calc(100vh - 85px);margin-bottom: -35px;"></iframe>
+<!--laos-->
+<iframe *ngIf=" lang==='la' && signUpService.guideLine==='getGuidelineForCreatingAccounts' " src="assets/file/guidline/account/la.html"
+        style="margin-top: 35px;width: 100vw;height: calc(100vh - 85px);margin-bottom: -35px;"></iframe>
+<iframe *ngIf=" lang==='la' && signUpService.guideLine==='getGuidelineForProductService' " src="assets/file/guidline/intro/la.html"
+        style="margin-top: 35px;width: 100vw;height: calc(100vh - 85px);margin-bottom: -35px;"></iframe>
+<iframe *ngIf=" lang==='la' && signUpService.guideLine==='getGuidelineForUploadPhoto' " src="assets/file/guidline/uploadPhoto/la.html"
+        style="margin-top: 35px;width: 100vw;height: calc(100vh - 85px);margin-bottom: -35px;"></iframe>
+<!--china-->
+<iframe *ngIf=" lang==='zh' && signUpService.guideLine==='getGuidelineForCreatingAccounts' " src="assets/file/guidline/account/zh.html"
+        style="margin-top: 35px;width: 100vw;height: calc(100vh - 85px);margin-bottom: -35px;"></iframe>
+<iframe *ngIf=" lang==='zh' && signUpService.guideLine==='getGuidelineForProductService' " src="assets/file/guidline/intro/zh.html"
+        style="margin-top: 35px;width: 100vw;height: calc(100vh - 85px);margin-bottom: -35px;"></iframe>
+<iframe *ngIf=" lang==='zh' && signUpService.guideLine==='getGuidelineForUploadPhoto' " src="assets/file/guidline/uploadPhoto/zh.html"
+        style="margin-top: 35px;width: 100vw;height: calc(100vh - 85px);margin-bottom: -35px;"></iframe>

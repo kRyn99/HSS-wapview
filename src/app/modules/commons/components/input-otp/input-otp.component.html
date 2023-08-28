@@ -1,0 +1,18 @@
+<div class="container">
+	<div class="form-group form-group-custom">
+		<input class="form-control form-control-custom" [type]="type" [id]="name" [name]="name" [maxlength]="maxlength"
+			placeholder=" " autocomplete="off" [mask]="mask" [pattern]="pattern" [ngModelOptions]="{standalone: true}"
+			[readonly]="readonly" [(ngModel)]="value" (ngModelChange)="onModelChange($event)"
+			(focus)="onFocus()" (blur)="onBlur($event)" [readonly]="inputOtpDisabled" (click)="onclick()">
+		<span [style.visibility]="errHidden? 'hidden' : 'visible'" class="errmsg">{{ errmsg }}</span>
+		<label [for]="name" class="text-gray">{{ label }} <span *ngIf='required'>(*)</span></label>
+		<div class="count-dowm pr-1 border-left-0 rounded-right d-flex justify-content-center align-items-center">
+			<span style="color: #f6601b;"> {{ timer*1000 |
+				date:'mm:ss'
+				}}</span>
+		</div>
+	</div>
+	<p class="text-center mt-16"><span class="text-gray">{{ noReceived }} </span><button style="font-size: 1rem;"
+			type="button" [disabled]="resendDisabled" class="resend btn btn-link" (click)="onResend()">{{ resend
+			}}</button>
+</div>

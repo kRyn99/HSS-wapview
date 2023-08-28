@@ -1,0 +1,37 @@
+.dropdown-input {
+  text-overflow: ellipsis;
+  // -webkit-appearance: caret;
+  // background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='#666'><polygon points='0,0 100,0 50,50'/></svg>")
+  //   no-repeat;
+  // background-size: 12px;
+  // background-position: calc(100% - 20px) center;
+  // background-repeat: no-repeat;
+  // background-color: white;
+
+  // padding: 0.8rem 12px 0.8rem 0.6rem;
+  // font-weight: 500;
+  // height: auto;
+  &:focus {
+    outline: none;
+    box-shadow: none;
+    border-color: #f6601b;
+  }
+  // &:focus ~ label,
+  // &:not(:placeholder-shown) ~ label {
+  //   bottom: 60px !important;
+  //   font-size: 0.875rem;
+  //   color: #f6601b;
+  // }
+  // &:required:invalid {
+  //   color: #9c9c9c !important;
+  // }
+  option[disabled] {
+    color: #9C9C9C;
+  }
+  // option {
+  //   color: #333;
+  // }
+}
+.form-control {
+  height: 44px;
+}

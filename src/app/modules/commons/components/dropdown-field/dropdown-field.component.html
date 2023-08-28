@@ -1,0 +1,11 @@
+<div class="form-group form-group-custom">
+    <select [id]="name" [name]="name" class="form-control dropdown-input" (click)="onClick($event)"
+        (change)="onModelChange($event)" required>
+        <option disabled selected value="">{{ label }}</option>
+        <option [selected]="item == value" *ngFor="let item of options" value="{{item}}">{{item | translate}}</option>
+    </select>
+    <span class="errmsg"></span>
+    <label id="sss" [for]="name" [style.display]="labelDisplay? 'block' : 'none'">{{ label }}</label>
+    <!-- <button type="button" class="btn bg-transparent down-btn float-right"><i
+            class="fas fa-chevron-down down-icon"></i></button> -->
+</div>

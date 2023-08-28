@@ -1,0 +1,84 @@
+// .modal-content {
+//     width: 60%;
+//     margin: auto;
+//     margin-top: 35%;
+// }
+.input-item-discount-custom .modal-item-discount {
+    max-width: 470px;
+    margin:auto;
+    margin-top: 10%;
+}
+
+.input-item-discount-custom .col-md-4 label {
+    float: right;
+}
+
+.input-item-discount-custom .modal-header .close {
+    padding: 0.5rem 0.5rem;
+    margin: 0rem 0rem 0rem auto;
+}
+
+.input-item-discount-custom .col-md-4 {
+    padding-left: 0px;
+    padding-right: 0px;
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.input-item-discount-custom .col-md-3 {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.input-item-discount-custom .row {
+    // height: 30px;
+    margin-bottom: 10px;
+}
+
+.input-item-discount-custom label {
+    margin-bottom: 0px;
+}
+
+.input-item-discount-custom .col-md-1 {
+    display: flex;
+    align-items: center;
+}
+
+.input-item-discount-custom .btn {
+    min-width: 96px;
+}
+
+.input-item-discount-custom input {
+    text-align: right;
+}
+
+@media screen and (max-width: 768px) {
+    .input-item-discount-custom .col-md-3.offset-md-1 {
+        flex: unset;
+        margin-left: unset;
+    }
+
+    .input-item-discount-custom .col-md-4 {
+        flex: unset;
+        // max-width: 100%;
+        padding-left: 15px;
+        justify-content: unset;
+    }
+
+    .input-item-discount-custom .col-md-3 {
+        flex: unset;
+        // max-width: 100%;
+        justify-content: unset;
+    }
+    .input-item-discount-custom .col-md-3.offset-md-3, .col-md-3.offset-md-3 + .col-md-3 {
+        width: unset;
+    }
+}
+
+@media screen and (max-width: 990px) {
+    .input-item-discount-custom .offset-md-3 {
+        margin-left: 10%;
+    }
+}

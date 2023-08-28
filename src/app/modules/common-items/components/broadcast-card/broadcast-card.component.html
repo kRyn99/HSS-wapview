@@ -1,0 +1,43 @@
+<div class="thumbnail">
+  <div class="ic">
+    <img
+            *ngIf="model.upointTransType === 1 || (model.role === 'END_USER' && model.upointTransType === 2 && model.upointTotalSigns <= 0) || (model.role !== 'END_USER' && model.upointTransType === 2 && model.upointTotalSigns >= 0)"
+            src="assets/img/icon-bL/ic-plus.png"/>
+    <img
+            *ngIf="(model.role === 'END_USER' && model.upointTransType === 2 && model.upointTotalSigns > 0) || (model.role !== 'END_USER' && model.upointTransType === 2 && model.upointTotalSigns < 0) "
+            src="assets/img/icon-bL/ic-div.png"/>
+  </div>
+  <div class="info-tran">
+    <div class="line1">
+      <div class="title-tran">
+        <div *ngIf="model.upointTransType === 1">{{ 'HISTORY.TOP_UP' | translate }}</div>
+        <div *ngIf="model.upointTransType === 2">
+          <div *ngIf="model.role === 'END_USER'">{{ model.merchantName }}</div>
+          <div *ngIf="model.role !== 'END_USER'">{{ model.custName }}</div>
+        </div>
+      </div>
+      <div class="time-tran">{{ transTime }}</div>
+    </div>
+    <div class="line2">
+      <div class="isdn">
+        <td class="phone" *ngIf="model.upointTransType === 1">{{ model.createBy }}</td>
+        <td class="phone" *ngIf="model.upointTransType === 2">
+          <div *ngIf="model.role === 'END_USER'">{{ model.merchantIsdn }}</div>
+          <div *ngIf="model.role !== 'END_USER'">{{ model.custIsdn }}</div>
+        </td>
+      </div>
+      <div class="upoint">
+        <td class="amount" *ngIf="model.role !== 'END_USER' && model.upointTransType === 1" style="color: #21BC3A;">
+          {{model && model.upointTotal && model.upointTotal > 0 ? "+ " : ""}}{{ (model.upointTotal| number: '1.0':'en-US') }}
+
+        </td>
+        <td class="amount" *ngIf="model.role !== 'END_USER' && model.upointTransType === 2"
+            [style]="(model.upointTotalSigns < 0 )? 'color: #F14717;' : 'color: #21BC3A;'">
+          {{ (model.upointTotalSigns < 0) ? 'Thất bại' :
+                ( (model.upointTotalSigns === 0) ? 0 : 'Thành công' )}}
+
+        </td>
+      </div>
+    </div>
+  </div>
+</div>

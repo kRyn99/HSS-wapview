@@ -1,0 +1,89 @@
+<app-title-nav
+  [title]="'CONTRIVANCE_MAMAGEMENT.LABEL.DUPLICATE_LIST' | translate"
+  [backRoute]="isFromAdd ? 'contrivance/register' : 'contrivance/edit'"
+></app-title-nav>
+<div class="body">
+  <div class="d-flex justify-content-center" style="width: 100%;">
+    <select class="mr-3" (change)="changeNumberOfRecord($event)">
+      <option *ngFor="let record of records" [ngValue]="record">
+        {{ record.value }}
+      </option>
+    </select>
+    <ng-pagination
+      [collectionSize]="paginator.total"
+      [rotate]="true"
+      [boundaryLinks]="true"
+      [pageSize]="paginator.pageSize"
+      [(page)]="paginator.page"
+      (pageChange)="pageChange($event)"
+    ></ng-pagination>
+  </div>
+  <div class="idea">
+    <div
+      class="idea-box"
+      *ngIf="
+        listContrivance && (listContrivance | async).length > 0;
+        else noRecord
+      "
+    >
+      <div
+        class="idea-flexbox"
+        *ngFor="let item of listContrivance | async; let i = index"
+      >
+        <div class="idea-line1 mb-1">
+          <p class="idea-line1-text1">{{ item?.contrivanceName }}</p>
+          <p class="idea-line1-text2">{{ item?.createDatetime.slice(0, 11) }}</p>
+        </div>
+        <div class="idea-line2 mb-1">
+          <p class="idea-line2-text">
+            {{ "CONTRIVANCE_MAMAGEMENT.LABEL.DUPICATE_RATE" | translate }}:
+            {{ item?.percentDup }}
+          </p>
+        </div>
+        <div class="idea-line2 mb-1">
+          <p class="idea-line2-text">
+            {{ "CONTRIVANCE_MAMAGEMENT.LABEL.FIELD" | translate }}:
+            {{ item?.specialtyName }}
+          </p>
+        </div>
+        <div class="idea-line3">
+          <p class="idea-line3-text1">
+            {{ "CONTRIVANCE_MAMAGEMENT.LABEL.AUTHOR" | translate }}:
+            {{ item?.fullName }}
+          </p>
+          <div class="idea-line3-textbox">
+            <span
+              statusColor [statusColor]="item?.approveStatus"
+                class="idea-line3-text2"
+              >
+                {{ item?.approveStatusName }}
+              </span>
+          </div>
+        </div>
+        <div class="line"></div>
+        <div class="idea-line2 line-collapse mb-1">
+          <p class="idea-line2-text" id="collapseDescription" [ngbCollapse]="item.isCollapsed">
+            {{ "CONTRIVANCE_MAMAGEMENT.LABEL.DESCRIPTION" | translate }}:<br>
+            {{ item?.content }}
+          </p>
+          <div class="see-more"
+            (click)="item.isCollapsed = !item.isCollapsed"
+            [attr.aria-expanded]="!item.isCollapsed"
+            aria-controls="collapseDescription"
+          >{{ item.isCollapsed ? 'See more' : 'See less' }}</div>
+        </div>
+      </div>
+    </div>
+    <ng-template #noRecord>
+      <span class="text-center">
+        {{ "VALIDATION.NO_RECORD_VALID" | translate }}
+      </span>
+    </ng-template>
+  </div>
+</div>
+<div class="bottom-box">
+  <div (click)="register()" class="bottom-btn">
+    <img src="assets/img/icon/save.svg" />
+    <div class="btn-text">{{ "IDEA_MANAGEMENT.BUTTON.SAVE" | translate }}</div>
+  </div>
+</div>

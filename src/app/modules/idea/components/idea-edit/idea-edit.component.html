@@ -1,0 +1,595 @@
+<app-title-nav
+  [title]="'IDEA-DETAIL.EDIT.EDIT_IDEA_DETAILS' | translate"
+  backRoute="idea/detail"
+>
+</app-title-nav>
+<div class="nation-brand">
+  <div class="nation">
+    <div class="nation-text align-self-stretch">
+      {{ "IDEA-DETAIL.LAO_PEOPLE'S_DEMOCRATIC_REPUBLIC" | translate }}
+    </div>
+    <div class="nation-text">
+      {{ "IDEA-DETAIL.PEACE_INDEPENDENCE" | translate }}
+    </div>
+  </div>
+  <div class="line" style="width: 40%"></div>
+  <div class="form">
+    <div class="form-name">
+      {{ "IDEA-DETAIL.IDEA_REGISTRATION_FORM" | translate }}
+    </div>
+    <div class="form-for">
+      {{ "IDEA-DETAIL.TO_STANDING_COMMITTEE" | translate }}
+    </div>
+  </div>
+</div>
+<div class="line"></div>
+<div class="idea-form">
+  <div class="header-text">
+    {{ "IDEA-DETAIL.EDIT.IDEA" | translate }} (<span class="required-mark"
+      >*</span
+    >)
+  </div>
+  <div class="input-form">
+    <div class="input-name">{{ "IDEA-DETAIL.EDIT.IDEA_NAME" | translate }}</div>
+    <input
+      class="input-field"
+      [value]="ideaNameValue"
+      type="text"
+      [(ngModel)]="ideaNameValue"
+    />
+  </div>
+  <div class="input-form">
+    <div class="input-name">
+      {{ "IDEA-DETAIL.EDIT.APPLY_FROM_DATE" | translate }} (<span
+        class="required-mark"
+        >*</span
+      >)
+    </div>
+    <label class="date">
+      <input
+        [value]="applyStartTime"
+        type="text"
+        name="Date"
+        [bsConfig]="bsConfig"
+        class="date-text"
+        style="background-color: white; border: white"
+        #dprn="bsDatepicker"
+        #vDate
+        bsDatepicker
+        autocomplete="off"
+               [(ngModel)]="applyStartTime"
+               (ngModelChange)="selectStartDate()"
+      />
+      <img src="assets/img/icon/calendar.svg" style="padding: 10px" />
+    </label>
+  </div>
+  <div class="input-form">
+    <div class="input-name">
+      {{ "IDEA-DETAIL.EDIT.APPLY_TO_DATE" | translate }} (<span
+        class="required-mark"
+        >*</span
+      >)
+    </div>
+    <label class="date">
+      <input
+        [value]="applyEndTime"
+        type="text"
+        name="Date"
+        [bsConfig]="bsConfig"
+        class="date-text"
+        style="background-color: white; border: white"
+        #dprn="bsDatepicker"
+        #vDate
+        bsDatepicker
+        autocomplete="off"
+        [(ngModel)]="applyEndTime"
+        (ngModelChange)="selectEndDate()"
+      />
+      <img src="assets/img/icon/calendar.svg" style="padding: 10px" />
+    </label>
+  </div>
+  <div class="input-form">
+    <div class="input-name">
+      {{ "IDEA-DETAIL.EDIT.APPLYING_UNITS" | translate }} (<span
+        class="required-mark"
+        >*</span
+      >)
+    </div>
+    <div style="width: 100%" class="dropdown">
+      <button
+        style="text-align: start"
+        class="input-field btn-unit"
+        (click)="toggleDropdown()"
+      >
+        <ng-container
+          *ngIf="selectedUnitValue?.length > 0; else showDefaultText"
+        >
+          <span
+            style="font-size: 16px"
+            *ngFor="let selectedItem of selectedUnitValue; let last = last"
+          >
+            {{ selectedItem.unitName }}{{ !last ? ", " : "" }}
+          </span>
+        </ng-container>
+        <ng-template #showDefaultText>
+          {{ "IDEA-DETAIL.EDIT.SELECT_APPLYING_UNITS" | translate }} (<span
+            class="required-mark"
+            >*</span
+          >)
+        </ng-template>
+      </button>
+      <div class="dropdown-content" *ngIf="DataService.showDropdownEdit">
+        <ng-container *ngFor="let item of listUnit">
+          <label>
+            <input
+              type="checkbox"
+              [(ngModel)]="item.selected"
+              (change)="onCheckboxChange(item)"
+              [checked]="item.selected"
+            />
+            {{ item.unitName }}
+          </label>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <div class="input-form">
+    <div class="input-name">
+      {{ "IDEA-DETAIL.EDIT.FIELD" | translate }} (<span class="required-mark"
+        >*</span
+      >)
+    </div>
+    <select
+      class="input-field"
+      [(ngModel)]="specialty"
+      (change)="onSelectSpecialtyChange()"
+    >
+      <option [ngValue]="null">
+        {{ "IDEA-DETAIL.EDIT.SELECT_FIELD" | translate }}
+      </option>
+      <ng-container *ngFor="let item of listSpecialty">
+        <option [value]="item.value">{{ item.name }}</option>
+      </ng-container>
+    </select>
+  </div>
+</div>
+<div class="line"></div>
+<div class="idea-form">
+  <div class="header-text">{{ "IDEA-DETAIL.EDIT.AUTHOR" | translate }}</div>
+  <div class="input-form">
+    <div class="input-name">
+      {{ "IDEA-DETAIL.EDIT.WITHIN_CORPORATION" | translate }} (<span
+        class="required-mark"
+        >*</span
+      >)
+    </div>
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      multiTemplateDataRows
+      class="mat-elevation-z8 table-bordered"
+    >
+      <ng-container matColumnDef="expand">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          aria-label="row actions"
+          style="width: 10%"
+        ></th>
+        <td mat-cell *matCellDef="let element" style="text-align: center">
+          <i
+            *ngIf="expandedElement !== element"
+            class="fa fa-chevron-right"
+            (click)="
+              expandedElement = expandedElement === element ? null : element;
+              $event.stopPropagation()
+            "
+          ></i>
+          <i
+            *ngIf="expandedElement === element"
+            class="fa fa-chevron-down"
+            (click)="
+              expandedElement = expandedElement === element ? null : element;
+              $event.stopPropagation()
+            "
+          ></i>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="user">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          aria-label="row actions"
+          style="width: 10%"
+        ></th>
+        <td mat-cell *matCellDef="let element" style="text-align: center">
+          <i class="fa fa-user"></i>
+        </td>
+      </ng-container>
+
+      <ng-container
+        matColumnDef="{{ column }}"
+        *ngFor="let column of columnsToDisplay"
+      >
+        <th mat-header-cell *matHeaderCellDef class="th-text">
+          {{ column | translate }}
+        </th>
+        <td mat-cell *matCellDef="let element" style="text-align: center">
+          {{ element[column] }}
+        </td>
+      </ng-container>
+
+      <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+      <ng-container matColumnDef="expandedDetail">
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [attr.colspan]="columnsToDisplayWithExpand.length"
+        >
+          <div
+            class="example-element-detail"
+            [@detailExpand]="
+              element == expandedElement ? 'expanded' : 'collapsed'
+            "
+          >
+            <div class="example-element-description">
+              <b>{{ "IDEA_MANAGEMENT.LABEL.TELEPHONE" | translate }}:</b>
+              {{ element.phoneNumber }}<br />
+              <b>{{ "IDEA_MANAGEMENT.LABEL.EMAIL" | translate }}:</b>
+              {{ element.email }}<br />
+              <b>{{ "IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH" | translate }}:</b>
+              {{ element.birthDay }}<br />
+              <b>{{ "IDEA_MANAGEMENT.LABEL.WORK_PLACE" | translate }}:</b>
+              {{ element.jobAddress }}<br />
+              <b>{{ "IDEA_MANAGEMENT.LABEL.OFFICE" | translate }}:</b>
+              {{ element.jobPosition }}<br />
+              <b>{{ "IDEA_MANAGEMENT.LABEL.QUALIFICATION" | translate }}:</b>
+              {{ element.professionalQualification }}<br />
+            </div>
+            <div class="example-element-description row">
+              <div class="col-6">
+                <button
+                  class="btn btn-warning btn-contributor-action"
+                  (click)="EditInsideAuthor(element.staffId)"
+                >
+                  <img src="assets/img/icon/edit.svg" />
+                </button>
+              </div>
+              <div class="col-6">
+                <button
+                  class="btn btn-danger btn-contributor-action"
+                  (click)="deleteInsideAuthor(element.staffId)"
+                >
+                  <img src="assets/img/icon/trash.svg" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr
+        mat-header-row
+        *matHeaderRowDef="columnsToDisplayWithExpand"
+        style="background-color: rgba(9, 107, 222, 0.5)"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="let element; columns: columnsToDisplayWithExpand"
+        class="example-element-row"
+        [class.example-expanded-row]="expandedElement === element"
+        (click)="expandedElement = expandedElement === element ? null : element"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: ['expandedDetail']"
+        class="example-detail-row"
+      ></tr>
+    </table>
+    <button
+      class="btn btn-success btn-contributor-action mt-2"
+      (click)="AddInsideAuthor()"
+    >
+      <img src="assets/img/icon/plus.svg" />
+      {{ "ACTION.ADD" | translate }}
+    </button>
+  </div>
+  <div class="input-form">
+    <div class="input-name">
+      {{ "IDEA-DETAIL.EDIT.OUTSIDE_CORPORATION" | translate }}
+    </div>
+    <table
+      mat-table
+      [dataSource]="dataSource2"
+      multiTemplateDataRows
+      class="mat-elevation-z8 table-bordered"
+    >
+      <ng-container matColumnDef="expand">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          aria-label="row actions"
+          style="width: 10%"
+        ></th>
+        <td mat-cell *matCellDef="let element" style="text-align: center">
+          <i
+            *ngIf="expandedElement !== element"
+            class="fa fa-chevron-right"
+            (click)="
+              expandedElement = expandedElement === element ? null : element;
+              $event.stopPropagation()
+            "
+          ></i>
+          <i
+            *ngIf="expandedElement === element"
+            class="fa fa-chevron-down"
+            (click)="
+              expandedElement = expandedElement === element ? null : element;
+              $event.stopPropagation()
+            "
+          ></i>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="user">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          aria-label="row actions"
+          style="width: 10%"
+        ></th>
+        <td mat-cell *matCellDef="let element" style="text-align: center">
+          <i class="fa fa-user"></i>
+        </td>
+      </ng-container>
+
+      <ng-container
+        matColumnDef="{{ column }}"
+        *ngFor="let column of columnsToDisplay2"
+      >
+        <th mat-header-cell *matHeaderCellDef class="th-text">
+          {{ column | translate }}
+        </th>
+        <td mat-cell *matCellDef="let element" style="text-align: center">
+          {{ element[column] }}
+        </td>
+      </ng-container>
+
+      <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+      <ng-container matColumnDef="expandedDetail">
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [attr.colspan]="columnsToDisplayWithExpand2.length"
+        >
+          <div
+            class="example-element-detail"
+            [@detailExpand]="
+              element == expandedElement ? 'expanded' : 'collapsed'
+            "
+          >
+            <div class="example-element-description">
+              <b>{{ "IDEA_MANAGEMENT.LABEL.TELEPHONE" | translate }}:</b>
+              {{ element.phoneNumber }}<br />
+              <b>{{ "IDEA_MANAGEMENT.LABEL.EMAIL" | translate }}:</b>
+              {{ element.email }}<br />
+              <b>{{ "IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH" | translate }}:</b>
+              {{ element.birthDay }}<br />
+              <b>{{ "IDEA_MANAGEMENT.LABEL.WORK_PLACE" | translate }}:</b>
+              {{ element.jobAddress }}<br />
+              <b>{{ "IDEA_MANAGEMENT.LABEL.OFFICE" | translate }}:</b>
+              {{ element.jobPosition }}<br />
+              <b>{{ "IDEA_MANAGEMENT.LABEL.QUALIFICATION" | translate }}:</b>
+              {{ element.professionalQualification }}<br />
+            </div>
+            <div class="example-element-description row">
+              <div class="col-6">
+                <button
+                  class="btn btn-warning btn-contributor-action"
+                  (click)="
+                    EditOutsideAuthor(element.phoneNumber, element.email)
+                  "
+                >
+                  <img src="assets/img/icon/edit.svg" />
+                </button>
+              </div>
+              <div class="col-6">
+                <button
+                  class="btn btn-danger btn-contributor-action"
+                  (click)="
+                    deleteOutsideAuthor(element.phoneNumber, element.email)
+                  "
+                >
+                  <img src="assets/img/icon/trash.svg" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr
+        mat-header-row
+        *matHeaderRowDef="columnsToDisplayWithExpand2"
+        style="background-color: rgba(9, 107, 222, 0.5)"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="let element; columns: columnsToDisplayWithExpand2"
+        class="example-element-row"
+        [class.example-expanded-row]="expandedElement === element"
+        (click)="expandedElement = expandedElement === element ? null : element"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: ['expandedDetail']"
+        class="example-detail-row"
+      ></tr>
+    </table>
+    <button
+      class="btn btn-success btn-contributor-action mt-2"
+      (click)="AddOutsideAuthor()"
+    >
+      <img src="assets/img/icon/plus.svg" />
+      {{ "ACTION.ADD" | translate }}
+    </button>
+  </div>
+</div>
+
+<div class="line"></div>
+<div class="idea-form">
+  <div class="header-text">
+    {{ "IDEA-DETAIL.EDIT.IDEA_DESCRIPTION" | translate }}
+  </div>
+  <div class="input-form">
+    <div class="input-name">
+      {{ "IDEA-DETAIL.EDIT.STATUS_BEFORE" | translate }} (<span
+        class="required-mark"
+        >*</span
+      >)
+    </div>
+    <textarea
+      class="input-field"
+      style="height: 60px; padding-top: 5px"
+      rows="4"
+      cols="50"
+      [value]="beforeApplyStatus"
+      [(ngModel)]="beforeApplyStatus"
+      >{{ "" | translate }}</textarea
+    >
+  </div>
+  <div class="input-form">
+    <div class="input-name">
+      {{ "IDEA-DETAIL.EDIT.IDEA_CONTENT" | translate }} (<span
+        class="required-mark"
+        >*</span
+      >)
+    </div>
+    <textarea
+      class="input-field"
+      style="height: 60px; padding-top: 5px"
+      rows="4"
+      cols="50"
+      [value]="content"
+      [(ngModel)]="content"
+      >{{ "" | translate }}</textarea
+    >
+  </div>
+  <div class="input-form">
+    <div class="input-name">
+      {{ "IDEA-DETAIL.EDIT.IDEA_APPLICATION_SCOPE" | translate }} (<span
+        class="required-mark"
+        >*</span
+      >)
+    </div>
+    <textarea
+      class="input-field"
+      style="height: 60px; padding-top: 5px"
+      rows="4"
+      cols="50"
+      [value]="applyRange"
+      >{{ "" | translate }}</textarea
+    >
+  </div>
+  <div class="input-form">
+    <div class="input-name">
+      {{ "IDEA-DETAIL.EDIT.EFFECTIVENESS_OBTAINED" | translate }} (<span
+        class="required-mark"
+        >*</span
+      >)
+    </div>
+    <textarea
+      class="input-field"
+      style="height: 60px; padding-top: 5px"
+      rows="4"
+      cols="50"
+      [value]="effectiveness"
+      [(ngModel)]="effectiveness"
+      >{{ "" | translate }}</textarea
+    >
+  </div>
+  <div class="input-form">
+    <div class="input-name">
+      {{ "IDEA-DETAIL.EDIT.NEXT_DEVELOPMENT_DIRECTION" | translate }} (<span
+        class="required-mark"
+        >*</span
+      >)
+    </div>
+    <textarea
+      class="input-field"
+      style="height: 60px; padding-top: 5px"
+      rows="4"
+      cols="50"
+      [value]="nextStep"
+      [(ngModel)]="nextStep"
+      >{{ "" | translate }}</textarea
+    >
+  </div>
+  <div class="input-form">
+    <div class="input-name">{{ "IDEA-DETAIL.EDIT.NOTE" | translate }}</div>
+    <textarea
+      class="input-field"
+      style="height: 60px; padding-top: 5px"
+      rows="4"
+      cols="50"
+      [value]="note"
+      [(ngModel)]="note"
+      >{{ "" | translate }}</textarea
+    >
+  </div>
+</div>
+<div class="line"></div>
+<div class="idea-form">
+  <div class="header-text">
+    {{ "IDEA-DETAIL.EDIT.ATTACHED_DOCUMENTS" | translate }}
+  </div>
+
+  <div class="file">
+    <div class="file-text">
+      <p style="text-align: center" class="font-weight-bolder">
+        {{ documentDTO?.name }}
+      </p>
+      {{ "IDEA-DETAIL.EDIT.DRAG_AND_DROP" | translate }}
+    </div>
+    <div class="file-text">{{ "IDEA-DETAIL.EDIT.OR" | translate }}</div>
+    <div
+      class="upload-file"
+      (click)="selectAvatar.value = ''; selectAvatar.click()"
+    >
+      <img src="assets/img/icon/add file.svg" alt="ic_camera" />
+      <div class="upload-label">
+        {{ "IDEA-DETAIL.EDIT.CHOOSE_FILE" | translate }}
+      </div>
+    </div>
+    <input
+      type="file"
+      (change)="onSelectFile($event)"
+      style="display: none"
+      #selectAvatar
+    />
+    <span
+      >{{"IDEA-DETAIL.EDIT.FILE_TYPE"| translate }}
+      <b>{{
+        " .txt, .doc, .docx, .rar, .zip, .xls, .xlsx, .pdf, .jpg, .gif, .png, .ppt, .pptx."
+          | translate
+      }}</b>
+    </span>
+    <span
+      >{{ "IDEA-DETAIL.EDIT.MAXIMUM_FILE_SIZE" | translate
+      }}{{ "25 MB" | translate }}</span
+    >
+  </div>
+</div>
+<div class="bottom-btn">
+  <div (click)="duplicationCheck()" class="btn1">
+    <img src="assets/img/icon/task check.svg" />
+    <div class="btn1-text">
+      {{ "IDEA-DETAIL.EDIT.CHECK_FOR_DUPLICATES" | translate }}
+    </div>
+  </div>
+  <div (click)="deleteIdea()" class="btn2">
+    <img src="assets/img/icon/trash.svg" />
+    <div class="btn2-text">
+      {{ "IDEA-DETAIL.EDIT.DELETE_IDEA_REGISTRATION" | translate }}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<div class="otp-box">
+  <div class="form-group">
+    <label for="otp" class="label-form-lcd-p1 color-black" style="line-height: 17px;" *ngIf="label">{{ label }}</label>
+    <input
+        id="otp"
+        class="form-control input-form-lcd"
+        [placeholder]="placeholder"
+        type="text"
+        name="otp"
+        [(ngModel)]="value"
+        [pattern]="pattern"
+        [maxlength]="maxlength"
+        (ngModelChange)="valueChangeEvent()"
+        (keyup)="eOnKeyUp()"
+        #otp
+    />
+  </div>
+  <div *ngIf="rightSide == 'send'" class="d-flex justify-content-end">
+  <span *ngIf="!(timer === 0)" class="timer" style="color: #f6601b">{{
+    timer * 1000 | date: "mm:ss"
+    }}</span>
+    <span *ngIf="timer === 0" class="link" (click)="sendOTP()">{{ labelLink }}</span>
+  </div>
+  <div *ngIf="rightSide == 'timer'" class="d-flex justify-content-end">
+  <span class="timer" style="color: #f6601b">{{
+    timer * 1000 | date: "mm:ss"
+    }}</span>
+  </div>
+  <div class="message mt-1" [style]="messageStyle">{{message}}</div>
+</div>

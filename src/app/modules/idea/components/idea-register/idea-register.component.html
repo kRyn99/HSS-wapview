@@ -1,0 +1,598 @@
+<app-title-nav
+  [title]="'IDEA_MANAGEMENT.TITLE.IDEA_REGISTRATION' | translate"
+  backRoute="idea/list"
+></app-title-nav>
+
+<div class="nation-brand">
+  <div class="nation">
+    <div class="nation-text align-self-stretch">
+      {{ "IDEA_MANAGEMENT.LABEL.TEXT_HEADER" | translate }}
+    </div>
+    <div class="nation-text">
+      {{ "IDEA_MANAGEMENT.LABEL.SUB_TEXT_HEADER" | translate }}
+    </div>
+  </div>
+  <div class="line" style="width: 40%"></div>
+  <div class="form">
+    <div class="form-name">
+      {{ "IDEA_MANAGEMENT.LABEL.TEXT_FORM_HEADER" | translate }}
+    </div>
+    <div class="form-for">
+      {{ "IDEA_MANAGEMENT.LABEL.SUB_TEXT_FORM_HEADER" | translate }}
+    </div>
+  </div>
+</div>
+<div class="line"></div>
+<div class="idea-form">
+  <div class="header-text">
+    1. {{ "IDEA_MANAGEMENT.LABEL.IDEA" | translate }}
+  </div>
+
+  <div class="input-form">
+    <div class="input-name">
+      {{ "IDEA_MANAGEMENT.LABEL.IDEA_NAME" | translate }} (<span
+        style="color: red"
+        >*</span
+      >)
+    </div>
+    <input
+      class="input-field"
+      [placeholder]="'IDEA_MANAGEMENT.PLACEHOLDER.ENTER_IDEA_NAME' | translate"
+      type="text"
+      [(ngModel)]="inputValue"
+      (input)="onInputValueChange()"
+    />
+  </div>
+  <div class="input-form">
+    <div class="input-name">
+      {{ "IDEA_MANAGEMENT.LABEL.DATE_APPLY_FROM" | translate }} (<span
+        style="color: red"
+        >*</span
+      >)
+    </div>
+    <div class="date">
+      <input
+        readonly
+        type="text"
+        name="Date"
+        [bsConfig]="bsConfig"
+        class="date-text"
+        style="background-color: white; border: white"
+        #dprn="bsDatepicker"
+        #vDate
+        bsDatepicker
+        autocomplete="off"
+        [(ngModel)]="selectedStartDate"
+        (ngModelChange)="startDateChange()"
+      />
+
+      <img src="assets/img/icon/calendar.svg" style="padding: 10px" />
+    </div>
+  </div>
+  <div class="input-form">
+    <div class="input-name">
+      {{ "IDEA_MANAGEMENT.LABEL.DATE_APPLY_TO" | translate }} (<span
+        style="color: red"
+        >*</span
+      >)
+    </div>
+    <label class="date">
+      <input
+        readonly
+        type="text"
+        name="Date"
+        [bsConfig]="bsConfig"
+        class="date-text"
+        style="background-color: white; border: white"
+        #dprn="bsDatepicker"
+        #vDate
+        bsDatepicker
+        autocomplete="off"
+        [(ngModel)]="selectedEndDate"
+        (ngModelChange)="endDateChange()"
+      />
+      <img src="assets/img/icon/calendar.svg" style="padding: 10px" />
+    </label>
+  </div>
+  <div class="input-form">
+    <div class="input-name">
+      {{ "IDEA_MANAGEMENT.LABEL.UNIT_APPLY" | translate }} (<span
+        style="color: red"
+        >*</span
+      >):
+    </div>
+    <div style="width: 100%" class="dropdown">
+      <button
+        style="text-align: start"
+        class="input-field btn-unit"
+        (click)="toggleDropdown()"
+      >
+        <ng-container
+          *ngIf="selectedUnitValue?.length > 0; else showDefaultText"
+        >
+          <span
+            style="font-size: 16px"
+            *ngFor="let selectedItem of selectedUnitValue; let last = last"
+          >
+            {{ selectedItem.unitName }}{{ !last ? ", " : "" }}
+          </span>
+        </ng-container>
+        <ng-template #showDefaultText>
+          {{ "IDEA_MANAGEMENT.PLACEHOLDER.SELECT_UNIT" | translate }}
+        </ng-template>
+      </button>
+      <div class="dropdown-content" *ngIf="DataService.showDropdown">
+        <ng-container *ngFor="let item of listUnit">
+          <label>
+            <input
+              type="checkbox"
+              [(ngModel)]="item.selected"
+              (change)="onCheckboxChange(item)"
+              [checked]="item.selected"
+            />
+            {{ item.unitName }}
+          </label>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+  <div class="input-form">
+    <div class="input-name">
+      {{ "IDEA_MANAGEMENT.LABEL.SPECIALTY" | translate }} (<span
+        style="color: red"
+        >*</span
+      >)
+    </div>
+    <select
+      class="input-field"
+      [(ngModel)]="selectedSpecialtyValue"
+      (change)="onSelectSpecialtyChange()"
+    >
+      <option [ngValue]="null">
+        {{ "IDEA_MANAGEMENT.PLACEHOLDER.SELECT_SPECIALTY" | translate }}
+      </option>
+      <ng-container *ngFor="let item of listSpecialty">
+        <option [value]="item.value">{{ item.name }}</option>
+      </ng-container>
+    </select>
+  </div>
+</div>
+<div class="line"></div>
+<div class="idea-form">
+  <div class="header-text">
+    2. {{ "IDEA_MANAGEMENT.LABEL.AUTHOR" | translate }}
+  </div>
+  <div class="input-form">
+    <div class="input-name">
+      {{ "IDEA_MANAGEMENT.LABEL.IN_GROUP" | translate }} (<span
+        style="color: red"
+        >*</span
+      >)
+    </div>
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      multiTemplateDataRows
+      class="mat-elevation-z8 table-bordered"
+    >
+      <ng-container matColumnDef="expand">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          aria-label="row actions"
+          style="width: 10%"
+        ></th>
+        <td mat-cell *matCellDef="let element" style="text-align: center">
+          <i
+            *ngIf="expandedElement !== element"
+            class="fa fa-chevron-right"
+            (click)="
+              expandedElement = expandedElement === element ? null : element;
+              $event.stopPropagation()
+            "
+          ></i>
+          <i
+            *ngIf="expandedElement === element"
+            class="fa fa-chevron-down"
+            (click)="
+              expandedElement = expandedElement === element ? null : element;
+              $event.stopPropagation()
+            "
+          ></i>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="user">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          aria-label="row actions"
+          style="width: 10%"
+        ></th>
+        <td mat-cell *matCellDef="let element" style="text-align: center">
+          <i class="fa fa-user"></i>
+        </td>
+      </ng-container>
+
+      <ng-container
+        matColumnDef="{{ column }}"
+        *ngFor="let column of columnsToDisplay"
+      >
+        <th mat-header-cell *matHeaderCellDef class="th-text">
+          {{ column | translate }}
+        </th>
+        <td mat-cell *matCellDef="let element" style="text-align: center">
+          {{ element[column] }}
+        </td>
+      </ng-container>
+
+      <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+      <ng-container matColumnDef="expandedDetail">
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [attr.colspan]="columnsToDisplayWithExpand.length"
+        >
+          <div
+            class="example-element-detail"
+            [@detailExpand]="
+              element == expandedElement ? 'expanded' : 'collapsed'
+            "
+          >
+            <div class="example-element-description">
+              <b>{{ "IDEA_MANAGEMENT.LABEL.TELEPHONE" | translate }}:</b>
+              {{ element.phoneNumber }}<br />
+              <b>{{ "IDEA_MANAGEMENT.LABEL.EMAIL" | translate }}:</b>
+              {{ element.email }}<br />
+              <b>{{ "IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH" | translate }}:</b>
+              {{ element.birthday }}<br />
+              <b>{{ "IDEA_MANAGEMENT.LABEL.WORK_PLACE" | translate }}:</b>
+              {{ element.jobAddress }}<br />
+              <b>{{ "IDEA_MANAGEMENT.LABEL.OFFICE" | translate }}:</b>
+              {{ element.jobPosition }}<br />
+              <b>{{ "IDEA_MANAGEMENT.LABEL.QUALIFICATION" | translate }}:</b>
+              {{ element.professionalQualification }}<br />
+            </div>
+            <div class="example-element-description row">
+              <div class="col-6">
+                <button
+                  class="btn btn-warning btn-contributor-action"
+                  (click)="EditInsideAuthor(element.staffId)"
+                >
+                  <img src="assets/img/icon/edit.svg" />
+                </button>
+              </div>
+              <div class="col-6">
+                <button
+                  class="btn btn-danger btn-contributor-action"
+                  (click)="deleteInsideAuthor(element.staffId)"
+                >
+                  <img src="assets/img/icon/trash.svg" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr
+        mat-header-row
+        *matHeaderRowDef="columnsToDisplayWithExpand"
+        style="background-color: rgba(9, 107, 222, 0.5)"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="let element; columns: columnsToDisplayWithExpand"
+        class="example-element-row"
+        [class.example-expanded-row]="expandedElement === element"
+        (click)="expandedElement = expandedElement === element ? null : element"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: ['expandedDetail']"
+        class="example-detail-row"
+      ></tr>
+    </table>
+    <button (click)="AddInsideAuthor()" class="btn btn-success btn-idea-action mt-2">
+      <img src="assets/img/icon/plus.svg"  />
+    </button>
+  </div>
+  <div class="input-form">
+    <div class="input-name">
+      {{ "IDEA_MANAGEMENT.LABEL.OUT_GROUP" | translate }}
+    </div>
+    <table
+      mat-table
+      [dataSource]="dataSource2"
+      multiTemplateDataRows
+      class="mat-elevation-z8 table-bordered"
+    >
+      <ng-container matColumnDef="expand">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          aria-label="row actions"
+          style="width: 10%"
+        ></th>
+        <td mat-cell *matCellDef="let element" style="text-align: center">
+          <i
+            *ngIf="expandedElement !== element"
+            class="fa fa-chevron-right"
+            (click)="
+              expandedElement = expandedElement === element ? null : element;
+              $event.stopPropagation()
+            "
+          ></i>
+          <i
+            *ngIf="expandedElement === element"
+            class="fa fa-chevron-down"
+            (click)="
+              expandedElement = expandedElement === element ? null : element;
+              $event.stopPropagation()
+            "
+          ></i>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="user">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          aria-label="row actions"
+          style="width: 10%"
+        ></th>
+        <td mat-cell *matCellDef="let element" style="text-align: center">
+          <i class="fa fa-user"></i>
+        </td>
+      </ng-container>
+
+      <ng-container
+        matColumnDef="{{ column }}"
+        *ngFor="let column of columnsToDisplay2"
+      >
+        <th mat-header-cell *matHeaderCellDef class="th-text">
+          {{ column | translate }}
+        </th>
+        <td mat-cell *matCellDef="let element" style="text-align: center">
+          {{ element[column] }}
+        </td>
+      </ng-container>
+
+      <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+      <ng-container matColumnDef="expandedDetail">
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [attr.colspan]="columnsToDisplayWithExpand2.length"
+        >
+          <div
+            class="example-element-detail"
+            [@detailExpand]="
+              element == expandedElement ? 'expanded' : 'collapsed'
+            "
+          >
+            <div class="example-element-description">
+              <b>{{ "IDEA_MANAGEMENT.LABEL.TELEPHONE" | translate }}:</b>
+              {{ element.phoneNumber }}<br />
+              <b>{{ "IDEA_MANAGEMENT.LABEL.EMAIL" | translate }}:</b>
+              {{ element.email }}<br />
+              <b>{{ "IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH" | translate }}:</b>
+              {{ element.birthday }}<br />
+              <b>{{ "IDEA_MANAGEMENT.LABEL.WORK_PLACE" | translate }}:</b>
+              {{ element.jobAddress }}<br />
+              <b>{{ "IDEA_MANAGEMENT.LABEL.OFFICE" | translate }}:</b>
+              {{ element.jobPosition }}<br />
+              <b>{{ "IDEA_MANAGEMENT.LABEL.QUALIFICATION" | translate }}:</b>
+              {{ element.professionalQualification }}<br />
+            </div>
+            <div class="example-element-description row">
+              <div class="col-6">
+                <button
+                  class="btn btn-warning btn-contributor-action"
+                  (click)="
+                    EditOutsideAuthor(element.phoneNumber, element.email)
+                  "
+                >
+                  <img src="assets/img/icon/edit.svg" />
+                </button>
+              </div>
+              <div class="col-6">
+                <button
+                  class="btn btn-danger btn-contributor-action"
+                  (click)="
+                    deleteOutsideAuthor(element.phoneNumber, element.email)
+                  "
+                >
+                  <img src="assets/img/icon/trash.svg" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr
+        mat-header-row
+        *matHeaderRowDef="columnsToDisplayWithExpand2"
+        style="background-color: rgba(9, 107, 222, 0.5)"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="let element; columns: columnsToDisplayWithExpand2"
+        class="example-element-row"
+        [class.example-expanded-row]="expandedElement === element"
+        (click)="expandedElement = expandedElement === element ? null : element"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: ['expandedDetail']"
+        class="example-detail-row"
+      ></tr>
+    </table>
+    <button (click)="AddOutsideAuthor()" class="btn btn-success btn-idea-action mt-2">
+      <img src="assets/img/icon/plus.svg"  />
+      
+    </button>
+  </div>
+</div>
+<div class="line"></div>
+<div class="idea-form">
+  <div class="header-text">
+    3. {{ "IDEA_MANAGEMENT.LABEL.IDEA_DESCRIPTION" | translate }}
+  </div>
+  <div class="input-form">
+    <div class="input-name">
+      3.1 {{ "IDEA_MANAGEMENT.LABEL.BEFORE_APPLY_STATUS" | translate }} (<span
+        style="color: red"
+        >*</span
+      >)
+    </div>
+    <textarea
+      class="input-field"
+      style="height: 60px; padding-top: 5px"
+      rows="4"
+      cols="50"
+      [placeholder]="
+        'IDEA_MANAGEMENT.PLACEHOLDER.ENTER_BEFORE_APPLY_STATUS' | translate
+      "
+      [(ngModel)]="beforeApplyStatus"
+      (input)="beforeApplyStatusChange()"
+    ></textarea>
+  </div>
+  <div class="input-form">
+    <div class="input-name">
+      3.2 {{ "IDEA_MANAGEMENT.LABEL.IDEA_CONTENT" | translate }} (<span
+        style="color: red"
+        >*</span
+      >)
+    </div>
+    <textarea
+      class="input-field"
+      style="height: 60px; padding-top: 5px"
+      rows="4"
+      cols="50"
+      [placeholder]="
+        'IDEA_MANAGEMENT.PLACEHOLDER.ENTER_CONTENT_IDEA' | translate
+      "
+      [(ngModel)]="content"
+      (input)="contentChange()"
+    ></textarea>
+  </div>
+  <div class="input-form">
+    <div class="input-name">
+      3.3 {{ "IDEA_MANAGEMENT.LABEL.APPLY_RANGE" | translate }} (<span
+        style="color: red"
+        >*</span
+      >)
+    </div>
+    <textarea
+      class="input-field"
+      style="height: 60px; padding-top: 5px"
+      rows="4"
+      cols="50"
+      [placeholder]="
+        'IDEA_MANAGEMENT.PLACEHOLDER.ENTER_APPLY_RANGE' | translate
+      "
+      [(ngModel)]="applyRange"
+      (input)="applyRangeChange()"
+    ></textarea>
+  </div>
+  <div class="input-form">
+    <div class="input-name">
+      3.4 {{ "IDEA_MANAGEMENT.LABEL.EFFECTIVENESS" | translate }} (<span
+        style="color: red"
+        >*</span
+      >)
+    </div>
+    <textarea
+      class="input-field"
+      style="height: 60px; padding-top: 5px"
+      rows="4"
+      cols="50"
+      [placeholder]="
+        'IDEA_MANAGEMENT.PLACEHOLDER.ENTER_EFFECTIVENESS' | translate
+      "
+      [(ngModel)]="effectiveness"
+      (input)="effectivenessChange()"
+    ></textarea>
+  </div>
+  <div class="input-form">
+    <div class="input-name">
+      3.5 {{ "IDEA_MANAGEMENT.LABEL.NEXT_STEP" | translate }} (<span
+      style="color: red"
+      >*</span
+    >)
+    </div>
+    <textarea
+      class="input-field"
+      style="height: 60px; padding-top: 5px"
+      rows="4"
+      cols="50"
+      [placeholder]="'IDEA_MANAGEMENT.PLACEHOLDER.ENTER_NEXT_STEP' | translate"
+      [(ngModel)]="nextStep"
+      (input)="nextStepChange()"
+    ></textarea>
+  </div>
+  <div class="input-form">
+    <div class="input-name">
+      3.6 {{ "IDEA_MANAGEMENT.LABEL.NOTE" | translate }}
+    </div>
+    <textarea
+      class="input-field"
+      style="height: 60px; padding-top: 5px"
+      rows="4"
+      cols="50"
+      [placeholder]="'IDEA_MANAGEMENT.PLACEHOLDER.ENTER_NOTE' | translate"
+      [(ngModel)]="note"
+      (input)="noteChange()"
+    ></textarea>
+  </div>
+</div>
+<div class="line"></div>
+<div class="idea-form">
+  <div class="header-text">
+    4. {{ "IDEA_MANAGEMENT.LABEL.DOCUMENTS" | translate }}
+  </div>
+  <div class="file">
+    <div class="file-text">
+      <p style="text-align: center" class="font-weight-bolder">
+        {{ DataService.file.value.name }}
+      </p>
+    </div>
+    <div
+      class="upload-file"
+      (click)="selectAvatar.value = ''; selectAvatar.click()"
+    >
+      <img src="assets/img/icon/add file.svg" alt="ic_camera" />
+      <div class="upload-label">
+        {{ "IDEA_MANAGEMENT.BUTTON.CHOOSE_FILE" | translate }}
+      </div>
+    </div>
+    <input
+      type="file"
+      (change)="onSelectFile($event)"
+      style="display: none"
+      #selectAvatar
+    />
+    <span>
+      {{ "IDEA_MANAGEMENT.LABEL.FILE_TYPE" | translate }}:
+      <b>
+        {{
+          " .txt, .doc, .docx, .rar, .zip, .xls, .xlsx, .pdf, .jpg, .gif, .png, .ppt, .pptx."
+            | translate
+        }}
+      </b>
+    </span>
+    <span>
+      {{ "IDEA_MANAGEMENT.LABEL.MAX_STORAGE" | translate }}:
+      <b>{{ "25 MB" | translate }}</b>
+    </span>
+  </div>
+</div>
+<div class="bottom-btn">
+  <div class="btn1" (click)="duplicationCheck()">
+    <img src="assets/img/icon/task check.svg" />
+    <div class="btn1-text">
+      {{ "IDEA_MANAGEMENT.BUTTON.DUPLICATION_CHECK" | translate }}
+    </div>
+  </div>
+ </div>

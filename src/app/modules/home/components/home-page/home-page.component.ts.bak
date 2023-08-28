@@ -1,0 +1,73 @@
+import {Router} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {AccountService} from '@app/modules/auth/service/account.service';
+import {User} from '@app/modules/auth/_models/user';
+
+@Component({
+  selector: 'app-home-page',
+  templateUrl: './home-page.component.html',
+  styleUrls: ['./home-page.component.scss']
+})
+export class HomePageComponent implements OnInit {
+
+  merchantModel: any;
+  collaboratorModel: any;
+  endUserModel: any;
+  user: User
+  headerBase64 = 'data:image/png;base64, ';
+
+  constructor(
+      public accountService: AccountService,
+      private router: Router,
+  ) {
+    this.user = this.accountService.userValue;
+  }
+
+  ngOnInit() {
+    if (this.user && this.user.data) {
+      if (this.user.data.lstFunction && (this.user.data.role === 'ROLE_MERCHANT' || this.user.data.role === 'ROLE_COLLABORATORS')){
+        this.merchantModel = {
+          name: this.user.data.nameMerchant ? this.user.data.nameMerchant : '',
+          upoint: this.user.data.currentUpoint ? this.user.data.currentUpoint : 0
+        }
+      }
+      if (this.user.data.lstFunction && this.user.data.role === 'ROLE_COLLABORATORS'){
+        this.collaboratorModel = {
+          name: this.user.data.nameCtv ? this.user.data.nameCtv : '',
+          upoint: this.user.data.currentUpoint ? this.user.data.currentUpoint : 0
+        }
+      }
+<<<<<<< .mine
+      if (this.user.data.role === 'ROLE_COLLABORATORS' && this.user.data.currentUpoint){
+        this.collaboratorUpoint = this.user.data.currentUpoint;
+||||||| .r6785
+      if (this.user.data.lstFunction && this.user.data.lstFunction[0].roleCode === 'ROLE_COLLABORATORS' && this.user.data.currentUpoint){
+        this.collaboratorUpoint = this.user.data.currentUpoint;
+=======
+      if(this.user.data.lstFunction && this.user.data.role === 'END_USER'){
+        this.endUserModel = {
+          name: this.user.data.fullName ? this.user.data.fullName : '',
+          uniIdNumber: this.user.data.userName ? this.user.data.userName : '',
+          availableUpoint: 1234,
+          expDate: '31/12/2022',
+          avatar: this.user.data.avatar ? this.user.data.avatar : ''
+        }
+>>>>>>> .r6798
+      }
+<<<<<<< .mine
+      if (this.user.data.role === 'ROLE_MERCHANT' && this.user.data.currentUpoint){
+        this.marchantUpoint = this.user.data.currentUpoint;
+      }
+||||||| .r6785
+      if (this.user.data.lstFunction && this.user.data.lstFunction[0].roleCode === 'ROLE_MERCHANT' && this.user.data.currentUpoint){
+        this.marchantUpoint = this.user.data.currentUpoint;
+      }
+=======
+>>>>>>> .r6798
+    }
+  }
+
+  handleRedirect(url?: string) {
+    this.router.navigate([url]);
+  }
+}

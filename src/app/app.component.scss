@@ -1,0 +1,10 @@
+@media screen and (max-width: 600px) {
+  ::ng-deep bs-daterangepicker-container {
+    transform: translate3d(-20px, 140px, 0px) scale(0.8, 0.8) !important;
+    z-index: 0;
+  }
+}
+
+.theme-green .bs-datepicker-head {
+  background-color: #fb741c !important;
+}

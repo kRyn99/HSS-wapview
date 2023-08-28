@@ -1,0 +1,416 @@
+.navbar-title h3 {
+  color: red !important;
+}
+
+.div-step {
+  margin-left: auto;
+  margin-right: auto;
+  width: max-content;
+  margin-bottom: 50px;
+
+  .box-step {
+    float: left;
+    position: relative;
+    color: #c4c4c4;
+
+    .text-active {
+      text-align: center;
+      text-transform: capitalize;
+      color: #000;
+    }
+
+    .text {
+      align-items: center;
+      text-align: center;
+      text-transform: capitalize;
+      margin-top: 25px;
+      width: 60px;
+      position: absolute;
+      display: flex;
+      left: -20px;
+      //font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 300;
+      font-size: 9px;
+      line-height: 10px;
+    }
+
+    // .text1 {
+    //   font-size: 9px;
+    //   margin-top: 35px;
+    //   position: absolute;
+    //   width: 43px;
+    //   display: flex;
+    //   align-items: center;
+    //   text-align: center;
+    //   left: -6px;
+    // }
+    // .text2 {
+    //   font-size: 9px;
+    //   margin-top: 35px;
+    //   position: absolute;
+    //   width: 43px;
+    //   display: flex;
+    //   align-items: center;
+    //   text-align: center;
+    //   left: -6px;
+    // }
+    // .text3 {
+    //   font-size: 9px;
+    //   margin-top: 35px;
+    //   position: absolute;
+    //   width: 43px;
+    //   display: flex;
+    //   align-items: center;
+    //   text-align: center;
+    //   left: -6px;
+    // }
+    // .text4 {
+    //   font-size: 9px;
+    //   margin-top: 35px;
+    //   position: absolute;
+    //   width: 43px;
+    //   display: flex;
+    //   align-items: center;
+    //   text-align: center;
+    //   left: -6px;
+    // }
+  }
+
+  .step {
+    background-color: #c4c4c4;
+    border-radius: 50%;
+    text-align: center;
+    vertical-align: middle;
+    color: #ffffff;
+    float: left;
+    width: 20px;
+    height: 20px;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 13px;
+    line-height: 20px;
+  }
+
+  .active {
+    color: #fff;
+    background: linear-gradient(180deg, #fb741c 0%, #e41818 100%);
+    font-weight: 900;
+  }
+
+  .space {
+    width: 15vw;
+    height: 0px;
+    border: 1px solid #c4c4c4;
+    float: left;
+    margin-top: 10px;
+  }
+
+  .space-active {
+    border: 1px solid #ef4419;
+  }
+}
+
+//.note-text {
+//  width: 303px;
+//  border-radius: undefinedpx;
+//  margin-top: 40px;
+//  width: 316px;
+//  margin-left: auto;
+//  margin-right: auto;
+//  text-align: center;
+//  color: #989898;
+//  list-style: 24px;
+//  margin-bottom: 30px;
+//  font-size: 15px;
+//  max-width: 90%;
+//}
+
+.container {
+  // position: absolute;
+  // top: 70px;
+  // bottom: 105px;
+  background-color: #fff !important;
+  overflow: hidden;
+  margin-top: 70px;
+  margin-bottom: 80px;
+}
+
+/* botton sign-up*/
+.sign-up-button {
+  background: linear-gradient(180deg, #fb741c 0%, #e41818 100%);
+  box-shadow: 0 8px 25px rgba(251, 116, 28, 0.4);
+  border-radius: 9px;
+
+  width: 176px;
+  height: 45px;
+
+  margin-top: 20px;
+  border: none;
+  color: #fff;
+  margin-left: auto;
+  margin-right: auto;
+  text-transform: uppercase;
+  font-weight: 900;
+}
+
+.div-button {
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+}
+
+@media (max-width: 280px) {
+  .div-step .space {
+    width: 12px;
+  }
+}
+
+.title {
+  //font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 40px;
+  text-align: center;
+
+  color: #5B5E71;
+}
+
+.text-note {
+  //font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  color: #5B5E71;
+}
+
+.table-select > tr > td {
+  padding: 5px;
+  table-layout: fixed;
+}
+
+.grid-list-box {
+  display: flex;
+
+  .line-list {
+    width: 50%;
+    margin: 5px;
+
+    .select-type {
+      background: #f4f4f4;
+      border: 1px solid #c4c4c4;
+      box-sizing: border-box;
+      // padding: 20px;
+      //height: 220px;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+
+      img {
+        margin: 10px 0;
+      }
+
+      .select-icon {
+        font-size: 50px;
+        margin-bottom: 15px;
+        text-align: center;
+        color: #ed5e0d;
+      }
+
+      .select-title {
+        //font-family: 'Montserrat';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 21px;
+        color: #8b838c;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .select-description {
+        //font-family: 'Montserrat';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 21px;
+        text-align: center;
+        text-overflow: ellipsis;
+        margin-bottom: 27px;
+      }
+    }
+  }
+}
+
+.link {
+  text-decoration: underline;
+  color: #0066ff;
+  cursor: pointer;
+}
+
+.select-category {
+  background: #f4f4f4;
+  border: 1px solid #c4c4c4;
+  box-sizing: border-box;
+  padding: 10px 20px;
+  // overflow: scroll;
+  // position: absolute;
+  // top: 230px;
+  // // left: 20%;
+  // // right: 20%;
+  // bottom: 90px;
+  left: 5%;
+  right: 5%;
+}
+
+.radio-category {
+  //font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 31px;
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: #4f4f4f;
+}
+
+/* Hide the browser's default radio button */
+.radio-category input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 5px;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #dedede;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.radio-category:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.radio-category input:checked ~ .checkmark {
+  // background-color: #2196F3;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.radio-category input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.radio-category .checkmark:after {
+  top: 4px;
+  left: 4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #5b5e71;
+}
+
+.enter-otp {
+  background-color: #f4f4f4;
+  padding: 20px;
+}
+
+.otp-title {
+  //font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+  color: #000000;
+}
+
+.otp-note {
+  //font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #989898;
+  text-align: center;
+}
+
+.otp-resend {
+  //font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+  color: #c4c4c4;
+}
+
+.btn-upload-logo {
+  width: 100px;
+  height: 100px;
+  background: #f4f4f4;
+  border: 1px solid #979797;
+  box-sizing: border-box;
+  border-radius: 50%;
+  font-size: 50px;
+  color: #979797;
+}
+
+.btn-upload-logo:focus {
+  border: 1px solid #f6601b !important;
+}
+
+.btn-upload-logo:active {
+  border: 1px solid #f6601b !important;
+}
+
+.upload-instruction {
+  //font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 20px;
+  color: #979797;
+}
+
+.timer-step {
+  //font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  margin-right: 16px;
+  margin-top: -45px;
+  color: #ED5E0D;
+}
+
+.note-sub {
+  //font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  color: #979797;
+}

@@ -1,0 +1,14 @@
+<canvas id="scan-canvas"></canvas>
+<div id="output" style="display: none;">
+    <div id="outputMessage">No QR code detected.</div>
+</div>
+
+<div class="form-group choose-file rise">
+    <label for="file"><i class="far fa-folder-open"></i></label>
+    <input style="display: none;" accept="image/*" type="file" id="file">
+</div>
+
+<div class="back rise" (click)="handleBack()">
+    <i class="fas fa-arrow-left"></i>
+</div>
+<canvas id="scan-canvas-1" style="display: none;"></canvas>

@@ -1,0 +1,135 @@
+// css manager header
+#management-app-header.app-header {
+    height: 60px;
+}
+
+#management-app-header.app-header .navbar-toggler-icon {
+    height: 35px;
+    width: 35px;
+}
+
+#management-app-header ul + ul {
+    margin-left: 0px !important;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+#management-app-header .nav.navbar-nav.direct {
+    font-size: 20px;
+    padding-bottom: 5px;
+}
+
+// css body scroll
+.management-app-body .container-fluid.management-container {
+    overflow: auto;
+    height: 85vh;
+    padding-top: 10px;
+}
+
+.management-app-body .breadcrumb {
+    margin-bottom: 0px;
+}
+
+// set sidebar header css
+.manager-side-header > a:first-child {
+    height: 43px;
+}
+
+.sidebar .sidebar-minimizer::before {
+    height: 43px;
+}
+
+// logout css
+.manager-logout-row {
+    display: flex;
+    flex-wrap: wrap;
+    width: 200px;
+}
+
+@media (min-width: 992px){
+    .header-fixed .app-header {
+        position: relative;
+    }
+
+    .sidebar-minimized .sidebar .sidebar-minimizer {
+        position: fixed;
+        bottom: 0;
+        width: 50px;
+        height: 43px;
+        background-color: #24282c;
+    }
+}
+
+.sidebar .sidebar-minimizer {
+    position: absolute !important;
+    top: 0;
+    right: 0;
+    width: 50px;
+    height: 43px;
+    content: "";
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 12.5px;
+    transition: .3s;
+}
+
+.manager-children a.nav-link {
+    padding-left: 40px !important;
+}
+
+@media (max-width: 991px){
+    img.navbar-brand-full {
+        visibility: hidden;
+    }
+
+    .management-app-body {
+        padding-top: 55px;
+    }
+}
+
+// css for all content body
+.manager-content-body {
+    padding: 5px 0px;
+}
+
+// css for table content body
+.manager-content-body .manager-content-table.row.tableFixHead {
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    height: 720px;
+    background: white;
+    border: 1px solid grey;
+    overflow: auto;
+    padding: 0px;
+}
+
+.manager-content-body .manager-content-table.row.tableFixHead .table thead th {
+    top: 0;
+    position: -webkit-sticky;
+    white-space: nowrap;
+    position: sticky;
+    background-color: white;
+    z-index: 1;
+    box-shadow: 1px 0px 1px 1px #c8ced3;
+}
+
+.manager-content-body .manager-content-table .table-bordered thead th, .table-bordered thead td {
+    border-bottom-width: 1px;
+}
+
+.manager-content-body .btn {
+    width: 100px;
+    height: 40px;
+}
+
+.manager-content-body .manager-content-table .monthly-row .table th, .monthly-row .table td {
+    padding: 5px;
+}
+
+.manager-content-body .manager-content-table table tbody tr td {
+    padding: 0.1rem;
+}
+
+
+

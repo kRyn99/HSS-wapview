@@ -1,0 +1,122 @@
+<nav class="navbar fixed-top navbar-title" [class.justify-content-center]="!backRoute" style="z-index: 1000;"
+     [style]="
+        (merchantModel ? (collaboratorModel ? 'height: 122px; padding-bottom: 30px' : 'height: 122px;') : (endUserModel ? 'height: 122px; padding-bottom: 30px' : 'height: 103px;'))
+        + styleText
+    ">
+    <span *ngIf="backRoute" class="btn text-left" style="color: white; font-size: 18px; line-height: 27px;"
+          (click)="handleBack()"
+    ><i class="fas fa-chevron-left" style="font-size: 26px; line-height: 40px;"></i></span>
+    <div *ngIf="merchantModel" class="merchant-name">
+        {{merchantModel.name}}
+        <div *ngIf="!(collaboratorModel || endUserModel)" class="mt-2">
+            <span class="merchant-upoint d-flex justify-content-start">
+                <div class="merchant-upoint-text">Upoint: &nbsp;<span
+                        [style]="hiddenMerchantUpoint ? 'position: relative; top: .2em;' : ''">{{hiddenMerchantUpoint ? '******' : (merchantModel.upoint | number: '1.0':'en-US')}}</span></div>
+                <div class="merchant-upoint-btn my-auto" (click)="toggleMerchantUpoint()"><i
+                        [ngClass]="hiddenMerchantUpoint ? 'far fa-eye-slash toggle-password' : 'far fa-eye toggle-password'"></i></div>
+            </span>
+        </div>
+    </div>
+    <div class="text-center title-cus">{{ title | truncate: 25 }}</div>
+    <div class="faked-div">
+        <span *ngIf="qrCode" class="qrCode float-right" (click)="onClickRight(qrCode.link)">
+            <i class="fas fa-qrcode"></i>
+        </span>
+        <div *ngIf="flash" class="flash float-right" (click)="openFlashlight()">
+            <i class="fas fa-bolt"></i>
+        </div>
+        <div *ngIf="print" class="float-right" (click)="handlePrintEvent()">
+            <i class="fa fa-print"></i>
+            <span style="font-family: Inter;font-size: 18px;font-weight: 700;line-height: 27px;">{{'ACTION.PRINT' | translate}}</span>
+        </div>
+        <div *ngIf="createRoute" class="create float-right" style="min-width: 55px;" (click)="handleCreate()">
+            <i class="fas fa-plus"></i>
+        </div>
+        <div *ngIf="createRouteEdit" class="create float-right" style="min-width: 55px;" (click)="handleEdit()">
+            {{ 'COMMON_BUTTON.EDIT' | translate }}
+        </div>
+        <div *ngIf="actionRoute" class="create float-right" style="min-width: 55px;" (click)="handleAction()">
+            <!--            <div class="dropdown" ngbDropdown #toggle="ngbDropdown" placement="bottom-right" [autoClose]="true">-->
+            <!--                &lt;!&ndash;begin::Toggle&ndash;&gt;-->
+            <!--                <div ngbDropdownToggle class="topbar-item text-align-center" data-toggle="dropdown" data-offset="5px,0px">-->
+            <!--                    <div class="btn btn-icon btn-clean btn-dropdown btn-lg long-cus">-->
+            <!--                        <img src="assets/img/icon/more_eu.png" alt="more_eu">-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--                &lt;!&ndash;end::Toggle&ndash;&gt;-->
+            <!--                &lt;!&ndash;begin::Dropdown&ndash;&gt;-->
+            <!--                <div ngbDropdownMenu class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-sm dropdown-menu-right cus" >-->
+            <!--                    <div class="box-icon">-->
+            <!--                        <i class="fas fa-plus"></i>-->
+            <!--                        <i class="fas fa-trash"></i>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--                &lt;!&ndash;end::Dropdown&ndash;&gt;-->
+            <!--            </div>-->
+            <img src="assets/img/icon/more_eu.png" alt="more_eu">
+        </div>
+        <div *ngIf="done" class="route-text float-right" style="min-width: 55px;" (click)="handleDone()">
+            {{'TITLE_NAV.BUTTON.DONE' | translate}}
+        </div>
+        <div *ngIf="customEventLabel" class="route-text float-right" style="min-width: 55px;"
+             (click)="handleCustomeEvent()">
+            {{customEventLabel}}
+        </div>
+        <div *ngIf="linkRoute" class="route-text float-right" style="min-width: 55px;" (click)="handleLinkRoute()">
+            {{linkLabel}}
+        </div>
+        <div *ngIf="logo && !endUserModel" class="float-right">
+            <img [src]="logo" [className]="collaboratorModel ? 'logo-collaborator' : 'logo-merchant'"
+                 (click)="handleLogoEvent()">
+        </div>
+    </div>
+    <div *ngIf="endUserModel" class="end-user-info">
+        <table width="100%" height="100%">
+            <colgroup>
+                <col span="1" style="width: 80%;">
+                <col span="1" style="width: 20%;">
+            </colgroup>
+            <tr>
+                <td style="padding-right: 10px;">
+                    <div class="col-name">{{endUserModel.name}}</div>
+                    <div class="col-number">{{endUserModel.uniIdNumber }}</div>
+                </td>
+                <td class="col-avatar">
+                    <ngx-avatar
+                            [src]="endUserModel.avatarStr ? endUserModel.avatarStr : './assets/img/sign-up/ava_default.png'"
+                            size="46" [round]="true"></ngx-avatar>
+                    <!--                    <img class="img-avatar" [src]="endUserModel.avatar" />-->
+                </td>
+            </tr>
+        </table>
+    </div>
+</nav>
+<div *ngIf="collaboratorModel" class="collaborator-card">
+    <table width="100%" height="100%">
+        <tr>
+            <td class="col-name">{{collaboratorModel.name}}</td>
+        </tr>
+        <tr>
+            <td class="col-des">{{'TITLE_NAV.LABEL.REMAIN_UPOINT' | translate}}</td>
+        </tr>
+        <tr>
+            <td class="col-upoint">{{collaboratorModel.upoint | number: '1.0':'en-US' }}</td>
+        </tr>
+    </table>
+</div>
+<div *ngIf="endUserModel" class="end-user-card">
+    <table width="100%" height="100%">
+        <colgroup>
+            <col span="1" style="width: 60%;">
+            <col span="1" style="width: 40%;">
+        </colgroup>
+        <tr>
+            <td class="col-label">{{'TITLE_NAV.LABEL.AVAILABLE_UPOINT' | translate}}</td>
+            <!--            <td class="col-label">{{'TITLE_NAV.LABEL.EXP_DATE' | translate}}</td>-->
+        </tr>
+        <tr>
+            <td class="col-value">{{endUserModel.availableUpoint | number: '1.0':'en-US' }}</td>
+            <!--            <td class="col-value">{{endUserModel.expDate}}</td>-->
+        </tr>
+    </table>
+</div>

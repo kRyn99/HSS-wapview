@@ -1,0 +1,67 @@
+
+.jancode-customer #jancode-input .modal-header .close {
+    padding: 0.5rem 0.5rem;
+    margin: 0rem 0rem 0rem auto;
+  }
+  
+  @media (min-width: 900px){
+    .modal-dialog.jancode-customer {
+          max-width: 600px;
+          margin-top: 2%;
+      }
+  }
+  
+  @media (min-width: 768px){
+    .jancode-customer .modal-jan-custom {
+        max-width: 500px;
+        margin-top: 10%;
+    }
+
+    .janPadding {
+      padding-left: 0px !important;
+    }
+  }
+
+  @media (width: 768px){
+    .jancode-customer .modal-jan-custom {
+        max-width: 500px;
+        margin-top: 10%;
+    }
+
+    .janPadding {
+      margin-left: -30px !important;
+    }
+  }
+
+  @media (max-width: 767px){
+    .janPadding {
+      padding-left: 15px !important;
+    }
+  }
+  
+  .jancode-customer .btn-input {
+    padding-left: 1.75rem;
+    padding-right: 1.75rem;
+    width: 110px;
+  }
+  
+  .jancode-customer .btn-input1{
+    padding-left: 1.75rem;
+    padding-right: 1.75rem;
+  }
+  
+  .jancode-customer .modal-header {
+    border: none;
+    padding: 0.3rem;
+  }
+  
+  .jancode-customer .custom-label {
+    font-size: 1rem;
+  }
+  
+  .jancode-customer .image {
+    height:25px;
+    align-self: center;
+  }
+  
+    

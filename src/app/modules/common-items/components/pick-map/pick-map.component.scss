@@ -1,0 +1,61 @@
+
+agm-map {
+  height: 300px;
+}
+
+#map {
+  height: 400px;
+  /* The height is 400 pixels */
+  width: 100%;
+  /* The width is the width of the web page */
+}
+
+.pick-map-card {
+  .btn-cancel {
+    width: 48%;
+    height: 32px;
+    border: 1px solid #f47920;
+    box-sizing: border-box;
+    border-radius: 5px;
+    background-color: #fff;
+    // font-family: SF Pro Text;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #f47920;
+  }
+
+  .btn-cancel:focus,
+  .btn-cancel:active,
+  .btn-cancel:hover {
+    background-color: #fff;
+    outline: #fab07a solid 2px;
+  }
+
+  .btn-next {
+    width: 48%;
+    height: 32px;
+    background: #f47920;
+    border-radius: 5px;
+    border: none;
+    // font-family: SF Pro Text;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #fff;
+  }
+
+  .btn-next:focus,
+  .btn-next:active,
+  .btn-next:hover {
+    background-color: #f47920;
+    outline: #fab07a solid 2px;
+  }
+
+  .list-btn {
+    background-color: ghostwhite;
+  }
+}
+

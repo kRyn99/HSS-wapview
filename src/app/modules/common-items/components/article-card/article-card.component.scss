@@ -1,0 +1,200 @@
+.voucher-card {
+  background: #ffffff;
+  box-shadow: 11px 17px 41px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: row;
+
+  .logo-image {
+    width: 65px;
+    height: 58px;
+    margin: auto 10px;
+    img {
+      width: inherit;
+      height: inherit;
+    }
+  }
+
+  .holds-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .mid-hold {
+      width: 14px;
+      height: 14px;
+      background: #eeeeee;
+      border-radius: 50%;
+    }
+
+    .top-hold {
+      width: 14px;
+      height: 7px;
+      background: #eeeeee;
+      border-radius: 0px 0px 7px 7px;
+    }
+
+    .first-top-hold {
+      width: 14px;
+      height: 7px;
+      background: #f8f8f8;
+      border-radius: 0px 0px 7px 7px;
+    }
+
+    .bot-hold {
+      width: 14px;
+      height: 7px;
+      background: #eaeaea;
+      border-radius: 7px 7px 0px 0px;
+    }
+  }
+
+  .content-voucher {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    width: 100%;
+    justify-content: space-evenly;
+    padding-top: 10.5px;
+    padding-bottom: 7.5px;
+    padding-right: 10px;
+
+    .row1 {
+      //font-family: "Roboto";
+      font-style: normal;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 21px;
+      color: #000000;
+    }
+
+    .row2 {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 10px;
+      line-height: 21px;
+      color: #f1591c;
+    }
+
+    .row3 {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      margin-right: 10px;
+    }
+
+    .row4 {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      margin-right: 10px;
+    }
+
+    .content-left {
+      display: flex;
+      width: 50%;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .content-right {
+      display: flex;
+      width: 50%;
+      flex-direction: row;
+      margin-left: 10px;
+      align-items: center;
+    }
+
+    .lb {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 10px;
+      width: 50%;
+      line-height: 21px;
+      color: #576c8a;
+    }
+
+    .value {
+      font-style: normal;
+      font-weight: 700;
+      font-size: 10px;
+      width: 50%;
+      line-height: 21px;
+      color: #000000;
+      overflow: hidden;
+      word-break: break-all;
+      padding-left: 5px;
+    }
+
+    .row1-end-user {
+      //font-family: "Roboto";
+      font-style: normal;
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 21px;
+      display: flex;
+      align-items: center;
+      color: #000000;
+    }
+
+    .row-filter-end-user {
+      //font-family: "Inter";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 20px;
+      display: flex;
+      align-items: center;
+      color: #000000;
+      word-break: break-word;
+      height: 20px;
+      margin-bottom: 5px;
+
+      img {
+        margin-bottom: 3px;
+      }
+
+      .discount {
+        height: 20px;
+        display: flex;
+        color: #ffffff;
+        border-radius: 10px;
+        font-weight: bold;
+        background-color: rgb(255, 81, 0);
+        padding: 1px 4px;
+
+        .subtract {
+          line-height: 16px;
+          margin-right: 1px;
+        }
+
+        .rate {
+          line-height: 18px;
+        }
+      }
+    }
+
+    .row2-end-user {
+      //font-family: "Inter";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 15px;
+      display: flex;
+      align-items: center;
+      color: #929292;
+      word-break: break-word;
+    }
+
+    .row3-end-user {
+      //font-family: "Inter";
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 21px;
+      text-align: right;
+      color: #f1591c;
+
+    }
+  }
+}

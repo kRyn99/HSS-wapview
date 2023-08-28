@@ -1,0 +1,11 @@
+<div class="form-group form-group-custom">
+    <div class="count-content">{{ characterCount }}/{{ maxlength }}</div>
+    <textarea class="form-control form-control-custom" [id]="name" [name]="name" autocomplete="off"
+        [maxlength]="maxlength" [rows]="rows" placeholder=" " [ngModelOptions]="{standalone: true}" [(ngModel)]="value"
+        (focus)="onFocus()" (blur)="onBlur($event)" (keypress)="omitSpecialChars($event)"
+        (ngModelChange)="onModelChange($event)"></textarea>
+    <label [for]="name" class="text-gray">{{ label }}</label>
+
+    <button [style.visibility]="!clearEnabled || !clearVisible? 'hidden' : 'visible'" type="button"
+        class="btn bg-transparent clear-btn float-right" (click)="onClear()"><i class="fa fa-times"></i></button>
+</div>

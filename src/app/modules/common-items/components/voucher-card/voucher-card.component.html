@@ -1,0 +1,30 @@
+<div class="{{(status == 1) ? 'card brand-card card-active' : 'card brand-card card-disabled'}}">
+  <div class="ticket-holds">
+    <div class="hold"></div>
+    <div class="hold"></div>
+    <div class="hold"></div>
+    <div class="hold"></div>
+    <div class="hold"></div>
+    <div class="hold"></div>
+    <div class="hold"></div>
+    <div class="hold"></div>
+  </div>
+  <div>
+    <img [src]="avatarUrl" />
+  </div>
+  <div class="content">
+    <div class="voucher-rate">{{name | truncate: '20'}}&nbsp;- {{'END_USER.TOP_BRAND.DISCOUNT' | translate}}&nbsp;{{ rate }}%</div>
+    <div class="description">{{ description }}</div>
+    <div class="expiredIn" *ngIf="status == 1">
+      {{ "END_USER.MY_VOUCHER.EXPIRED_IN" | translate }}&nbsp;{{ expiredIn }}
+    </div>
+    <div class="expiredDate" *ngIf="status == 2">
+      <div>
+        {{ "END_USER.MY_VOUCHER.EXPIRED_DATE" | translate }}&nbsp;{{ expiredDate }}
+      </div>
+      <div *ngIf="usedDate">
+        {{ "END_USER.MY_VOUCHER.USED_DATE" | translate }}&nbsp;{{ usedDate }}
+      </div>
+    </div>
+  </div>
+</div>

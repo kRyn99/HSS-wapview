@@ -1,0 +1,16 @@
+<div class="pick-map-card">
+  <div class="map-content">
+    <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="18"
+             (mapReady)="mapReadyHandler($event)"
+    >
+      <agm-marker [latitude]="latitude" [longitude]="longitude"
+                  (dragEnd)="markerDragEnd($event)"
+                  [markerDraggable]="true"
+      ></agm-marker>
+    </agm-map>
+  </div>
+  <div class="d-flex justify-content-between p-2 list-btn" *ngIf="showButton != false">
+    <button class="btn-cancel" (click)="handleCancel()">{{ "SCAN.BUTTON.SKIP" | translate }}</button>
+    <button class="btn-next" (click)="handleNext()">{{ "SCAN.BUTTON.CONFIRM" | translate }}</button>
+  </div>
+</div>

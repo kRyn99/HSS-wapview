@@ -1,0 +1,21 @@
+<div class="modal-header justify-content-between">
+    <div class="message-title">{{title}}</div>
+    <div *ngIf="closeIcon" class="close-icon" (click)="handleClose()"><i class="fas fa-times"></i></div>
+</div>
+<div class="card-body">
+    <label class="col-md-12 text-md-left form-label col-form-label" style="font-size: 1.5rem">{{message}}</label>
+    <br><br>
+    <div class="form-group row pb-0">
+        <div class="col-md-12 text-center">
+            <div (click)="handleClose()" class="btn font-weight-bolder mr-5"
+                 style="background: #7E8299; color: #fff; height: 38px; padding: 7px 32px">
+                {{'BUTTON.CANCEL2' | translate}}
+            </div>
+            <div class="btn font-weight-bolder mr-5"
+                 style="background: #0d8ddc; color: #fff; height: 38px; padding: 7px 32px" (click)="handleNext()">
+                {{'BUTTON.YES' | translate}}
+            </div>
+        </div>
+    </div>
+</div>
+

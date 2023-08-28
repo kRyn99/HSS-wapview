@@ -1,0 +1,41 @@
+// minor fixes for spinkit in Spinners view
+//
+.sk-fading-circle .sk-circle {
+    margin: 0 auto;
+  }
+
+  .sk-three-bounce {
+    height: 40px;
+  }
+
+ .sk-circle {
+    margin: 40px auto;
+    width: 40px;
+    height: 40px;    
+    top: 50%;
+    opacity: 1;
+}
+
+.sk-cube-grid {
+  top: 50%;
+}
+
+.dow, .main1 {
+  position: absolute;
+}
+
+.main1{
+  position: absolute;
+  margin-top:0px;
+  top:0;
+  width: 100vw;
+  height: 100vh;
+  // background-color:gray;
+  opacity: 0.5;
+  z-index: 68;
+}
+
+.dow {
+  z-index: 68;
+}
+  

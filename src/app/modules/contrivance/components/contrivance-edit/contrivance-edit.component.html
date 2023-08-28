@@ -1,0 +1,863 @@
+<app-title-nav
+  [title]="'CONTRIVANCE_MAMAGEMENT.TITLE.EDIT_CONTRIVANCE_DETAILS' | translate"
+  backRoute="contrivance/list"
+>
+</app-title-nav>
+<div class="nation-brand">
+  <div class="nation">
+    <div class="nation-text align-self-stretch">
+      {{ "CONTRIVANCE_MAMAGEMENT.LABEL.TEXT_HEADER" | translate }}
+    </div>
+    <div class="nation-text">
+      {{ "CONTRIVANCE_MAMAGEMENT.LABEL.SUB_TEXT_HEADER" | translate }}
+    </div>
+  </div>
+  <div class="line" style="width: 40%"></div>
+  <div class="form">
+    <div class="form-name">
+      {{ "CONTRIVANCE_MAMAGEMENT.LABEL.TEXT_FORM_HEADER" | translate }}
+    </div>
+    <div class="form-for">
+      {{ "CONTRIVANCE_MAMAGEMENT.LABEL.SUB_TEXT_FORM_HEADER" | translate }}
+    </div>
+  </div>
+</div>
+<div class="line"></div>
+<form action="#" class="form form-label-right" [formGroup]="formUtils.form">
+  <div class="idea-form">
+    <div class="header-text">
+      1. {{ "CONTRIVANCE_MAMAGEMENT.TITLE.CONTRIVANCE" | translate }}
+    </div>
+    <div class="input-form">
+      <div class="input-name">
+        {{ "CONTRIVANCE_MAMAGEMENT.LABEL.CONTRIVANCE_NAME" | translate }} (<span
+          class="required-mark"
+          >*</span
+        >)
+      </div>
+      <input
+        class="input-field"
+        [placeholder]="
+          'CONTRIVANCE_MAMAGEMENT.PLACEHOLDER.CONTRIVANCE_NAME' | translate
+        "
+        type="text"
+        formControlName="contrivanceName"
+      />
+      <small
+        class="form-text text-danger"
+        *ngIf="formUtils.controlHasError('required', 'contrivanceName')"
+      >
+        {{
+          "VALIDATION.REQUIRED"
+            | translate
+              : {
+                  name:
+                    "CONTRIVANCE_MAMAGEMENT.LABEL.CONTRIVANCE_NAME" | translate
+                }
+        }}
+      </small>
+    </div>
+    <div class="input-form">
+      <div class="input-name">
+        {{ "IDEA_MANAGEMENT.LABEL.DATE_APPLY_FROM" | translate }} (<span
+          class="required-mark"
+          >*</span
+        >)
+      </div>
+      <div class="date">
+        <input
+          [placeholder]="'dd/mm/yyyy'"
+          type="text"
+          name="Date"
+          [bsConfig]="bsConfig"
+          class="date-text"
+          style="background-color: white; border: white"
+          #dprn="bsDatepicker"
+          #vDate
+          bsDatepicker
+          autocomplete="off"
+          formControlName="applyStartTime"
+          [ngModel]="startDateModel"
+          (ngModelChange)="formUtils.isControlInvalidDateRange('start', 'applyStartTime', 'applyEndTime', 'Date', 'before')"
+        />
+        <img src="assets/img/icon/calendar.svg" style="padding: 10px" />
+      </div>
+      <small
+        class="form-text text-danger"
+        *ngIf="formUtils.controlHasError('required', 'applyStartTime')"
+      >
+        {{
+          "VALIDATION.REQUIRED"
+            | translate
+              : {
+                  name: "IDEA_MANAGEMENT.LABEL.DATE_APPLY_FROM" | translate
+                }
+        }}
+      </small>
+      <small
+        class="form-text text-danger"
+        *ngIf="formUtils.controlHasError('invalid', 'applyStartTime')"
+      >
+        {{
+          "VALIDATION.INVALID_FIELD"
+            | translate
+        }}
+      </small>
+      <small
+        class="form-text text-danger"
+        *ngIf="formUtils.controlHasError('before', 'applyStartTime')"
+      >
+        {{
+          "VALIDATION.BEFORE_CURRENT_DATE"
+            | translate
+              : {
+                  name: "IDEA_MANAGEMENT.LABEL.DATE_APPLY_FROM" | translate
+                }
+        }}
+      </small>
+      <small
+        class="form-text text-danger"
+        *ngIf="formUtils.controlHasError('startEnd', 'applyStartTime')"
+      >
+        {{
+          "VALIDATION.FROM_DATE_BEFORE_TO_DATE"
+            | translate
+        }}
+      </small>
+    </div>
+    <div class="input-form">
+      <div class="input-name">
+        {{ "IDEA_MANAGEMENT.LABEL.DATE_APPLY_TO" | translate }} (<span
+          class="required-mark"
+          >*</span
+        >)
+      </div>
+      <div class="date">
+        <input
+          [placeholder]="'dd/mm/yyyy'"
+          type="text"
+          name="Date"
+          [bsConfig]="bsConfig"
+          class="date-text"
+          style="background-color: white; border: white"
+          #dprn="bsDatepicker"
+          #vDate
+          bsDatepicker
+          autocomplete="off"
+          formControlName="applyEndTime"
+          [ngModel]="endDateModel"
+          (ngModelChange)="formUtils.isControlInvalidDateRange('end', 'applyStartTime', 'applyEndTime', 'Date', 'before')"
+        />
+        <img src="assets/img/icon/calendar.svg" style="padding: 10px" />
+      </div>
+      <small
+        class="form-text text-danger"
+        *ngIf="formUtils.controlHasError('required', 'applyEndTime')"
+      >
+        {{
+          "VALIDATION.REQUIRED"
+            | translate
+              : {
+                  name: "IDEA_MANAGEMENT.LABEL.DATE_APPLY_TO" | translate
+                }
+        }}
+      </small>
+      <small
+        class="form-text text-danger"
+        *ngIf="formUtils.controlHasError('invalid', 'applyEndTime')"
+      >
+        {{
+          "VALIDATION.INVALID_FIELD"
+            | translate
+        }}
+      </small>
+      <small
+        class="form-text text-danger"
+        *ngIf="formUtils.controlHasError('before', 'applyEndTime')"
+      >
+        {{
+          "VALIDATION.BEFORE_CURRENT_DATE"
+            | translate
+              : {
+                  name: "IDEA_MANAGEMENT.LABEL.DATE_APPLY_TO" | translate
+                }
+        }}
+      </small>
+      <small
+        class="form-text text-danger"
+        *ngIf="formUtils.controlHasError('startEnd', 'applyEndTime')"
+      >
+        {{
+          "VALIDATION.FROM_DATE_BEFORE_TO_DATE"
+            | translate
+        }}
+      </small>
+    </div>
+    <div class="input-form">
+      <div class="input-name">
+        {{ "MANAGE_REQ.LABEL.UNIT_APPLY" | translate }} (<span
+          class="required-mark"
+          >*</span
+        >)
+      </div>
+      <div style="width: 100%" class="dropdown">
+        <button
+          style="text-align: start"
+          class="input-field btn-unit"
+          (click)="toggleDropdown()"
+        >
+          <ng-container
+            *ngIf="selectedUnitValue?.length > 0; else showDefaultText"
+          >
+            <span
+              style="font-size: 16px"
+              *ngFor="let selectedItem of selectedUnitValue; let last = last"
+            >
+              {{ selectedItem.unitName }}{{ !last ? ", " : "" }}
+            </span>
+          </ng-container>
+          <ng-template #showDefaultText>
+            {{ "IDEA_MANAGEMENT.PLACEHOLDER.SELECT_UNIT" | translate }}
+          </ng-template>
+        </button>
+        <div class="dropdown-content" *ngIf="contrivanceService.showDropdown">
+          <ng-container *ngFor="let item of listUnit">
+            <label>
+              <input
+                type="checkbox"
+                (change)="onCheckboxChange(item, $event)"
+                [checked]="item.selected"
+                />
+                <!-- [(ngModel)]="item.selected" -->
+              {{ item.unitName }}
+            </label>
+          </ng-container>
+        </div>
+      </div>
+      <small
+        class="form-text text-danger"
+        *ngIf="formUtils.controlHasError('required', 'listUnitDTO')"
+      >
+        {{
+          "VALIDATION.REQUIRED"
+            | translate
+              : {
+                  name: "MANAGE_REQ.LABEL.UNIT_APPLY" | translate
+                }
+        }}
+      </small>
+    </div>
+    <div class="input-form">
+      <div class="input-name">
+        {{ "CONTRIVANCE_MAMAGEMENT.LABEL.FIELD" | translate }} (<span
+          class="required-mark"
+          >*</span
+        >)
+      </div>
+      <select
+        class="input-field"
+        formControlName="specialty"
+      >
+        <option [ngValue]="null">{{ "IDEA_MANAGEMENT.PLACEHOLDER.SELECT_SPECIALTY" | translate }}</option>
+        <ng-container *ngFor="let item of listSpecialty">
+          <option [value]="item.value">{{ item.name }}</option>
+        </ng-container>
+      </select>
+      <small
+        class="form-text text-danger"
+        *ngIf="formUtils.controlHasError('required', 'specialty')"
+      >
+        {{
+          "VALIDATION.REQUIRED"
+            | translate
+              : {
+                  name:
+                    "CONTRIVANCE_MAMAGEMENT.LABEL.FIELD" | translate
+                }
+        }}
+      </small>
+    </div>
+    <div class="input-form">
+      <div class="input-name">
+        {{ "CONTRIVANCE_MAMAGEMENT.LABEL.BASED_ON_IDEAS" | translate }} (<span
+          class="required-mark"
+          >*</span
+        >)
+      </div>
+      <select 
+        class="input-field"
+        formControlName="ideaId"
+      >
+        <option [ngValue]="null">{{ "CONTRIVANCE_MAMAGEMENT.PLACEHOLDER.SELECT_IDEA" | translate }}</option>
+        <ng-container *ngFor="let item of listIdea">
+          <option [value]="item.ideaId" s>{{ item.ideaName | truncate:50 }}</option>
+        </ng-container>
+      </select>
+      <small
+        class="form-text text-danger"
+        *ngIf="formUtils.controlHasError('required', 'ideaId')"
+      >
+        {{
+          "VALIDATION.REQUIRED"
+            | translate
+              : {
+                  name: "CONTRIVANCE_MAMAGEMENT.LABEL.BASED_ON_IDEAS" | translate
+                }
+        }}
+      </small>
+    </div>
+  </div>
+  <div class="line"></div>
+  <div class="idea-form">
+    <div class="header-text">
+      2. {{ "CONTRIVANCE_MAMAGEMENT.LABEL.AUTHOR" | translate }}
+    </div>
+    <div class="input-form">
+      <div class="input-name">
+        {{ "IDEA_MANAGEMENT.LABEL.IN_GROUP" | translate }} (<span
+          class="required-mark"
+          >*</span
+        >)
+      </div>
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        multiTemplateDataRows
+        class="mat-elevation-z8 table-bordered"
+      >
+        <ng-container matColumnDef="expand">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            aria-label="row actions"
+            style="width: 10%"
+          ></th>
+          <td mat-cell *matCellDef="let element" style="text-align: center">
+            <i
+              *ngIf="expandedElement !== element"
+              class="fa fa-chevron-right"
+              (click)="
+                expandedElement = expandedElement === element ? null : element;
+                $event.stopPropagation()
+              "
+            ></i>
+            <i
+              *ngIf="expandedElement === element"
+              class="fa fa-chevron-down"
+              (click)="
+                expandedElement = expandedElement === element ? null : element;
+                $event.stopPropagation()
+              "
+            ></i>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="user">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            aria-label="row actions"
+            style="width: 10%"
+          ></th>
+          <td mat-cell *matCellDef="let element" style="text-align: center">
+            <i class="fa fa-user"></i>
+          </td>
+        </ng-container>
+        <ng-container
+          matColumnDef="{{ column }}"
+          *ngFor="let column of columnsToDisplay"
+        >
+          <th mat-header-cell *matHeaderCellDef class="th-text">
+            {{ column | translate }}
+            <span *ngIf="requiredColumnInGroup.includes(column)">
+              (<span class="required-mark">*</span>)</span
+            >
+          </th>
+          <td mat-cell *matCellDef="let element" style="text-align: center">
+            {{ element[column] }}
+          </td>
+        </ng-container>
+  
+        <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+        <ng-container matColumnDef="expandedDetail">
+          <td
+            mat-cell
+            *matCellDef="let element"
+            [attr.colspan]="columnsToDisplayWithExpand.length"
+          >
+            <div
+              class="example-element-detail"
+              [@detailExpand]="
+                element == expandedElement ? 'expanded' : 'collapsed'
+              "
+            >
+              <div class="example-element-description">
+                <b>{{'IDEA_MANAGEMENT.LABEL.TELEPHONE' | translate}}:</b> {{ element.phoneNumber }}<br>
+                <b>{{'IDEA_MANAGEMENT.LABEL.EMAIL' | translate}}:</b> {{ element.email }}<br>
+                <b>{{'IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH' | translate}}:</b> {{ element.birthday }}<br>
+                <b>{{'IDEA_MANAGEMENT.LABEL.WORK_PLACE' | translate}}:</b> {{ element.jobAddress }}<br>
+                <b>{{'IDEA_MANAGEMENT.LABEL.OFFICE' | translate}}:</b> {{ element.jobPosition }}<br>
+                <b>{{'IDEA_MANAGEMENT.LABEL.QUALIFICATION' | translate}}:</b> {{ element.professionalQualification }}<br>
+              </div>
+              <div class="example-element-description row">
+                <div class="col-6">
+                  <button class="btn btn-warning btn-contributor-action" (click)="EditInsideAuthor(element.staffId)">
+                    <img src="assets/img/icon/edit.svg"
+                    />
+                  </button>
+                </div>
+                <div class="col-6">
+                  <button class="btn btn-danger btn-contributor-action" (click)="deleteInsideAuthor(element.staffId)">
+                    <img src="assets/img/icon/trash.svg" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+  
+        <tr
+          mat-header-row
+          *matHeaderRowDef="columnsToDisplayWithExpand"
+          style="background-color: rgba(9, 107, 222, 0.5)"
+        ></tr>
+        <tr
+          mat-row
+          *matRowDef="let element; columns: columnsToDisplayWithExpand"
+          class="example-element-row"
+          [class.example-expanded-row]="expandedElement === element"
+          (click)="expandedElement = expandedElement === element ? null : element"
+        ></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: ['expandedDetail']"
+          class="example-detail-row"
+        ></tr>
+      </table>
+      <button class="btn btn-success btn-contributor-action mt-2" (click)="AddInsideAuthor()">
+        <img
+          src="assets/img/icon/plus.svg"
+        />
+        {{ 'ACTION.ADD' | translate }}
+      </button>
+    </div>
+    <div class="input-form">
+      <div class="input-name">
+        {{ "IDEA_MANAGEMENT.LABEL.OUT_GROUP" | translate }}
+      </div>
+      <table
+        mat-table
+        [dataSource]="dataSource2"
+        multiTemplateDataRows
+        class="mat-elevation-z8 table-bordered"
+      >
+        <ng-container matColumnDef="expand">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            aria-label="row actions"
+            style="width: 10%"
+          ></th>
+          <td mat-cell *matCellDef="let element" style="text-align: center">
+            <i
+              *ngIf="expandedElement !== element"
+              class="fa fa-chevron-right"
+              (click)="
+                expandedElement = expandedElement === element ? null : element;
+                $event.stopPropagation()
+              "
+            ></i>
+            <i
+              *ngIf="expandedElement === element"
+              class="fa fa-chevron-down"
+              (click)="
+                expandedElement = expandedElement === element ? null : element;
+                $event.stopPropagation()
+              "
+            ></i>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="user">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            aria-label="row actions"
+            style="width: 10%"
+          ></th>
+          <td mat-cell *matCellDef="let element" style="text-align: center">
+            <i class="fa fa-user"></i>
+          </td>
+        </ng-container>
+        <ng-container
+          matColumnDef="{{ column }}"
+          *ngFor="let column of columnsToDisplay2"
+        >
+          <th mat-header-cell *matHeaderCellDef class="th-text">
+            {{ column | translate }}
+            <span *ngIf="requiredColumnOutGroup.includes(column)">
+              (<span class="required-mark">*</span>)</span
+            >
+          </th>
+          <td mat-cell *matCellDef="let element" style="text-align: center">
+            {{ element[column] }}
+          </td>
+        </ng-container>
+  
+        <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+        <ng-container matColumnDef="expandedDetail">
+          <td
+            mat-cell
+            *matCellDef="let element"
+            [attr.colspan]="columnsToDisplayWithExpand2.length"
+          >
+            <div
+              class="example-element-detail"
+              [@detailExpand]="
+                element == expandedElement ? 'expanded' : 'collapsed'
+              "
+            >
+              <div class="example-element-description">
+                <b>{{'IDEA_MANAGEMENT.LABEL.TELEPHONE' | translate}}:</b> {{ element.phoneNumber }}<br>
+                <b>{{'IDEA_MANAGEMENT.LABEL.EMAIL' | translate}}:</b> {{ element.email }}<br>
+                <b>{{'IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH' | translate}}:</b> {{ element.birthday }}<br>
+                <b>{{'IDEA_MANAGEMENT.LABEL.WORK_PLACE' | translate}}:</b> {{ element.jobAddress }}<br>
+                <b>{{'IDEA_MANAGEMENT.LABEL.OFFICE' | translate}}:</b> {{ element.jobPosition }}<br>
+                <b>{{'IDEA_MANAGEMENT.LABEL.QUALIFICATION' | translate}}:</b> {{ element.professionalQualification }}<br>
+              </div>
+              <div class="example-element-description row">
+                <div class="col-6">
+                  <button class="btn btn-warning btn-contributor-action" (click)="EditOutsideAuthor(element.phoneNumber,element.email)">
+                    <img src="assets/img/icon/edit.svg"
+                    />
+                  </button>
+                </div>
+                <div class="col-6">
+                  <button class="btn btn-danger btn-contributor-action" (click)="deleteOutsideAuthor(element.phoneNumber,element.email)">
+                    <img src="assets/img/icon/trash.svg" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+  
+        <tr
+          mat-header-row
+          *matHeaderRowDef="columnsToDisplayWithExpand2"
+          style="background-color: rgba(9, 107, 222, 0.5)"
+        ></tr>
+        <tr
+          mat-row
+          *matRowDef="let element; columns: columnsToDisplayWithExpand2"
+          class="example-element-row"
+          [class.example-expanded-row]="expandedElement === element"
+          (click)="expandedElement = expandedElement === element ? null : element"
+        ></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: ['expandedDetail']"
+          class="example-detail-row"
+        ></tr>
+      </table>
+      <button class="btn btn-success btn-contributor-action mt-2" (click)="AddOutsideAuthor()">
+        <img
+          src="assets/img/icon/plus.svg"
+        />
+        {{ 'ACTION.ADD' | translate }}
+      </button>
+    </div>
+  </div>
+  <div class="line"></div>
+  <div class="idea-form">
+    <div class="header-text">
+      3. {{ "CONTRIVANCE_MAMAGEMENT.LABEL.SOLUTION_DES" | translate }}
+    </div>
+    <div class="input-form">
+      <div class="input-name">
+        3.1
+        {{ "CONTRIVANCE_MAMAGEMENT.LABEL.CURRENT_STATUS" | translate }} (<span
+          class="required-mark"
+          >*</span
+        >)
+      </div>
+      <textarea
+        class="input-field"
+        style="height: 60px; padding-top: 5px"
+        rows="4"
+        cols="50"
+        placeholder="{{
+          'CONTRIVANCE_MAMAGEMENT.PLACEHOLDER.CURRENT_STATUS' | translate
+        }}"
+        formControlName="currentStatus"
+      ></textarea>
+      <small
+        class="form-text text-danger"
+        *ngIf="formUtils.controlHasError('required', 'currentStatus')"
+      >
+        {{
+          "VALIDATION.REQUIRED"
+            | translate
+              : {
+                  name:
+                    "CONTRIVANCE_MAMAGEMENT.LABEL.CURRENT_STATUS" | translate
+                }
+        }}
+      </small>
+    </div>
+    <div class="input-form">
+      <div class="input-name">
+        3.2 {{ "CONTRIVANCE_MAMAGEMENT.LABEL.CONTENT" | translate }} (<span
+          class="required-mark"
+          >*</span
+        >)
+      </div>
+      <textarea
+        class="input-field"
+        style="height: 60px; padding-top: 5px"
+        rows="4"
+        cols="50"
+        placeholder="{{
+          'CONTRIVANCE_MAMAGEMENT.PLACEHOLDER.CONTENT' | translate
+        }}"
+        formControlName="content"
+      ></textarea>
+      <small
+        class="form-text text-danger"
+        *ngIf="formUtils.controlHasError('required', 'content')"
+      >
+        {{
+          "VALIDATION.REQUIRED"
+            | translate
+              : {
+                  name:
+                    "CONTRIVANCE_MAMAGEMENT.LABEL.CONTENT" | translate
+                }
+        }}
+      </small>
+    </div>
+    <div class="input-form">
+      <div class="input-name">
+        3.3
+        {{ "CONTRIVANCE_MAMAGEMENT.LABEL.APPLICABILITY" | translate }} (<span
+          class="required-mark"
+          >*</span
+        >)
+      </div>
+      <textarea
+        class="input-field"
+        style="height: 60px; padding-top: 5px"
+        rows="4"
+        cols="50"
+        placeholder="{{
+          'CONTRIVANCE_MAMAGEMENT.PLACEHOLDER.APPLICABILITY' | translate
+        }}"
+        formControlName="applianceCondition"
+      ></textarea>
+      <small
+        class="form-text text-danger"
+        *ngIf="formUtils.controlHasError('required', 'applianceCondition')"
+      >
+        {{
+          "VALIDATION.REQUIRED"
+            | translate
+              : {
+                  name:
+                    "CONTRIVANCE_MAMAGEMENT.LABEL.APPLICABILITY" | translate
+                }
+        }}
+      </small>
+    </div>
+    <div class="input-form">
+      <div class="input-name">
+        3.4
+        {{ "CONTRIVANCE_MAMAGEMENT.LABEL.CREATIVE_POINT" | translate }} (<span
+          class="required-mark"
+          >*</span
+        >)
+      </div>
+      <textarea
+        class="input-field"
+        style="height: 60px; padding-top: 5px"
+        rows="4"
+        cols="50"
+        placeholder="{{
+          'CONTRIVANCE_MAMAGEMENT.PLACEHOLDER.CREATIVE_POINT' | translate
+        }}"
+        formControlName="creativePoint"
+      ></textarea>
+      <small
+        class="form-text text-danger"
+        *ngIf="formUtils.controlHasError('required', 'creativePoint')"
+      >
+        {{
+          "VALIDATION.REQUIRED"
+            | translate
+              : {
+                  name:
+                    "CONTRIVANCE_MAMAGEMENT.LABEL.CREATIVE_POINT" | translate
+                }
+        }}
+      </small>
+    </div>
+    <div class="input-form">
+      <div class="input-name">
+        3.5
+        {{ "CONTRIVANCE_MAMAGEMENT.LABEL.EFFECTIVENESS" | translate }} (<span
+          class="required-mark"
+          >*</span
+        >)
+      </div>
+      <textarea
+        class="input-field"
+        style="height: 60px; padding-top: 5px"
+        rows="4"
+        cols="50"
+        placeholder="{{
+          'CONTRIVANCE_MAMAGEMENT.PLACEHOLDER.EFFECTIVENESS' | translate
+        }}"
+        formControlName="effectiveness"
+      ></textarea>
+      <small
+        class="form-text text-danger"
+        *ngIf="formUtils.controlHasError('required', 'effectiveness')"
+      >
+        {{
+          "VALIDATION.REQUIRED"
+            | translate
+              : {
+                  name:
+                    "CONTRIVANCE_MAMAGEMENT.LABEL.EFFECTIVENESS" | translate
+                }
+        }}
+      </small>
+    </div>
+    <div class="input-form">
+      <div class="input-name">
+        3.6
+        {{ "CONTRIVANCE_MAMAGEMENT.LABEL.BENEFICIAL_VALUE" | translate }} (<span
+          class="required-mark"
+          >*</span
+        >)
+      </div>
+      <label
+        ><input type="checkbox" formControlName="checkBonus" (change)="changeCheckBonus($event)"/>
+        {{
+          "CONTRIVANCE_MAMAGEMENT.LABEL.NOT_BENEFICIAL_VALUE" | translate
+        }}</label
+      >
+      <div class="input-name">
+        {{ "CONTRIVANCE_MAMAGEMENT.LABEL.EFFECTIVE_VALUE" | translate }} (<span
+          class="required-mark"
+          >*</span
+        >)
+      </div>
+      <input
+        type="text"
+        NumbersOnly
+        [allowThousandSeparator]="true"
+        [className]="
+          formUtils.control('checkBonus').value ? 'input-field input-disabled' : 'input-field'"
+        [attr.disabled]="
+          formUtils.control('checkBonus').value ? true : null
+        "
+        placeholder="{{
+          'CONTRIVANCE_MAMAGEMENT.PLACEHOLDER.MONEY'
+            | translate
+        }}"
+        maxlength="16"
+        formControlName="effectiveValue"
+      />
+      <small
+        class="form-text text-danger"
+        *ngIf="formUtils.controlHasError('required', 'effectiveValue')"
+      >
+        {{
+          "VALIDATION.REQUIRED"
+            | translate
+              : {
+                  name:
+                    "CONTRIVANCE_MAMAGEMENT.LABEL.EFFECTIVE_VALUE" | translate
+                }
+        }}
+      </small>
+      <div class="input-name">
+        {{ "CONTRIVANCE_MAMAGEMENT.LABEL.BONUS" | translate }} (<span
+          class="required-mark"
+          >*</span
+        >)
+      </div>
+      <input
+        type="text"
+        NumbersOnly
+        [allowThousandSeparator]="true"
+        [className]="
+          formUtils.control('checkBonus').value ? 'input-field input-disabled' : 'input-field'"
+        placeholder="{{
+          'CONTRIVANCE_MAMAGEMENT.PLACEHOLDER.MONEY' | translate
+        }}"
+        formControlName="bonus"
+        maxlength="18"
+        [attr.disabled]="
+          formUtils.control('checkBonus').value ? true : null
+        "
+      />
+      <small
+        class="form-text text-danger"
+        *ngIf="formUtils.controlHasError('required', 'bonus')"
+      >
+        {{
+          "VALIDATION.REQUIRED"
+            | translate
+              : {
+                  name:
+                    "CONTRIVANCE_MAMAGEMENT.LABEL.BONUS" | translate
+                }
+        }}
+      </small>
+    </div>
+  </div>
+  <div class="line"></div>
+  <div class="idea-form">
+    <div class="header-text">
+      4. {{ "IDEA_MANAGEMENT.LABEL.FILE_DOCCUMENT" | translate }}
+    </div>
+    <div class="file">
+      <div class="file-text">{{ fileInfo?.name }}</div>
+      <div
+        class="upload-file"
+        (click)="selectFile.value = ''; selectFile.click()"
+      >
+        <img src="assets/img/icon/add file.svg" alt="ic_camera" />
+        <div class="upload-label">
+          {{ "COMMON_BUTTON.CHOOSE_FILE" | translate }}
+        </div>
+      </div>
+      <input
+        type="file"
+        (change)="onSelectFile($event)"
+        style="display: none"
+        #selectFile
+      />
+      <span
+        >{{ "IDEA_MANAGEMENT.LABEL.FILE_TYPE" | translate }}:
+        <b>{{
+          " .txt, .doc, .docx, .rar, .zip, .xls, .xlsx, .pdf, .jpg, .gif, .png, .ppt, .pptx."
+            | translate
+        }}</b>
+      </span>
+      <span
+        >{{ "IDEA_MANAGEMENT.LABEL.MAX_STORAGE" | translate }}:
+        <b>{{ "25 MB" | translate }}</b></span
+      >
+    </div>
+  </div>
+</form>
+<div class="bottom-btn">
+    <div class="btn1" (click)="duplicationCheck()">
+        <img src="assets/img/icon/task check.svg">
+        <div class="btn1-text">{{'IDEA_MANAGEMENT.BUTTON.DUPLICATION_CHECK' | translate}}</div>
+    </div>
+    <div class="btn2" (click)="deleteContrivance()">
+        <img src="assets/img/icon/trash.svg">
+        <div class="btn2-text">{{'CONTRIVANCE_MAMAGEMENT.LABEL.DELETE_CONTRIVANCE_REGISTRATION' | translate}}</div>
+    </div>
+</div>

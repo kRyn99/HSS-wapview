@@ -1,0 +1,19 @@
+<app-title-nav [title]="'TITLE.TERM' | translate" backRoute="auth/sign-in"></app-title-nav>
+
+<!--<div class="container" #content>-->
+<!--&lt;!&ndash;  {{content}}&ndash;&gt;-->
+<!--</div>-->
+<iframe *ngIf="lang==='vi'" src="assets/file/term/vi.html" class="margin-top-normal"
+        style="width: 100vw;height: calc(100vh - 170px);"></iframe>
+<iframe *ngIf="lang==='la'" src="assets/file/term/la.html" class="margin-top-normal"
+        style="width: 100vw;height: calc(100vh - 170px);"></iframe>
+<iframe *ngIf="lang==='en'" src="assets/file/term/en.html" class="margin-top-normal"
+        style="width: 100vw;height: calc(100vh - 170px);"></iframe>
+<iframe *ngIf="lang==='zh'" src="assets/file/term/zh.html" class="margin-top-normal"
+        style="width: 100vw;height: calc(100vh - 170px);"></iframe>
+<!--<iframe src="assets/file/guidline/account/Guidline%20merchant%20VN.html" style="margin-top: 35px;width: 100vw;height: calc(100vh - 150px);"> </iframe>-->
+<app-footer-nav
+    [label]="'TITLE.ACCEPT' | translate"
+    [submitDisabled]="submitDisabled"
+    (handleSubmit)="nextStep()"
+></app-footer-nav>

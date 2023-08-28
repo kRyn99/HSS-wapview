@@ -1,0 +1,13 @@
+<div class="form-group">
+  <label [for]="name" class="label-form-lcd-p1 color-black" *ngIf="label">{{ label }}</label>
+  <textarea
+    class="form-control input-form-lcd"
+    [placeholder]="placeholder"
+    [name]="name"
+    [(ngModel)]="value"
+    [pattern]="pattern"
+    [maxlength]="maxlength"
+    (ngModelChange)="valueChangeEvent()"
+  >
+  </textarea>
+</div>

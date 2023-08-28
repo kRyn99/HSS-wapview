@@ -1,0 +1,47 @@
+.cus-tb {
+  border-bottom: 1px solid #F1F1F1;
+  width: 100%;
+  padding-top: 10px;
+
+  .cus-row {
+    padding-bottom: 16px;
+    display: flex;
+  }
+
+  .cus-right{
+    width: 50%;
+    // font-family: 'SFUIText';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: right;
+  }
+
+  .label-cus {
+    width: 50%;
+    // font-family: 'SFProText';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #000000;
+  }
+
+  .content-cus {
+    color: #707070;
+  }
+
+  .card-value {
+    color: #FE3B30;
+  }
+
+}
+
+.value-upoint {
+  color: #21BC3A;
+}
+
+.take-upoint {
+  color: #DE6544;
+}

@@ -1,0 +1,47 @@
+<app-title-nav [title]="'TITLE.DETAIL_INFO' | translate" backRoute="home/dashboard"></app-title-nav>
+
+<div class="margin-top-more">
+  <div class="container user-card">
+    <app-user-card [model]="model" [editInfoBtn]="true" [more]="true"></app-user-card>
+  </div>
+  <div class="separateLine container-fluid mt-2"></div>
+  <div class="container">
+    <!--  <div class="feature d-flex align-items-center" (click)="eCollapse()">-->
+    <!--&lt;!&ndash;    <i class="fas fa-globe mr-2 icon"></i>&ndash;&gt;-->
+    <!--    <img src="assets/img/icon/lang.png" style="width: 18px;height: 18px; margin-right: 8px" >-->
+    <!--    <span class="name">{{'SIGN_IN.LABEL.LANGUAGE' | translate}}</span>-->
+    <!--    &lt;!&ndash;    <app-language-selector class="ml-auto btn-right" ></app-language-selector>&ndash;&gt;-->
+    <!--    <i *ngIf="isCollapsed === false" class="fas fa-chevron-right ml-auto btn-right"></i>-->
+    <!--    <i *ngIf="isCollapsed === true" class="fas fa-close ml-auto btn-right"></i>-->
+    <!--  </div>-->
+    <!--  <div *ngFor="let language of languages" [collapse]="!isCollapsed" [isAnimated]="true" >-->
+    <!--    <div (click)="setLanguageWithRefresh(language.lang)" class="lang-item pt-2 pb-2">-->
+    <!--      <img src="{{ language.flag }}" style="width: 18px;margin-right: 8px" >-->
+    <!--      <div class="lang-name">{{ language.name }}</div>-->
+    <!--    </div>-->
+    <!--  </div>-->
+    <div class="feature d-flex align-items-center">
+      <!--    <i class="fas fa-headset mr-2 icon"></i>-->
+      <img src="assets/img/icon/service.png" style="width: 18px;height: 18px; margin-right: 8px">
+      <span class="name">{{'DETAIL_INFO.LABEL.CUST_SER' | translate}}</span>
+      <i class="fas fa-chevron-right ml-auto btn-right"></i>
+    </div>
+    <div *ngIf="this.user && this.user.data && this.user.data.role != 'END_USER'"
+         class="feature d-flex align-items-center" (click)="handleChangePass('auth/forgot-password')">
+      <!--    <i class="fas fa-key mr-2 icon"></i>-->
+      <img src="assets/img/icon/changePassword.png" style="width: 18px;height: 18px; margin-right: 8px">
+      <span class="name">{{'TITLE.CHANGE_PASS' | translate}}</span>
+      <i class="fas fa-chevron-right ml-auto btn-right"></i>
+    </div>
+    <div class="feature d-flex align-items-center" (click)="handleLogout()">
+      <!--    <i class="fas fa-sign-out-alt mr-2 icon"></i>-->
+      <img src="assets/img/icon/logOut.png" style="width: 18px;height: 18px; margin-right: 8px">
+      <span class="name">{{'DETAIL_INFO.LABEL.LOG_OUT' | translate}}</span>
+      <i class="fas fa-chevron-right ml-auto btn-right"></i>
+    </div>
+  </div>
+  <div class="fixed-bottom text-center mb-5 footer-text">
+    Version 1.8.0<br>
+    Copyright © 2020 All Rights Reserved
+  </div>
+</div>

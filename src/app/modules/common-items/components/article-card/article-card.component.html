@@ -1,0 +1,12 @@
+<div class="voucher-card" [style]="styleTxt">
+  <div class="logo-image">
+    <img [src]="avatarUrl" />
+  </div>
+
+  <!-- content for merchant -->
+  <div class="content-voucher">
+    <div class="row1">{{ name | truncate: 20 }}</div>
+    <div class="row2">{{ content | truncate: 100 }}</div>
+  </div>
+
+</div>

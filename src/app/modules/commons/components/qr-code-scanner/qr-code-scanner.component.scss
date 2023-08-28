@@ -1,0 +1,24 @@
+#scan-canvas{
+    height: 100vh;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.rise{
+    position: absolute;
+    z-index: 1; 
+    top: 30px;
+    font-size: 1.5rem;
+    text-shadow: 1px 1px 3px gray;
+}
+.back{
+    color: #F6601B;
+    right: 30px;
+}
+
+.choose-file{
+    color: #F6601B;
+    left: 30px;
+}

@@ -1,0 +1,111 @@
+<app-title-nav
+  [title]="'Sửa tác giả trong tập đoàn' | translate"
+  [backRoute]="backRoute + '/register'"
+  >
+</app-title-nav>
+<div class="body">
+  <div class="info-box">
+    <ng-select
+      [items]="listStaff"
+      bindLabel="staffCode"
+      [placeholder]="contributorDTO?.staffCode"
+      [(ngModel)]="contributorDTO"
+      (change)="onSelectedStaffCodeChange($event)"
+    ></ng-select>
+  </div>
+  <div class="info-box">
+    <div class="info-title">{{ "Họ và tên" | translate }}</div>
+    <input
+      class="info-input"
+      [placeholder]="'Họ và tên' | translate"
+      style="background-color: #f3f3f3"
+      [(ngModel)]="contributorDTO.fullName"
+      [readonly]="true"
+    />
+  </div>
+  <div class="info-box">
+    <div class="info-title">{{ "% đóng góp (*)" | translate }}</div>
+    <input
+      class="info-input"
+      [placeholder]="'Nhập % đóng góp của tác giả' | translate"
+      [(ngModel)]="contributorDTO.percentage"
+      maxlength="3"
+      NumbersOnly
+      (ngModelChange)="percentageValueChange($event)"
+      maxlength="3"
+    />
+  </div>
+  <div class="info-box">
+    <div class="info-title">{{ "Số điện thoại  (*)" | translate }}</div>
+    <input
+      class="info-input"
+      [placeholder]="'Nhập số điện thoại' | translate"
+      [(ngModel)]="contributorDTO.phoneNumber"
+      NumbersOnly
+      maxlength="12"
+    />
+  </div>
+  <div class="info-box">
+    <div class="info-title">{{ "Email" | translate }}</div>
+    <input
+      class="info-input"
+      [placeholder]="'Nhập email' | translate"
+      [(ngModel)]="contributorDTO.email"
+    />
+  </div>
+  <div class="info-box">
+    <div class="info-title">{{ "Ngày sinh" | translate }}</div>
+    <label class="date">
+      <input
+        [placeholder]="'dd/mm/yyyy'"
+        type="text"
+        name="Date"
+        [bsConfig]="bsConfig"
+        class="date-text"
+        style="background-color: white; border: white"
+        #dprn="bsDatepicker"
+        #vDate
+        bsDatepicker
+        autocomplete="off"
+        [(ngModel)]="contributorDTO.birthday"
+      />
+      <img src="assets/img/icon/calendar.svg" style="padding: 10px" />
+    </label>
+  </div>
+  <div class="info-box">
+    <div class="info-title">{{ "Nơi công tác" | translate }}</div>
+    <input
+      class="info-input"
+      [placeholder]="'Nơi công tác' | translate"
+      [(ngModel)]="contributorDTO.jobAddress"
+      style="background-color: #f3f3f3"
+      [readonly]="true"
+    />
+  </div>
+  <div class="info-box">
+    <div class="info-title">{{ "Chức vụ" | translate }}</div>
+    <input
+      class="info-input"
+      [placeholder]="'Chức vụ' | translate"
+      [(ngModel)]="contributorDTO.jobPosition"
+      style="background-color: #f3f3f3"
+      [readonly]="true"
+    />
+  </div>
+  <div class="info-box">
+    <div class="info-title">{{ "Trình độ chuyên môn" | translate }}</div>
+    <input
+      class="info-input"
+      [placeholder]="'Trình độ chuyên môn' | translate"
+      [(ngModel)]="contributorDTO.professionalQualification"
+      style="background-color: #f3f3f3"
+      [readonly]="true"
+    />
+  </div>
+</div>
+<div (click)="edit()" class="bottom-box">
+  <div class="bottom-btn">
+    <img src="assets/img/icon/plus.svg" />
+    <div class="btn-text">{{ "Lưu lại" | translate }}</div>
+  </div>
+</div>

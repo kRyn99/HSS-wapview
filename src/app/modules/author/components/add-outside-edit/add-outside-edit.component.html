@@ -1,0 +1,96 @@
+<app-title-nav
+  [title]="'Thêm tác giả ngoài tập đoàn' | translate"
+  [backRoute]="backRoute + '/edit'"
+>
+</app-title-nav>
+<div class="body">
+  <div class="info-box">
+    <div class="info-title">{{ "Họ và tên " | translate }}(<span style="color:red">*</span>)</div>
+    <ng-select
+      [items]="listContributorOut"
+      bindLabel="fullName"
+      placeholder="Họ và tên"
+      [(ngModel)]="selectedFullName"
+      (change)="onSelectedStaffCodeChange($event)"
+      [addTag]="true"
+      [addTagText]="'Chọn tên tác giả'"
+    ></ng-select>
+    <!-- <input class="info-input"
+               [placeholder]="'Họ và tên' | translate"
+               [(ngModel)]="selectedFullName"> -->
+  </div>
+  <div class="info-box">
+    <div class="info-title">{{ "Nơi công tác" | translate }}(<span style="color:red">*</span>)</div>
+    <input
+      class="info-input"
+      [placeholder]="
+        (selectedStaffCodeSubject | async)?.jobAddress || 'Nhập nơi công tác'
+          | translate
+      "
+      [(ngModel)]="selectedJobAddress"
+    />
+  </div>
+  <div class="info-box">
+    <div class="info-title">{{ "Chức vụ" | translate }}(<span style="color:red">*</span>)</div>
+    <input
+      class="info-input"
+      [placeholder]="
+        (selectedStaffCodeSubject | async)?.jobPosition || 'Nhập chức vụ'
+          | translate
+      "
+      [(ngModel)]="selectedJobPosition"
+    />
+  </div>
+  <div class="info-box">
+    <div class="info-title">{{ "Số điện thoại " | translate }}(<span style="color:red">*</span>)</div>
+    <input
+      class="info-input"
+      [placeholder]="
+        (selectedStaffCodeSubject | async)?.phoneNumber || 'Nhập số điện thoại '
+          | translate
+      "
+      [(ngModel)]="selectedPhoneNumber"
+      maxlength="12"
+      NumbersOnly
+    />
+  </div>
+  <div class="info-box">
+    <div class="info-title">{{ "Email" | translate }}(<span style="color:red">*</span>)</div>
+    <input
+      class="info-input"
+      [placeholder]="
+        (selectedStaffCodeSubject | async)?.email || 'Nhập email' | translate
+      "
+      [(ngModel)]="selectedEmail"
+    />
+  </div>
+  <div class="info-box">
+    <div class="info-title">{{ "Trình độ chuyên môn " | translate }}</div>
+    <input
+      class="info-input"
+      [placeholder]="
+        (selectedStaffCodeSubject | async)?.professionalQualification ||
+          'Nhập trình độ chuyên môn' | translate
+      "
+      [(ngModel)]="selectedProfessionalQualification"
+    />
+  </div>
+  <div class="info-box">
+    <div class="info-title">{{ "% đóng góp" | translate }}(<span style="color:red">*</span>)</div>
+    <input
+      class="info-input"
+      type="text"
+      NumbersOnly
+      [placeholder]="'Nhập % đóng góp của tác giả' | translate"
+      [(ngModel)]="selectedPercentage"
+      (ngModelChange)="percentageValueChange($event)"
+      maxlength="3"
+    />
+  </div>
+</div>
+<div class="bottom-box">
+  <div (click)="addNew()" class="bottom-btn">
+    <img src="assets/img/icon/plus.svg" />
+    <div class="btn-text">{{ "Thêm mới" | translate }}</div>
+  </div>
+</div>

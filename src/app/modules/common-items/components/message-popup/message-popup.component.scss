@@ -1,0 +1,94 @@
+.message-popup-card {
+  margin: 15px;
+  .close-icon {
+      text-align: right;
+      font-size: 20px;
+  }
+  .message-icon {
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .message-title {
+    text-align: center;
+    margin-bottom: 11px;
+
+    //font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 27px;
+  }
+  .message-content {
+    text-align: center;
+    color: #707070;
+    margin-bottom: 13px;
+    padding: 0 10px;
+    //font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 23px;
+  }
+  .btn-close {
+    width: 100%;
+    background: #f47920;
+    border-radius: 16px;
+    border: none;
+    //font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #fff;
+    margin-bottom: 10px;
+    padding: 12px 0;
+  }
+  .btn-close:focus,
+  .btn-close:active,
+  .btn-close:hover {
+    background-color: #f47920;
+    outline: #fab07a solid 2px;
+  }
+
+  .btn-sub {
+    width: 48%;
+    border: 1px solid #f47920;
+    box-sizing: border-box;
+    border-radius: 16px;
+    background-color: #fff;
+    //font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #f47920;
+    margin-bottom: 10px;
+    padding: 12px 0;
+  }
+  .btn-sub:focus,
+  .btn-sub:active,
+  .btn-sub:hover {
+    background-color: #fff;
+    outline: #fab07a solid 2px;
+  }
+  .btn-main {
+    width: 48%;
+    background: #f47920;
+    border-radius: 16px;
+    border: none;
+    //font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #fff;
+    margin-bottom: 10px;
+    padding: 12px 0;
+  }
+  .btn-main:focus,
+  .btn-main:active,
+  .btn-main:hover {
+    background-color: #f47920;
+    outline: #fab07a solid 2px;
+  }
+}

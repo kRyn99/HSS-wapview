@@ -1,0 +1,53 @@
+<nav class="navbar fixed-top navbar-title container">
+  <a
+    *ngIf="backRoute"
+    class="btn text-left pt-4"
+    style="color: white; font-size: 18px; line-height: 27px"
+    href="{{ baseUrl }}/{{ backRoute.replace('.', '#') }}"
+    ><i
+      class="fas fa-chevron-left"
+      style="font-size: 26px; line-height: 40px"
+    ></i
+  ></a>
+  <a
+    *ngIf="backRouteClick"
+    class="btn text-left pt-4"
+    style="color: white; font-size: 18px; line-height: 27px"
+    (click)="handleBackClick()"
+    ><i
+      class="fas fa-chevron-left"
+      style="font-size: 26px; line-height: 40px"
+    ></i
+  ></a>
+  <!-- <button *ngIf="backRoute" class="btn text-left" (click)="handleBack()"><i class="fas fa-arrow-left"></i></button> -->
+  <h5 class="text-center pt-4" style="font-weight: bold">{{ title }}</h5>
+  <div class="faked-div">
+    <span
+      *ngIf="history"
+      class="history float-right"
+      (click)="onClickRight(history.link)"
+    >
+      {{ "SOKXAY.HISTORY" | translate }}
+    </span>
+    <span
+      *ngIf="filter"
+      class="filter float-right"
+      (click)="onClickRight(filter.link)"
+    >
+      {{ filter.content | translate }}
+    </span>
+    <span *ngIf="apply" class="apply float-right" (click)="onApply()">
+      {{ apply.content | translate }}
+    </span>
+    <span
+      *ngIf="qrCode"
+      class="qrCode float-right"
+      (click)="onClickRight(qrCode.link)"
+    >
+      <i class="fas fa-qrcode"></i>
+    </span>
+    <span *ngIf="logo" class="logo float-right">
+      <img [src]="logo" />
+    </span>
+  </div>
+</nav>

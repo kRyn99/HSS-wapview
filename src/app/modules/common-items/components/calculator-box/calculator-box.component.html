@@ -1,0 +1,129 @@
+<div class="close-icon" (click)="handleClose()"><i class="fas fa-times"></i></div>
+<div class="cal-box">
+  <div class="box-input">
+    <input class="input-calculator" [value]="input" disabled/>
+  </div>
+<!--  <div>result: {{result}}</div>-->
+  <div class="cal-body">
+    <div class="line-1">
+      <div class="container-item" (click)="allClear()">
+        <div class="action-box box-style-normal action-bg" style="font-weight: 600;font-size: 23px;color: #000000;">
+          AC
+        </div>
+      </div>
+      <div class="container-item" (click)="pressOperator('*')">
+        <div class="action-box box-style-normal action-bg">x</div>
+      </div>
+      <div class="container-item" (click)="pressOperator('/')">
+        <div class="action-box box-style-normal action-bg">/</div>
+      </div>
+      <div class="container-item" (click)="clear()">
+        <div class="action-box box-style-normal action-bg">
+          <img src="assets/img/icon/del-cal.png" alt="del-calculator" style="padding: 9px;">
+        </div>
+      </div>
+      <!--      <div class="action-box box-style-normal action-bg">AC</div>-->
+      <!--      <div class="action-box box-style-normal action-bg">*</div>-->
+      <!--      <div class="action-box box-style-normal action-bg">/</div>-->
+      <!--      <div class="action-box box-style-normal action-bg">DEL</div>-->
+    </div>
+    <div class="line-2">
+      <div class="container-item" (click)="pressNum('1')">
+        <div class="num-box box-style-normal num-bg">1</div>
+      </div>
+      <div class="container-item" (click)="pressNum('2')">
+        <div class="num-box box-style-normal num-bg">2</div>
+      </div>
+      <div class="container-item" (click)="pressNum('3')">
+        <div class="num-box box-style-normal num-bg">3</div>
+      </div>
+      <div class="container-item" (click)="pressOperator('-')">
+        <div class="action-box box-style-normal action-bg">-</div>
+      </div>
+      <!--      <div class="num-box">1</div>-->
+      <!--      <div class="num-box">2</div>-->
+      <!--      <div class="num-box">3</div>-->
+      <!--      <div class="action-box">-</div>-->
+    </div>
+    <div class="line-3">
+      <div class="container-item" (click)="pressNum('4')">
+        <div class="num-box box-style-normal num-bg">4</div>
+      </div>
+      <div class="container-item" (click)="pressNum('5')">
+        <div class="num-box box-style-normal num-bg">5</div>
+      </div>
+      <div class="container-item" (click)="pressNum('6')">
+        <div class="num-box box-style-normal num-bg">6</div>
+      </div>
+      <div class="container-item" (click)="pressOperator('+')">
+        <div class="action-box box-style-normal action-bg">+</div>
+      </div>
+      <!--      <div class="num-box">4</div>-->
+      <!--      <div class="num-box">5</div>-->
+      <!--      <div class="num-box">6</div>-->
+      <!--      <div class="action-box">+</div>-->
+    </div>
+    <div class="line-45">
+      <div class="line-45-left">
+        <div class="line-4-left">
+          <div class="container-item-4-left" (click)="pressNum('7')">
+            <div class="num-box box-style-normal num-bg">7</div>
+          </div>
+          <div class="container-item-4-left" (click)="pressNum('8')">
+            <div class="num-box box-style-normal num-bg">8</div>
+          </div>
+          <!--          <div class="num-box">7</div>-->
+          <!--          <div class="num-box">8</div>-->
+        </div>
+        <div class="line-5-left" (click)="pressNum('000')">
+          <div class="num-box box-style-normal num-bg">000</div>
+        </div>
+      </div>
+      <div class="line-45-right">
+        <div class="num-group">
+          <div class="text-center container-item-right" (click)="pressNum('9')">
+            <div class="num-box box-style-normal num-bg">9</div>
+          </div>
+          <div class="text-center container-item-right" (click)="pressNum('0')">
+            <div class="num-box box-style-normal num-bg">0</div>
+          </div>
+        </div>
+        <div class="equal-box text-center" (click)="getAnswer()">
+          <div class="action-box box-style-normal action-bg" style="padding: 55px 0;color: #FFA048;">=</div>
+        </div>
+      </div>
+      <!--      <div class="num-group">-->
+      <!--        <div class="line-4">-->
+      <!--          <div class="num-box">7</div>-->
+      <!--          <div class="num-box">8</div>-->
+      <!--          <div class="num-box">9</div>-->
+      <!--        </div>-->
+      <!--        <div class="line-5">-->
+      <!--          <div class="tripleZero-box">000</div>-->
+      <!--          <div class="zero-box">0</div>-->
+      <!--        </div>-->
+      <!--      </div>-->
+      <!--      <div class="equal-box">=</div>-->
+    </div>
+  </div>
+</div>
+<!--<div class="container-calculator">-->
+<!--  <div class="AC">AC</div>-->
+<!--  <div class="multi">×</div>-->
+<!--  <div class="divi">÷</div>-->
+<!--  <div class="del">DEL</div>-->
+<!--  <div class="one">1</div>-->
+<!--  <div class="two">2</div>-->
+<!--  <div class="three">3</div>-->
+<!--  <div class="sub">-</div>-->
+<!--  <div class="four">4</div>-->
+<!--  <div class="five">5</div>-->
+<!--  <div class="six">6</div>-->
+<!--  <div class="add">+</div>-->
+<!--  <div class="seven">7</div>-->
+<!--  <div class="eight">8</div>-->
+<!--  <div class="nine">9</div>-->
+<!--  <div class="equal">=</div>-->
+<!--  <div class="tripleZero">000</div>-->
+<!--  <div class="zero">0</div>-->
+<!--</div>-->

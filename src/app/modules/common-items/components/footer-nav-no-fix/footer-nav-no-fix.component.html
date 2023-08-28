@@ -1,0 +1,9 @@
+<nav class="navbar navbar-light navbar-bottom" [style]="customStyle" style="z-index: 1003;">
+  <button
+    class="navbar-brand big-action"
+    [disabled]="submitDisabled"
+    (click)="handleSubmitEvent()"
+  >
+    {{label}}
+  </button>
+</nav>

@@ -1,0 +1,123 @@
+<app-title-nav [title]="'TITLE.SIGN_UP' | translate" backRoute="auth/sign-up/step-category"></app-title-nav>
+
+<div class="container margin-top-more">
+  <div class="div-step">
+    <div class="box-step">
+      <div class="step active">1</div>
+      <div class="text text-active">{{ 'TITLE.SELECT_ACCOUNT_TYPE' | translate }}</div>
+    </div>
+    <div class="space space-active"></div>
+    <div class="box-step">
+      <div class="step active">2</div>
+      <div class="text text-active">{{ 'TITLE.SELECT_CATEGORY' | translate }}</div>
+    </div>
+    <div class="space space-active"></div>
+    <div class="box-step">
+      <div class="step active">3</div>
+      <div class="text text-active">{{ 'TITLE.PRIVATE_INFO' | translate }}</div>
+    </div>
+    <div class="space"></div>
+    <div class="box-step">
+      <div class="step">4</div>
+      <div class="text">{{ 'TITLE.ACCOUNT_INFO' | translate }}</div>
+    </div>
+    <div style="clear: both"></div>
+  </div>
+  <div style="clear: both"></div>
+
+  <div>
+    <div class="title">{{ 'TITLE.PRIVATE_INFO' | translate }}</div>
+    <hr style="margin-top: 0; border: 1px solid rgba(241, 241, 241, 0.5)"/>
+    <div *ngIf="!enterOTP">
+      <app-input-field
+          [label]="'SIGN_UP.TITLE.LABEL_UNIT_NAME' | translate"
+          name="unitName"
+          [placeholder]="'SIGN_UP.TITLE.UNIT_NAME' | translate"
+          [(value)]="unitName"
+          maxlength="100"
+      ></app-input-field>
+      <app-input-field
+          [label]="'SIGN_UP.TITLE.LABEL_FULL_NAME' | translate"
+          name="fullName"
+          [placeholder]="'SIGN_UP.TITLE.FULL_NAME' | translate"
+          [(value)]="fullName"
+          maxlength="100"
+      ></app-input-field>
+      <app-input-field
+          name="phoneNumber"
+          [placeholder]="'SIGN_UP.TITLE.PHONE_NUMBER' | translate"
+          [(value)]="phoneNumber"
+          maxlength="15"
+      ></app-input-field>
+      <app-input-field
+          name="email"
+          placeholder="Email"
+          [(value)]="email"
+          maxlength="100"
+      ></app-input-field>
+      <label class="label-form-lcd-p1 color-black">{{ 'SIGN_UP.TITLE.ADDRESS' | translate }}</label>
+      <table width="100%">
+        <tr>
+          <td style="padding-right: 8px">
+            <app-dropdown-field
+                name="province"
+                [(value)]="provinceId"
+                [options]="listProvince | async"
+                defaultValue="-1"
+                [defaultLabel]="'COMMON.PROVINCE' | translate"
+                (change)="eChangeProvince()"
+                [disabledDefaultOption]="false"
+            >
+            </app-dropdown-field>
+          </td>
+          <td style="padding-left: 8px">
+            <app-dropdown-field
+                name="province"
+                [(value)]="districtId"
+                [options]="listDistrict | async"
+                defaultValue="-1"
+                [defaultLabel]="'COMMON.DISTRICT' | translate"
+                [disabledDefaultOption]="false"
+            >
+            </app-dropdown-field>
+          </td>
+        </tr>
+      </table>
+      <app-input-field
+          name="address"
+          [placeholder]="'SIGN_UP.TITLE.ADDRESS_DETAIL' | translate"
+          [(value)]="address"
+          maxlength="100"
+      ></app-input-field>
+    </div>
+  </div>
+  <div *ngIf="enterOTP" class="enter-otp container-fluid">
+    <div class="otp-title">{{ 'SIGN_UP.TITLE.ENTER_OTP' | translate }}</div>
+    <br>
+    <div class="otp-note">
+      {{ 'SIGN_UP.TITLE.LABEL_OTP' | translate }}
+    </div>
+    <br>
+    <app-input-field
+        name="otp"
+        placeholder="OTP"
+        [(value)]="otp"
+        (input)="validateOTP()"
+        maxlength="6"
+    ></app-input-field>
+    <div class="d-flex justify-content-end">
+        <span class="timer-step">{{ timer * 1000 | date: "mm:ss"}}</span>
+    </div>
+    <div class="otp-resend" *ngIf="timer === 0">
+      {{ 'SIGN_UP.TITLE.NOT_RECEIVED' | translate }} <span class="link" style="text-decoration: none;"
+                                                           (click)="resendOTP()">
+      {{ 'SIGN_UP.TITLE.RESEND_OTP' | translate }}</span>
+    </div>
+  </div>
+</div>
+
+<app-footer-nav
+    [label]="'TITLE.NEXT' | translate"
+    [submitDisabled]="submitDisabled"
+    (handleSubmit)="nextStep()"
+></app-footer-nav>

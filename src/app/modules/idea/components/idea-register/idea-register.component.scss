@@ -1,0 +1,341 @@
+.nation-brand{
+  margin-top: 120px;
+  width: 100%;
+  height: 128px;
+  flex-shrink: 0;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  .nation{
+    display: flex;
+    height: 67px;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    .nation-text{
+      color: #000;
+      text-align: center;
+      font-family: Inter;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 16px; /* 133.333% */
+    }
+  }
+  .form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 13px;
+    .form-name{
+      color: #000;
+      text-align: center;
+      font-family: Inter;
+      font-size: 22px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 122%;
+      text-transform: uppercase;
+    }
+    .form-for{
+      color: #000;
+      text-align: center;
+      font-family: Inter;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 133%;
+      align-self: stretch;
+    }
+  }
+}
+.line {
+  height: 1px;
+  align-self: center;
+  background: var(--text-placeholder, #929292);
+  margin-bottom: 10px;
+  width: 100%;
+  margin-top: 10px;
+}
+.idea-form{
+  display: flex;
+  padding: 5px 20px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  .header-text{
+    color: #000;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 133%;
+  }
+  .input-form{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    width: 100%;
+    .input-name{
+      color: #000;
+
+      font-family: Inter;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 133%;
+      width: 100%;
+    }
+    .input-field{
+      height: 40px;
+      width: 100%;
+      border-radius: 5px;
+      border: 1px solid var(--neutral-colors-soft-grey, #929292);
+      background: var(--primary-ffffff, #FFF);
+      padding-left: 20px;
+    }
+   
+  }
+}
+//table{
+//  width: 100%;
+//}
+//thead{
+//  border-bottom: 2px solid #0171BB;
+//  background: rgba(9, 107, 222, 0.50);
+//  padding: 1px;
+//  height: 37px;
+//  width: 100%;
+//}
+//
+//td{
+//  justify-content: center;
+//  align-items: flex-start;
+//  gap: 10px;
+//  text-align: center;
+//}
+.file{
+  display: flex;
+  width: 100%;
+  padding: 10px 0px;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+  background: rgba(188, 188, 188, 0.20);
+  .file-text{
+    color: #000;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 133%;
+  }
+  .upload-file{
+    display: flex;
+    padding: 5px 6px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: 8px;
+    background: var(--bg-wap-orange, #EE4019);
+    .upload-label{
+      color: var(--text-white, #FFF);
+      font-family: Inter;
+      font-size: 10px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 200%;
+      letter-spacing: 0.05px;
+    }
+  }
+}
+span{
+  color: #000;
+  font-family: Inter;
+  font-size: 8px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 175%;
+  letter-spacing: 0.04px;
+}
+span b {
+  color: #000;
+  font-family: Inter;
+  font-size: 8px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 14px;
+  letter-spacing: 0.04px;
+}
+span c {
+  color: #000;
+  font-family: Inter;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+  letter-spacing: 0.05px;
+}
+span d {
+  color: #000;
+  font-family: Inter;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 140%;
+  letter-spacing: 0.05px;
+}
+.bottom-btn{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 0 20px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  .btn1{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: 1px solid #585858;
+    box-shadow: 0px 3px 12px 0px rgba(0, 0, 0, 0.14);
+    .btn1-text{
+      color: #585858;
+      text-align: center;
+      font-family: Inter;
+      font-size: 10px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 133%;
+    }
+  }
+  .btn2{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    background: linear-gradient(180deg, #FF8E33 0%, #EE4019 100%);
+    box-shadow: 0px 6px 10px 0px rgba(255, 168, 32, 0.15);
+    .btn2-text{
+      color: #FFFFFF;
+      text-align: center;
+      font-family: Inter;
+      font-size: 10px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 133%;
+    }
+  }
+}
+.date{
+  display: flex;
+  justify-content: space-between;
+  height: 40px;
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid var(--neutral-colors-soft-grey, #929292);
+  background: var(--primary-ffffff, #FFF);
+  .date-text{
+    padding-left: 20px;
+    border: #FFFFFF;
+    width: 100%;
+  }
+}
+
+table {
+  width: 100%;
+}
+
+tr.example-detail-row {
+  height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  flex-direction: column;
+  overflow: hidden;
+  display: flex;
+}
+
+.example-element-diagram {
+  min-width: 80px;
+  border: 2px solid black;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 104px;
+}
+
+.example-element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.example-element-description {
+  // display: flex;
+  // flex-direction: column;
+  padding: 7px;
+}
+
+.example-element-description-attribution {
+  opacity: 0.5;
+}
+.th-text{
+  color: #000;
+  text-align: center;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.dropdown-content {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 200px; /* Thiết lập chiều rộng cố định cho dropdown dọc */
+  /* Thêm các kiểu CSS khác theo ý muốn của bạn */
+}
+.btn-unit {
+  text-align: start;
+  overflow: hidden; /* Ẩn bất kỳ văn bản nào vượt quá khỏi phần tử cha */
+  white-space: nowrap; /* Ngăn văn bản xuống dòng */
+  text-overflow: ellipsis; /* Hiển thị dấu ba chấm (...) khi văn bản vượt quá */
+  max-width: 100%; /* Đảm bảo văn bản không vượt quá chiều rộng của nút */
+}
+.btn-contributor-action {
+  width: 100%;
+  border-radius: 10px !important;
+  justify-content: center;
+}
+.btn-idea-action{
+  width: 100%;
+  border-radius: 10px !important;
+  justify-content: center;
+}
+

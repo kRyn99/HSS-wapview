@@ -1,0 +1,8 @@
+<div class="form-group" [class.ma-b-0]="styleTextFG">
+    <label [for]="name" *ngIf="label">{{ label }}</label>
+    <select [name]="name" class="form-control dropdown-input input-form-lcd"  [style]="styleText" (click)="onClick($event)"
+        (change)="onModelChange($event)" required>
+        <option [disabled]="disabledDefaultOption" selected [value]="defaultValue">{{ defaultLabel }}</option>
+        <option [selected]="isItemSelected(item.value)" *ngFor="let item of options" value="{{item.value}}">{{item.name | translate}}</option>
+    </select>
+</div>

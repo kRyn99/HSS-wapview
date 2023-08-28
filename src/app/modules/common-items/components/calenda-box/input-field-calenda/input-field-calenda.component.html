@@ -1,0 +1,10 @@
+<div class="form-group form-group-custom">
+	<input class="form-control form-control-custom" type="text" [id]="name" [name]="name" [maxlength]="maxlength"
+		placeholder=" " autocomplete="off" [mask]="mask" [pattern]="pattern" [ngModelOptions]="{standalone: true}"
+		[readonly]="readonly" [type]="inputmode" [(ngModel)]="value" (ngModelChange)="onModelChange($event)"
+		(focus)="onFocus()" (blur)="onBlur($event)">
+	<span [style.visibility]="errHidden? 'hidden' : 'visible'" class="errmsg">{{ errmsg }}</span>
+	<label [for]="name" class="text-gray">{{ label }} <span *ngIf='required'>(*)</span></label>
+	<button style="color: #f6601b;" type="button" class="btn bg-transparent calenda-btn float-right"
+		(click)="openCalenda()"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>

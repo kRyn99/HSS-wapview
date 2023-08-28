@@ -1,0 +1,47 @@
+<app-title-nav [title]="'TITLE.U_HISTORY' | translate" backRoute="home/dashboard"></app-title-nav>
+<div class="container margin-top-more">
+  <div class="search d-flex justify-content-between">
+    <div class="search-box" style="width: 59%">
+      <label class="label-cbb">{{ 'COMMON.TIME' | translate }}</label>
+<!--      <input class="select-cbb form-control" [bsConfig]="bsConfig" style="background-color: white;"-->
+<!--              #dp="bsDatepicker" (bsValueChange)="eChangeMonth()" #vDate-->
+<!--              bsDatepicker [(bsValue)]="bsValue" readonly>-->
+      <input type="text"
+             placeholder="Daterangepicker"
+             class="select-cbb form-control"
+             style="background-color: white"
+             bsDaterangepicker
+             #vDate
+             (ngModelChange)="eChangeMonth()"
+             [maxDate]="maxDate"
+             [(ngModel)]="dateRangePickerValue"
+             [bsConfig]="{ isAnimated: true , dateInputFormat: 'DD/MM/YYYY', displayOneMonthRange: false ,displayMonths : 1}"
+             readonly>
+    </div>
+    <div class="search-box">
+      <label class="label-cbb">{{ 'COMMON.STATUS' | translate }}</label>
+      <select *ngIf="this.user.data && this.user.data.role === 'END_USER'" class="select-cbb form-control" [(ngModel)]="typeTrans" (change)="getListUpointTrans()">
+        <option *ngFor="let typeTran of listTypeTrans" [value]="typeTran.CODE" >{{ 'TRANS_TYPE_EU.' + typeTran.NAME | translate }}</option>
+      </select>
+      <select *ngIf="this.user.data && this.user.data.role !== 'END_USER'" class="select-cbb form-control" [(ngModel)]="typeTrans" (change)="getListUpointTrans()">
+        <option *ngFor="let typeTran of listTypeTrans" [value]="typeTran.CODE" >{{ 'TRANS_TYPE.' + typeTran.NAME | translate }}</option>
+      </select>
+    </div>
+  </div>
+  <div class="container mt-3 no-result" *ngIf="lstTransShow.value.length == 0">
+    {{'COLLABORATOR.LABEL.NO_TRANS_FOUND' | translate}}
+  </div>
+  <div class="list-transaction">
+    <div *ngFor="let dateData of lstTransShow | async">
+      <hr style="margin-top: 6px; margin-bottom: 6px; border: 1px solid rgba(241, 241, 241, 0.5)" />
+      <span class="transDate">{{dateData.date}}</span>
+      <div *ngFor="let rowdata of dateData.trans" (click)="eViewDetail(rowdata.upointTransId)">
+        <div style="margin-top: 13px;"><app-transaction-card [model]="rowdata"></app-transaction-card></div>
+      </div>
+    </div>
+  </div>
+  <div class="more-review text-center" (click)="eClickMoreTrans()"
+       *ngIf="lstTransShow.value && lstTransShow.value.length > 0">
+    {{'COMMON.LABEL.MORE_VIEW' | translate}}
+  </div>
+</div>

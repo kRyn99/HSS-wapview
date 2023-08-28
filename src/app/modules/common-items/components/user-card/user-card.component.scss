@@ -1,0 +1,207 @@
+.user-info {
+  .avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background-color: #dddddd;
+  }
+
+  .info-exchange {
+    // width: 100%;
+    // //font-family: SF Pro Text;
+    ////font-family: 'SFProText';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: rgba(0, 0, 0, 0.5);
+    //font-weight: 600;
+    //font-size: 12px;
+    //line-height: 21px;
+    //color: #929292;
+    padding-left: 10px;
+
+    .name {
+      ////font-family: 'SFUIText';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 21px;
+      color: #000000;
+    }
+
+    .label {
+      line-height: 21px;
+    }
+
+    .value {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 21px;
+      color: #f68b1f;
+    }
+  }
+
+  .info-exchange-2 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 17px;
+    color: #929292;
+    ////font-family: 'SFProText';
+    color: rgba(0, 0, 0, 0.5);
+    padding-left: 10px;
+
+    .name {
+      ////font-family: 'SFProText';
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 21px;
+      color: #000000;
+    }
+
+    .label {
+      ////font-family: 'SFProText';
+      font-style: normal;
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 17px;
+      color: #929292;
+    }
+
+    .value {
+      ////font-family: 'SFProText';
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 21px;
+
+      color: #F68B1F;
+    }
+  }
+
+  .info-limited {
+    font-size: 14px;
+    line-height: 21px;
+    padding-left: 10px;
+
+    .info-row {
+      //height: 32px;
+
+      //> div {
+      //  line-height: 32px;
+      //}
+
+      display: flex;
+
+      align-items: stretch;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-content: space-between;
+      margin: 6px auto;
+
+      .cus-name {
+        ////font-family: 'SFUIText';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 21px;
+        color: #000000;
+      }
+
+      .cus-label {
+        ////font-family: 'SFProText';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 21px;
+        color: #929292;
+      }
+
+      .info-upoint{
+        ////font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 16px;
+        color: #000000;
+      }
+    }
+  }
+}
+
+.more-card {
+  display: flex;
+  flex-direction: row;
+  ////font-family: SFProText;
+
+  .ic {
+    width: auto;
+  }
+
+  .info-card {
+    display: flex;
+    flex-direction: column;
+    padding-left: 16px;
+    width: 100%;
+
+    .line-1 {
+      display: flex;
+      flex-direction: row;
+
+      .name {
+        //font-family: 'SFProText';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 21px;
+        color: #000000;
+      }
+
+      .ic-edit {
+        padding-left: 17px;
+      }
+    }
+
+    .line-2 {
+      display: flex;
+      flex-direction: row;
+
+      .phone {
+        //font-family: 'SFProText';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 17px;
+        color: #929292;
+      }
+    }
+
+    .line-3 {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      .label {
+        //font-family: 'SFProText';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 17px;
+        color: #929292;
+      }
+
+      .upoint {
+        //font-family: 'SFProText';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 21px;
+        color: #F68B1F;
+      }
+    }
+  }
+
+}

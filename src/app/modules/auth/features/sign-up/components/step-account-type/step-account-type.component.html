@@ -1,0 +1,76 @@
+<app-title-nav [title]="'TITLE.SIGN_UP' | translate" backRoute="auth/sign-up/term-and-conditions"> </app-title-nav>
+
+<div class="container margin-top-more" style="margin-bottom: unset;">
+  <div class="div-step">
+    <div class="box-step">
+      <div class="step active">1</div>
+      <div class="text text-active">{{ 'TITLE.SELECT_ACCOUNT_TYPE' | translate }}</div>
+    </div>
+    <div class="space"></div>
+    <div class="box-step">
+      <div class="step">2</div>
+      <div class="text">{{ 'TITLE.SELECT_CATEGORY' | translate }}</div>
+    </div>
+    <div class="space"></div>
+    <div class="box-step">
+      <div class="step">3</div>
+      <div class="text">{{ 'TITLE.PRIVATE_INFO' | translate }}</div>
+    </div>
+    <div class="space"></div>
+    <div class="box-step">
+      <div class="step">4</div>
+      <div class="text">{{ 'TITLE.ACCOUNT_INFO' | translate }}</div>
+    </div>
+    <div style="clear: both"></div>
+  </div>
+  <div style="clear: both"></div>
+
+  <div class="ma-b-15">
+    <div class="title">{{ 'SIGN_UP.SELECT_ACCOUNT_TYPE' | translate }}</div>
+<!--    <table class="table-select" width="100%">-->
+<!--      <colgroup>-->
+<!--        <col span="1" style="width: 50%;">-->
+<!--        <col span="1" style="width: 50%;">-->
+<!--      </colgroup>-->
+<!--     <tr *ngFor="let rowDatas of listAccountTypeGrid | async">-->
+<!--       <td *ngFor="let rowData of rowDatas">-->
+<!--         <button class="select-type" (click)="nextStep(rowData.value)">-->
+<!--           <img [src]="rowData.strLogo" [alt]="rowData.name">-->
+<!--           <div class="select-title">{{rowData && rowData.name ? rowData.name : ''}}</div>-->
+<!--           <div class="select-description">{{rowData && rowData.description ? rowData.description : ''}}</div>-->
+<!--         </button>-->
+<!--       </td>-->
+<!--     </tr>-->
+<!--      &lt;!&ndash; <tr>-->
+<!--        <td>-->
+<!--          <button class="select-type" (click)="nextStep()">-->
+<!--            <i class="select-icon fas fa-leaf"></i>-->
+<!--            <div class="select-title">Communication Organization</div>-->
+<!--            <div class="select-description">Dành cho các tổ chức phi lợi nhuận, báo chí, truyền thông</div>-->
+<!--          </button>-->
+<!--        </td>-->
+<!--        <td>-->
+<!--          <button class="select-type" (click)="nextStep()">-->
+<!--            <i class="select-icon fas fa-landmark"></i>-->
+<!--            <div class="select-title">Government Office</div>-->
+<!--            <div class="select-description">Dành cho các cơ quan, đơn vị hành chính, nhà nước</div>-->
+<!--          </button>-->
+<!--        </td>-->
+<!--      </tr> &ndash;&gt;-->
+<!--    </table>-->
+    <div *ngFor="let rowDatas of listAccountTypeGrid | async" class="grid-list-box">
+      <div *ngFor="let rowData of rowDatas" class="line-list">
+        <button class="select-type" (click)="nextStep(rowData.value)">
+          <img [src]="rowData.logo" [alt]="rowData.name">
+          <div class="select-title">{{rowData && rowData.name ? rowData.name : ''}}</div>
+          <div class="select-description">{{rowData && rowData.description ? rowData.description : ''}}</div>
+        </button>
+      </div>
+    </div>
+    <div class="text-center mt-3 text-note" style="font-size: 13px; line-height: 16px; color: #5B5E71;">
+      {{ 'TITLE.CONTACT_1' | translate }}<br>
+      {{ 'TITLE.CONTACT_2' | translate }} <span class="link" (click)="contact()">
+      {{ 'TITLE.CONTACT_3' | translate }}</span> {{ 'TITLE.CONTACT_4' | translate }}
+    </div>
+  </div>
+</div>

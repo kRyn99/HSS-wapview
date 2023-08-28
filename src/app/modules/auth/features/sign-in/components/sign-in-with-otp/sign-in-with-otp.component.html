@@ -1,0 +1,77 @@
+<div class="background-layout">
+  <img src="assets/img/bg/bg_login.png" alt="bg_login">
+</div>
+<div class="container" style="max-width: 480px;padding-top: 48px;">
+  <div class="card card-body mainCard" style="min-height: 500px;">
+    <div class="row d-flex justify-content-end">
+<!--      <div class="ml-4">-->
+<!--        <button class="btn btn-sign-in-uid" (click)="signInUID()"><img src="./assets/img/uniid-logo.jpg"></button>-->
+<!--      </div>-->
+      <div class="mr-3">
+        <app-language-selector></app-language-selector>
+        <span class="language-label d-flex justify-content-center">{{ 'SIGN_IN.LABEL.LANGUAGE' | translate }}</span>
+      </div>
+    </div>
+    <div class="row mt-auto">
+      <span class="title mx-auto">UPOINT</span><br/>
+    </div>
+    <div class="row">
+      <span class="sub-title mx-auto text-uppercase">{{ 'SIGN_IN.TITLE.LOGIN' | translate }}</span>
+    </div>
+    <form [formGroup]="form" (ngSubmit)="signIn()">
+      <div class="row mx-2 my-3">
+        <label class="pb-0 mb-0 pl-2 label-cus">{{ 'SIGN_IN.LABEL.PHONE' | translate }}</label><br/>
+        <input class="form-control input-sign-in" type="text" formControlName="username" maxlength="15"
+               [placeholder]="'SIGN_IN.PLACEHOLDER.PHONE' | translate"
+               [ngClass]="{ 'is-invalid-cus': submitted && f.username.errors }"/>
+        <div *ngIf="submitted && f.username.errors" class="error">
+          <div *ngIf="f.username.errors.required"
+               class="invalid-label">{{ 'SIGN_IN.LABEL.PHONE_NULL' | translate }}</div>
+          <span *ngIf="f.username.errors.required" class="error-label">{{'COMMON.MESSAGE.ERROR' | translate}}</span>
+        </div>
+      </div>
+      <div class="row mx-2 mb-3">
+        <label class="pb-0 mb-0 pl-2 label-cus">{{ 'SIGN_IN.LABEL.OTP_CODE' | translate }}</label><br/>
+        <input class="form-control input-sign-in" type="text" (keyup)="eOnKeyUp($event)" maxlength="6"
+               [placeholder]="'SIGN_IN.PLACEHOLDER.OTP' | translate" formControlName="otp" #otpInput
+               [ngClass]="{ 'is-invalid-cus': submitted && f.otp.errors }"/>
+        <div *ngIf="submitted && f.otp.errors" class="error">
+          <div *ngIf="f.otp.errors.required"
+               class="invalid-label">{{ 'SIGN_IN.LABEL.OTP_NULL' | translate }}</div>
+          <span *ngIf="f.otp.errors.required" class="error-label">{{'COMMON.MESSAGE.ERROR' | translate}}</span>
+        </div>
+        <div *ngIf="submitted && f.otp.errors" class="invalid-feedback">
+          <div *ngIf="f.otp.errors.required" class="invalid-label">{{ 'SIGN_IN.LABEL.OTP_NULL' | translate }}</div>
+        </div>
+      </div>
+      <div class="row mx-2">
+        <table width="100%">
+          <colgroup>
+            <col span="1" style="width: 70%;">
+            <col span="1" style="width: 30%;">
+          </colgroup>
+          <tr>
+            <td class=" text-left">
+              <span class="link" (click)="handleRedirect('auth/sign-in/password')">
+                {{ 'SIGN_IN.BUTTON.LOGIN_PASS' | translate }}
+              </span>
+            </td>
+            <td class=" text-right">
+              <span class="link" (click)="sendOTP()">{{ 'SIGN_IN.BUTTON.SEND_OTP' | translate }}</span>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="row d-flex justify-content-center mt-4">
+        <button class="btn-sign-in">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          {{ 'SIGN_IN.BUTTON.SIGN_IN' | translate }}
+        </button>
+      </div>
+    </form>
+    <div class="row d-flex justify-content-center row-sign-up">
+      <span class="label-sign-up mr-1">{{ 'SIGN_IN.LABEL.DONT_ACC' | translate }}</span>
+      <span class="link" (click)="handleRedirect('auth/sign-up')">{{ 'SIGN_IN.BUTTON.SIGN_UP' | translate }}!</span>
+    </div>
+  </div>
+</div>

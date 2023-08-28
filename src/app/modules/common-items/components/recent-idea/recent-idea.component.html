@@ -1,0 +1,32 @@
+<div class="slideshow">
+    <div class="slideshow-header">
+        <div class="sh-text1">{{'HOME.APPROVED_IDEA' | translate}}</div>
+        <div class="sh-text2">{{'HOME.WITHIN' | translate}}</div>
+    </div>
+    <swiper
+            [slidesPerView]="2"
+            [spaceBetween]="20"
+            [navigation]="true"
+            [pagination]="{ clickable: true }"
+            [centeredSlides]="true"
+            [rewind]="true"
+            [initialSlide]="1"
+    >
+        <ng-template swiperSlide *ngFor="let item of listIdea ; let i = index">
+            <div class="user-card" (click)="viewDetail(item.ideaId)">
+                <img class="bg-white" src="assets/img/icon/image 1.svg">
+                <div class="line-text">{{'HOME.IDEA_NAME' | translate}}
+                    <span>{{item.ideaName | truncate:50}}</span>
+                </div>
+                <br/>
+                <div class="user-info">
+                    <img class="bg-white" src="assets/img/icon/avatar%20image.png">
+                    <div class="info-box">
+                        <div class="info-text">{{item.staffName}}</div>
+                        <div class="info-text">{{item.staffCode}}</div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </swiper>
+</div>

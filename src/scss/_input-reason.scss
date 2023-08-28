@@ -1,0 +1,22 @@
+.input-reason-custom .container-fluid div + div {
+    margin-bottom: 5px;
+}
+
+.input-reason-custom .container-fluid .btn-group {
+    float: right;
+}
+
+.input-reason-custom .btn-group .btn {
+    justify-content: center;
+    display: flex;
+    margin-left: auto;
+    min-width: 96px;
+}
+
+.input-reason-custom .btn-group .btn + .btn{
+    margin-left: 5px;
+}
+
+.input-reason-custom .modal-input-reason {
+    margin-top: 15%;
+}

@@ -1,0 +1,16 @@
+<div class="form-group" [class.ma-b-0]="styleTextFG">
+  <label [for]="name" class="label-form-lcd-p1 color-black" *ngIf="label">{{ label }}</label>
+  <input
+    class="form-control input-form-lcd"
+    [placeholder]="placeholder"
+    [type]="type"
+    [name]="name"
+    [(ngModel)]="value"
+    [pattern]="pattern"
+    [maxlength]="maxlength"
+    (ngModelChange)="valueChangeEvent()"
+    [style]="styleText"
+    [readOnly]="readonly"
+  />
+  <div class="message mt-1" [style]="messageStyle">{{message}}</div>
+</div>

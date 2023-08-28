@@ -1,0 +1,15 @@
+<div class="message-popup-card">
+  <div *ngIf="closeIcon" class="close-icon" (click)="handleClose()"><i class="fas fa-times"></i></div>
+  <div class="message-icon" [style]="type == 'confirm' ? 'margin-top: -70px;' : ''">
+    <img [src]="iconSrc" height="100px"/>
+  </div>
+  <div class="message-title">{{title}}</div>
+  <div class="message-content" [innerHTML]="(message + (type == 'confirm' ? undoWarning : '')) | safeHtml"></div>
+  <div *ngIf="type != 'confirm'" class="d-flex justify-content-center">
+    <button class="btn-close" (click)="handleClose()">{{'ACTION.CLOSE' | translate}}</button>
+  </div>
+  <div *ngIf="type == 'confirm'" class="d-flex justify-content-between">
+    <button class="btn-sub" (click)="handleClose()">{{'ACTION.CLOSE' | translate}}</button>
+    <button class="btn-main" (click)="handleNext()">{{'ACTION.CONFIRM' | translate}}</button>
+  </div>
+</div>

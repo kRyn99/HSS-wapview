@@ -1,0 +1,187 @@
+<!--CTV-->
+<nav class="navbar navbar-title nav-lcd" *ngIf="collaboratorModel"
+     [class.justify-content-end]="!backRoute">
+    <span *ngIf="backRoute" class="btn text-left btn-back" (click)="handleBack()">
+        <i class="fas fa-chevron-left" style="font-size: 26px; line-height: 40px;"></i>
+    </span>
+    <div class="box-user">
+        <div class="info-user">
+            <div class="name-user text-right">{{collaboratorModel.name}}</div>
+            <div class="owner-user text-right">{{'COMMON.LABEL.OWNER'|translate}}: {{collaboratorModel.isdnOwner}}</div>
+        </div>
+        <div class="ava-user">
+            <ngx-avatar
+                    [src]="collaboratorModel.avatarStr ? collaboratorModel.avatarStr : './assets/img/upoint-logo.png'"
+                    size="40" [round]="true"></ngx-avatar>
+        </div>
+    </div>
+</nav>
+<div *ngIf="collaboratorModel" class="info-card">
+    <div class="col-nomal">
+        <div class="label-card">{{'COMMON.LABEL.OWNER_UPOINT'| translate}}</div>
+        <div class="upoint">
+            {{collaboratorModel.upointMerchant ? (collaboratorModel.upointMerchant | number: "1.0":"en-US") : 0}}
+        </div>
+    </div>
+    <div class="col-border">
+        <div class="label-card">{{'COMMON.LABEL.COL_UPOINT'| translate}}</div>
+        <div class="upoint">
+            {{collaboratorModel.upointCollaborator ? (collaboratorModel.upointCollaborator | number: "1.0":"en-US") : 0}}
+        </div>
+    </div>
+</div>
+<!--End CTV-->
+<!--Merchant-->
+<nav class="navbar navbar-title nav-lcd" *ngIf="merchantModel">
+    <span *ngIf="backRoute" class="btn text-left btn-back" (click)="handleBack()">
+        <i class="fas fa-chevron-left" style="font-size: 26px; line-height: 40px;"></i>
+    </span>
+    <div class="card-shop">
+        <div class="ava-shop">
+            <ngx-avatar
+                    [src]="merchantModel.logo ? merchantModel.logo : './assets/img/entrepreneur.png'"
+                    size="48" [round]="true"
+                    [ngStyle]="{'background': merchantModel.logo ? '' : 'rgba(255,255,255,0.7)' }"
+            ></ngx-avatar>
+        </div>
+        <div class="content-shop">
+            <div class="line-1">
+                <div class="name-shop">{{merchantModel.shopName ? merchantModel.shopName : ''}}</div>
+                <div class="rate-shop" *ngIf="merchantModel.ratings">
+                    <div class="wrapper">
+                        <div class="star-rating">
+                            <span [style]="'width: '+merchantModel.ratingPercentage+'%'"></span>
+                        </div>
+                        <div class="rate">{{merchantModel.ratings}}</div>
+                    </div>
+                </div>
+                <div class="no-rate" *ngIf="merchantModel.ratings !== null && merchantModel.ratings === 0">
+                    {{'SHOP.MESSAGE.NO_RATE' | translate}}
+                </div>
+            </div>
+            <div class="line-2">
+                <div class="icon-location">
+                    <img alt="location" src="assets/img/icon/location-white.png">
+                </div>
+                <div class="text-location">{{ merchantModel.address | truncate: 25 }}</div>
+            </div>
+        </div>
+    </div>
+</nav>
+<div *ngIf="merchantModel" class="info-card card-merchant">
+    <div class="line-1-merchant">
+        <div class="remain">
+            <div class="label-line-1">{{'COMMON.LABEL.REMAINING_UPOINT'| translate}}</div>
+            <div class="content-line-1">
+                {{merchantModel.upointCurrent ? (merchantModel.upointCurrent | number: "1.0":"en-US") : 0}}
+            </div>
+        </div>
+        <div class="follow">
+            <div class="label-line-1">{{'COMMON.LABEL.TOTAL_FOLLOW'| translate}}</div>
+            <div class="content-line-1">
+                {{merchantModel.totalFollows ? (merchantModel.totalFollows | number: "1.0":"en-US") : 0}}
+            </div>
+        </div>
+    </div>
+    <div class="line-2-merchant">
+        <div class="from-cust">
+            <div class="label-line-2">{{'COMMON.LABEL.FROM_CUST'| translate}}</div>
+            <div class="content-line-2 color-green-success">
+                {{merchantModel.totalReceiving ? "+ " + (merchantModel.totalReceiving | number: "1.0":"en-US") : 0}}
+            </div>
+        </div>
+        <div class="to-cust">
+            <div class="label-line-2">{{'COMMON.LABEL.TO_CUST'| translate}}</div>
+            <div class="content-line-2 color-red-fail">
+                {{merchantModel.totalGiving ? "- " + (merchantModel.totalGiving | number: "1.0":"en-US") : 0}}
+            </div>
+        </div>
+        <div class="topup">
+            <div class="label-line-2">{{'COMMON.LABEL.TOPUP'| translate}}</div>
+            <div class="content-line-2 color-blue-info">
+                {{merchantModel.totalTopup ? "+ " + (merchantModel.totalTopup | number: "1.0":"en-US") : 0}}
+            </div>
+        </div>
+    </div>
+    <!--  <div class="col-nomal">-->
+    <!--    <div class="label-merchant">{{'COMMON.LABEL.UPOINT_CURRENT'| translate}}</div>-->
+    <!--    <div class="value-merchant-left">-->
+    <!--      {{merchantModel.upointCurrent ? (merchantModel.upointCurrent | number: "1.0":"en-US") : 0}}-->
+    <!--    </div>-->
+    <!--  </div>-->
+    <!--  <div class="col-nomal">-->
+    <!--    <div class="label-merchant">{{'COMMON.LABEL.TOTAL_RECEIVING'| translate}}</div>-->
+    <!--    <div class="value-merchant-right color-green-success pb-3">-->
+    <!--      {{merchantModel.totalReceiving ? "+ " + (merchantModel.totalReceiving | number: "1.0":"en-US") : 0}}-->
+    <!--    </div>-->
+    <!--    <div class="label-merchant">{{'COMMON.LABEL.TOTAL_GIVING'| translate}}</div>-->
+    <!--    <div class="value-merchant-right color-red-fail">-->
+    <!--      {{merchantModel.totalGiving ? "- " + (merchantModel.totalGiving | number: "1.0":"en-US") : 0}}-->
+    <!--    </div>-->
+    <!--  </div>-->
+</div>
+<!--End Merchant-->
+<!--EU-->
+<nav class="navbar navbar-title nav-lcd" *ngIf="endUserModel"
+     [class.justify-content-end]="!backRoute">
+    <span *ngIf="backRoute" class="btn text-left btn-back" (click)="handleBack()">
+        <i class="fas fa-chevron-left" style="font-size: 26px; line-height: 40px;"></i>
+    </span>
+    <div class="box-info-upoint">
+        <div class="info-upoint" *ngIf="hiddenUpoint">
+            <div class="eu-upoint">
+                <div class="eu-upoint-btn my-auto" (click)="toggleUpoint()">
+                    <i class="far fa-eye-slash toggle-password"></i>
+                </div>
+                <div class="eu-upoint-text">
+                    {{endUserModel.availableUpoint ? (endUserModel.availableUpoint | number: '1.0':'en-US') : '0'}}
+                </div>
+            </div>
+            <div class="info-expire-date">
+                <div class="label-ex-date">{{'TITLE_NAV.LABEL.EXP_DATE' | translate}}&nbsp;:&nbsp;</div>
+                <div class="value-ex-date">{{endUserModel.expDate ? (endUserModel.expDate | date: 'dd/MM/yyyy') : ''}}</div>
+            </div>
+        </div>
+        <div class="info-upoint" *ngIf="!hiddenUpoint">
+            <div class="show-upoint" (click)="toggleUpoint()">
+                {{'VOUCHER.LABEL.SHOW_UPOINT' | translate}}
+            </div>
+        </div>
+        <div class="icon-more-eu" [class.hideIcon]="backRoute === 'true'">
+            <img src="assets/img/icon/more_eu.png" alt="more_eu" (click)="eClickMoreEU()">
+        </div>
+    </div>
+</nav>
+<!-- has button move -->
+<!--<div *ngIf="endUserModel" class="info-card">-->
+<!--    <div class="image-carousel">-->
+<!--        <div class="image-carousel__item-list-wrapper">-->
+<!--            <ul class="image-carousel__item-list"-->
+<!--                [ngStyle]="{'transform': moveRight ? 'translateX(-100px)' : 'translateX(0px)' }"-->
+<!--            >-->
+<!--                <li *ngFor="let rowData of user.data.lstFunction" class="image-carousel__item"-->
+<!--                    (click)="handleRedirect(rowData.url)">-->
+<!--                    <img [src]="rowData.icon" alt="icon_func">-->
+<!--                    <div class="text">{{rowData.key | translate}}</div>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--        <div class="carousel-arrow carousel-arrow&#45;&#45;prev carousel-arrow&#45;&#45;hint" [ngClass]=" moveRight ? '' : 'carousel-arrow&#45;&#45;hidden'"  role="button" tabindex="0"-->
+<!--             style="" (click)="moveRight = false">-->
+<!--            <-->
+<!--        </div>-->
+<!--        <div class="carousel-arrow carousel-arrow&#45;&#45;next carousel-arrow&#45;&#45;hint" [ngClass]=" moveRight ? 'carousel-arrow&#45;&#45;hidden': ''" role="button"-->
+<!--             tabindex="0" (click)="moveRight = true">-->
+<!--            >-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<div *ngIf="endUserModel" class="info-card">
+    <div class="func-list">
+        <div *ngFor="let rowData of user.data.lstFunction" class="func" (click)="handleRedirect(rowData.url)">
+            <img [src]="rowData.icon" alt="icon_func">
+            <div class="text">{{rowData.key | translate}}</div>
+        </div>
+    </div>
+</div>
+<!--End EU-->

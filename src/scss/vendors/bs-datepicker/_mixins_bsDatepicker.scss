@@ -1,0 +1,28 @@
+.theme-green {
+  .bs-datepicker-head {
+    background-color: #fb741c !important;
+    .current span {
+      text-transform: capitalize !important;
+    }
+  }
+
+  .bs-datepicker-body {
+    table {
+      td {
+        span.selected,
+        &.selected span,
+        span[class*="select-"]:after,
+        &[class*="select-"] span:after {
+          background-color: #fb741c !important;
+        }
+
+        &.week span {
+          color: #fb741c !important;
+        }
+        span {
+          text-transform: capitalize !important;
+        }
+      }
+    }
+  }
+}

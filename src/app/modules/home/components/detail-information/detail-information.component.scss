@@ -1,0 +1,48 @@
+.user-card {
+  margin-top: 50px;
+}
+.separateLine {
+  border: 1px solid #f3f3f3;
+  left: 0;
+  right: 0;
+}
+.feature {
+  height: 40px;
+  border-bottom: 1px solid #f1f1f1;
+
+  .icon {
+    font-size: 18px;
+    color: #f47920;
+    line-height: 40px;
+  }
+  .name {
+    //font-family: 'SFProText';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    color: #000000;
+  }
+  .btn-right {
+    font-size: 18px;
+    line-height: 40px;
+  }
+}
+.footer-text {
+//   //font-family: SF Pro Text;
+  font-size: 12px;
+  line-height: 21px;
+  color: #929292;
+}
+
+// LongDC
+.lang-item{
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid #f1f1f1;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  color: #000000;
+}

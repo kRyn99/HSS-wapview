@@ -1,0 +1,197 @@
+.invalid-label {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 15px;
+  color: #E24B4B;
+}
+
+.mainCard {
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  // position: absolute;
+  // left: 17px;
+  // top: 37px;
+  // right: 17px;
+  // bottom: 30px;
+  height: calc(100vh - 100px);
+}
+
+.background-layout {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+
+  //background: linear-gradient(89.11deg, #f3542d 6.74%, #fcbd33 32.7%);
+  min-height: 600px;
+
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
+.btn-sign-in-uid {
+  width: 60px;
+  height: 60px;
+  background: #ffffff;
+  box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.14);
+  border-radius: 8px !important;
+  padding: 0px;
+
+  > img {
+    width: 57px;
+  }
+}
+
+.btn-language {
+  background-color: white;
+  border-radius: 18px !important;
+  width: 36px;
+  height: 36px;
+  padding: 0px;
+}
+
+.language-label {
+  // font-family: SFUIText;
+  font-size: 10px;
+  line-height: 21px;
+  text-align: center;
+  color: #000000;
+}
+
+.title {
+  font-family: ShowcardGothic;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 55px;
+  line-height: 68px;
+
+  color: #f15730;
+}
+
+.sub-title {
+  //height: 40px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 40px;
+
+  color: #5b5e71;
+}
+
+.input-sign-in {
+  border: 1px solid #929292;
+  box-sizing: border-box;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0%);
+  height: 40px;
+  // font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+
+  &:focus {
+    outline: none;
+    box-shadow: none;
+    border-color: #f6601b;
+  }
+}
+
+.link {
+  // font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  cursor: pointer;
+
+  text-decoration-line: underline;
+
+  /* primary color/ vàng unitel */
+  color: #f47920;
+}
+
+.link:active {
+  color: #f47920;
+}
+
+.btn-sign-in {
+  background: #f47920;
+  box-shadow: none;
+  border: none;
+  border-radius: 16px;
+  color: #ffffff;
+  width: 224px;
+  height: 42px;
+  // font-family: 'Roboto';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 21px;
+}
+
+.label-sign-up {
+  // font-family: 'Roboto';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.row-sign-up {
+  // position: absolute;
+  // bottom: 23px;
+  // left: 0px;
+  // right: 0px;
+  margin-top: auto;
+}
+
+// p2
+.label-cus {
+  // font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.is-invalid-cus {
+  border: 1px solid #f6601b;
+  box-sizing: border-box;
+  border-radius: 16px;
+  outline: none;
+  box-shadow: none;
+}
+
+.error {
+  width: 100%;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: space-between;
+
+  .error-label {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    color: #E24B4B;
+    margin-right: 15px;
+    margin-top: -50px;
+  }
+}

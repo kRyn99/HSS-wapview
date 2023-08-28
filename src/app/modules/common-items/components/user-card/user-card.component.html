@@ -1,0 +1,72 @@
+<div *ngIf="model && more === false" class="user-info d-flex justify-content-start" (click)="onClick()">
+  <table width="100%">
+    <colgroup>
+      <col span="1" style="width: 20%"/>
+      <col span="1" style="width: 80%"/>
+    </colgroup>
+    <tr>
+      <td *ngIf="!contact">
+        <ngx-avatar [src]="model.logo ? model.logo : './assets/img/sign-up/ava_default.png'" size="64"
+                    [round]="true"></ngx-avatar>
+      </td>
+      <td *ngIf="contact">
+        <ngx-avatar [name]="model.name ? model.name : 'upoint'" size="64"
+                    [round]="true"></ngx-avatar>
+      </td>
+      <td *ngIf="!(model.availableUpointRedeem || model.availableUpointRedeem == 0) && !(model.availableUpoint || model.availableUpoint == 0)"
+          class="info-exchange">
+        <span class="name">{{ model.name |truncate :(maxWidth > 320 ?  20 :  12)}}</span><span *ngIf="editInfoBtn" (click)="handleEditInfo()"><i
+          class="far fa-edit ml-2" style="font-size: 18px;"></i></span><br/>
+        {{ model.phone }}<br/>
+      </td>
+      <td *ngIf="model.availableUpointRedeem || model.availableUpointRedeem == 0" class="info-exchange-2">
+        <span class="name">{{ model.name | truncate :(maxWidth > 320 ?  20 :  12)}}</span><span *ngIf="editInfoBtn" (click)="handleEditInfo()"><i
+          class="far fa-edit ml-2" style="font-size: 18px;"></i></span><br/>
+        {{ model.phone }}<br/>
+        <div class="d-flex justify-content-between">
+          <div class="label">{{'USER_CARD.LABEL.AVAILABLE_UPOINT_REDEEM' | translate}}</div>
+          <div class="value">
+            {{ model.availableUpointRedeem | number: "1.0":"en-US" }}
+          </div>
+        </div>
+      </td>
+      <td *ngIf="model.availableUpoint || model.availableUpoint == 0" class="info-limited">
+        <div class="info-row">
+          <div class="cus-name">
+            {{ model.name | truncate :(maxWidth > 320 ?  20 : 12)}}
+          </div>
+          <div class="text-right cus-label" style="color: #929292">{{'USER_CARD.LABEL.LEVEL_LIMIT' | translate}}</div>
+        </div>
+        <div class="info-row">
+          <div class="cus-label">
+            {{ model.phone }}
+          </div>
+          <div class="text-right info-upoint">
+            {{ model.availableUpoint | number: "1.0":"en-US" }} Upoint
+          </div>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+<div *ngIf="model && more === true" class="more-card">
+  <div class="ic">
+    <ngx-avatar [src]="model.logo ? model.logo : './assets/img/sign-up/ava_default.png'" size="64"
+                [round]="true"></ngx-avatar>
+  </div>
+  <div class="info-card">
+    <div class="line-1 mb-1">
+      <div class="name">{{ model.name |truncate :(maxWidth > 320 ?  20 :  12)}}</div>
+      <div class="ic-edit">
+        <img src="assets/img/icon/edit.png" />
+      </div>
+    </div>
+    <div class="line-2 mb-1">
+      <div class="phone">{{ model.phone }}</div>
+    </div>
+    <div class="line-3">
+      <div class="label">{{'USER_CARD.LABEL.AVAILABLE_UPOINT_REDEEM' | translate}}</div>
+      <div class="upoint">{{ model.availableUpoint === 0 ? '0' : (model.availableUpoint | number: "1.0":"en-US") }}</div>
+    </div>
+  </div>
+</div>

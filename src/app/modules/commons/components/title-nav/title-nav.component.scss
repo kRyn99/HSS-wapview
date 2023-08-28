@@ -1,0 +1,58 @@
+.navbar.navbar-title {
+  background: linear-gradient(180deg, #FB741C 0%, #E41818 100%);
+  box-shadow: 0px 12px 14px rgba(0, 0, 0, 0.03);
+  color: #ffffff;
+  height: 98px;
+}
+.navbar-title {
+  flex-wrap: nowrap;
+
+  h5 {
+    display: block;
+    flex-grow: 1;
+    overflow: hidden;
+    padding-left: 0.1rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .text-left,.faked-div{
+    width: 2rem;
+  }
+}
+
+.text-left{
+  padding-left: 0%;
+}
+
+.history{
+  color: #F6601B;
+}
+
+.filter{
+font-weight: 500;
+font-size: 14px;
+color: #3275E0;
+}
+
+.filter{
+  text-transform: uppercase;
+}
+
+.apply{
+  text-transform: uppercase;
+  color: #F6601B;
+}
+
+.qrCode{
+  font-size: 1.2rem;
+  width: 35px;
+  text-align: center;
+  height: 35px;
+  color: #F6601B;
+  border: 1px solid #F6601B;
+  border-radius: 50%;
+  box-shadow: 1px 2px 15px #F6601B;
+  i{
+    line-height: 30px;
+  }
+}

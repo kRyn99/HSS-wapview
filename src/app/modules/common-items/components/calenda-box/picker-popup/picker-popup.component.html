@@ -1,0 +1,11 @@
+<div class="modal-header">
+    <h4>{{ 'SIGN_UP.BIRTH' | translate }}</h4>
+    <div class="clear-btn" (click)="close()">
+        &times;
+    </div>
+</div>
+<div class=" container">
+    <app-ng-data-picker [data]="data" (change)="dataChange($event)"></app-ng-data-picker>
+</div>
+<button type="button" class="btn-close" (click)="close()">{{ 'SIGN_UP.DOB_CANCEL' | translate }}</button>
+<button type="button" class="btn-set" (click)="confirm()">{{ 'SIGN_UP.DOB_APPLY' | translate }}</button>

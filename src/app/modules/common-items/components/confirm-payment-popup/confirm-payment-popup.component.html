@@ -1,0 +1,40 @@
+<div class="message-popup-card">
+  <div *ngIf="closeIcon" class="close-icon" (click)="handleClose()"><i class="fas fa-times"></i></div>
+  <div class="message-title">{{'COMMON.CONFIRMATION' | translate}}</div>
+  <div class="message-content">{{'COMMON.MESSAGE.CONFIRM_PAYMENT_METHOD' | translate}}</div>
+    <div class="d-flex flex-row justify-content-between align-items-center method-wrapper" (click)="changeBuyMethod(1)" [class.selected]="buyMethodSelected === 1"
+    >
+        <div class="d-flex flex-row align-items-center">
+            <img src="assets/img/svg/icon/unipayment.svg">
+            <div class="text-payment margin-left-10">
+                uni-payment
+            </div>
+        </div>
+        <div>
+            <img alt="icon-pick"
+                 [src]="buyMethodSelected === 1 ? 'assets/img/icon/selected-round.png' :'assets/img/icon/unSelected-round.png'">
+        </div>
+    </div>
+  <div class="d-flex flex-row justify-content-between align-items-center method-wrapper" (click)="changeBuyMethod(2)" [class.selected]="buyMethodSelected === 2">
+      <div class="d-flex flex-row align-items-center">
+          <img src="assets/img/svg/icon/upointpayment.svg">
+          <div class="d-flex flex-column justify-content-between margin-left-10">
+              <div class="text-payment">
+                  Upoint
+              </div>
+              <div class="text-remain">
+                    {{'VOUCHER.LABEL.REMAIN' | translate}}: <span style="font-family: Inter;font-size: 14px;font-weight: 700;line-height: 21px;">{{remainUpoint | number: '1.0-0'}}</span> Upoint
+              </div>
+          </div>
+
+      </div>
+      <div>
+          <img alt="icon-pick"
+               [src]="buyMethodSelected === 2 ? 'assets/img/icon/selected-round.png' :'assets/img/icon/unSelected-round.png'">
+      </div>
+  </div>
+  <div class="d-flex justify-content-between">
+    <button class="btn-sub" (click)="handleClose()">{{'ACTION.CLOSE' | translate}}</button>
+    <button class="btn-main" (click)="handleNext()">{{'ACTION.CONFIRM' | translate}}</button>
+  </div>
+</div>

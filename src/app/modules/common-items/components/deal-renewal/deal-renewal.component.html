@@ -1,0 +1,76 @@
+<div class="message-popup-card">
+  <div *ngIf="closeIcon" class="close-icon" (click)="handleClose()"><i class="fas fa-times"></i></div>
+  <div class="message-title">{{title}}</div>
+  <label class="font-weight-bold mt-3 lb-field-text">{{ 'VOUCHER.LABEL.VOUCHER_DATE' | translate }}</label>
+  <div class="form-group">
+    <input
+            class="form-control"
+            name="expiredDate"
+            [bsConfig]="bsConfig"
+            style="background-color: white; height: 44px"
+            #dprn="bsDatepicker"
+            #expDate
+            [(ngModel)]="expiredDate"
+            (ngModelChange)="handleSelectExpiredDate()"
+            bsDatepicker
+            [placeholder]="dealType != 3 ? ( 'VOUCHER.PLACEHOLDER.EXPRIED_DATE' | translate ) : ('GIFT.PLACEHOLDER.EXPIRED_DATE' | translate)"
+            [minDate]="minDate"
+            autocomplete="off"
+
+    />
+    <div class="btn-calendar"><span class="icon-calendar"><i class="fa fa-calendar" aria-hidden="true"
+                                                                 (click)="dprn.toggle()"></i></span></div>
+  </div>
+
+  <app-input-field *ngIf="dealType === 1"
+          name="voucherType"
+          [placeholder]="'VOUCHER.PLACEHOLDER.VOUCHER_AMOUNT' | translate"
+          maxlength="7"
+          [(value)]="dealCodeAmountInput"
+          (input)="formatNumberInput()"
+  ></app-input-field>
+  <ng-container *ngIf="dealType === 2">
+    <div class="manual-upload form-group">
+      <div class="upload-photo" (click)="fileTemplate.value = '' ;fileTemplate.click()" style="width: 100%;">
+        <img src="assets/img/icon/selectFile.png" alt="ic_camera">
+        <div class="label-photo">{{'VOUCHER.PLACEHOLDER.SELECT_FILE_UPLOAD' | translate}}</div>
+      </div>
+      <div class="down-temp" (click)="eDownTemp()">{{'COMMON.LABEL.DOWN_TEMP' | translate}}</div>
+      <input type="file" accept=".xls, .xlsx" style="display: none" #fileTemplate (change)="validateFile($event)" >
+    </div>
+    <div class="manual-upload w-100 margin-top-15" *ngIf="showErrorFile == true">
+      <app-input-field
+              style="width: 100%"
+              name="voucherType"
+              [placeholder]="'VOUCHER.PLACEHOLDER.VOUCHER_AMOUNT_UPLOAD' | translate"
+              maxlength="100"
+              [(value)]="voucherCodeAmountUploaded"
+              readonly="true"
+              [styleText]="'width: 250px'"
+      ></app-input-field>
+      <div class="down-temp" (click)="eDownErrorFile()">{{'COMMON.LABEL.DOWN_ERROR_FILE' | translate}}</div>
+    </div>
+    <app-input-field
+            name="voucherType"
+            [placeholder]="'VOUCHER.PLACEHOLDER.VOUCHER_AMOUNT_UPLOAD' | translate"
+            maxlength="100"
+            [(value)]="voucherCodeAmountUploaded"
+            readonly="true"
+            *ngIf="showErrorFile == false"
+    ></app-input-field>
+  </ng-container>
+  <app-input-field *ngIf="dealType === 3"
+                   name="voucherType"
+                   [placeholder]="'GIFT.PLACEHOLDER.GIFT_AMOUNT' | translate"
+                   maxlength="7"
+                   [(value)]="dealCodeAmountInput"
+                   (input)="formatNumberInput()"
+  ></app-input-field>
+  <div *ngIf="type != 'confirm'" class="d-flex justify-content-center">
+    <button class="btn-close" (click)="handleClose()">{{'ACTION.CLOSE' | translate}}</button>
+  </div>
+  <div *ngIf="type == 'confirm'" class="d-flex justify-content-between">
+    <button class="btn-sub" (click)="handleClose()">{{'ACTION.CLOSE' | translate}}</button>
+    <button class="btn-main" [disabled]="showErrorFile == true" (click)="handleNext()">{{'ACTION.CONFIRM' | translate}}</button>
+  </div>
+</div>

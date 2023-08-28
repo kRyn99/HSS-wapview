@@ -1,0 +1,121 @@
+<app-title-nav [title]="'TITLE.SIGN_UP' | translate" backRoute="auth/sign-up/step-private-information"></app-title-nav>
+
+<div class="container margin-top-more">
+  <div class="div-step">
+    <div class="box-step">
+      <div class="step active">1</div>
+      <div class="text text-active">{{ 'TITLE.SELECT_ACCOUNT_TYPE' | translate }}</div>
+    </div>
+    <div class="space space-active"></div>
+    <div class="box-step">
+      <div class="step active">2</div>
+      <div class="text text-active">{{ 'TITLE.SELECT_CATEGORY' | translate }}</div>
+    </div>
+    <div class="space space-active"></div>
+    <div class="box-step">
+      <div class="step active">3</div>
+      <div class="text text-active">{{ 'TITLE.PRIVATE_INFO' | translate }}</div>
+    </div>
+    <div class="space space-active"></div>
+    <div class="box-step">
+      <div class="step active">4</div>
+      <div class="text text-active">{{ 'TITLE.ACCOUNT_INFO' | translate }}</div>
+    </div>
+    <div style="clear: both"></div>
+  </div>
+  <div style="clear: both"></div>
+
+  <div>
+    <div class="title">{{ 'TITLE.ACCOUNT_INFO' | translate }}(*)</div>
+    <hr style="margin-top: 0px; border: 1px solid rgba(241, 241, 241, 0.5)"/>
+
+    <app-input-field
+        [label]="'SIGN_UP.TITLE.LABEL_ACC' | translate"
+        name="accountName"
+        [placeholder]="'SIGN_UP.TITLE.ENTER_NAME' | translate"
+        [(value)]="accountName"
+        maxlength="30"
+    ></app-input-field>
+    <div class="mb-3 note-sub" >
+      {{ 'SIGN_UP.TITLE.LABEL_GUIDE_LINE' | translate }}
+      <span class="link"
+            (click)="seeGuideLine('getGuidelineForCreatingAccounts')">{{ 'SIGN_UP.TITLE.GUIDE_LINE' | translate }}</span>
+    </div>
+    <app-input-password
+        [label]="'SIGN_UP.TITLE.LABEL_PASS' | translate"
+        name="password"
+        [placeholder]="'SIGN_UP.TITLE.INPUT_PASS' | translate"
+        [(value)]="password"
+        maxlength="20"
+    ></app-input-password>
+    <app-input-password
+        name="retypePassword"
+        [placeholder]="'SIGN_UP.TITLE.RETYPE_PASS' | translate"
+        [(value)]="retypePassword"
+        maxlength="20"
+    ></app-input-password>
+    <app-input-field
+            [label]="'SIGN_UP.TITLE.BANK_NAME' | translate"
+            name="bankName"
+            [placeholder]="'SIGN_UP.TITLE.ENTER_BANK_NAME' | translate"
+            [(value)]="bankName"
+            maxlength="100"
+    ></app-input-field>
+    <app-input-field
+            [label]="'SIGN_UP.TITLE.BANK_CUST_NAME' | translate"
+            name="bankCustName"
+            [placeholder]="'SIGN_UP.TITLE.ENTER_BANK_CUST_NAME' | translate"
+            [(value)]="bankCustName"
+            maxlength="100"
+    ></app-input-field>
+    <app-input-field
+            [label]="'SIGN_UP.TITLE.ACCOUNT_NUMBER' | translate"
+            name="bankAccountNum"
+            [placeholder]="'SIGN_UP.TITLE.ENTER_BANK_ACCOUNT_NUMBER' | translate"
+            [(value)]="bankAccountNum"
+            maxlength="100"
+    ></app-input-field>
+    <app-textarea-field
+        [label]="'SIGN_UP.TITLE.INTRODUCTION' | translate"
+        name="introduction"
+        placeholder=""
+        [(value)]="introduction"
+        maxlength="500"
+    ></app-textarea-field>
+    <div class="mb-3 note-sub" >
+      {{ 'SIGN_UP.TITLE.LABEL_GUIDE_LINE_2' | translate }}
+      <span class="link"
+            (click)="seeGuideLine('getGuidelineForProductService')">{{ 'SIGN_UP.TITLE.GUIDE_LINE' | translate }}</span>
+    </div>
+    <label class="label-form-lcd-p1 color-black mt-2">Logo / Avatar</label>
+    <table>
+      <colgroup>
+        <col span="1" style="width: 40%"/>
+        <col span="1" style="width: 60%"/>
+      </colgroup>
+      <tr>
+        <td>
+          <ngx-avatar
+              [src]="signUpService.avatarStr ? signUpService.avatarStr : './assets/img/sign-up/ava_default.png'"
+              (clickOnAvatar)="selectAv.value = '' ;selectAv.click()" size="100" [round]="true"></ngx-avatar>
+          <!--          <button class="btn-upload-logo" (click)="selectAv.click()">-->
+          <!--            <i class="far fa-image" *ngIf="!signUpService.userDTO.avatarStr"></i>-->
+          <!--            <img *ngIf="signUpService.userDTO.avatarStr" [src]="signUpService.userDTO.avatarStr" style="width: 100px">-->
+          <!--          </button>-->
+          <input type='file' (change)="onSelectFile($event)" style="display: none" #selectAv>
+        </td>
+        <td class="upload-instruction">
+          {{ 'SIGN_UP.TITLE.AVA_DES_1' | translate }}<br/>{{ 'SIGN_UP.TITLE.AVA_DES_2' | translate }}
+          <span class="link"
+                (click)="seeGuideLine('getGuidelineForUploadPhoto')">{{ 'SIGN_UP.TITLE.GUIDE_LINE' | translate }}</span>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<app-footer-nav
+    [label]="'TITLE.SUBMIT' | translate"
+    [submitDisabled]="submitDisabled"
+    (handleSubmit)="nextStep()"
+></app-footer-nav>

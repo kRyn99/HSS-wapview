@@ -1,0 +1,34 @@
+<div class="form-group">
+  <label for="datepicker" class="font-weight-bold" *ngIf="label">{{
+    label
+  }}</label>
+  <!-- <input
+    id="datepicker"
+    class="form-control"
+    [placeholder]="placeholder"
+    type="text"
+    [name]="name"
+    [(ngModel)]="value"
+    (ngModelChange)="handleSelectDate()"
+    ngbDatepicker
+    #dp="ngbDatepicker"
+  /> -->
+  <input
+    class="form-control"
+    [name]="name"
+    [bsConfig]="bsConfig"
+    style="background-color: white"
+    #dp="bsDatepicker"
+    #vDate
+    [(ngModel)]="value"
+    (ngModelChange)="handleSelectDate()"
+    bsDatepicker
+    [placeholder]="placeholder"
+    readonly
+    />
+    <!-- [(bsValue)]="value"
+    (bsValueChange)="handleSelectDate()" -->
+</div>
+<div class="d-flex justify-content-end" (click)="dp.toggle()">
+  <i class="datepicker far fa-calendar-alt"></i>
+</div>

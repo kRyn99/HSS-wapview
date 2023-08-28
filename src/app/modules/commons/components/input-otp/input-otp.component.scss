@@ -1,0 +1,25 @@
+@import "../floating-field/floating-field.component.scss";
+
+ .count-dowm{
+        
+        position: absolute;
+        right: 0px;
+        top: 12px;
+      background: transparent;
+      background-color: transparent;
+      position: absolute;
+      right: 10px;
+      top: 12px;
+      z-index: 99999;
+    }
+  .resend:disabled {
+    background: transparent;
+    color: #9c9c9c;
+    
+  }
+  .resend {
+    color: #387ded !important;
+    font-weight: 600;
+    background-color: transparent !important;
+    text-decoration: none;
+  }

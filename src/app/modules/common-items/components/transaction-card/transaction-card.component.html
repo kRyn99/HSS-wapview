@@ -1,0 +1,110 @@
+<!--<div class="thumbnail">-->
+<!--  <table width="100%">-->
+<!--    <colgroup>-->
+<!--      <col span="1" style="width: 10%"/>-->
+<!--      <col span="1" style="width: 70%"/>-->
+<!--      <col span="1" style="width: 20%"/>-->
+<!--    </colgroup>-->
+<!--    <tr>-->
+<!--      <td rowspan="2">-->
+<!--        <div class="btn-give-point" *ngIf="model.role === 'END_USER'">-->
+<!--          <i *ngIf="model.upointTransType === 1 || (model.upointTransType === 2 && model.upointTotalSigns < 0)" class="fas fa-plus plus"></i>-->
+<!--          <i *ngIf="model.upointTransType === 2 && model.upointTotalSigns >= 0" class="fas fa-minus minus"></i>-->
+<!--        </div>-->
+<!--        <div class="btn-give-point" *ngIf="model.role !== 'END_USER'">-->
+<!--          <i *ngIf="model.upointTransType === 2 && model.upointTotalSigns < 0" class="fas fa-minus minus"></i>-->
+<!--          <i *ngIf="model.upointTransType === 1 || (model.upointTransType === 2 && model.upointTotalSigns >= 0)"-->
+<!--             class="fas fa-plus plus"></i>-->
+<!--        </div>-->
+<!--      </td>-->
+<!--      <td>-->
+<!--        <div class="name">-->
+<!--          <div *ngIf="model.upointTransType === 1">{{ 'HISTORY.TOP_UP' | translate }}</div>-->
+<!--          <div *ngIf="model.upointTransType === 2">-->
+<!--            <div *ngIf="model.role === 'END_USER'">{{ model.merchantName }}</div>-->
+<!--            <div *ngIf="model.role !== 'END_USER'">{{ model.custName }}</div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </td>-->
+<!--      <td class="time">{{ transTime }}</td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--      <td class="phone" *ngIf="model.upointTransType === 1">{{ model.createBy }}</td>-->
+<!--      <td class="phone" *ngIf="model.upointTransType === 2">-->
+<!--        <div *ngIf="model.role === 'END_USER'">{{ model.merchantIsdn }}</div>-->
+<!--        <div *ngIf="model.role !== 'END_USER'">{{ model.custIsdn }}</div>-->
+<!--      </td>-->
+<!--      <td class="amount" *ngIf="model.role === 'END_USER' && model.upointTransType === 1" style="color: #21BC3A;" >-->
+<!--        {{ "+ " + model.upointTotal }}-->
+<!--        Upoint-->
+<!--      </td>-->
+<!--      <td class="amount" *ngIf="model.role === 'END_USER' && model.upointTransType === 2"-->
+<!--          [style]="(model.upointTotalSigns < 0 )? 'color: #21BC3A;' : 'color: #F14717;'">-->
+<!--        {{ (model.upointTotalSigns < 0) ? "+ " + model.upointTotal : "- " + model.upointTotal }}-->
+<!--        Upoint-->
+<!--      </td>-->
+<!--      <td class="amount" *ngIf="model.role !== 'END_USER' && model.upointTransType === 1" style="color: #21BC3A;" >-->
+<!--        {{ "+ " + model.upointTotal }}-->
+<!--        Upoint-->
+<!--      </td>-->
+<!--      <td class="amount" *ngIf="model.role !== 'END_USER' && model.upointTransType === 2"-->
+<!--          [style]="(model.upointTotalSigns < 0 )? 'color: #F14717;' : 'color: #21BC3A;'">-->
+<!--        {{ (model.upointTotalSigns < 0) ? model.upointTotalSigns : "+ " + model.upointTotalSigns }}-->
+<!--        Upoint-->
+<!--      </td>-->
+<!--    </tr>-->
+<!--  </table>-->
+<!--</div>-->
+<div class="thumbnail">
+  <div class="ic">
+    <img
+        *ngIf="model.upointTransType === 1 || (model.role === 'END_USER' && model.upointTransType === 2 && model.upointTotalSigns <= 0) || (model.role !== 'END_USER' && model.upointTransType === 2 && model.upointTotalSigns >= 0)"
+        src="assets/img/icon-bL/ic-plus.png"/>
+    <img
+        *ngIf="(model.role === 'END_USER' && model.upointTransType === 2 && model.upointTotalSigns > 0) || (model.role !== 'END_USER' && model.upointTransType === 2 && model.upointTotalSigns < 0) "
+        src="assets/img/icon-bL/ic-div.png"/>
+  </div>
+  <div class="info-tran">
+    <div class="line1">
+      <div class="title-tran">
+        <div *ngIf="model.upointTransType === 1">{{ 'HISTORY.TOP_UP' | translate }}</div>
+        <div *ngIf="model.upointTransType === 2">
+          <div *ngIf="model.role === 'END_USER'">{{ model.merchantName }}</div>
+          <div *ngIf="model.role !== 'END_USER'">{{ model.custName }}</div>
+        </div>
+      </div>
+      <div class="time-tran">{{ transTime }}</div>
+    </div>
+    <div class="line2">
+      <div class="isdn">
+        <td class="phone" *ngIf="model.upointTransType === 1">{{ model.createBy }}</td>
+        <td class="phone" *ngIf="model.upointTransType === 2">
+          <div *ngIf="model.role === 'END_USER'">{{ model.merchantIsdn }}</div>
+          <div *ngIf="model.role !== 'END_USER'">{{ model.custIsdn }}</div>
+        </td>
+      </div>
+      <div class="upoint">
+        <td class="amount" *ngIf="model.role === 'END_USER' && model.upointTransType === 1" style="color: #21BC3A;">
+          {{model && model.upointTotal && model.upointTotal > 0 ? "+ " : ""}}{{ (model.upointTotal| number: '1.0':'en-US') }}
+          Upoint
+        </td>
+        <td class="amount" *ngIf="model.role === 'END_USER' && model.upointTransType === 2"
+            [style]="(model.upointTotalSigns > 0 )? 'color: #F14717;' : 'color: #21BC3A;' ">
+          {{ (model.upointTotalSigns > 0) ? "- " + (model.upointTotal| number: '1.0':'en-US') :
+            ( (model.upointTotalSigns === 0) ? 0 : "+ " + (model.upointTotal| number: '1.0':'en-US')) }}
+          Upoint
+        </td>
+        <td class="amount" *ngIf="model.role !== 'END_USER' && model.upointTransType === 1" style="color: #21BC3A;">
+          {{model && model.upointTotal && model.upointTotal > 0 ? "+ " : ""}}{{ (model.upointTotal| number: '1.0':'en-US') }}
+          Upoint
+        </td>
+        <td class="amount" *ngIf="model.role !== 'END_USER' && model.upointTransType === 2"
+            [style]="(model.upointTotalSigns < 0 )? 'color: #F14717;' : 'color: #21BC3A;'">
+          {{ (model.upointTotalSigns < 0) ? (model.upointTotalSigns | number: '1.0':'en-US') :
+            ( (model.upointTotalSigns === 0) ? 0 : "+ " + (model.upointTotalSigns | number: '1.0':'en-US')) }}
+          Upoint
+        </td>
+      </div>
+    </div>
+  </div>
+</div>

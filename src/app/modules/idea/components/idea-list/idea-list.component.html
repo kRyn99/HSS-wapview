@@ -1,0 +1,109 @@
+<app-title-nav
+  [title]="'IDEA_MANAGEMENT.TITLE.LIST_IDEA' | translate"
+  backRoute="home/homepage"
+  createRoute="this"
+  (create)="handleCreate()"
+>
+</app-title-nav>
+
+<div class="status">
+  <div class="status-border">
+    <div class="status-info">
+      <div class="status-info-number">
+        <div class="status-text1">{{ recordInfoDTO?.totalNumber }}</div>
+        <div class="status-text2">
+          {{ "IDEA_MANAGEMENT.LABEL.TOTAL_NUMBER" | translate }}
+        </div>
+      </div>
+      <div class="status-info-number">
+        <div class="status-text1">{{ recordInfoDTO?.approveNumber }}</div>
+        <div class="status-text2">
+          {{ "IDEA_MANAGEMENT.LABEL.APPROVE_NUMBER" | translate }}
+        </div>
+      </div>
+      <div class="status-info-number">
+        <div class="status-text1">{{ recordInfoDTO?.declinedNumber }}</div>
+        <div class="status-text2">
+          {{ "IDEA_MANAGEMENT.LABEL.DECLINED_NUMBER" | translate }}
+        </div>
+      </div>
+      <div class="status-info-number">
+        <div class="status-text1">{{ recordInfoDTO?.approveAwaitNumber }}</div>
+        <div class="status-text2">
+          {{ "IDEA_MANAGEMENT.LABEL.APPROVEAWAIT_NUMBER" | translate }}
+        </div>
+      </div>
+      <div class="status-info-number" style="border-right: #ffffff">
+        <div class="status-text1">{{ recordInfoDTO?.createdNumber }}</div>
+        <div class="status-text2">
+          {{ "IDEA_MANAGEMENT.LABEL.CREATED_NUMBER" | translate }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<label class="sort">
+  <input
+    class="sort-input"
+    [placeholder]="'IDEA_MANAGEMENT.PLACEHOLDER.SORT_IDEA' | translate"
+    [(ngModel)]="searchTerm"
+    (input)="onSearch()"
+    type="text"
+  />
+</label>
+<!--  <div  style="margin-top: 25px;margin-bottom: 10px;">
+    <input
+      style="width: 100%;border: none;border-bottom: 1px solid gray;box-sizing: border-box;outline: none;"
+      type="text"
+      [placeholder]="'IDEA_MANAGEMENT.PLACEHOLDER.SORT_IDEA' | translate"
+      [(ngModel)]="searchTerm"
+      (input)="onSearch()"
+      class="input-search-loan-list"
+    />
+  </div> -->
+<div class="idea">
+  <div
+    class="idea-box"
+    *ngIf="listIdea && listIdea.length > 0; else noRecord"
+  >
+    <div
+      *ngFor="let item of listIdea"
+      (click)="redirectTodDetail(item.ideaId)"
+      class="idea-flexbox"
+    >
+      <div class="idea-line1">
+        <div class="idea-line1-text1">{{ item.ideaName }}</div>
+        <div class="idea-line1-text2">
+          {{ item.createDatetime.slice(0, 11) }}
+        </div>
+      </div>
+      <div class="idea-line2">
+        <div class="idea-line2-text">
+          {{ "IDEA_MANAGEMENT.LABEL.UNIT" | translate }}:
+          {{ item.unitNames }}
+        </div>
+      </div>
+      <div class="idea-line3">
+        <div class="idea-line3-text1">
+          {{ "IDEA_MANAGEMENT.LABEL.SPECIALTY" | translate }}:
+          {{ item.specialtyName }}
+        </div>
+        <div class="idea-line3-textbox">
+          <span
+            statusColor
+            [statusColor]="item?.approveStatus"
+            class="idea-line3-text2"
+          >
+            {{ item?.approveStatusName }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #noRecord>
+    <span class="text-center">
+      {{ "VALIDATION.NO_RECORD_VALID" | translate }}
+    </span>
+  </ng-template>
+</div>
+<app-nav-menu></app-nav-menu>

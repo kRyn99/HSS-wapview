@@ -1,0 +1,51 @@
+<app-title-nav [title]="'TITLE.TRANS_DETAIL' | translate" backRoute="history/upoint-history-view"></app-title-nav>
+<div class="container margin-top-more">
+  <div class="cus-tb" *ngFor="let rowData of listTransactionDetail | async; let i = index" >
+    <div *ngIf="rowData.upointTransType === 1">
+      <div class="cus-row">
+        <div class="label-cus">{{ 'HISTORY.CARD_VALUE' | translate }}</div>
+        <div class="cus-right card-value">{{ rowData && rowData.upoint ? (rowData.upoint| number: '1.0':'en-US') : '' }} Kip</div>
+      </div>
+      <div class="cus-row">
+        <div class="label-cus">{{ 'HISTORY.UPOINT' | translate }}</div>
+        <div class="cus-right value-upoint">+ {{ rowData && rowData.upoint ? (rowData.upoint| number: '1.0':'en-US') : '' }} Upoint</div>
+      </div>
+    </div>
+    <div *ngIf="rowData.upointTransType === 2">
+      <div class="cus-row">
+        <div class="label-cus" *ngIf="rowData.type === 1">{{ 'HISTORY.USER_SEND' | translate }}</div>
+        <div class="label-cus" *ngIf="rowData.type === 2">{{ 'HISTORY.USER_TAKE' | translate }}</div>
+        <div class="cus-right content-cus" *ngIf="this.user.data && this.user.data.role === 'END_USER'">{{ rowData && rowData.merchantName ? rowData.merchantName : '' }}</div>
+        <div class="cus-right content-cus" *ngIf="this.user.data && this.user.data.role !== 'END_USER'">{{ rowData && rowData.custName ? rowData.custName : '' }}</div>
+      </div>
+      <div class="cus-row">
+        <div class="label-cus" *ngIf="rowData.type === 1">{{ 'HISTORY.PHONE_SEND' | translate }}</div>
+        <div class="label-cus" *ngIf="rowData.type === 2">{{ 'HISTORY.PHONE_TAKE' | translate }}</div>
+        <div class="cus-right content-cus" *ngIf="this.user.data && this.user.data.role === 'END_USER'">{{ rowData && rowData.merchantIsdn ? rowData.merchantIsdn : '' }}</div>
+        <div class="cus-right content-cus" *ngIf="this.user.data && this.user.data.role !== 'END_USER'">{{ rowData && rowData.custIsdn ? rowData.custIsdn : '' }}</div>
+      </div>
+      <div class="cus-row" *ngIf="this.user.data && this.user.data.role === 'END_USER'">
+        <div class="label-cus">{{ 'HISTORY.UPOINT_NUMBER' | translate }}</div>
+        <div class="cus-right take-upoint" *ngIf="rowData.type === 1">
+          {{ rowData && rowData.upoint ? "- " + (rowData.upoint| number: '1.0':'en-US') : (rowData.upoint == 0 ? '0' : '') }} Upoint</div>
+        <div class="cus-right value-upoint" *ngIf="rowData.type === 2">
+          {{ rowData && rowData.upoint ? "+ " + (rowData.upoint| number: '1.0':'en-US') : (rowData.upoint == 0 ? '0' : '') }} Upoint</div>
+      </div>
+      <div class="cus-row" *ngIf="this.user.data && this.user.data.role !== 'END_USER'">
+        <div class="label-cus">{{ 'HISTORY.UPOINT_NUMBER' | translate }}</div>
+        <div class="cus-right value-upoint" *ngIf="rowData.type === 1">
+          {{ rowData && rowData.upoint ? "+ " + (rowData.upoint| number: '1.0':'en-US') : (rowData.upoint == 0 ? '0' : '') }} Upoint</div>
+        <div class="cus-right take-upoint" *ngIf="rowData.type === 2">
+          {{ rowData && rowData.upoint ? "- " + (rowData.upoint| number: '1.0':'en-US') : (rowData.upoint == 0 ? '0' : '') }} Upoint</div>
+      </div>
+    </div>
+    <div class="cus-row">
+      <div class="label-cus">{{ 'HISTORY.TIME_TRANS' | translate }}</div>
+      <div class="cus-right content-cus">{{ rowData.createDatetime | date: 'dd/MM/yyyy HH:mm:ss' }}</div>
+    </div>
+    <div class="cus-row">
+      <div class="label-cus">{{ 'HISTORY.CONTENT' | translate }}</div>
+      <div class="cus-right content-cus">{{ rowData && rowData.notes ? rowData.notes : '' }}</div>
+    </div>
+  </div>
+</div>

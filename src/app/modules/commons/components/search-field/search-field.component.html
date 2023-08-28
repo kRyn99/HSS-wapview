@@ -1,0 +1,6 @@
+<div class="form-group form-group-custom mt-16">
+    <input class="form-control form-control-custom" [type]="type" [id]="name" [name]="name" [maxlength]="maxlength"
+        [placeholder]="placeholder" autocomplete="off" [ngModelOptions]="{standalone: true}" [(ngModel)]="value"
+        (ngModelChange)="onModelChange($event)">
+    <button type="button" class="btn bg-transparent search-btn float-right"><i class="fas fa-search"></i></button>
+</div>

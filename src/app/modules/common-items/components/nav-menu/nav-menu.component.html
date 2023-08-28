@@ -1,0 +1,26 @@
+<div class="nav-bar fixed-bottom background-transparent">
+    <div class="bottom-nav background-transparent">
+        <div class="center-btn" (click)="homeRoute()">
+            <img src="assets/img/icon/home button.svg">
+        </div>
+        <div class="nav-btn top-right-shadow">
+            <div class="top-right-invert-round-corner">
+                <div class="nav-icon" (click)="ideaRoute()">
+                    <img src="assets/img/icon/idea.svg" *ngIf="!(homeService.isIdeaChecked |async)">
+                    <img src="assets/img/icon/ideablue.svg" *ngIf="(homeService.isIdeaChecked |async)">         
+                    <div class="nav-icon-text" [ngClass]="(homeService.isIdeaChecked |async) ? 'active' : ''">{{'IDEA_MANAGEMENT.LABEL.IDEA' | translate}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="nav-btn top-left-shadow">
+            <div class="top-left-invert-round-corner">
+                <div class="nav-icon" (click)="contrivanceRoute()">
+                    <img src="assets/img/icon/write.svg" *ngIf="!(homeService.isContrivanceChecked | async)">
+                    <img src="assets/img/icon/writeblue.svg" *ngIf="(homeService.isContrivanceChecked | async)">
+
+                    <div class="nav-icon-text" [ngClass]="(homeService.isContrivanceChecked | async) ? 'active' : ''" >{{'CONTRIVANCE_MAMAGEMENT.TITLE.CONTRIVANCE' | translate}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

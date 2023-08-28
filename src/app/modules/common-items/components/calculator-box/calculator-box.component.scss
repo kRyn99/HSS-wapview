@@ -1,0 +1,249 @@
+.close-icon {
+  text-align: right;
+  font-size: 20px;
+  i{
+    margin-right: 10px;
+    margin-top: 10px;
+  }
+}
+
+.box-input {
+  margin: 10px 5px;
+
+  .input-calculator {
+    width: 100%;
+    height: 40px;
+    border: 3px solid black;
+  }
+}
+
+.cal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .line-1 {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin: 9px 0;
+  }
+
+  .line-2 {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+  }
+
+  .line-3 {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+  }
+
+  .line-45 {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    align-items: center;
+
+    .line-45-left {
+      width: 50%;
+      padding: 5px 0;
+
+      .line-4-left {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        padding: 5px 0;
+      }
+
+      .line-5-left {
+        text-align: center;
+        padding: 5px 5px 10px 5px;
+      }
+    }
+
+    .line-45-right {
+      width: 50%;
+      display: flex;
+      align-items: center;
+      align-content: space-between;
+      padding: 5px 0;
+      height: 100%;
+
+      .num-group {
+        width: 50%;
+        //padding: 5px 0;
+      }
+
+      .equal-box {
+        width: 50%;
+        padding: 5px;
+        //display: flex;
+      }
+
+    }
+  }
+}
+
+.container-item-4-left{
+  width: 50%;
+  padding: 0 5px;
+}
+
+.container-item-right{
+  height: 50%;
+  padding: 5px;
+}
+
+.container-item{
+  width: 25%;
+  padding: 0 5px;
+}
+
+.action-box{
+  //font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 36px;
+  color: #65C5FC;
+}
+
+.num-box{
+  //font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 36px;
+  color: #848484;
+}
+
+.action-bg{
+  background: #DADADA;
+}
+
+.num-bg{
+  background: #E9EDF0;
+}
+
+.box-style-normal{
+  box-shadow: -5px -5px 10px #FFFFFF, 5px 5px 12px rgba(0, 0, 0, 0.1), inset -3px -3px 10px rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+  padding: 15px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+
+//.container-calculator {
+//  display: grid;
+//  grid-template-columns: 1fr 1fr 1fr 1fr;
+//  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+//  grid-auto-rows: 1fr;
+//  gap: 8px 8px;
+//  grid-auto-flow: row;
+//  grid-template-areas:
+//    "AC multi divi del"
+//    "one two three sub"
+//    "four five six add"
+//    "seven eight nine equal"
+//    "tripleZero tripleZero zero equal";
+//  height: 40vh;
+//
+//  div {
+//    justify-self: center;
+//    align-self: center;
+//  }
+//}
+//
+//.AC {
+//  grid-area: AC;
+//}
+//
+//.multi {
+//  grid-area: multi;
+//}
+//
+//.divi {
+//  grid-area: divi;
+//}
+//
+//.del {
+//  grid-area: del;
+//}
+//
+//.one {
+//  grid-area: one;
+//}
+//
+//.two {
+//  grid-area: two;
+//}
+//
+//.three {
+//  grid-area: three;
+//}
+//
+//.sub {
+//  grid-area: sub;
+//}
+//
+//.four {
+//  grid-area: four;
+//}
+//
+//.five {
+//  grid-area: five;
+//}
+//
+//.six {
+//  grid-area: six;
+//}
+//
+//.add {
+//  grid-area: add;
+//}
+//
+//.seven {
+//  grid-area: seven;
+//}
+//
+//.eight {
+//  grid-area: eight;
+//}
+//
+//.nine {
+//  grid-area: nine;
+//}
+//
+//.equal {
+//  grid-area: equal;
+//}
+//
+//.tripleZero {
+//  grid-area: tripleZero;
+//}
+//
+//.zero {
+//  grid-area: zero;
+//}
+//
+//.container-calculator * {
+//  border: 1px solid red;
+//  position: relative;
+//}
+//
+//.container-calculator *:after {
+//  content:attr(class);
+//  position: absolute;
+//  top: 0;
+//  left: 0;
+//  width: 100%;
+//  height: 100%;
+//  display: grid;
+//  align-items: center;
+//  justify-content: center;
+//}

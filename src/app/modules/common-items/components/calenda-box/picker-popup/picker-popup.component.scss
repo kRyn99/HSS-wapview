@@ -1,0 +1,33 @@
+.btn-close , .btn-set{
+   width: 50%;
+   outline: none;
+   padding: 1rem;
+   border: none;
+   text-transform: uppercase;
+   font-weight: 900;
+}
+.btn-close{
+    background-color: #A6A6A6;
+    color: #ffffff;
+    border-radius: 0px 0px 0px 10px;
+}
+.btn-set{
+    float: right;
+    background-color: #F6601B;
+    color: #ffffff;
+    border-radius: 0px 0px 10px 0px;
+}
+
+.modal-header{
+    background-color: #F6601B;
+    padding: 0.5rem !important;
+    h4{ 
+        text-transform: uppercase;
+        color: #ffffff;
+        font-weight: 900;
+    }
+    .clear-btn{
+        font-size: 1.5rem;
+        color: #ffffff;;
+    }
+}

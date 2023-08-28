@@ -1,0 +1,18 @@
+<div class="card brand-card">
+  <div class="banner">
+    <img [src]="bannerUrl" alt="banner">
+  </div>
+  <img class="logo" [src]="logoUrl" [style]="logoStyle"/>
+  <div class="content">
+    <div class="text">
+      <div class="description">{{ description }}</div>
+      <div class="totalFollowers">{{ totalFollowers | number: '1.0-0' }}&nbsp;{{ 'END_USER.TOP_BRAND.FOLLOWER' | translate }}</div>
+    </div>
+    <div class="arrow">
+      <i
+        class="fas fa-chevron-right"
+        style="font-size: 15px;"
+      ></i>
+    </div>
+  </div>
+</div>
