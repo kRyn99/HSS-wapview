@@ -229,7 +229,7 @@ export class IdeaDetailComponent implements OnInit {
       { id: this.ideaId }
     );
     modalRefSuccess.componentInstance.closeIcon = false;
-    const url = `${environment.API_HOST_NAME}/api/request-approve-idea-cms`;
+    const url = `${environment.API_HOST_NAME}/api/request-approve-idea`;
     const headers = new HttpHeaders({
       "Accept-Language": this.lang,
       Authorization: `Bearer ` + this.token,
