@@ -46,8 +46,8 @@
   <input
     class="sort-input"
     [placeholder]="'IDEA_MANAGEMENT.PLACEHOLDER.SORT_IDEA' | translate"
-    [(ngModel)]="searchTerm"
-    (input)="onSearch()"
+    [(ngModel)]="searchAdvance"
+    #advanceSearch 
     type="text"
   />
 </label>
