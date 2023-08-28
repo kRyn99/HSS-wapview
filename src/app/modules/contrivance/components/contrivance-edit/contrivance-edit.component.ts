@@ -215,6 +215,9 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy{
           listUnitDTO: [[], Validators.required],
         })
       );
+    };
+    if (this.formUtils.control('checkBonus').value) {
+      this.changeCheckBonus(true);
     }
   }
 
@@ -290,14 +293,18 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy{
   changeCheckBonus(event) {
     let effectiveValue = this.formUtils.control("effectiveValue");
     let bonus = this.formUtils.control("bonus");
-    if (event.target.checked) {
+    if (event) {
       effectiveValue.setValue("");
       effectiveValue.clearValidators();
+      effectiveValue.disable();
       bonus.setValue("");
       bonus.clearValidators();
+      bonus.disable();
     } else {
       effectiveValue.setValidators(Validators.required);
+      effectiveValue.enable();
       bonus.setValidators(Validators.required);
+      bonus.enable();
     }
     effectiveValue.updateValueAndValidity();
     bonus.updateValueAndValidity();

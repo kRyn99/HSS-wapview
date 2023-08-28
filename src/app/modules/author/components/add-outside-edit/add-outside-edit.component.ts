@@ -75,7 +75,7 @@ export class AddOutsideEditComponent implements OnInit {
         this.selectedProfessionalQualification,
     };
     if (this.backRoute == "contrivance") {
-      this.contrivanceService.lstContributorDTOService.value.push(
+      this.contrivanceService.lstContributorDTOServiceOut.value.push(
         contributorDTO
       );
     } else {
