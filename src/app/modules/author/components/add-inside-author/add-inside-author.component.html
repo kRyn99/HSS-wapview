@@ -69,7 +69,10 @@
       />
     </div>
     <div class="info-box">
-      <div class="info-title">{{ "Ngày sinh" | translate }}</div>
+      <div class="info-title">{{ "Ngày sinh" | translate }}(<span
+        style="color: red"
+        >*</span
+      >)</div>
       <label class="date">
         <input
           [placeholder]=" (selectedStaffCodeSubject | async)?.birthday ||
