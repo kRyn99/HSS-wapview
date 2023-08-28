@@ -27,6 +27,7 @@ export class TitleNavComponent {
   @Input() endUserModel: any = null;
   @Input() styleText: string = '';
   @Input() applyWhenBack: boolean;
+  @Input() isBackHome: boolean;
   @Output() create = new EventEmitter<any>();
   @Output() action = new EventEmitter<any>();
   @Output() applyChange = new EventEmitter<any>();
@@ -40,16 +41,11 @@ export class TitleNavComponent {
   }
 
   handleBack() {
-    if (this.applyWhenBack) {
-      this.applyChange.emit();
-    } else if(this.shouldNavigateByUrl){
-      this.router.navigateByUrl(this.backRoute);
-    } else {
-      this.router.navigate([this.backRoute]);
-    }
-    
+    if(this.isBackHome){
     this.homeService.isIdeaChecked.next(false);
     this.homeService.isContrivanceChecked.next(false)
+    }
+    this.router.navigate([this.backRoute]);
   }
 
   handleCreate() {

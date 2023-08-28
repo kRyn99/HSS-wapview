@@ -6,31 +6,32 @@
 <div class="nation-brand">
   <div class="nation">
     <div class="nation-text align-self-stretch">
-      {{ "IDEA-DETAIL.LAO_PEOPLE'S_DEMOCRATIC_REPUBLIC" | translate }}
+      {{ "IDEA_MANAGEMENT.LABEL.TEXT_HEADER" | translate }}
     </div>
     <div class="nation-text">
-      {{ "IDEA-DETAIL.PEACE_INDEPENDENCE" | translate }}
+      {{ "IDEA_MANAGEMENT.LABEL.SUB_TEXT_HEADER" | translate }}
     </div>
   </div>
   <div class="line" style="width: 40%"></div>
   <div class="form">
     <div class="form-name">
-      {{ "IDEA-DETAIL.IDEA_REGISTRATION_FORM" | translate }}
+      {{ "IDEA_MANAGEMENT.LABEL.TEXT_FORM_HEADER" | translate }}
     </div>
     <div class="form-for">
-      {{ "IDEA-DETAIL.TO_STANDING_COMMITTEE" | translate }}
+      {{ "IDEA_MANAGEMENT.LABEL.SUB_TEXT_FORM_HEADER" | translate }}
     </div>
   </div>
 </div>
 <div class="line"></div>
 <div class="idea-form">
   <div class="header-text">
-    {{ "IDEA-DETAIL.EDIT.IDEA" | translate }} (<span class="required-mark"
-      >*</span
-    >)
+    1. {{ "IDEA_MANAGEMENT.LABEL.IDEA" | translate }}
   </div>
   <div class="input-form">
-    <div class="input-name">{{ "IDEA-DETAIL.EDIT.IDEA_NAME" | translate }}</div>
+    <div class="input-name">{{ "IDEA_MANAGEMENT.LABEL.IDEA_NAME" | translate }} (<span
+      style="color: red"
+      >*</span
+    >)</div>
     <input
       class="input-field"
       [value]="ideaNameValue"
@@ -40,8 +41,8 @@
   </div>
   <div class="input-form">
     <div class="input-name">
-      {{ "IDEA-DETAIL.EDIT.APPLY_FROM_DATE" | translate }} (<span
-        class="required-mark"
+      {{ "IDEA_MANAGEMENT.LABEL.DATE_APPLY_FROM" | translate }} (<span
+        style="color: red"
         >*</span
       >)
     </div>
@@ -65,8 +66,8 @@
   </div>
   <div class="input-form">
     <div class="input-name">
-      {{ "IDEA-DETAIL.EDIT.APPLY_TO_DATE" | translate }} (<span
-        class="required-mark"
+      {{ "IDEA_MANAGEMENT.LABEL.DATE_APPLY_TO" | translate }} (<span
+        style="color: red"
         >*</span
       >)
     </div>
@@ -90,8 +91,8 @@
   </div>
   <div class="input-form">
     <div class="input-name">
-      {{ "IDEA-DETAIL.EDIT.APPLYING_UNITS" | translate }} (<span
-        class="required-mark"
+      {{ "IDEA_MANAGEMENT.LABEL.UNIT_APPLY" | translate }} (<span
+        style="color: red"
         >*</span
       >)
     </div>
@@ -112,10 +113,7 @@
           </span>
         </ng-container>
         <ng-template #showDefaultText>
-          {{ "IDEA-DETAIL.EDIT.SELECT_APPLYING_UNITS" | translate }} (<span
-            class="required-mark"
-            >*</span
-          >)
+          {{ "IDEA_MANAGEMENT.PLACEHOLDER.SELECT_UNIT" | translate }}
         </ng-template>
       </button>
       <div class="dropdown-content" *ngIf="DataService.showDropdownEdit">
@@ -135,7 +133,8 @@
   </div>
   <div class="input-form">
     <div class="input-name">
-      {{ "IDEA-DETAIL.EDIT.FIELD" | translate }} (<span class="required-mark"
+      {{ "IDEA_MANAGEMENT.LABEL.SPECIALTY" | translate }} (<span
+        style="color: red"
         >*</span
       >)
     </div>
@@ -145,7 +144,7 @@
       (change)="onSelectSpecialtyChange()"
     >
       <option [ngValue]="null">
-        {{ "IDEA-DETAIL.EDIT.SELECT_FIELD" | translate }}
+        {{ "IDEA_MANAGEMENT.PLACEHOLDER.SELECT_SPECIALTY" | translate }}
       </option>
       <ng-container *ngFor="let item of listSpecialty">
         <option [value]="item.value">{{ item.name }}</option>
@@ -155,11 +154,11 @@
 </div>
 <div class="line"></div>
 <div class="idea-form">
-  <div class="header-text">{{ "IDEA-DETAIL.EDIT.AUTHOR" | translate }}</div>
+  <div class="header-text">2. {{ "IDEA_MANAGEMENT.LABEL.AUTHOR" | translate }}</div>
   <div class="input-form">
     <div class="input-name">
-      {{ "IDEA-DETAIL.EDIT.WITHIN_CORPORATION" | translate }} (<span
-        class="required-mark"
+      {{ "IDEA_MANAGEMENT.LABEL.IN_GROUP" | translate }} (<span
+        style="color: red"
         >*</span
       >)
     </div>
@@ -296,7 +295,7 @@
   </div>
   <div class="input-form">
     <div class="input-name">
-      {{ "IDEA-DETAIL.EDIT.OUTSIDE_CORPORATION" | translate }}
+      {{ "IDEA_MANAGEMENT.LABEL.OUT_GROUP" | translate }}
     </div>
     <table
       mat-table
@@ -438,12 +437,12 @@
 <div class="line"></div>
 <div class="idea-form">
   <div class="header-text">
-    {{ "IDEA-DETAIL.EDIT.IDEA_DESCRIPTION" | translate }}
+    3. {{ "IDEA_MANAGEMENT.LABEL.IDEA_DESCRIPTION" | translate }}
   </div>
   <div class="input-form">
     <div class="input-name">
-      {{ "IDEA-DETAIL.EDIT.STATUS_BEFORE" | translate }} (<span
-        class="required-mark"
+      3.1 {{ "IDEA_MANAGEMENT.LABEL.BEFORE_APPLY_STATUS" | translate }} (<span
+        style="color: red"
         >*</span
       >)
     </div>
@@ -459,8 +458,8 @@
   </div>
   <div class="input-form">
     <div class="input-name">
-      {{ "IDEA-DETAIL.EDIT.IDEA_CONTENT" | translate }} (<span
-        class="required-mark"
+      3.2 {{ "IDEA_MANAGEMENT.LABEL.IDEA_CONTENT" | translate }} (<span
+        style="color: red"
         >*</span
       >)
     </div>
@@ -476,8 +475,8 @@
   </div>
   <div class="input-form">
     <div class="input-name">
-      {{ "IDEA-DETAIL.EDIT.IDEA_APPLICATION_SCOPE" | translate }} (<span
-        class="required-mark"
+      3.3 {{ "IDEA_MANAGEMENT.LABEL.APPLY_RANGE" | translate }} (<span
+        style="color: red"
         >*</span
       >)
     </div>
@@ -492,8 +491,8 @@
   </div>
   <div class="input-form">
     <div class="input-name">
-      {{ "IDEA-DETAIL.EDIT.EFFECTIVENESS_OBTAINED" | translate }} (<span
-        class="required-mark"
+      3.4 {{ "IDEA_MANAGEMENT.LABEL.EFFECTIVENESS" | translate }} (<span
+        style="color: red"
         >*</span
       >)
     </div>
@@ -509,10 +508,10 @@
   </div>
   <div class="input-form">
     <div class="input-name">
-      {{ "IDEA-DETAIL.EDIT.NEXT_DEVELOPMENT_DIRECTION" | translate }} (<span
-        class="required-mark"
-        >*</span
-      >)
+      3.5 {{ "IDEA_MANAGEMENT.LABEL.NEXT_STEP" | translate }} (<span
+      style="color: red"
+      >*</span
+    >)
     </div>
     <textarea
       class="input-field"
@@ -525,7 +524,7 @@
     >
   </div>
   <div class="input-form">
-    <div class="input-name">{{ "IDEA-DETAIL.EDIT.NOTE" | translate }}</div>
+    <div class="input-name">3.6 {{ "IDEA_MANAGEMENT.LABEL.NOTE" | translate }}</div>
     <textarea
       class="input-field"
       style="height: 60px; padding-top: 5px"
@@ -540,7 +539,7 @@
 <div class="line"></div>
 <div class="idea-form">
   <div class="header-text">
-    {{ "IDEA-DETAIL.EDIT.ATTACHED_DOCUMENTS" | translate }}
+    4. {{ "IDEA_MANAGEMENT.LABEL.DOCUMENTS" | translate }}
   </div>
 
   <div class="file">
@@ -548,16 +547,14 @@
       <p style="text-align: center" class="font-weight-bolder">
         {{ documentDTO?.name }}
       </p>
-      {{ "IDEA-DETAIL.EDIT.DRAG_AND_DROP" | translate }}
     </div>
-    <div class="file-text">{{ "IDEA-DETAIL.EDIT.OR" | translate }}</div>
     <div
       class="upload-file"
       (click)="selectAvatar.value = ''; selectAvatar.click()"
     >
       <img src="assets/img/icon/add file.svg" alt="ic_camera" />
       <div class="upload-label">
-        {{ "IDEA-DETAIL.EDIT.CHOOSE_FILE" | translate }}
+        {{ "IDEA_MANAGEMENT.BUTTON.CHOOSE_FILE" | translate }}
       </div>
     </div>
     <input
@@ -567,15 +564,14 @@
       #selectAvatar
     />
     <span
-      >{{"IDEA-DETAIL.EDIT.FILE_TYPE"| translate }}
+      >{{ "IDEA_MANAGEMENT.LABEL.FILE_TYPE" | translate }}:
       <b>{{
         " .txt, .doc, .docx, .rar, .zip, .xls, .xlsx, .pdf, .jpg, .gif, .png, .ppt, .pptx."
           | translate
       }}</b>
     </span>
     <span
-      >{{ "IDEA-DETAIL.EDIT.MAXIMUM_FILE_SIZE" | translate
-      }}{{ "25 MB" | translate }}</span
+      >{{ "IDEA_MANAGEMENT.LABEL.MAX_STORAGE" | translate }}:<b>{{ "25 MB" | translate }}</b></span
     >
   </div>
 </div>
@@ -583,7 +579,7 @@
   <div (click)="duplicationCheck()" class="btn1">
     <img src="assets/img/icon/task check.svg" />
     <div class="btn1-text">
-      {{ "IDEA-DETAIL.EDIT.CHECK_FOR_DUPLICATES" | translate }}
+      {{ "IDEA_MANAGEMENT.BUTTON.DUPLICATION_CHECK" | translate }}
     </div>
   </div>
   <div (click)="deleteIdea()" class="btn2">

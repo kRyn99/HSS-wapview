@@ -428,7 +428,8 @@
       "DOWNLOAD_FILE": "ໂຫຼດໄຟລ",
       "CHOOSE_DOCUMENT": "ເລືອກໄຟລ",
       "DONE": "ສົມບູນ",
-      "RELOAD_LIST": "ໂຫຼດລາຍການອີກຄັ້ງ"
+      "RELOAD_LIST": "ໂຫຼດລາຍການອີກຄັ້ງ",
+      "SEND_REQUEST_EVALUATE": "Gửi yêu cầu thẩm định"
     },
     "STATUS": {
       "REJECTED": "ຖືກປະຕິເສດ",
@@ -918,5 +919,7 @@
       "TEMPORARY_BONUS": "Temporary bonus: ",
       "ATTACHED_DOCUMENTS": "Attached documents: "
     }
-  }
+  },
+  "SEE_MORE": "Xem thêm",
+  "SEE_LESS": "Thu gọn"
 }

@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { environment } from "@env/environment";
@@ -7,6 +13,7 @@ import { fromEvent } from "rxjs/internal/observable/fromEvent";
 import { debounceTime, map, switchMap } from "rxjs/operators";
 import { ContrivanceService } from "@app/shared/service/contrivance.service";
 import { ContrivanceDTO } from "@app/modules/contrivance/common/contrivanceDTO";
+import { HomepageService } from "@app/modules/home/shared/service/homepage.service";
 
 @Component({
   selector: "app-idea-list",
@@ -16,12 +23,14 @@ import { ContrivanceDTO } from "@app/modules/contrivance/common/contrivanceDTO";
 export class IdeaListComponent implements OnInit {
   contrivanceDTO: ContrivanceDTO;
   @ViewChild("advanceSearch") advanceSearch: ElementRef;
+  searchAdvance: string = "";
 
   constructor(
     private router: Router,
     private http: HttpClient,
     public DataService: DataService,
     private contrivanceService: ContrivanceService,
+    public homeService: HomepageService
   ) {}
   token = JSON.parse(localStorage.getItem("tokenInLocalStorage"));
   ngOnInit() {
@@ -89,6 +98,11 @@ export class IdeaListComponent implements OnInit {
 
     this.router.navigate(["idea/register"]);
   }
+/* 
+  handleBack() {
+    this.homeService.isIdeaChecked.next(false);
+    this.homeService.isContrivanceChecked.next(false)
+  } */
 
   ngAfterViewInit() {
     fromEvent(this.advanceSearch.nativeElement, "input")
@@ -96,14 +110,11 @@ export class IdeaListComponent implements OnInit {
         debounceTime(500),
         map((e: InputEvent) => (e.target as HTMLInputElement).value),
         switchMap((value) =>
-          this.contrivanceService.callApiCommon(
-            "get-list-idea-advance",
-            {
-              ideaDTO: {
-                input: value,
-              }
-            }
-          )
+          this.contrivanceService.callApiCommon("get-list-idea-advance", {
+            ideaDTO: {
+              input: value,
+            },
+          })
         )
       )
       .subscribe((res) => {
@@ -112,4 +123,3 @@ export class IdeaListComponent implements OnInit {
       });
   }
 }
-
