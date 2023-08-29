@@ -1,5 +1,5 @@
 <app-title-nav
-  [title]="'IDEA-DETAIL.IDEA_DETAILS' | translate"
+  [title]="'IDEA_MANAGEMENT.TITLE.IDEA_DETAILS' | translate"
   [backRoute]="backRoute"
   [createRouteEdit]="canEdit ? 'edit' : null"
   (create)="goToEdit()"
@@ -8,19 +8,19 @@
 <div class="nation-brand">
   <div class="nation">
     <div class="nation-text align-self-stretch">
-      {{ "IDEA-DETAIL.LAO_PEOPLE'S_DEMOCRATIC_REPUBLIC" | translate }}
+      {{ "IDEA_MANAGEMENT.LABEL.TEXT_HEADER" | translate }}
     </div>
     <div class="nation-text">
-      {{ "IDEA-DETAIL.PEACE_INDEPENDENCE" | translate }}
+      {{ "IDEA_MANAGEMENT.LABEL.SUB_TEXT_HEADER" | translate }}
     </div>
   </div>
   <div class="line" style="width: 40%"></div>
   <div class="form">
     <div class="form-name">
-      {{ "IDEA-DETAIL.IDEA_REGISTRATION_FORM" | translate }}
+      {{ "IDEA_MANAGEMENT.LABEL.TEXT_FORM_HEADER" | translate }}
     </div>
     <div class="form-for">
-      {{ "IDEA-DETAIL.TO_STANDING_COMMITTEE" | translate }}
+      {{ "IDEA_MANAGEMENT.LABEL.SUB_TEXT_FORM_HEADER" | translate }}
     </div>
   </div>
 </div>
@@ -28,30 +28,30 @@
 <div class="info-panel">
   <div class="info-text">
     <span
-      >{{ "IDEA-DETAIL.IDEA_NAME" | translate }}
+      >{{'IDEA_MANAGEMENT.LABEL.IDEA_NAME' | translate}}:
       <b>{{ ideaDetail?.ideaName }}</b>
     </span>
   </div>
   <div class="info-text">
     <span
-      >{{ "IDEA-DETAIL.APPLICATION_PERIOD" | translate }}
+      >{{ "IDEA_MANAGEMENT.LABEL.APPLY_TIME" | translate }}:
       <b>{{ ideaDetail?.applyStartTime }} - {{ ideaDetail?.applyEndTime }}</b>
     </span>
   </div>
   <div class="info-text">
     <span
-      >{{ "IDEA-DETAIL.APPLYING_UNIT" | translate }}
+      >{{ "IDEA_MANAGEMENT.LABEL.UNIT_APPLY" | translate }}:
       <b>{{ ideaDetail?.unitNames }}</b>
     </span>
   </div>
   <div class="info-text">
     <span
-      >{{ "IDEA-DETAIL.FIELD" | translate }}
+      >{{ "IDEA_MANAGEMENT.LABEL.SPECIALTY" | translate }}:
       <b>{{ ideaDetail?.specialtyName }}</b>
     </span>
   </div>
   <div class="info-text">
-    <span>{{ "IDEA-DETAIL.STATUS" | translate }}</span>
+    <span>{{ "IDEA_MANAGEMENT.LABEL.STATUS" | translate }}:</span>
     <div class="info-status">
       <app-status-color *ngIf="ideaDetail" [status]="ideaDetail.approveStatus"></app-status-color>
     </div>
@@ -261,40 +261,40 @@
   </table>
 </div>
 <div class="info-panel">
-  <span>{{ "IDEA-DETAIL.STATUS_BEFORE" | translate }}</span>
+  <span>{{ "IDEA_MANAGEMENT.LABEL.BEFORE_APPLY_STATUS" | translate }}:</span>
   <span
     ><b>{{ ideaDetail?.beforeApplyStatus }} </b></span
   >
-  <span>{{ "IDEA-DETAIL.IDEA_CONTENT" | translate }}</span>
+  <span>{{ "IDEA_MANAGEMENT.LABEL.IDEA_CONTENT" | translate }}:</span>
   <span
     ><b>{{ ideaDetail?.content }} </b>
   </span>
-  <span>{{ "IDEA-DETAIL.SCOPE_OF_IDEA" | translate }}</span>
+  <span>{{ "IDEA_MANAGEMENT.LABEL.APPLY_RANGE" | translate }}:</span>
   <span
     ><b>{{ ideaDetail?.applyRange }}</b></span
   >
-  <span>{{ "IDEA-DETAIL.ACHIEVED_EFFECTIVENESS" | translate }}</span>
+  <span>{{ "IDEA_MANAGEMENT.LABEL.EFFECTIVENESS" | translate }}:</span>
   <span
     ><b>{{ ideaDetail?.effectiveness }}</b></span
   >
-  <span>{{ "IDEA-DETAIL.NEXT_DEVELOPMENT_DIRECTION" | translate }}</span>
+  <span>{{ "IDEA_MANAGEMENT.LABEL.NEXT_STEP" | translate }}:</span>
   <span
     ><b>{{ ideaDetail?.nextStep }}</b></span
   >
-  <span>{{ "IDEA-DETAIL.NOTE" | translate }}</span>
+  <span>{{ "IDEA_MANAGEMENT.LABEL.NOTE" | translate }}:</span>
   <span
     ><b>{{ ideaDetail?.note }}</b></span
   >
-  <span>{{ "IDEA-DETAIL.ATTACHED_DOCUMENTS" | translate }}</span>
+  <span>{{ "IDEA_MANAGEMENT.LABEL.DOCUMENTS" | translate }}:</span>
   <span
-    ><b>{{ documentDTO?.name }}</b></span
+    ><b>{{ documentDTO?.name ? documentDTO?.name : ('CONTRIVANCE.DETAIL.DOCUMENTS_NOT_EXIST' | translate) }}</b></span
   >
 </div>
 <div *ngIf="documentDTO?.name != ''" (click)="handleFileDownload()" class="file">
   <div class="upload-file">
     <img src="assets/img/icon/download.svg" alt="ic_camera" />
     <div class="upload-label">
-      {{ "IDEA-DETAIL.DOWNLOAD_FILE" | translate }}
+      {{ "IDEA_MANAGEMENT.BUTTON.DOWNLOAD_FILE" | translate }}
     </div>
   </div>
 </div>

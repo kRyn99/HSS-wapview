@@ -858,7 +858,7 @@
     "DOWNLOAD_FILE": "Tải File",
     "IDEA_REGISTRATION_FORM": "đơn đăng kí ý tưởng",
     "EDIT": {
-      "EDIT_IDEA_DETAILS": "Sửa chi tiết ý tưởng",
+      "EDIT_IDEA_DETAILS": "Sửa thông tin ý tưởng",
       "IDEA_NAME": "Tên ý tưởng",
       "IDEA": "1. Ý tưởng",
       "SELECT_APPLYING_UNITS": "Chọn đơn vị áp dụng",
@@ -917,9 +917,20 @@
       "APPLICABILITY": "Khả năng áp dụng: ",
       "CREATIVE_POINTS": "Điểm mới, điểm sáng tạo của sáng kiến: ",
       "EXPECTED_EFFECT": "Hiệu quả dự kiến: ",
-      "PROFIT_AMOUNT": "Số tiền làm lợi",
+      "PROFIT_AMOUNT": "Số tiền làm lợi: ",
       "TEMPORARY_BONUS": "Tiền thưởng tạm tính: ",
-      "ATTACHED_DOCUMENTS": "Tài liệu kèm theo: "
+      "ATTACHED_DOCUMENTS": "Tài liệu kèm theo: ",
+      "CANNOT_CALCULATED": "Không tính được",
+      "DOCUMENTS_NOT_EXIST": "Không có tài liệu kèm theo"
     }
-  }
+  },
+  "SEE_MORE": "Xem thêm",
+  "SEE_LESS": "Thu gọn",
+  "ADD_AUTHOR_IN_GROUP":"Thêm tác giả trong tập đoàn",
+  "ADD_AUTHOR_OUTSIDE_GROUP": "Thêm tác giả ngoài tập đoàn",
+  "EDIT_AUTHOR_IN_GROUP":"Sửa tác giả trong tập đoàn",
+  "EDIT_AUTHOR_OUTSIDE_GROUP":"Sửa tác giả ngoài tập đoàn",
+  "CHOOSE_AUTHOR_NAME": "Chọn tên tác giả",
+  "STAFF_CODE_NOT_EXIST": "Mã nhân viên không tồn tại"
+
 }

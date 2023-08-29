@@ -268,11 +268,11 @@
     <span>{{'CONTRIVANCE.DETAIL.EXPECTED_EFFECT' | translate}}</span>
     <span><b>{{contrivanceData?.effectiveness}}</b></span>
     <span>{{'CONTRIVANCE.DETAIL.PROFIT_AMOUNT' | translate}}</span>
-    <span><b>{{contrivanceData?.effectiveValue}}</b></span>
+    <span><b>{{contrivanceData?.effectiveValue ? contrivanceData?.effectiveValue : ('CONTRIVANCE.DETAIL.CANNOT_CALCULATED' | translate)}}</b></span>
     <span>{{'CONTRIVANCE.DETAIL.TEMPORARY_BONUS' | translate}}</span>
-    <span><b>{{contrivanceData?.bonus}}</b></span>
+    <span><b>{{contrivanceData?.bonus ? contrivanceData?.bonus : ('CONTRIVANCE.DETAIL.CANNOT_CALCULATED' | translate)}}</b></span>
     <span>{{'CONTRIVANCE.DETAIL.ATTACHED_DOCUMENTS' | translate}}</span>
-    <span><b>{{documentDTO?.name}}</b></span>
+    <span><b>{{documentDTO?.name ? documentDTO?.name : ('CONTRIVANCE.DETAIL.DOCUMENTS_NOT_EXIST' | translate)}}</b></span>
 </div>
 <div *ngIf="documentDTO?.name != ''" (click)="handleFileDownload()" class="file">
     <div class="upload-file">

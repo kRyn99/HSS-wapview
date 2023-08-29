@@ -15,6 +15,7 @@ import { MessagePopupComponent } from "@app/modules/common-items/components/mess
 import { environment } from "@env/environment";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { DataService } from "../../../../shared/service/data.service";
+import { HomepageService } from "@app/modules/home/shared/service/homepage.service";
 interface IdeaDetail {
   ideaId: number;
   ideaName: string;
@@ -61,7 +62,7 @@ export class IdeaDetailComponent implements OnInit {
   expandedElement: PeriodicElement | null;
   ideaId = JSON.parse(localStorage.getItem("ideaIdInLocalStorage"));
   token = JSON.parse(localStorage.getItem("tokenInLocalStorage"));
-  backToPage = "home/homepage";
+  backToPage = "idea/list";
 
   constructor(
     private bsLocaleService: BsLocaleService,
@@ -70,7 +71,8 @@ export class IdeaDetailComponent implements OnInit {
     private translateService: TranslateService,
     private http: HttpClient,
     public DataService: DataService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public homeService: HomepageService
   ) {}
   onSelectFile(event: any) {
     if (event.target.files && event.target.files.length > 0) {

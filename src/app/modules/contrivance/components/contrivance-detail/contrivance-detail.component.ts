@@ -80,7 +80,7 @@ export class ContrivanceDetailComponent implements OnInit, OnDestroy {
   shouldNavigateByUrl = false;
   objectId: string;
   canEdit: boolean = false;
-  backToPage='home/homepage';
+  backToPage='contrivance/list';
   constructor(
     private route: ActivatedRoute,
     private bsLocaleService: BsLocaleService,
@@ -237,7 +237,7 @@ export class ContrivanceDetailComponent implements OnInit, OnDestroy {
           },
         };
         this.contrivanceService
-          .callApiCommon("request-approve-contrivance-cms", request)
+          .callApiCommon("request-approve-contrivance", request)
           .subscribe(
             (res) => {
               if (res && res.errorCode === "0") {                
