@@ -856,7 +856,7 @@
     "DOWNLOAD_FILE": "Tải File",
     "IDEA_REGISTRATION_FORM": "đơn đăng kí ý tưởng",
     "EDIT": {
-      "EDIT_IDEA_DETAILS": "Sửa chi tiết ý tưởng",
+      "EDIT_IDEA_DETAILS": "Sửa thông tin ý tưởng",
       "IDEA_NAME": "Tên ý tưởng",
       "IDEA": "1. Ý tưởng",
       "SELECT_APPLYING_UNITS": "Chọn đơn vị áp dụng",
@@ -921,5 +921,7 @@
       "CANNOT_CALCULATED": "Không tính được",
       "DOCUMENTS_NOT_EXIST": "Không có tài liệu kèm theo"
     }
-  }
+  },
+  "SEE_MORE": "Xem thêm",
+  "SEE_LESS": "Thu gọn"
 }
