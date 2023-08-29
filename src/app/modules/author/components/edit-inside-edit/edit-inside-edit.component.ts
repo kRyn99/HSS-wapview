@@ -8,6 +8,7 @@ import { environment } from '@env/environment';
 import { BehaviorSubject } from 'rxjs';
 import { MessagePopupComponent } from '@app/modules/common-items/components/message-popup/message-popup.component';
 import { ContrivanceService } from '@app/shared/service/contrivance.service';
+import { NgSelectConfig } from '@ng-select/ng-select';
 
 
 
@@ -20,6 +21,7 @@ export class EditInsideEditComponent implements OnInit {
 
     contributorDTO: any;
     constructor(
+        private config: NgSelectConfig,
         private http: HttpClient,
         private route: ActivatedRoute,
         public DataService: DataService,
@@ -27,7 +29,11 @@ export class EditInsideEditComponent implements OnInit {
         private modalService: NgbModal,
         private translateService: TranslateService,
         public contrivanceService: ContrivanceService
-    ) { }
+    ) { 
+        this.config.notFoundText = this.translateService.instant(`STAFF_CODE_NOT_EXIST`);
+        this.config.appendTo = "body";
+        this.config.bindValue = "value";
+    }
     token = JSON.parse(localStorage.getItem("tokenInLocalStorage"));
     ngOnInit() {
         console.log(this.DataService.lstContributorDTOServiceEdit.value);

@@ -42,7 +42,7 @@ export class AddInsideEditComponent implements OnInit {
     public contrivanceService: ContrivanceService,
     private route: ActivatedRoute
   ) {
-    this.config.notFoundText = "Mã nhân viên không tồn tại";
+    this.config.notFoundText = this.translateService.instant(`STAFF_CODE_NOT_EXIST`);
     this.config.appendTo = "body";
 
     this.config.bindValue = "value";

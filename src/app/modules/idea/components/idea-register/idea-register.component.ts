@@ -609,24 +609,22 @@ export class IdeaRegisterComponent implements OnInit {
       this.validateTemplate()
       return false;
     }
-    if (this.selectedEndDate === undefined || this.selectedEndDate === null  ||
-      (this.isEndDateTouched && !this.selectedEndDate)) {
-      const modalRef = this.modalService.open(MessagePopupComponent, {
-        size: "sm",
-        backdrop: "static",
-        keyboard: false,
-        centered: true,
-      });
-      modalRef.componentInstance.type = "fail";
-      modalRef.componentInstance.title = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.ERROR`
-      );
-      modalRef.componentInstance.message = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.EMPTY_END_DATE`
-      );
-      modalRef.componentInstance.closeIcon = false;
-      this.validateTemplate()
-      return false;
+    if (this.selectedEndDate === undefined || this.selectedEndDate === null) {
+      // const modalRef = this.modalService.open(MessagePopupComponent, {
+      //   size: "sm",
+      //   backdrop: "static",
+      //   keyboard: false,
+      //   centered: true,
+      // });
+      // modalRef.componentInstance.type = "fail";
+      // modalRef.componentInstance.title = this.translateService.instant(
+      //   `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+      // );
+      // modalRef.componentInstance.message = this.translateService.instant(
+      //   `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+      // );
+      // modalRef.componentInstance.closeIcon = false;
+      // return false;
     }
     if (
       this.selectedUnitValue === undefined ||

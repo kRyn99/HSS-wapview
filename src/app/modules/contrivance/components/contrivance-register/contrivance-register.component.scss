@@ -16,7 +16,7 @@
     .nation-text {
       color: #000;
       text-align: center;
-      font-family: Inter;
+      //font-family: Inter;
       font-size: 12px;
       font-style: normal;
       font-weight: 400;
@@ -31,7 +31,7 @@
     .form-name {
       color: #000;
       text-align: center;
-      font-family: Inter;
+      //font-family: Inter;
       font-size: 22px;
       font-style: normal;
       font-weight: 700;
@@ -41,7 +41,7 @@
     .form-for {
       color: #000;
       text-align: center;
-      font-family: Inter;
+      //font-family: Inter;
       font-size: 12px;
       font-style: normal;
       font-weight: 400;
@@ -67,7 +67,7 @@
   width: 100%;
   .header-text {
     color: #000;
-    font-family: Inter;
+    //font-family: Inter;
     font-size: 12px;
     font-style: normal;
     font-weight: 700;
@@ -82,7 +82,7 @@
     .input-name {
       color: #000;
 
-      font-family: Inter;
+      //font-family: Inter;
       font-size: 12px;
       font-style: normal;
       font-weight: 400;
@@ -114,7 +114,7 @@
 .file {
   display: flex;
   width: 100%;
-  padding: 10px 20px;
+  padding: 10px;
   flex-direction: column;
   align-items: center;
   gap: 10px;
@@ -122,7 +122,7 @@
   background: rgba(188, 188, 188, 0.2);
   .file-text {
     color: #000;
-    font-family: Inter;
+    //font-family: Inter;
     font-size: 12px;
     font-style: normal;
     font-weight: 400;
@@ -139,7 +139,7 @@
     background: var(--bg-wap-orange, #ee4019);
     .upload-label {
       color: var(--text-white, #fff);
-      font-family: Inter;
+      //font-family: Inter;
       font-size: 10px;
       font-style: normal;
       font-weight: 600;
@@ -170,7 +170,7 @@
     .btn1-text {
       color: #585858;
       text-align: center;
-      font-family: Inter;
+      //font-family: Inter;
       font-size: 10px;
       font-style: normal;
       font-weight: 700;
@@ -190,7 +190,7 @@
     .btn2-text {
       color: #ffffff;
       text-align: center;
-      font-family: Inter;
+      //font-family: Inter;
       font-size: 10px;
       font-style: normal;
       font-weight: 700;
@@ -245,7 +245,7 @@ tr.example-element-row:not(.example-expanded-row):active {
 .th-text > span {
   color: #000;
   text-align: center;
-  font-family: Inter;
+  //font-family: Inter;
   font-size: 12px;
   font-style: normal;
   font-weight: 700;
@@ -253,7 +253,7 @@ tr.example-element-row:not(.example-expanded-row):active {
 }
 .required-mark {
   color: #ff0000;
-  font-family: Inter;
+  //font-family: Inter;
   font-size: 12px;
   font-style: normal;
   font-weight: 700;
@@ -277,4 +277,7 @@ tr.example-element-row:not(.example-expanded-row):active {
   width: 100%;
   border-radius: 10px !important;
   justify-content: center;
+}
+.fs-075{
+  font-size: 0.75rem !important;
 }

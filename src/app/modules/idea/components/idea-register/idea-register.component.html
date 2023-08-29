@@ -78,10 +78,7 @@
   
   <div class="input-form">
     <div class="input-name">
-      {{ "IDEA_MANAGEMENT.LABEL.DATE_APPLY_TO" | translate }} (<span
-        style="color: red"
-        >*</span
-      >)
+      {{ "IDEA_MANAGEMENT.LABEL.DATE_APPLY_TO" | translate }}
     </div>
     <label class="date">
       <input
@@ -110,7 +107,7 @@
       {{ "IDEA_MANAGEMENT.LABEL.UNIT_APPLY" | translate }} (<span
         style="color: red"
         >*</span
-      >):
+      >)
     </div>
     <div style="width: 100%" class="dropdown">
       <button
@@ -317,6 +314,7 @@
     </table>
     <button (click)="AddInsideAuthor()" class="btn btn-success btn-idea-action mt-2">
       <img src="assets/img/icon/plus.svg"  />
+      {{ "ACTION.ADD" | translate }}
     </button>
   </div>
   <div class="input-form">
@@ -452,6 +450,7 @@
     </table>
     <button (click)="AddOutsideAuthor()" class="btn btn-success btn-idea-action mt-2">
       <img src="assets/img/icon/plus.svg"  />
+      {{ "ACTION.ADD" | translate }}
       
     </button>
   </div>
@@ -586,9 +585,9 @@
   <div class="header-text">
     4. {{ "IDEA_MANAGEMENT.LABEL.DOCUMENTS" | translate }}
   </div>
-  <div class="file">
+  <div class="file text-center">
     <div class="file-text">
-      <p style="text-align: center" class="font-weight-bolder">
+      <p style="text-align: center" class="font-weight-bolder fs-075">
         {{ DataService.file.value.name }}
       </p>
     </div>
@@ -607,18 +606,18 @@
       style="display: none"
       #selectAvatar
     />
-    <span>
+    <span class="fs-075">
       {{ "IDEA_MANAGEMENT.LABEL.FILE_TYPE" | translate }}:
-      <b>
+      <b class="fs-075">
         {{
           " .txt, .doc, .docx, .rar, .zip, .xls, .xlsx, .pdf, .jpg, .gif, .png, .ppt, .pptx."
             | translate
         }}
       </b>
     </span>
-    <span>
+    <span class="fs-075">
       {{ "IDEA_MANAGEMENT.LABEL.MAX_STORAGE" | translate }}:
-      <b>{{ "25 MB" | translate }}</b>
+      <b class="fs-075">{{ "25 MB" | translate }}</b>
     </span>
   </div>
 </div>
