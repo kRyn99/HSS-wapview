@@ -537,7 +537,7 @@ export class IdeaEditComponent implements OnInit {
       modalRef.componentInstance.closeIcon = false;
       return false;
     }
-    if (endDate === undefined || endDate === null) {
+    // if (endDate === undefined || endDate === null) {
       // const modalRef = this.modalService.open(MessagePopupComponent, {
       //   size: "sm",
       //   backdrop: "static",
@@ -553,7 +553,7 @@ export class IdeaEditComponent implements OnInit {
       // );
       // modalRef.componentInstance.closeIcon = false;
       // return false;
-    }
+    // }
     if (
       this.selectedUnitValue === undefined ||
       this.selectedUnitValue === null ||

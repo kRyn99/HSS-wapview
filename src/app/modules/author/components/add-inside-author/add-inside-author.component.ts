@@ -91,7 +91,7 @@ export class AddInsideAuthorComponent implements OnInit {
   onSelectedStaffCodeChange(value: any) {
     this.setSelectedStaffCode(value);
     this.isInputTouched = true;
-    this.phoneNumber = this.selectedStaffCodeSubject.value.phoneNumber;
+    this.phoneNumber = this.selectedStaffCodeSubject.value?.phoneNumber;
     this.email = this.selectedStaffCodeSubject.value.email;
 
     this.birthday = this.selectedStaffCodeSubject.value.birthday
