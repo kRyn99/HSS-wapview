@@ -1,10 +1,11 @@
 <app-title-nav
-  [title]="'Sửa tác giả trong tập đoàn' | translate"
+  [title]="'EDIT_AUTHOR_IN_GROUP' | translate"
   [backRoute]="backRoute + '/edit'"
 >
 </app-title-nav>
 <div class="body">
   <div class="info-box">
+    <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.STAFF_CODE" | translate }}(<span style="color: red">*</span>)</div>
     <ng-select
       [items]="listStaff"
       bindLabel="staffCode"
@@ -14,20 +15,20 @@
     ></ng-select>
   </div>
   <div class="info-box">
-    <div class="info-title">{{ "Họ và tên" | translate }}</div>
+    <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.FULL_NAME" | translate }}</div>
     <input
       class="info-input"
-      [placeholder]="'Họ và tên' | translate"
+      [placeholder]="'MANAGE_CATEGORY.PLACEHOLDER.FULL_NAME' | translate"
       style="background-color: #f3f3f3"
       [(ngModel)]="contributorDTO.fullName"
       [readonly]="true"
     />
   </div>
   <div class="info-box">
-    <div class="info-title">{{ "% đóng góp (*)" | translate }}</div>
+    <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.CONTRIBUTE_PERCENT" | translate }}(<span style="color:red">*</span>)</div>
     <input
       class="info-input"
-      [placeholder]="'Nhập % đóng góp của tác giả' | translate"
+      [placeholder]="'percentage' | translate"
       [(ngModel)]="contributorDTO.percentage"
       maxlength="3"
       NumbersOnly
@@ -36,25 +37,25 @@
     />
   </div>
   <div class="info-box">
-    <div class="info-title">{{ "Số điện thoại  (*)" | translate }}</div>
+    <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.PHONE" | translate }}(<span style="color:red">*</span>)</div>
     <input
       class="info-input"
-      [placeholder]="'Nhập số điện thoại' | translate"
+      [placeholder]="'MANAGE_CATEGORY.PLACEHOLDER.PHONE_NUMBER' | translate"
       [(ngModel)]="contributorDTO.phoneNumber"
       NumbersOnly
       maxlength="12"
     />
   </div>
   <div class="info-box">
-    <div class="info-title">{{ "Email" | translate }}</div>
+    <div class="info-title">{{ "CONTRIVANCE_MAMAGEMENT.LABEL.EMAIL" | translate }}</div>
     <input
       class="info-input"
-      [placeholder]="'Nhập email' | translate"
+      [placeholder]="'MANAGE_CATEGORY.PLACEHOLDER.EMAIL' | translate"
       [(ngModel)]="contributorDTO.email"
     />
   </div>
   <div class="info-box">
-    <div class="info-title">{{ "Ngày sinh" | translate }}</div>
+    <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH" | translate }}(<span style="color: red">*</span>)</div>
     <label class="date">
       <input
         [placeholder]="'dd/mm/yyyy'"
@@ -73,30 +74,30 @@
     </label>
   </div>
   <div class="info-box">
-    <div class="info-title">{{ "Nơi công tác" | translate }}</div>
+    <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.WORK_PLACE" | translate }}</div>
     <input
       class="info-input"
-      [placeholder]="'Nơi công tác' | translate"
+      [placeholder]="'MANAGE_CATEGORY.PLACEHOLDER.WORK_PLACE' | translate"
       [(ngModel)]="contributorDTO.jobAddress"
       style="background-color: #f3f3f3"
       [readonly]="true"
     />
   </div>
   <div class="info-box">
-    <div class="info-title">{{ "Chức vụ" | translate }}</div>
+    <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.OFFICE" | translate }}</div>
     <input
       class="info-input"
-      [placeholder]="'Chức vụ' | translate"
+      [placeholder]="'MANAGE_CATEGORY.PLACEHOLDER.POSITION' | translate"
       [(ngModel)]="contributorDTO.jobPosition"
       style="background-color: #f3f3f3"
       [readonly]="true"
     />
   </div>
   <div class="info-box">
-    <div class="info-title">{{ "Trình độ chuyên môn" | translate }}</div>
+    <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.QUALIFICATION" | translate }}</div>
     <input
       class="info-input"
-      [placeholder]="'Trình độ chuyên môn' | translate"
+      [placeholder]="'MANAGE_CATEGORY.PLACEHOLDER.QUALIFICATION' | translate"
       [(ngModel)]="contributorDTO.professionalQualification"
       style="background-color: #f3f3f3"
       [readonly]="true"
@@ -106,6 +107,6 @@
 <div (click)="edit()" class="bottom-box">
   <div class="bottom-btn">
     <img src="assets/img/icon/plus.svg" />
-    <div class="btn-text">{{ "Lưu lại" | translate }}</div>
+    <div class="btn-text">{{ "BUTTON.SAVE" | translate }}</div>
   </div>
 </div>

@@ -539,9 +539,9 @@
     4. {{ "IDEA_MANAGEMENT.LABEL.DOCUMENTS" | translate }}
   </div>
 
-  <div class="file">
+  <div class="file text-center">
     <div class="file-text">
-      <p style="text-align: center" class="font-weight-bolder">
+      <p style="text-align: center" class="font-weight-bolder fs-075">
         {{ documentDTO?.name }}
       </p>
     </div>
@@ -560,15 +560,15 @@
       style="display: none"
       #selectAvatar
     />
-    <span
+    <span class="fs-075"
       >{{ "IDEA_MANAGEMENT.LABEL.FILE_TYPE" | translate }}:
-      <b>{{
+      <b class="fs-075">{{
         " .txt, .doc, .docx, .rar, .zip, .xls, .xlsx, .pdf, .jpg, .gif, .png, .ppt, .pptx."
           | translate
       }}</b>
     </span>
-    <span
-      >{{ "IDEA_MANAGEMENT.LABEL.MAX_STORAGE" | translate }}:<b>{{ "25 MB" | translate }}</b></span
+    <span class="fs-075"
+      >{{ "IDEA_MANAGEMENT.LABEL.MAX_STORAGE" | translate }}:<b class="fs-075">{{ "25 MB" | translate }}</b></span
     >
   </div>
 </div>

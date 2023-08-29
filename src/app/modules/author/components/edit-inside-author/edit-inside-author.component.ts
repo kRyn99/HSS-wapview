@@ -8,6 +8,7 @@ import { environment } from '@env/environment';
 import { BehaviorSubject } from 'rxjs';
 import { MessagePopupComponent } from '@app/modules/common-items/components/message-popup/message-popup.component';
 import { ContrivanceService } from '@app/shared/service/contrivance.service';
+import { NgSelectConfig } from '@ng-select/ng-select';
 
 @Component({
   selector: 'app-edit-inside-author',
@@ -16,6 +17,7 @@ import { ContrivanceService } from '@app/shared/service/contrivance.service';
 })
 export class EditInsideAuthorComponent implements OnInit {
   constructor(
+    private config: NgSelectConfig,
     private http: HttpClient,
     private route: ActivatedRoute,
     public DataService: DataService,
@@ -23,7 +25,11 @@ export class EditInsideAuthorComponent implements OnInit {
     private router: Router,
     private modalService: NgbModal,
     private translateService: TranslateService
-  ) {}
+  ) {
+    this.config.notFoundText = this.translateService.instant(`STAFF_CODE_NOT_EXIST`);
+    this.config.appendTo = "body";
+    this.config.bindValue = "value";
+  }
   contributorDTO: any;
   token = JSON.parse(localStorage.getItem('tokenInLocalStorage'));
   listStaff: [];

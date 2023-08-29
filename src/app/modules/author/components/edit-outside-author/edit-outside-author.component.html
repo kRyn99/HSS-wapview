@@ -1,66 +1,68 @@
 <app-title-nav
-  [title]="'Sửa tác giả ngoài tập đoàn' | translate"
+  [title]="'EDIT_AUTHOR_OUTSIDE_GROUP' | translate"
   [backRoute]="backRoute + '/register'"
 >
 </app-title-nav>
 <div class="body">
   <div class="info-box">
-    <div class="info-title">{{ "Họ và tên (*)" | translate }}</div>
+    <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.FULL_NAME" | translate }}(<span style="color:red">*</span>)</div>
     <ng-select
       [items]="listContributorOut"
       bindLabel="fullName"
       [placeholder]="contributorDTO?.fullName"
       [(ngModel)]="contributorDTO"
       (change)="onSelectedStaffCodeChange($event)"
+      [addTag]="true"
+      [addTagText]="'CHOOSE_AUTHOR_NAME' | translate"
     ></ng-select>
   </div>
   <div class="info-box">
-    <div class="info-title">{{ "Nơi công tác (*)" | translate }}</div>
+    <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.WORK_PLACE" | translate }}(<span style="color:red">*</span>)</div>
     <input
       class="info-input"
-      [placeholder]="'Nhập nơi công tác' | translate"
+      [placeholder]="'MANAGE_CATEGORY.PLACEHOLDER.WORK_PLACE' | translate"
       [(ngModel)]="contributorDTO.jobAddress"
     />
   </div>
   <div class="info-box">
-    <div class="info-title">{{ "Chức vụ (*)" | translate }}</div>
+    <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.OFFICE" | translate }}(<span style="color:red">*</span>)</div>
     <input
       class="info-input"
-      [placeholder]="'Nhập chức vụ' | translate"
+      [placeholder]="'MANAGE_CATEGORY.PLACEHOLDER.POSITION' | translate"
       [(ngModel)]="contributorDTO.jobPosition"
     />
   </div>
   <div class="info-box">
-    <div class="info-title">{{ "Số điện thoại  (*)" | translate }}</div>
+    <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.PHONE" | translate }}(<span style="color:red">*</span>)</div>
     <input
       class="info-input"
-      [placeholder]="'Nhập số điện thoại ' | translate"
+      [placeholder]="'MANAGE_CATEGORY.PLACEHOLDER.PHONE_NUMBER' | translate"
       [(ngModel)]="contributorDTO.phoneNumber"
       NumbersOnly
       maxlength="12"
     />
   </div>
   <div class="info-box">
-    <div class="info-title">{{ "Email (*)" | translate }}</div>
+    <div class="info-title">{{ "CONTRIVANCE_MAMAGEMENT.LABEL.EMAIL" | translate }}(<span style="color:red">*</span>)</div>
     <input
       class="info-input"
-      [placeholder]="'Nhập email' | translate"
+      [placeholder]="'MANAGE_CATEGORY.PLACEHOLDER.EMAIL' | translate"
       [(ngModel)]="contributorDTO.email"
     />
   </div>
   <div class="info-box">
-    <div class="info-title">{{ "Trình độ chuyên môn " | translate }}</div>
+    <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.QUALIFICATION" | translate }}</div>
     <input
       class="info-input"
-      [placeholder]="'Nhập trình độ chuyên môn' | translate"
+      [placeholder]="'MANAGE_CATEGORY.PLACEHOLDER.QUALIFICATION' | translate"
       [(ngModel)]="contributorDTO.professionalQualification"
     />
   </div>
   <div class="info-box">
-    <div class="info-title">{{ "% đóng góp (*)" | translate }}</div>
+    <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.CONTRIBUTE_PERCENT" | translate }}(<span style="color:red">*</span>)</div>
     <input
       class="info-input"
-      [placeholder]="'Nhập % đóng góp của tác giả' | translate"
+      [placeholder]="'percentage' | translate"
       [(ngModel)]="contributorDTO.percentage"
       maxlength="3"
       NumbersOnly
@@ -72,6 +74,6 @@
 <div (click)="edit()" class="bottom-box">
   <div class="bottom-btn">
     <img src="assets/img/icon/plus.svg" />
-    <div class="btn-text">{{ "Lưu lại" | translate }}</div>
+    <div class="btn-text">{{ "BUTTON.SAVE" | translate }}</div>
   </div>
 </div>

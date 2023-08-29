@@ -923,5 +923,12 @@
     }
   },
   "SEE_MORE": "Xem thêm",
-  "SEE_LESS": "Thu gọn"
+  "SEE_LESS": "Thu gọn",
+  "ADD_AUTHOR_IN_GROUP":"Thêm tác giả trong tập đoàn",
+  "ADD_AUTHOR_OUTSIDE_GROUP": "Thêm tác giả ngoài tập đoàn",
+  "EDIT_AUTHOR_IN_GROUP":"Sửa tác giả trong tập đoàn",
+  "EDIT_AUTHOR_OUTSIDE_GROUP":"Sửa tác giả ngoài tập đoàn",
+  "CHOOSE_AUTHOR_NAME": "Chọn tên tác giả",
+  "STAFF_CODE_NOT_EXIST": "Mã nhân viên không tồn tại"
+
 }

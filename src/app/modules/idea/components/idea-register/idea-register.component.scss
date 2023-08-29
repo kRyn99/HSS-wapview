@@ -120,7 +120,7 @@
 .file{
   display: flex;
   width: 100%;
-  padding: 10px 0px;
+  padding: 10px;
   flex-direction: column;
   align-items: center;
   gap: 10px;
@@ -337,5 +337,8 @@ tr.example-element-row:not(.example-expanded-row):active {
   width: 100%;
   border-radius: 10px !important;
   justify-content: center;
+}
+.fs-075{
+  font-size: 0.75rem !important;
 }
 
