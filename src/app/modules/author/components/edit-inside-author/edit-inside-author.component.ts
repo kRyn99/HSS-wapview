@@ -42,14 +42,14 @@ export class EditInsideAuthorComponent implements OnInit {
       if (params && params.id) {
         if (this.backRoute == 'contrivance') {
           this.contributorDTO =
-            this.contrivanceService.lstContributorDTOService.value.find(
+            {...this.contrivanceService.lstContributorDTOService.value.find(
               (item) => item.staffId == Number(params.id)
-            );
+            )};
         } else {
           this.contributorDTO =
-            this.DataService.lstContributorDTOService.value.find(
+            {...this.DataService.lstContributorDTOService.value.find(
               (item) => item.staffId == Number(params.id)
-            );
+            )};
         }
       }
     });
@@ -98,6 +98,15 @@ export class EditInsideAuthorComponent implements OnInit {
       }
     }
   }
+  checkEmail=false;
+  changeEmail(){
+    if (!this.isValidEmail(this.contributorDTO.email)) {
+      this.checkEmail=true;
+    }else{
+
+      this.checkEmail=false;
+    }
+  }
   validate() {
     if (
       this.contributorDTO.staffCode === undefined ||
@@ -137,7 +146,7 @@ export class EditInsideAuthorComponent implements OnInit {
         `ADD-INSIDE-IDEA.VALIDATE.ERROR`
       );
       modalRef.componentInstance.message = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.CONTRIBUTION`
+        `ADD-INSIDE-IDEA.VALIDATE.PERCENT`
       );
       modalRef.componentInstance.closeIcon = false;
       return false;
@@ -159,7 +168,7 @@ export class EditInsideAuthorComponent implements OnInit {
         `ADD-INSIDE-IDEA.VALIDATE.ERROR`
       );
       modalRef.componentInstance.message = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.hoten`
+        `ADD-INSIDE-IDEA.VALIDATE.NAME`
       );
       modalRef.componentInstance.closeIcon = false;
       return false;
@@ -181,7 +190,7 @@ export class EditInsideAuthorComponent implements OnInit {
         `ADD-INSIDE-IDEA.VALIDATE.ERROR`
       );
       modalRef.componentInstance.message = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.phone`
+        `ADD-INSIDE-IDEA.VALIDATE.PHONE`
       );
       modalRef.componentInstance.closeIcon = false;
       return false;
@@ -203,9 +212,10 @@ export class EditInsideAuthorComponent implements OnInit {
         `ADD-INSIDE-IDEA.VALIDATE.ERROR`
       );
       modalRef.componentInstance.message = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.email`
+        `ADD-INSIDE-IDEA.VALIDATE.EMAIL`
       );
       modalRef.componentInstance.closeIcon = false;
+      this.checkEmail=true;
       return false;
     } else {
       if (!this.isValidEmail(this.contributorDTO.email)) {
@@ -220,7 +230,7 @@ export class EditInsideAuthorComponent implements OnInit {
           `ADD-INSIDE-IDEA.VALIDATE.ERROR`
         );
         modalRef.componentInstance.message = this.translateService.instant(
-          `ADD-INSIDE-IDEA.VALIDATE.Form-email`
+          `ADD-INSIDE-IDEA.VALIDATE.EMAIL_FORM`
         );
         modalRef.componentInstance.closeIcon = false;
         return false;
@@ -242,7 +252,7 @@ export class EditInsideAuthorComponent implements OnInit {
         `ADD-INSIDE-IDEA.VALIDATE.ERROR`
       );
       modalRef.componentInstance.message = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.birthday`
+        `ADD-INSIDE-IDEA.VALIDATE.BIRTHDAY`
       );
       modalRef.componentInstance.closeIcon = false;
       return false;
@@ -260,18 +270,22 @@ export class EditInsideAuthorComponent implements OnInit {
   edit() {
     if (this.validate()) {
       if (this.backRoute == 'contrivance') {
-        this.contrivanceService.lstContributorDTOService.forEach((item) => {
-          if (item.staffId == this.contributorDTO.staffId) {
-            item = this.contributorDTO;
+        for(let i = 0; i < this.contrivanceService.lstContributorDTOService.value.length; i++) {
+          if (
+            this.contrivanceService.lstContributorDTOService.value[i].staffId == this.contributorDTO.staffId 
+          ) {
+            this.contrivanceService.lstContributorDTOService.value[i] = this.contributorDTO;
           }
-        });
+        }
         this.router.navigate(['contrivance/register']);
       } else {
-        this.DataService.lstContributorDTOService.forEach((item) => {
-          if (item.staffId == this.contributorDTO.staffId) {
-            item = this.contributorDTO;
+        for(let i = 0; i < this.DataService.lstContributorDTOService.value.length; i++) {
+          if (
+            this.DataService.lstContributorDTOService.value[i].staffId == this.contributorDTO.staffId 
+          ) {
+            this.DataService.lstContributorDTOService.value[i] = this.contributorDTO;
           }
-        });
+        }
         this.router.navigate(['idea/register']);
       }
     }

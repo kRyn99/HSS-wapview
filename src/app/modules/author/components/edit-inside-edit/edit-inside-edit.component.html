@@ -12,6 +12,7 @@
       [(ngModel)]="contributorDTO"
       (change)="onSelectedStaffCodeChange($event)"
     ></ng-select>
+    <div class="form-text text-danger" *ngIf="!contributorDTO?.staffCode">{{ "ADD-INSIDE-IDEA.VALIDATE.STAFF-CODE" | translate }}</div>
   </div>
   <div class="info-box">
     <div class="info-title">{{ "Họ và tên" | translate }}</div>
@@ -34,6 +35,8 @@
       (ngModelChange)="percentageValueChange($event)"
       maxlength="3"
     />
+    <div class="form-text text-danger" *ngIf=" !contributorDTO.percentage">{{ "ADD-INSIDE-IDEA.VALIDATE.PERCENT" | translate }}</div>
+
   </div>
   <div class="info-box">
     <div class="info-title">{{ "Số điện thoại  (*)" | translate }}</div>
@@ -44,6 +47,8 @@
       NumbersOnly
       maxlength="12"
     />
+    <div class="form-text text-danger" *ngIf=" !contributorDTO.phoneNumber">{{ "ADD-INSIDE-IDEA.VALIDATE.PHONE" | translate }}</div>
+
   </div>
   <div class="info-box">
     <div class="info-title">{{ "Email" | translate }}</div>
@@ -51,7 +56,10 @@
       class="info-input"
       [placeholder]="'Nhập email' | translate"
       [(ngModel)]="contributorDTO.email"
+      (input)="changeEmail()"
     />
+    <div class="form-text text-danger" *ngIf=" !contributorDTO.email">{{ "ADD-INSIDE-IDEA.VALIDATE.EMAIL" | translate }}</div>
+    <div class="form-text text-danger" *ngIf="checkEmail && contributorDTO.email">{{ "ADD-INSIDE-IDEA.VALIDATE.EMAIL_FORM" | translate }}</div>
   </div>
   <div class="info-box">
     <div class="info-title">{{ "Ngày sinh" | translate }}</div>
@@ -71,6 +79,7 @@
       />
       <img src="assets/img/icon/calendar.svg" style="padding: 10px" />
     </label>
+    <div class="form-text text-danger" *ngIf=" !contributorDTO.birthDay">{{ "ADD-INSIDE-IDEA.VALIDATE.BIRTHDAY" | translate }}</div>
   </div>
   <div class="info-box">
     <div class="info-title">{{ "Nơi công tác" | translate }}</div>

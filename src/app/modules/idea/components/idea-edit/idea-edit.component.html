@@ -37,6 +37,9 @@
       type="text"
       [(ngModel)]="ideaNameValue"
     />
+    <div class="form-text text-danger" *ngIf="!ideaNameValue">
+      {{ "ADD-INSIDE-IDEA.VALIDATE.IDEA-NAME" | translate }}
+    </div>
   </div>
   <div class="input-form">
     <div class="input-name">
@@ -47,7 +50,7 @@
     </div>
     <label class="date">
       <input
-        [value]="applyStartTime"
+        [value]="applyStartTimeString"
         type="text"
         name="Date"
         [bsConfig]="bsConfig"
@@ -57,11 +60,20 @@
         #vDate
         bsDatepicker
         autocomplete="off"
-               [(ngModel)]="applyStartTime"
-               (ngModelChange)="selectStartDate()"
+        [(ngModel)]="applyStartTime"
+        (ngModelChange)="selectStartDate()"
       />
       <img src="assets/img/icon/calendar.svg" style="padding: 10px" />
     </label>
+    <div class="form-text text-danger" *ngIf="!applyStartTime">
+      {{ "ADD-INSIDE-IDEA.VALIDATE.EMPTY_START_DATE" | translate }}
+    </div>
+    <div class="form-text text-danger" *ngIf="checkStartDate">
+      {{ "ADD-INSIDE-IDEA.VALIDATE.START_DAY" | translate }}
+    </div>
+    <div class="form-text text-danger" *ngIf="checkNow">
+      {{ "ADD-INSIDE-IDEA.VALIDATE.APPLY_START_DAY" | translate }}
+    </div>
   </div>
   <div class="input-form">
     <div class="input-name">
@@ -72,7 +84,7 @@
     </div>
     <label class="date">
       <input
-        [value]="applyEndTime"
+        [value]="applyEndTimeString"
         type="text"
         name="Date"
         [bsConfig]="bsConfig"
@@ -87,6 +99,15 @@
       />
       <img src="assets/img/icon/calendar.svg" style="padding: 10px" />
     </label>
+    <div class="form-text text-danger" *ngIf="!applyEndTime">
+      {{ "ADD-INSIDE-IDEA.VALIDATE.EMPTY_END_DATE" | translate }}
+    </div>
+    <div class="form-text text-danger" *ngIf="checkStartDate">
+      {{ "ADD-INSIDE-IDEA.VALIDATE.START_DAY" | translate }}
+    </div>
+    <div class="form-text text-danger" *ngIf="checkNow2">
+      {{ "ADD-INSIDE-IDEA.VALIDATE.APPLY_END_DAY" | translate }}
+    </div>
   </div>
   <div class="input-form">
     <div class="input-name">
@@ -126,11 +147,18 @@
               [(ngModel)]="item.selected"
               (change)="onCheckboxChange(item)"
               [checked]="item.selected"
+              (focus)="unitFieldTouched = true"
             />
             {{ item.unitName }}
           </label>
         </ng-container>
       </div>
+    </div>
+    <div
+      class="form-text text-danger"
+      *ngIf="unitFieldTouched && !selectedUnitValue?.length"
+    >
+      {{ "ADD-INSIDE-IDEA.VALIDATE.UNIT" | translate }}
     </div>
   </div>
   <div class="input-form">
@@ -151,6 +179,9 @@
         <option [value]="item.value">{{ item.name }}</option>
       </ng-container>
     </select>
+    <div class="form-text text-danger" *ngIf="!specialty">
+      {{ "ADD-INSIDE-IDEA.VALIDATE.SPECIALTY" | translate }}
+    </div>
   </div>
 </div>
 <div class="line"></div>
@@ -238,7 +269,13 @@
               <b>{{ "IDEA_MANAGEMENT.LABEL.EMAIL" | translate }}:</b>
               {{ element.email }}<br />
               <b>{{ "IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH" | translate }}:</b>
-              {{ element.birthDay }}<br />
+              <ng-container>
+                {{
+                  isTypeOfString(element.birthDay)
+                    ? element.birthDay
+                    : (element.birthDay | date : "dd/MM/yyyy")
+                }} </ng-container
+              ><br />
               <b>{{ "IDEA_MANAGEMENT.LABEL.WORK_PLACE" | translate }}:</b>
               {{ element.jobAddress }}<br />
               <b>{{ "IDEA_MANAGEMENT.LABEL.OFFICE" | translate }}:</b>
@@ -456,6 +493,9 @@
       [(ngModel)]="beforeApplyStatus"
       >{{ "" | translate }}</textarea
     >
+    <div class="form-text text-danger" *ngIf="!beforeApplyStatus">
+      {{ "ADD-INSIDE-IDEA.VALIDATE.BEFORE_APPLY_STATUS" | translate }}
+    </div>
   </div>
   <div class="input-form">
     <div class="input-name">
@@ -473,6 +513,9 @@
       [(ngModel)]="content"
       >{{ "" | translate }}</textarea
     >
+    <div class="form-text text-danger" *ngIf="!content">
+      {{ "ADD-INSIDE-IDEA.VALIDATE.CONTENT" | translate }}
+    </div>
   </div>
   <div class="input-form">
     <div class="input-name">
@@ -487,8 +530,12 @@
       rows="4"
       cols="50"
       [value]="applyRange"
+      [(ngModel)]="applyRange"
       >{{ "" | translate }}</textarea
     >
+    <div class="form-text text-danger" *ngIf="!applyRange">
+      {{ "ADD-INSIDE-IDEA.VALIDATE.APPLY_RANGE" | translate }}
+    </div>
   </div>
   <div class="input-form">
     <div class="input-name">
@@ -506,6 +553,9 @@
       [(ngModel)]="effectiveness"
       >{{ "" | translate }}</textarea
     >
+    <div class="form-text text-danger" *ngIf="!effectiveness">
+      {{ "ADD-INSIDE-IDEA.VALIDATE.EFFECTIVENESS" | translate }}
+    </div>
   </div>
   <div class="input-form">
     <div class="input-name">
@@ -523,6 +573,9 @@
       [(ngModel)]="nextStep"
       >{{ "" | translate }}</textarea
     >
+    <div class="form-text text-danger" *ngIf="!nextStep">
+      {{ "ADD-INSIDE-IDEA.VALIDATE.NEXT" | translate }}
+    </div>
   </div>
   <div class="input-form">
     <div class="input-name">{{ "IDEA-DETAIL.EDIT.NOTE" | translate }}</div>
@@ -567,7 +620,7 @@
       #selectAvatar
     />
     <span
-      >{{"IDEA-DETAIL.EDIT.FILE_TYPE"| translate }}
+      >{{ "IDEA-DETAIL.EDIT.FILE_TYPE" | translate }}
       <b>{{
         " .txt, .doc, .docx, .rar, .zip, .xls, .xlsx, .pdf, .jpg, .gif, .png, .ppt, .pptx."
           | translate

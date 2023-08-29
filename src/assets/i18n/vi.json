@@ -826,7 +826,9 @@
       "CONTRIBUTOR":"Mã nhân viên bị trùng",
       "ADDRESS":"Nơi công tác không được trống",
       "POSITION":"Chức vụ không được trống",
-      "QUALIFICATION":"Trình độ chuyên môn không được trống"
+      "QUALIFICATION":"Trình độ chuyên môn không được trống",
+      "EMPTY_START_DATE":"Áp dụng từ ngày không được trống",
+      "EMPTY_END_DATE":"Áp dụng đến ngày không được trống"
     },
     "CONFIRM": {
       "CONFIRM": "Xác nhận",

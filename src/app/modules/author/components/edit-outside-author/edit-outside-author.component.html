@@ -11,52 +11,68 @@
       bindLabel="fullName"
       [placeholder]="contributorDTO?.fullName"
       [(ngModel)]="contributorDTO"
+      [addTag]="true"
+      [addTagText]="'Chọn tên tác giả'"
       (change)="onSelectedStaffCodeChange($event)"
     ></ng-select>
+    <div class="form-text text-danger" *ngIf="!contributorDTO?.fullName">{{ "ADD-INSIDE-IDEA.VALIDATE.NAME" | translate }}</div>
   </div>
   <div class="info-box">
     <div class="info-title">{{ "Nơi công tác (*)" | translate }}</div>
     <input
       class="info-input"
       [placeholder]="'Nhập nơi công tác' | translate"
-      [(ngModel)]="contributorDTO.jobAddress"
+      [ngModel]="contributorDTO?.jobAddress"
+      (ngModelChange)="updateJobAddress($event)"
     />
+    <div class="form-text text-danger" *ngIf="!contributorDTO?.jobAddress">{{ "ADD-INSIDE-IDEA.VALIDATE.ADDRESS" | translate }}</div>
   </div>
-  <div class="info-box">
+  <div  class="info-box">
     <div class="info-title">{{ "Chức vụ (*)" | translate }}</div>
     <input
       class="info-input"
       [placeholder]="'Nhập chức vụ' | translate"
-      [(ngModel)]="contributorDTO.jobPosition"
+      [ngModel]="contributorDTO?.jobPosition"
+      (ngModelChange)="updateJobPosition($event)"
     />
+    <div class="form-text text-danger" *ngIf="!contributorDTO?.jobPosition">{{ "ADD-INSIDE-IDEA.VALIDATE.POSITION" | translate }}</div>
   </div>
-  <div class="info-box">
+  <div  class="info-box">
     <div class="info-title">{{ "Số điện thoại  (*)" | translate }}</div>
     <input
       class="info-input"
       [placeholder]="'Nhập số điện thoại ' | translate"
-      [(ngModel)]="contributorDTO.phoneNumber"
+      [ngModel]="contributorDTO?.phoneNumber"
+      (ngModelChange)="updatePhoneNumber($event)"
       NumbersOnly
       maxlength="12"
     />
+    <div class="form-text text-danger" *ngIf="!contributorDTO?.phoneNumber">{{ "ADD-INSIDE-IDEA.VALIDATE.PHONE" | translate }}</div>
   </div>
   <div class="info-box">
     <div class="info-title">{{ "Email (*)" | translate }}</div>
     <input
       class="info-input"
       [placeholder]="'Nhập email' | translate"
-      [(ngModel)]="contributorDTO.email"
+      
+      [ngModel]="contributorDTO?.email"
+      (ngModelChange)="updateEmail($event)"
     />
+    <div class="form-text text-danger" *ngIf="!contributorDTO?.email">{{ "ADD-INSIDE-IDEA.VALIDATE.EMAIL" | translate }}</div>
+    <div class="form-text text-danger" *ngIf="checkEmail && contributorDTO.email">{{ "ADD-INSIDE-IDEA.VALIDATE.EMAIL_FORM" | translate }}</div>
   </div>
   <div class="info-box">
     <div class="info-title">{{ "Trình độ chuyên môn " | translate }}</div>
     <input
       class="info-input"
       [placeholder]="'Nhập trình độ chuyên môn' | translate"
-      [(ngModel)]="contributorDTO.professionalQualification"
+    
+      [ngModel]="contributorDTO?.professionalQualification"
+      (ngModelChange)="updateProfessionalQualification($event)"
     />
+    <div class="form-text text-danger" *ngIf="!contributorDTO?.professionalQualification">{{ "ADD-INSIDE-IDEA.VALIDATE.QUALIFICATION" | translate }}</div>
   </div>
-  <div class="info-box">
+  <div *ngIf="contributorDTO" class="info-box">
     <div class="info-title">{{ "% đóng góp (*)" | translate }}</div>
     <input
       class="info-input"
@@ -67,7 +83,9 @@
       (ngModelChange)="percentageValueChange($event)"
       maxlength="3"
     />
+    <div class="form-text text-danger" *ngIf="!contributorDTO?.percentage">{{ "ADD-INSIDE-IDEA.VALIDATE.PERCENT" | translate }}</div>
   </div>
+  
 </div>
 <div (click)="edit()" class="bottom-box">
   <div class="bottom-btn">

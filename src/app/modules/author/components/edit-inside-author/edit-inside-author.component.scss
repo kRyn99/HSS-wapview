@@ -83,3 +83,8 @@
 .ng-select{
   width: 100%;
 }
+::ng-deep .ng-dropdown-panel {
+  position: absolute !important;
+
+  top:165px !important;
+}

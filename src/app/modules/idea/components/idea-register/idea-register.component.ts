@@ -18,6 +18,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { DataService } from "../../../../shared/service/data.service";
 import { BehaviorSubject } from "rxjs";
 import { MatTableDataSource } from "@angular/material/table";
+import { DatePipe } from '@angular/common';
 interface ideaRegisterDTO {
   ideaName?: any;
   specialty?: string;
@@ -79,7 +80,8 @@ export class IdeaRegisterComponent implements OnInit {
     private modalService: NgbModal,
     private translateService: TranslateService,
     private http: HttpClient,
-    public DataService: DataService
+    public DataService: DataService,
+    private datePipe: DatePipe
   ) {
     this.bsConfig = {
       dateInputFormat: 'DD/MM/YYYY', // Định dạng ngày/tháng/năm
@@ -92,8 +94,12 @@ export class IdeaRegisterComponent implements OnInit {
   dataSource2: any;
   ideaRegisterDTO: ideaRegisterDTO;
   token = JSON.parse(localStorage.getItem("tokenInLocalStorage"));
+  
+  isTypeOfString(element) {
+    return typeof element == 'string';
+  }
   ngOnInit() {
-    console.log(this.DataService.file.value.url);
+    console.log(this.DataService.lstContributorDTOService.value);
 
     this.getListUnit();
     this.dataSource = new MatTableDataSource(
@@ -173,6 +179,7 @@ export class IdeaRegisterComponent implements OnInit {
   inputValue: string = "";
 
   listUnit: [];
+  unitFieldTouched: boolean = false;
   getListUnit() {
     const url = `${environment.API_HOST_NAME}/api/get-list-unit`;
     const headers = new HttpHeaders({
@@ -249,16 +256,18 @@ export class IdeaRegisterComponent implements OnInit {
   effectiveness: string = "";
   nextStep: string = "";
   note: string = "";
-
+  isInputTouched = false;
   onInputValueChange() {
+    this.isInputTouched = true;
     this.DataService.ideaName2.next(this.inputValue);
   }
 
   onSelectUnitChange() {
+
     this.DataService.selectedUnitValue.next(this.selectedUnitValue);
     console.log(this.selectedUnitValue);
   }
-
+  specialtyTouched = false;
   onSelectSpecialtyChange() {
     this.DataService.selectedSpecialtyValue.next(this.selectedSpecialtyValue);
   }
@@ -266,28 +275,73 @@ export class IdeaRegisterComponent implements OnInit {
   //  console.log(this.selectedSpecialtyValue);
 
   // }
+  isStartDateTouched = false;
+  isEndDateTouched = false;
+  checkStartDate = false;
+  checkNow = false;
+  checkNow2 = false;
   startDateChange() {
+    let now = new Date();
+    now.setHours(0, 0, 0, 0);
+    this.isStartDateTouched = true;
+    if (this.selectedStartDate > this.selectedEndDate) {
+      this.checkStartDate = true;
+    } else {
+      this.checkStartDate = false;
+    }
+    if (this.selectedStartDate < now) {
+      this.checkNow = true;
+    }
+    else {
+      this.checkNow = false;
+    }
     this.DataService.selectedStartDate.next(this.selectedStartDate);
   }
   endDateChange() {
+    let now = new Date();
+    now.setHours(0, 0, 0, 0);
+    this.isEndDateTouched = true;
+    if (this.selectedStartDate > this.selectedEndDate) {
+      this.checkStartDate = true;
+    } else {
+      this.checkStartDate = false;
+    }
+    if (this.selectedEndDate < now) {
+      this.checkNow2 = true;
+    }
+    else {
+      this.checkNow2 = false;
+    }
     this.DataService.selectedEndDate.next(this.selectedEndDate);
   }
+  isBeforeApplyStatusTouched = false;
   beforeApplyStatusChange() {
+    this.isBeforeApplyStatusTouched = true;
     this.DataService.beforeApplyStatus.next(this.beforeApplyStatus);
   }
+  isContentTouched = false;
   contentChange() {
+    this.isContentTouched = true;
     this.DataService.content.next(this.content);
   }
+  isApplyRangeTouched = false;
   applyRangeChange() {
+    this.isApplyRangeTouched = true;
     this.DataService.applyRange.next(this.applyRange);
   }
+  isEffectivenesTouched = false;
   effectivenessChange() {
+    this.isEffectivenesTouched = true;
     this.DataService.effectiveness.next(this.effectiveness);
   }
+  isNextStepTouched = false;
   nextStepChange() {
+    this.isNextStepTouched = true;
     this.DataService.nextStep.next(this.nextStep);
   }
+
   noteChange() {
+
     this.DataService.note.next(this.note);
   }
 
@@ -392,7 +446,84 @@ export class IdeaRegisterComponent implements OnInit {
       }
     );
   }
-
+  validateTemplate() {
+    let now = new Date();
+    now.setHours(0, 0, 0, 0);
+    if (
+      this.inputValue === undefined ||
+      this.inputValue === null ||
+      this.inputValue === "" ||
+      this.inputValue.trim() === ""
+    ) {
+      this.isInputTouched = true;
+    }
+    if (
+      this.selectedStartDate === undefined ||
+      this.selectedStartDate === null
+    ) {
+      this.isStartDateTouched = true;
+    }
+    if (this.selectedStartDate > this.selectedEndDate) {
+      this.checkStartDate = true;
+    }
+    if (this.selectedStartDate < now) {
+      this.checkNow = true;
+    }
+    if (this.selectedEndDate === undefined || this.selectedEndDate === null) {
+      this.isEndDateTouched = true;
+    }
+    if (this.selectedStartDate < now) {
+      this.checkNow2 = true;
+    }
+    if (
+      this.selectedUnitValue === undefined ||
+      this.selectedUnitValue === null ||
+      this.selectedUnitValue.length === 0
+    ) {
+      this.unitFieldTouched = true;
+    }
+    if (!this.selectedSpecialtyValue) {
+      this.specialtyTouched = true
+    }
+    if (
+      this.beforeApplyStatus === undefined ||
+      this.beforeApplyStatus === null ||
+      this.beforeApplyStatus === "" ||
+      this.beforeApplyStatus.trim() === ""
+    ) { this.isBeforeApplyStatusTouched = true }
+    if (
+      this.content === undefined ||
+      this.content === null ||
+      this.content === "" ||
+      this.content.trim() === ""
+    ) {
+      this.isContentTouched=true
+    }
+    if (
+      this.applyRange === undefined ||
+      this.applyRange === null ||
+      this.applyRange === "" ||
+      this.applyRange.trim() === ""
+    ) {
+      this.isApplyRangeTouched=true;
+    }
+    if (
+      this.effectiveness === undefined ||
+      this.effectiveness === null ||
+      this.effectiveness === "" ||
+      this.effectiveness.trim() === ""
+    ) {
+      this.isEffectivenesTouched=true;
+    }
+    if (
+      this.nextStep === undefined ||
+      this.nextStep === null ||
+      this.nextStep === "" ||
+      this.nextStep.trim() === ""
+    ) {
+      this.isNextStepTouched=true;
+    }
+  }
   validate() {
     let now = new Date();
     now.setHours(0, 0, 0, 0);
@@ -416,11 +547,13 @@ export class IdeaRegisterComponent implements OnInit {
         `ADD-INSIDE-IDEA.VALIDATE.IDEA-NAME`
       );
       modalRef.componentInstance.closeIcon = false;
+      this.validateTemplate()
       return false;
     }
     if (
       this.selectedStartDate === undefined ||
-      this.selectedStartDate === null
+      this.selectedStartDate === null ||
+      (this.isStartDateTouched && !this.selectedStartDate)
     ) {
       const modalRef = this.modalService.open(MessagePopupComponent, {
         size: "sm",
@@ -433,9 +566,10 @@ export class IdeaRegisterComponent implements OnInit {
         `ADD-INSIDE-IDEA.VALIDATE.ERROR`
       );
       modalRef.componentInstance.message = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+        `ADD-INSIDE-IDEA.VALIDATE.EMPTY_START_DATE`
       );
       modalRef.componentInstance.closeIcon = false;
+      this.validateTemplate()
       return false;
     }
     if (this.selectedStartDate > this.selectedEndDate) {
@@ -453,6 +587,8 @@ export class IdeaRegisterComponent implements OnInit {
         `ADD-INSIDE-IDEA.VALIDATE.START_DAY`
       );
       modalRef.componentInstance.closeIcon = false;
+
+      this.validateTemplate()
       return false;
     }
     if (this.selectedStartDate <= now || this.selectedEndDate <= now) {
@@ -470,9 +606,11 @@ export class IdeaRegisterComponent implements OnInit {
         `ADD-INSIDE-IDEA.VALIDATE.APPLY_TIME`
       );
       modalRef.componentInstance.closeIcon = false;
+      this.validateTemplate()
       return false;
     }
-    if (this.selectedEndDate === undefined || this.selectedEndDate === null) {
+    if (this.selectedEndDate === undefined || this.selectedEndDate === null  ||
+      (this.isEndDateTouched && !this.selectedEndDate)) {
       const modalRef = this.modalService.open(MessagePopupComponent, {
         size: "sm",
         backdrop: "static",
@@ -484,9 +622,10 @@ export class IdeaRegisterComponent implements OnInit {
         `ADD-INSIDE-IDEA.VALIDATE.ERROR`
       );
       modalRef.componentInstance.message = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+        `ADD-INSIDE-IDEA.VALIDATE.EMPTY_END_DATE`
       );
       modalRef.componentInstance.closeIcon = false;
+      this.validateTemplate()
       return false;
     }
     if (
@@ -508,6 +647,7 @@ export class IdeaRegisterComponent implements OnInit {
         `ADD-INSIDE-IDEA.VALIDATE.UNIT`
       );
       modalRef.componentInstance.closeIcon = false;
+      this.validateTemplate()
       return false;
     }
     if (!this.selectedSpecialtyValue) {
@@ -525,6 +665,7 @@ export class IdeaRegisterComponent implements OnInit {
         `ADD-INSIDE-IDEA.VALIDATE.SPECIALTY`
       );
       modalRef.componentInstance.closeIcon = false;
+      this.validateTemplate()
       return false;
     }
     if (
@@ -547,6 +688,7 @@ export class IdeaRegisterComponent implements OnInit {
         `ADD-INSIDE-IDEA.VALIDATE.BEFORE_APPLY_STATUS`
       );
       modalRef.componentInstance.closeIcon = false;
+      this.validateTemplate()
       return false;
     }
     if (
@@ -569,6 +711,7 @@ export class IdeaRegisterComponent implements OnInit {
         `ADD-INSIDE-IDEA.VALIDATE.CONTENT`
       );
       modalRef.componentInstance.closeIcon = false;
+      this.validateTemplate()
       return false;
     }
     if (
@@ -591,6 +734,7 @@ export class IdeaRegisterComponent implements OnInit {
         `ADD-INSIDE-IDEA.VALIDATE.APPLY_RANGE`
       );
       modalRef.componentInstance.closeIcon = false;
+      this.validateTemplate()
       return false;
     }
     if (
@@ -613,6 +757,7 @@ export class IdeaRegisterComponent implements OnInit {
         `ADD-INSIDE-IDEA.VALIDATE.EFFECTIVENESS`
       );
       modalRef.componentInstance.closeIcon = false;
+      this.validateTemplate()
       return false;
     }
     if (
@@ -635,30 +780,10 @@ export class IdeaRegisterComponent implements OnInit {
         `ADD-INSIDE-IDEA.VALIDATE.NEXT`
       );
       modalRef.componentInstance.closeIcon = false;
+      this.validateTemplate()
       return false;
     }
-    if (
-      this.note === undefined ||
-      this.note === null ||
-      this.note === "" ||
-      this.note.trim() === ""
-    ) {
-      const modalRef = this.modalService.open(MessagePopupComponent, {
-        size: "sm",
-        backdrop: "static",
-        keyboard: false,
-        centered: true,
-      });
-      modalRef.componentInstance.type = "fail";
-      modalRef.componentInstance.title = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.ERROR`
-      );
-      modalRef.componentInstance.message = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.NOTE`
-      );
-      modalRef.componentInstance.closeIcon = false;
-      return false;
-    }
+ 
     // if (this.DataService.file.value.url == "") {
     //   const modalRef = this.modalService.open(MessagePopupComponent, {
     //     size: "sm",

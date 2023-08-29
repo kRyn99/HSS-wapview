@@ -92,16 +92,23 @@ export class AddInsideEditComponent implements OnInit {
   goBackEdit() {
     alert("ok");
   }
+  isInputTouched = false;
   onSelectedStaffCodeChange(value: any) {
     this.setSelectedStaffCode(value);
+    this.isInputTouched = true;
+    this.phoneNumber = this.selectedStaffCodeSubject.value.phoneNumber;
+    this.email = this.selectedStaffCodeSubject.value.email;
 
-    console.log(value);
+    this.birthday = this.selectedStaffCodeSubject.value.birthday
+  
   }
   percentageValue: string;
   phoneNumber: string;
   email: string;
-  birthday: Date;
+  birthday: string;
+  percentageTouched = false;
   percentageValueChange(newValue: string) {
+    this.percentageTouched = true;
     const parsedValue = parseInt(newValue, 10);
     if (!isNaN(parsedValue)) {
       if (parsedValue >= 1) {
@@ -119,6 +126,7 @@ export class AddInsideEditComponent implements OnInit {
   }
 
   phoneNumberChange() {
+    this.selectedStaffCodeSubject.value.phoneNumber = this.phoneNumber;
     this.phoneNumber = this.phoneNumber.replace(/\D/g, "");
     if (this.phoneNumber.length > 12) {
       this.phoneNumber = this.phoneNumber.slice(0, 12);
@@ -126,14 +134,24 @@ export class AddInsideEditComponent implements OnInit {
     console.log(this.phoneNumber);
     this.DataService.phoneNumber.next(this.phoneNumber);
   }
+  checkEmail = false;
   emailChange() {
     console.log(this.email);
     this.DataService.email.next(this.email);
-  }
+    this.selectedStaffCodeSubject.value.email = this.email;
+    if (!this.isValidEmail(this.email)) {
+      this.checkEmail=true;
+    }else{
 
-  birthdayChange(event: Event): void {
-    console.log(this.birthday);
-    event.preventDefault();
+      this.checkEmail=false;
+    }
+  }
+  isValidEmail(email: string): boolean {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailRegex.test(email);
+  }
+  birthdayChange(): void {
+    this.selectedStaffCodeSubject.value.birthday = this.birthday
     this.DataService.birthday.next(this.birthday);
   }
 
@@ -142,7 +160,7 @@ export class AddInsideEditComponent implements OnInit {
     contributorDTO = {
       staffId: this.selectedStaffCodeSubject.value?.id,
       percentage: this.DataService.percentage.value,
-      birthday: this.selectedStaffCodeSubject.value?.birthday,
+      birthDay: this.selectedStaffCodeSubject.value?.birthday,
       staffCode: this.selectedStaffCodeSubject.value?.staffCode,
       fullName: this.selectedStaffCodeSubject.value?.fullName,
       phoneNumber: this.selectedStaffCodeSubject.value?.phoneNumber,
@@ -168,6 +186,18 @@ export class AddInsideEditComponent implements OnInit {
     this.isEdit = !this.isEdit;
   }
   ////////////
+  validateTemplate() {
+    if (
+      !this.selectedStaffCodeSubject.value
+    ) { this.isInputTouched = true }
+    if (
+      this.percentageValue === undefined ||
+      this.percentageValue === null ||
+      this.percentageValue === ''
+    ) {
+      this.percentageTouched = true;
+    }
+  }
   validate() {
     let hasDuplicate = false;
     if (!this.selectedStaffCodeSubject.value) {
@@ -185,6 +215,7 @@ export class AddInsideEditComponent implements OnInit {
         `ADD-INSIDE-IDEA.VALIDATE.STAFF-CODE`
       );
       modalRef.componentInstance.closeIcon = false;
+      this.validateTemplate()
       return false;
     }
     if (
@@ -206,6 +237,65 @@ export class AddInsideEditComponent implements OnInit {
         `ADD-INSIDE-IDEA.VALIDATE.PERCENT`
       );
       modalRef.componentInstance.closeIcon = false;
+      this.validateTemplate()
+      return false;
+    }
+    if (
+      this.phoneNumber === undefined ||
+      this.phoneNumber === null ||
+      this.phoneNumber === ''
+    ) {
+      const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
+      modalRef.componentInstance.type = 'fail';
+      modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
+      modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.PHONE`);
+      modalRef.componentInstance.closeIcon = false;
+      this.validateTemplate()
+      return false;
+    }
+    if (
+      this.email === undefined ||
+      this.email === null ||
+      this.email === ''
+    ) {
+      const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
+      modalRef.componentInstance.type = 'fail';
+      modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
+      modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.EMAIL`);
+      modalRef.componentInstance.closeIcon = false;
+      this.validateTemplate()
+      return false;
+    } else {
+      if (!this.isValidEmail(this.email)) {
+        const modalRef = this.modalService.open(MessagePopupComponent, {
+          size: 'sm',
+          backdrop: 'static',
+          keyboard: false,
+          centered: true,
+        });
+        modalRef.componentInstance.type = 'fail';
+        modalRef.componentInstance.title = this.translateService.instant(
+          `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+        );
+        modalRef.componentInstance.message = this.translateService.instant(
+          `ADD-INSIDE-IDEA.VALIDATE.EMAIL_FORM`
+        );
+        modalRef.componentInstance.closeIcon = false;
+        this.checkEmail=true;
+        return false;
+      }
+    }
+    if (
+      this.birthday === undefined ||
+      this.birthday === null
+
+    ) {
+      const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
+      modalRef.componentInstance.type = 'fail';
+      modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
+      modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.BIRTHDAY`);
+      modalRef.componentInstance.closeIcon = false;
+      this.validateTemplate()
       return false;
     }
     let lstContributorDTO = [];
