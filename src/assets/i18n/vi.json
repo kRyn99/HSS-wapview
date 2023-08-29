@@ -915,9 +915,11 @@
       "APPLICABILITY": "Khả năng áp dụng: ",
       "CREATIVE_POINTS": "Điểm mới, điểm sáng tạo của sáng kiến: ",
       "EXPECTED_EFFECT": "Hiệu quả dự kiến: ",
-      "PROFIT_AMOUNT": "Số tiền làm lợi",
+      "PROFIT_AMOUNT": "Số tiền làm lợi: ",
       "TEMPORARY_BONUS": "Tiền thưởng tạm tính: ",
-      "ATTACHED_DOCUMENTS": "Tài liệu kèm theo: "
+      "ATTACHED_DOCUMENTS": "Tài liệu kèm theo: ",
+      "CANNOT_CALCULATED": "Không tính được",
+      "DOCUMENTS_NOT_EXIST": "Không có tài liệu kèm theo"
     }
   },
   "SEE_MORE": "Xem thêm",

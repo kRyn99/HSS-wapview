@@ -185,7 +185,7 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy{
           content: [contrivancesDTO.content, Validators.required],
           applianceCondition: [contrivancesDTO.applianceCondition, Validators.required],
           applyStartTime: [contrivancesDTO.applyStartTime, Validators.required],
-          applyEndTime: [contrivancesDTO.applyEndTime, Validators.required],
+          applyEndTime: [contrivancesDTO.applyEndTime],
           effectiveness: [contrivancesDTO.effectiveness, Validators.required],
           creativePoint: [contrivancesDTO.creativePoint, Validators.required],
           specialty: [contrivancesDTO.specialty, Validators.required],
@@ -204,7 +204,7 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy{
           content: ["", Validators.required],
           applianceCondition: ["", Validators.required],
           applyStartTime: [this.startDateModel, Validators.required],
-          applyEndTime: [this.endDateModel, Validators.required],
+          applyEndTime: [this.endDateModel],
           effectiveness: ["", Validators.required],
           creativePoint: ["", Validators.required],
           specialty: [null, Validators.required],
@@ -215,6 +215,9 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy{
           listUnitDTO: [[], Validators.required],
         })
       );
+    };
+    if (this.formUtils.control('checkBonus').value) {
+      this.changeCheckBonus(true);
     }
   }
 
@@ -290,14 +293,18 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy{
   changeCheckBonus(event) {
     let effectiveValue = this.formUtils.control("effectiveValue");
     let bonus = this.formUtils.control("bonus");
-    if (event.target.checked) {
+    if (event) {
       effectiveValue.setValue("");
       effectiveValue.clearValidators();
+      effectiveValue.disable();
       bonus.setValue("");
       bonus.clearValidators();
+      bonus.disable();
     } else {
       effectiveValue.setValidators(Validators.required);
+      effectiveValue.enable();
       bonus.setValidators(Validators.required);
+      bonus.enable();
     }
     effectiveValue.updateValueAndValidity();
     bonus.updateValueAndValidity();

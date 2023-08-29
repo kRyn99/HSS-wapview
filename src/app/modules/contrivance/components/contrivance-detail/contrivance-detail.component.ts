@@ -237,7 +237,7 @@ export class ContrivanceDetailComponent implements OnInit, OnDestroy {
           },
         };
         this.contrivanceService
-          .callApiCommon("request-approve-contrivance-cms", request)
+          .callApiCommon("request-approve-contrivance", request)
           .subscribe(
             (res) => {
               if (res && res.errorCode === "0") {                

@@ -915,9 +915,11 @@
       "APPLICABILITY": "Applicability: ",
       "CREATIVE_POINTS": "New and creative points of the initiative: ",
       "EXPECTED_EFFECT": "Expected effect: ",
-      "PROFIT_AMOUNT": "Profit amount",
+      "PROFIT_AMOUNT": "Profit amount: ",
       "TEMPORARY_BONUS": "Temporary bonus: ",
-      "ATTACHED_DOCUMENTS": "Attached documents: "
+      "ATTACHED_DOCUMENTS": "Attached documents: ",
+      "CANNOT_CALCULATED": "Cannot calculated",
+      "DOCUMENTS_NOT_EXIST": "No documents attached"
     }
   },
   "SEE_MORE": "Xem thêm",
