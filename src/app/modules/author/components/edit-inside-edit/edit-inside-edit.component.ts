@@ -8,6 +8,7 @@ import { environment } from '@env/environment';
 import { BehaviorSubject } from 'rxjs';
 import { MessagePopupComponent } from '@app/modules/common-items/components/message-popup/message-popup.component';
 import { ContrivanceService } from '@app/shared/service/contrivance.service';
+import { NgSelectConfig } from '@ng-select/ng-select';
 
 
 
@@ -20,6 +21,7 @@ export class EditInsideEditComponent implements OnInit {
 
     contributorDTO: any;
     constructor(
+        private config: NgSelectConfig,
         private http: HttpClient,
         private route: ActivatedRoute,
         public DataService: DataService,
@@ -27,18 +29,24 @@ export class EditInsideEditComponent implements OnInit {
         private modalService: NgbModal,
         private translateService: TranslateService,
         public contrivanceService: ContrivanceService
-    ) { }
+    ) { 
+        this.config.notFoundText = this.translateService.instant(`STAFF_CODE_NOT_EXIST`);
+        this.config.appendTo = "body";
+        this.config.bindValue = "value";
+    }
     token = JSON.parse(localStorage.getItem("tokenInLocalStorage"));
     ngOnInit() {
+        console.log(this.DataService.lstContributorDTOServiceEdit.value);
+        
         this.route.queryParams.subscribe((params) => {
             if (params && params.for) {
                 this.backRoute = params.for;
             }
             if (params && params.id) {
                 if (this.backRoute == "contrivance") {
-                    this.contributorDTO = this.contrivanceService.lstContributorDTOService.value.find(item => item.staffId == Number(params.id))
+                    this.contributorDTO = {...this.contrivanceService.lstContributorDTOService.value.find(item => item.staffId == Number(params.id))}
                 } else {
-                    this.contributorDTO = this.DataService.lstContributorDTOServiceEdit.value.find(item => item.staffId == Number(params.id))
+                    this.contributorDTO = {...this.DataService.lstContributorDTOServiceEdit.value.find(item => item.staffId == Number(params.id))}
                 }
             }
 
@@ -97,6 +105,15 @@ export class EditInsideEditComponent implements OnInit {
 
         }
     }
+    checkEmail = false;
+    changeEmail() {
+        if (!this.isValidEmail(this.contributorDTO.email)) {
+            this.checkEmail = true;
+        } else {
+
+            this.checkEmail = false;
+        }
+    }
     validate() {
         if (
             this.contributorDTO.staffCode === undefined ||
@@ -119,7 +136,7 @@ export class EditInsideEditComponent implements OnInit {
             const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
             modalRef.componentInstance.type = 'fail';
             modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
-            modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.CONTRIBUTION`);
+            modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.PERCENT`);
             modalRef.componentInstance.closeIcon = false;
             return false;
         }
@@ -184,6 +201,8 @@ export class EditInsideEditComponent implements OnInit {
             modalRef.componentInstance.closeIcon = false;
             return false;
         }
+      
+          
 
         return true;
     }
@@ -198,18 +217,22 @@ export class EditInsideEditComponent implements OnInit {
     edit() {
         if (this.validate()) {
             if (this.backRoute == "contrivance") {
-                this.contrivanceService.lstContributorDTOService.value.forEach(item => {
-                    if (item.staffId == this.contributorDTO.staffId) {
-                        item = this.contributorDTO
+                for(let i = 0; i < this.contrivanceService.lstContributorDTOService.value.length; i++) {
+                    if (
+                      this.contrivanceService.lstContributorDTOService.value[i].staffId == this.contributorDTO.staffId 
+                    ) {
+                      this.contrivanceService.lstContributorDTOService.value[i] = this.contributorDTO;
                     }
-                })
+                  }
                 this.router.navigate(["contrivance/edit"]);
             } else {
-                this.DataService.lstContributorDTOServiceEdit.value.forEach(item => {
-                    if (item.staffId == this.contributorDTO.staffId) {
-                        item = this.contributorDTO
+                for(let i = 0; i < this.DataService.lstContributorDTOServiceEdit.value.length; i++) {
+                    if (
+                      this.DataService.lstContributorDTOServiceEdit.value[i].staffId == this.contributorDTO.staffId 
+                    ) {
+                      this.DataService.lstContributorDTOServiceEdit.value[i] = this.contributorDTO;
                     }
-                })
+                  }
                 this.router.navigate(["idea/edit"]);
             }
         }

@@ -1,77 +1,95 @@
 <app-title-nav
-  [title]="'Sửa tác giả ngoài tập đoàn' | translate"
+  [title]="'EDIT_AUTHOR_OUTSIDE_GROUP' | translate"
   [backRoute]="backRoute + '/register'"
 >
 </app-title-nav>
 <div class="body">
   <div class="info-box">
-    <div class="info-title">{{ "Họ và tên (*)" | translate }}</div>
+    <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.FULL_NAME" | translate }}(<span style="color:red">*</span>)</div>
     <ng-select
       [items]="listContributorOut"
       bindLabel="fullName"
       [placeholder]="contributorDTO?.fullName"
       [(ngModel)]="contributorDTO"
+      [addTag]="true"
+      [addTagText]="'Chọn tên tác giả'"
       (change)="onSelectedStaffCodeChange($event)"
+      [addTag]="true"
+      [addTagText]="'CHOOSE_AUTHOR_NAME' | translate"
     ></ng-select>
+    <div class="form-text text-danger" *ngIf="!contributorDTO?.fullName">{{ "ADD-INSIDE-IDEA.VALIDATE.NAME" | translate }}</div>
   </div>
   <div class="info-box">
-    <div class="info-title">{{ "Nơi công tác (*)" | translate }}</div>
+    <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.WORK_PLACE" | translate }}(<span style="color:red">*</span>)</div>
     <input
       class="info-input"
-      [placeholder]="'Nhập nơi công tác' | translate"
-      [(ngModel)]="contributorDTO.jobAddress"
+      [placeholder]="'MANAGE_CATEGORY.PLACEHOLDER.WORK_PLACE' | translate"
+      [ngModel]="contributorDTO?.jobAddress"
+      (ngModelChange)="updateJobAddress($event)"
     />
+    <div class="form-text text-danger" *ngIf="!contributorDTO?.jobAddress">{{ "ADD-INSIDE-IDEA.VALIDATE.ADDRESS" | translate }}</div>
   </div>
   <div class="info-box">
-    <div class="info-title">{{ "Chức vụ (*)" | translate }}</div>
+    <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.OFFICE" | translate }}(<span style="color:red">*</span>)</div>
     <input
       class="info-input"
-      [placeholder]="'Nhập chức vụ' | translate"
-      [(ngModel)]="contributorDTO.jobPosition"
+      [placeholder]="'MANAGE_CATEGORY.PLACEHOLDER.POSITION' | translate"
+      [ngModel]="contributorDTO?.jobPosition"
+      (ngModelChange)="updateJobPosition($event)"
     />
+    <div class="form-text text-danger" *ngIf="!contributorDTO?.jobPosition">{{ "ADD-INSIDE-IDEA.VALIDATE.POSITION" | translate }}</div>
   </div>
   <div class="info-box">
-    <div class="info-title">{{ "Số điện thoại  (*)" | translate }}</div>
+    <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.PHONE" | translate }}(<span style="color:red">*</span>)</div>
     <input
       class="info-input"
-      [placeholder]="'Nhập số điện thoại ' | translate"
-      [(ngModel)]="contributorDTO.phoneNumber"
+      [placeholder]="'MANAGE_CATEGORY.PLACEHOLDER.PHONE_NUMBER' | translate"
+      [ngModel]="contributorDTO?.phoneNumber"
+      (ngModelChange)="updatePhoneNumber($event)"
       NumbersOnly
       maxlength="12"
     />
+    <div class="form-text text-danger" *ngIf="!contributorDTO?.phoneNumber">{{ "ADD-INSIDE-IDEA.VALIDATE.PHONE" | translate }}</div>
   </div>
   <div class="info-box">
-    <div class="info-title">{{ "Email (*)" | translate }}</div>
+    <div class="info-title">{{ "CONTRIVANCE_MAMAGEMENT.LABEL.EMAIL" | translate }}(<span style="color:red">*</span>)</div>
     <input
       class="info-input"
-      [placeholder]="'Nhập email' | translate"
-      [(ngModel)]="contributorDTO.email"
+      [placeholder]="'MANAGE_CATEGORY.PLACEHOLDER.EMAIL' | translate"
+      [ngModel]="contributorDTO?.email"
+      (ngModelChange)="updateEmail($event)"
     />
+    <div class="form-text text-danger" *ngIf="!contributorDTO?.email">{{ "ADD-INSIDE-IDEA.VALIDATE.EMAIL" | translate }}</div>
+    <div class="form-text text-danger" *ngIf="checkEmail && contributorDTO.email">{{ "ADD-INSIDE-IDEA.VALIDATE.EMAIL_FORM" | translate }}</div>
   </div>
   <div class="info-box">
-    <div class="info-title">{{ "Trình độ chuyên môn " | translate }}</div>
+    <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.QUALIFICATION" | translate }}</div>
     <input
       class="info-input"
-      [placeholder]="'Nhập trình độ chuyên môn' | translate"
-      [(ngModel)]="contributorDTO.professionalQualification"
+      [placeholder]="'MANAGE_CATEGORY.PLACEHOLDER.QUALIFICATION' | translate"
+      [ngModel]="contributorDTO?.professionalQualification"
+      (ngModelChange)="updateProfessionalQualification($event)"
     />
+    <div class="form-text text-danger" *ngIf="!contributorDTO?.professionalQualification">{{ "ADD-INSIDE-IDEA.VALIDATE.QUALIFICATION" | translate }}</div>
   </div>
   <div class="info-box">
-    <div class="info-title">{{ "% đóng góp (*)" | translate }}</div>
+    <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.CONTRIBUTE_PERCENT" | translate }}(<span style="color:red">*</span>)</div>
     <input
       class="info-input"
-      [placeholder]="'Nhập % đóng góp của tác giả' | translate"
+      [placeholder]="'percentage' | translate"
       [(ngModel)]="contributorDTO.percentage"
       maxlength="3"
       NumbersOnly
       (ngModelChange)="percentageValueChange($event)"
       maxlength="3"
     />
+    <div class="form-text text-danger" *ngIf="!contributorDTO?.percentage">{{ "ADD-INSIDE-IDEA.VALIDATE.PERCENT" | translate }}</div>
   </div>
+  
 </div>
 <div (click)="edit()" class="bottom-box">
   <div class="bottom-btn">
     <img src="assets/img/icon/plus.svg" />
-    <div class="btn-text">{{ "Lưu lại" | translate }}</div>
+    <div class="btn-text">{{ "BUTTON.SAVE" | translate }}</div>
   </div>
 </div>

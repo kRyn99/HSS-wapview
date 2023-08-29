@@ -811,8 +811,8 @@
     <div class="header-text">
       4. {{ "IDEA_MANAGEMENT.LABEL.FILE_DOCCUMENT" | translate }}
     </div>
-    <div class="file">
-      <div class="file-text">{{ fileInfo?.name }}</div>
+    <div class="file text-center">
+      <div class="file-text text-center fs-075">{{ fileInfo?.name }}</div>
       <div
         class="upload-file"
         (click)="selectFile.value = ''; selectFile.click()"
@@ -828,16 +828,16 @@
         style="display: none"
         #selectFile
       />
-      <span
+      <span class="fs-075"
         >{{ "IDEA_MANAGEMENT.LABEL.FILE_TYPE" | translate }}:
-        <b>{{
+        <b class="fs-075">{{
           " .txt, .doc, .docx, .rar, .zip, .xls, .xlsx, .pdf, .jpg, .gif, .png, .ppt, .pptx."
             | translate
         }}</b>
       </span>
-      <span
+      <span class="fs-075"
         >{{ "IDEA_MANAGEMENT.LABEL.MAX_STORAGE" | translate }}:
-        <b>{{ "25 MB" | translate }}</b></span
+        <b class="fs-075">{{ "25 MB" | translate }}</b></span
       >
     </div>
   </div>

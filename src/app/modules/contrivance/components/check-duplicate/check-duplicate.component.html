@@ -70,7 +70,7 @@
             (click)="item.isCollapsed = !item.isCollapsed"
             [attr.aria-expanded]="!item.isCollapsed"
             aria-controls="collapseDescription"
-          >{{ item.isCollapsed ? 'See more' : 'See less' }}</div>
+          >{{ (item.isCollapsed ? 'SEE_MORE' : 'SEE_LESS') | translate }}</div>
         </div>
       </div>
     </div>

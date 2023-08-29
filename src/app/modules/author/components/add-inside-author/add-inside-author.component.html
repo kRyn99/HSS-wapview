@@ -1,30 +1,32 @@
 <app-title-nav
-  [title]="'Thêm tác giả trong tập đoàn' | translate"
+  [title]="'ADD_AUTHOR_IN_GROUP' | translate"
   [backRoute]="backRoute + '/register'"
 ></app-title-nav>
 <div class="body">
   <div class="info-box">
+    <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.STAFF_CODE" | translate }}(<span style="color: red">*</span>)</div>
     <ng-select
       [items]="listStaff"
       bindLabel="staffCode"
-      placeholder="Nhập mã nhân viên"
+      placeholder="{{ 'IDEA_MANAGEMENT.PLACEHOLDER.ENTER_STAFF_CODE' | translate }}"
       [(ngModel)]="selectedStaffCode"
       (change)="onSelectedStaffCodeChange($event)"
+      [required]="isInputTouched"
     ></ng-select>
-
+    <div class="form-text text-danger" *ngIf="isInputTouched && !selectedStaffCodeSubject.value">{{ "ADD-INSIDE-IDEA.VALIDATE.STAFF-CODE" | translate }}</div>
     <div class="info-box">
-      <div class="info-title">{{ "Họ và tên" | translate }}</div>
+      <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.FULL_NAME" | translate }}</div>
       <input
         class="info-input"
         [placeholder]="
-          (selectedStaffCodeSubject | async)?.fullName || 'Họ và tên'
+          (selectedStaffCodeSubject | async)?.fullName || 'MANAGE_CATEGORY.PLACEHOLDER.FULL_NAME' | translate
         "
         style="background-color: #f3f3f3"
         [readonly]="!isEdit"
       />
     </div>
     <div class="info-box">
-      <div class="info-title">{{ "% đóng góp" | translate }}(<span
+      <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.CONTRIBUTE_PERCENT" | translate }}(<span
         style="color: red"
         >*</span
       >)</div>
@@ -32,14 +34,16 @@
         NumbersOnly
         type="text"
         class="info-input"
-        [placeholder]="'Nhập % đóng góp của tác giả' | translate"
+        [placeholder]="'percentage' | translate"
         [(ngModel)]="percentageValue"
         (ngModelChange)="percentageValueChange($event)"
         maxlength="3"
+        [required]="percentageTouched"
       />
+      <div class="form-text text-danger" *ngIf="percentageTouched && !percentageValue">{{ "ADD-INSIDE-IDEA.VALIDATE.PERCENT" | translate }}</div>
     </div>
     <div class="info-box">
-      <div class="info-title">{{ "Số điện thoại" | translate }}(<span
+      <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.PHONE" | translate }}(<span
         style="color: red"
         >*</span
       >)</div>
@@ -48,35 +52,37 @@
         class="info-input"
         [placeholder]="
           (selectedStaffCodeSubject | async)?.phoneNumber ||
-          'Nhập số điện thoại'
+          'MANAGE_CATEGORY.PLACEHOLDER.PHONE_NUMBER' | translate
         "
         [(ngModel)]="phoneNumber"
         
         (input)="phoneNumberChange()"
         NumbersOnly
         maxlength="12"
+        [required]="isInputTouched"
       />
+      <div class="form-text text-danger" *ngIf="isInputTouched && !(selectedStaffCodeSubject | async)?.phoneNumber">{{ "ADD-INSIDE-IDEA.VALIDATE.PHONE" | translate }}</div>
     </div>
     <div class="info-box">
-      <div class="info-title">{{ "Email" | translate }}</div>
+      <div class="info-title">{{ "CONTRIVANCE_MAMAGEMENT.LABEL.EMAIL" | translate }}</div>
       <input
         type="text"
         class="info-input"
         [placeholder]=" (selectedStaffCodeSubject | async)?.email ||
-        'Nhập email'"
+        'MANAGE_CATEGORY.PLACEHOLDER.EMAIL' | translate"
         [(ngModel)]="email"
         (input)="emailChange()"
+        [required]="isInputTouched"
       />
+      <div class="form-text text-danger" *ngIf="isInputTouched && !(selectedStaffCodeSubject | async)?.email">{{ "ADD-INSIDE-IDEA.VALIDATE.EMAIL" | translate }}</div>
+      <div class="form-text text-danger" *ngIf="checkEmail && (selectedStaffCodeSubject | async)?.email">{{ "ADD-INSIDE-IDEA.VALIDATE.EMAIL_FORM" | translate }}</div>
     </div>
     <div class="info-box">
-      <div class="info-title">{{ "Ngày sinh" | translate }}(<span
-        style="color: red"
-        >*</span
-      >)</div>
+      <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH" | translate }}</div>
       <label class="date">
         <input
           [placeholder]=" (selectedStaffCodeSubject | async)?.birthday ||
-          'Nhập ngày sinh'"
+          'IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH' | translate"
           type="text"
           name="Date"
           [bsConfig]="bsConfig"
@@ -87,41 +93,43 @@
           bsDatepicker
           autocomplete="off"
           [(ngModel)]="birthday"
-          (ngModelChange)="birthdayChange($event)"
+          (ngModelChange)="birthdayChange()"
           readonly
+          [required]="isInputTouched"
         />
         <img src="assets/img/icon/calendar.svg" style="padding: 10px" />
       </label>
+      <div class="form-text text-danger" *ngIf="isInputTouched && !(selectedStaffCodeSubject | async)?.birthday">{{ "ADD-INSIDE-IDEA.VALIDATE.BIRTHDAY" | translate }}</div>
     </div>
     <div class="info-box">
-      <div class="info-title">{{ "Nơi công tác" | translate }}</div>
+      <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.WORK_PLACE" | translate }}</div>
       <input
         class="info-input"
         [placeholder]="
-          (selectedStaffCodeSubject | async)?.jobAddress || 'Nơi công tác'
+          (selectedStaffCodeSubject | async)?.jobAddress || 'MANAGE_CATEGORY.PLACEHOLDER.WORK_PLACE' | translate
         "
         style="background-color: #f3f3f3"
         [readonly]="!isEdit"
       />
     </div>
     <div class="info-box">
-      <div class="info-title">{{ "Chức vụ" | translate }}</div>
+      <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.OFFICE" | translate }}</div>
       <input
         class="info-input"
         [placeholder]="
-          (selectedStaffCodeSubject | async)?.jobPosition || 'Chức vụ'
+          (selectedStaffCodeSubject | async)?.jobPosition || 'MANAGE_CATEGORY.PLACEHOLDER.POSITION' | translate
         "
         style="background-color: #f3f3f3"
         [readonly]="!isEdit"
       />
     </div>
     <div class="info-box">
-      <div class="info-title">{{ "Trình độ chuyên môn" | translate }}</div>
+      <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.QUALIFICATION" | translate }}</div>
       <input
         class="info-input"
         [placeholder]="
           (selectedStaffCodeSubject | async)?.proQualification ||
-          'Trình độ chuyên môn'
+          'MANAGE_CATEGORY.PLACEHOLDER.QUALIFICATION' | translate
         "
         style="background-color: #f3f3f3"
         [readonly]="!isEdit"
@@ -132,6 +140,6 @@
 <div class="bottom-box">
   <div (click)="addNew()" class="bottom-btn">
     <img src="assets/img/icon/plus.svg" />
-    <div class="btn-text">{{ "Thêm mới" | translate }}</div>
+    <div class="btn-text">{{ "BUTTON.ADD_NEW" | translate }}</div>
   </div>
 </div>

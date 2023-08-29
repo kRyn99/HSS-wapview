@@ -826,7 +826,9 @@
       "CONTRIBUTOR":"Mã nhân viên bị trùng",
       "ADDRESS":"Nơi công tác không được trống",
       "POSITION":"Chức vụ không được trống",
-      "QUALIFICATION":"Trình độ chuyên môn không được trống"
+      "QUALIFICATION":"Trình độ chuyên môn không được trống",
+      "EMPTY_START_DATE":"Áp dụng từ ngày không được trống",
+      "EMPTY_END_DATE":"Áp dụng đến ngày không được trống"
     },
     "CONFIRM": {
       "CONFIRM": "Xác nhận",
@@ -923,5 +925,12 @@
     }
   },
   "SEE_MORE": "Xem thêm",
-  "SEE_LESS": "Thu gọn"
+  "SEE_LESS": "Thu gọn",
+  "ADD_AUTHOR_IN_GROUP":"Thêm tác giả trong tập đoàn",
+  "ADD_AUTHOR_OUTSIDE_GROUP": "Thêm tác giả ngoài tập đoàn",
+  "EDIT_AUTHOR_IN_GROUP":"Sửa tác giả trong tập đoàn",
+  "EDIT_AUTHOR_OUTSIDE_GROUP":"Sửa tác giả ngoài tập đoàn",
+  "CHOOSE_AUTHOR_NAME": "Chọn tên tác giả",
+  "STAFF_CODE_NOT_EXIST": "Mã nhân viên không tồn tại"
+
 }

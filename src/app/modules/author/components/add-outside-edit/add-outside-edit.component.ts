@@ -111,9 +111,10 @@ export class AddOutsideEditComponent implements OnInit {
       },
     );
   }
+  isInputTouched = false;
   onSelectedStaffCodeChange(value: any) {
     this.setSelectedStaffCode(value);
-
+    this.isInputTouched = true;
     this.selectedPhoneNumber = this.selectedStaffCodeSubject.value?.phoneNumber;
     this.selectedEmail = this.selectedStaffCodeSubject.value?.email;
     this.selectedJobPosition = this.selectedStaffCodeSubject.value?.jobPosition;
@@ -137,7 +138,92 @@ export class AddOutsideEditComponent implements OnInit {
     }
   }
 
+  jobAddressTouched = false;
+  changeJobAddress() {
+    this.jobAddressTouched = true;
 
+  }
+  jobPositionTouched = false;
+  changeJobPosition() {
+    this.jobPositionTouched = true;
+  }
+  phoneTouched = false;
+  changePhone() {
+    this.phoneTouched = true;
+  }
+  emailTouched=false;
+  checkEmail = false;
+  isValidEmail(email: string): boolean {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailRegex.test(email);
+  }
+  changeEmail() {
+    this.emailTouched = true;
+    this.selectedStaffCodeSubject.value.email = this.selectedEmail;
+    if (!this.isValidEmail(this.selectedStaffCodeSubject.value.email)) {
+      this.checkEmail=true;
+    }else{
+
+      this.checkEmail=false;
+    }
+  }
+  qualificationTouched = false;
+  changeQualification() {
+    this.qualificationTouched = true;
+  }
+  percentageTouched = false;
+  changePercentage() {
+    this.percentageTouched = true;
+  }
+   validateTemplate() {
+  
+    if (
+      !this.selectedStaffCodeSubject.value
+    ) { this.isInputTouched = true }
+    if (
+      this.selectedJobAddress === undefined ||
+      this.selectedJobAddress === null ||
+      this.selectedJobAddress === ''
+    ) {
+      this.jobAddressTouched = true
+    }
+    if (
+      this.selectedJobPosition === undefined ||
+      this.selectedJobPosition === null ||
+      this.selectedJobPosition === ''
+    ) {
+      this.jobPositionTouched = true;
+    }
+    if (
+      this.selectedPhoneNumber === undefined ||
+      this.selectedPhoneNumber === null ||
+      this.selectedPhoneNumber === ''
+    ) {
+      this.phoneTouched = true;
+    }
+    if (
+      this.selectedEmail === undefined ||
+      this.selectedEmail === null ||
+      this.selectedEmail === ''
+    ) {
+      this.emailTouched = true;
+    }
+    if (
+      this.selectedProfessionalQualification === undefined ||
+      this.selectedProfessionalQualification === null ||
+      this.selectedProfessionalQualification === ''
+    ) {
+      this.qualificationTouched = true;
+    }
+    if (
+      this.selectedPercentage === undefined ||
+      this.selectedPercentage === null ||
+      this.selectedPercentage === ''
+    ) {
+      this.percentageTouched = true;
+    }
+
+  }
   validate() {
     function isValidEmail(email: string): boolean {
 
@@ -154,6 +240,7 @@ export class AddOutsideEditComponent implements OnInit {
       modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
       modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.STAFF-CODE`);
       modalRef.componentInstance.closeIcon = false;
+      this.validateTemplate()
       return false;
     }
     if (
@@ -187,6 +274,7 @@ export class AddOutsideEditComponent implements OnInit {
       modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
       modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.EMAIL_FORM`);
       modalRef.componentInstance.closeIcon = false;
+      this.checkEmail=true;
       return false;
     };
     if (

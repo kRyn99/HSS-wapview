@@ -26,6 +26,7 @@ export class AddInsideAuthorComponent implements OnInit {
   setSelectedStaffCode(code: any) {
     this.selectedStaffCodeSubject.next(code);
     this.DataService.selectedStaffCodeSubject.next(code);
+
   }
 
   getSelectedStaffCodeSubject() {
@@ -43,13 +44,8 @@ export class AddInsideAuthorComponent implements OnInit {
     public contrivanceService: ContrivanceService,
     private route: ActivatedRoute,
   ) {
-    this.config.notFoundText = "Mã nhân viên không tồn tại";
+    this.config.notFoundText = this.translateService.instant(`STAFF_CODE_NOT_EXIST`);
     this.config.appendTo = "body";
-    // set the bindValue to global config when you use the same
-    // bindValue in most of the place.
-    // You can also override bindValue for the specified template
-    // by defining `bindValue` as property
-    // Eg : <ng-select bindValue="some-new-value"></ng-select>
     this.config.bindValue = "value";
   }
   // bsConfig: Partial<BsDatepickerConfig>;
@@ -58,6 +54,7 @@ export class AddInsideAuthorComponent implements OnInit {
   };
   minMode: BsDatepickerViewMode = "day";
   ngOnInit() {
+
     this.getListStaff();
     this.route.queryParams.subscribe((params) => {
       if (params && params.for) {
@@ -90,18 +87,24 @@ export class AddInsideAuthorComponent implements OnInit {
       }
     );
   }
-
+  isInputTouched = false;
   onSelectedStaffCodeChange(value: any) {
     this.setSelectedStaffCode(value);
+    this.isInputTouched = true;
+    this.phoneNumber = this.selectedStaffCodeSubject.value.phoneNumber;
+    this.email = this.selectedStaffCodeSubject.value.email;
+
+    this.birthday = this.selectedStaffCodeSubject.value.birthday
 
 
-    console.log(value);
   }
   percentageValue: string;
   phoneNumber: string;
   email: string;
-  birthday: Date;
+  birthday: string;
+  percentageTouched = false;
   percentageValueChange(newValue: string) {
+    this.percentageTouched = true;
     const parsedValue = parseInt(newValue, 10);
     if (!isNaN(parsedValue)) {
       if (parsedValue >= 1) { // Thay đổi điều kiện này để đảm bảo giá trị >= 1
@@ -116,9 +119,10 @@ export class AddInsideAuthorComponent implements OnInit {
       this.DataService.percentage.next(this.percentageValue);
     }
   }
-  
+
 
   phoneNumberChange() {
+    this.selectedStaffCodeSubject.value.phoneNumber = this.phoneNumber;
     this.phoneNumber = this.phoneNumber.replace(/\D/g, "");
     if (this.phoneNumber.length > 12) {
       this.phoneNumber = this.phoneNumber.slice(0, 12);
@@ -127,18 +131,30 @@ export class AddInsideAuthorComponent implements OnInit {
     this.DataService.phoneNumber.next(this.phoneNumber)
 
   }
+  checkEmail = false;
   emailChange() {
-    console.log(this.email);
+  
     this.DataService.email.next(this.email)
+  
+    this.selectedStaffCodeSubject.value.email = this.email;
+    if (!this.isValidEmail(this.email)) {
+      this.checkEmail=true;
+    }else{
+
+      this.checkEmail=false;
+    }
   }
 
-  birthdayChange(event: Event): void {
+  birthdayChange(): void {
+    this.selectedStaffCodeSubject.value.birthday = this.birthday
     console.log(this.birthday);
-    event.preventDefault();
+    // event.preventDefault();
+
     this.DataService.birthday.next(this.birthday)
   }
 
   getLstContributorDTO() {
+
     let contributorDTO = null;
     contributorDTO =
     {
@@ -167,7 +183,26 @@ export class AddInsideAuthorComponent implements OnInit {
     this.isEdit = !this.isEdit;
   }
   ////////////
+  isValidEmail(email: string): boolean {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailRegex.test(email);
+  }
+  validateTemplate() {
+    if (
+      !this.selectedStaffCodeSubject.value
+    ) { this.isInputTouched = true }
+    if (
+      this.percentageValue === undefined ||
+      this.percentageValue === null ||
+      this.percentageValue === ''
+    ) {
+      this.percentageTouched = true;
+    }
+   
+  }
+
   validate() {
+
     let hasDuplicate = false;
     if (
       !this.selectedStaffCodeSubject.value
@@ -177,6 +212,7 @@ export class AddInsideAuthorComponent implements OnInit {
       modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
       modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.STAFF-CODE`);
       modalRef.componentInstance.closeIcon = false;
+      this.validateTemplate()
       return false;
     }
     if (
@@ -189,6 +225,65 @@ export class AddInsideAuthorComponent implements OnInit {
       modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
       modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.PERCENT`);
       modalRef.componentInstance.closeIcon = false;
+      this.validateTemplate()
+      return false;
+    }
+    if (
+      this.phoneNumber === undefined ||
+      this.phoneNumber === null ||
+      this.phoneNumber === ''
+    ) {
+      const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
+      modalRef.componentInstance.type = 'fail';
+      modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
+      modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.PHONE`);
+      modalRef.componentInstance.closeIcon = false;
+      this.validateTemplate()
+      return false;
+    }
+    if (
+      this.email === undefined ||
+      this.email === null ||
+      this.email === ''
+    ) {
+      const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
+      modalRef.componentInstance.type = 'fail';
+      modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
+      modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.EMAIL`);
+      modalRef.componentInstance.closeIcon = false;
+      this.validateTemplate()
+      return false;
+    } else {
+      if (!this.isValidEmail(this.email)) {
+        const modalRef = this.modalService.open(MessagePopupComponent, {
+          size: 'sm',
+          backdrop: 'static',
+          keyboard: false,
+          centered: true,
+        });
+        modalRef.componentInstance.type = 'fail';
+        modalRef.componentInstance.title = this.translateService.instant(
+          `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+        );
+        modalRef.componentInstance.message = this.translateService.instant(
+          `ADD-INSIDE-IDEA.VALIDATE.EMAIL_FORM`
+        );
+        modalRef.componentInstance.closeIcon = false;
+        this.checkEmail=true;
+        return false;
+      }
+    }
+    if (
+      this.birthday === undefined ||
+      this.birthday === null
+
+    ) {
+      const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
+      modalRef.componentInstance.type = 'fail';
+      modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
+      modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.BIRTHDAY`);
+      modalRef.componentInstance.closeIcon = false;
+      this.validateTemplate()
       return false;
     }
     let lstContributorDTO = [];

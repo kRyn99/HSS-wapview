@@ -22,6 +22,7 @@ import { CheckDuplicateComponentIdea } from "./components/check-duplicate/check-
 import { CRUDTableModule } from "../../shared/crud-table/crud-table.module";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { NgbModalModule, NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,10 @@ import { NgbModalModule, NgbModule } from "@ng-bootstrap/ng-bootstrap";
     MatFormFieldModule,
     NgbModalModule,
     NgbModule
+  ],
+  providers: [
+    DatePipe,
+
   ],
 })
 export class IdeaModule {}

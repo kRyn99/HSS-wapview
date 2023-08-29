@@ -1,96 +1,115 @@
 <app-title-nav
-  [title]="'Thêm tác giả ngoài tập đoàn' | translate"
+  [title]="'ADD_AUTHOR_OUTSIDE_GROUP' | translate"
   [backRoute]="backRoute + '/edit'"
 >
 </app-title-nav>
 <div class="body">
   <div class="info-box">
-    <div class="info-title">{{ "Họ và tên " | translate }}(<span style="color:red">*</span>)</div>
+    <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.FULL_NAME" | translate }}(<span style="color:red">*</span>)</div>
     <ng-select
       [items]="listContributorOut"
       bindLabel="fullName"
-      placeholder="Họ và tên"
+      [placeholder]="'MANAGE_CATEGORY.PLACEHOLDER.FULL_NAME' | translate"
       [(ngModel)]="selectedFullName"
       (change)="onSelectedStaffCodeChange($event)"
       [addTag]="true"
-      [addTagText]="'Chọn tên tác giả'"
+      [addTagText]="'CHOOSE_AUTHOR_NAME' | translate"
+      [required]="isInputTouched"
     ></ng-select>
-    <!-- <input class="info-input"
-               [placeholder]="'Họ và tên' | translate"
-               [(ngModel)]="selectedFullName"> -->
+    <div class="form-text text-danger" *ngIf="isInputTouched && !selectedStaffCodeSubject.value">{{ "ADD-INSIDE-IDEA.VALIDATE.NAME" | translate }}</div>
+
   </div>
   <div class="info-box">
-    <div class="info-title">{{ "Nơi công tác" | translate }}(<span style="color:red">*</span>)</div>
+    <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.WORK_PLACE" | translate }}(<span style="color:red">*</span>)</div>
     <input
       class="info-input"
       [placeholder]="
-        (selectedStaffCodeSubject | async)?.jobAddress || 'Nhập nơi công tác'
-          | translate
+        (selectedStaffCodeSubject | async)?.jobAddress || 'MANAGE_CATEGORY.PLACEHOLDER.WORK_PLACE' | translate
       "
       [(ngModel)]="selectedJobAddress"
+      (input)="changeJobAddress()"
+      [required]="jobAddressTouched"
     />
+    <div class="form-text text-danger" *ngIf="jobAddressTouched && !selectedJobAddress">{{ "ADD-INSIDE-IDEA.VALIDATE.ADDRESS" | translate }}</div>
+
   </div>
   <div class="info-box">
-    <div class="info-title">{{ "Chức vụ" | translate }}(<span style="color:red">*</span>)</div>
+    <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.OFFICE" | translate }}(<span style="color:red">*</span>)</div>
     <input
       class="info-input"
       [placeholder]="
-        (selectedStaffCodeSubject | async)?.jobPosition || 'Nhập chức vụ'
+        (selectedStaffCodeSubject | async)?.jobPosition || 'MANAGE_CATEGORY.PLACEHOLDER.POSITION'
           | translate
       "
       [(ngModel)]="selectedJobPosition"
+      (input)="changeJobPosition()"
+      [required]="jobPositionTouched"
     />
+    <div class="form-text text-danger" *ngIf="jobPositionTouched && !selectedJobPosition">{{ "ADD-INSIDE-IDEA.VALIDATE.POSITION" | translate }}</div>
   </div>
   <div class="info-box">
-    <div class="info-title">{{ "Số điện thoại " | translate }}(<span style="color:red">*</span>)</div>
+    <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.PHONE" | translate }}(<span style="color:red">*</span>)</div>
     <input
       class="info-input"
       [placeholder]="
-        (selectedStaffCodeSubject | async)?.phoneNumber || 'Nhập số điện thoại '
+        (selectedStaffCodeSubject | async)?.phoneNumber || 'MANAGE_CATEGORY.PLACEHOLDER.PHONE_NUMBER'
           | translate
       "
       [(ngModel)]="selectedPhoneNumber"
       maxlength="12"
       NumbersOnly
+      (input)="changePhone()"
+      [required]="phoneTouched"
     />
+    <div class="form-text text-danger" *ngIf="phoneTouched && !selectedPhoneNumber">{{ "ADD-INSIDE-IDEA.VALIDATE.PHONE" | translate }}</div>
   </div>
   <div class="info-box">
-    <div class="info-title">{{ "Email" | translate }}(<span style="color:red">*</span>)</div>
+    <div class="info-title">{{ "CONTRIVANCE_MAMAGEMENT.LABEL.EMAIL" | translate }}(<span style="color:red">*</span>)</div>
     <input
       class="info-input"
       [placeholder]="
-        (selectedStaffCodeSubject | async)?.email || 'Nhập email' | translate
+        (selectedStaffCodeSubject | async)?.email || 'MANAGE_CATEGORY.PLACEHOLDER.EMAIL' | translate
       "
       [(ngModel)]="selectedEmail"
+      (input)="changeEmail()"
+      [required]="emailTouched"
     />
+    <div class="form-text text-danger" *ngIf="emailTouched && !selectedEmail">{{ "ADD-INSIDE-IDEA.VALIDATE.EMAIL" | translate }}</div>
+    <div class="form-text text-danger" *ngIf="checkEmail && selectedEmail">{{ "ADD-INSIDE-IDEA.VALIDATE.EMAIL_FORM" | translate }}</div>
   </div>
   <div class="info-box">
-    <div class="info-title">{{ "Trình độ chuyên môn " | translate }}</div>
+    <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.QUALIFICATION" | translate }}</div>
     <input
       class="info-input"
       [placeholder]="
         (selectedStaffCodeSubject | async)?.professionalQualification ||
-          'Nhập trình độ chuyên môn' | translate
+        'MANAGE_CATEGORY.PLACEHOLDER.QUALIFICATION' | translate
       "
       [(ngModel)]="selectedProfessionalQualification"
+      (input)="changeQualification()"
+      [required]="qualificationTouched"
     />
+    <div class="form-text text-danger" *ngIf="qualificationTouched && !selectedProfessionalQualification">{{ "ADD-INSIDE-IDEA.VALIDATE.QUALIFICATION" | translate }}</div>
   </div>
   <div class="info-box">
-    <div class="info-title">{{ "% đóng góp" | translate }}(<span style="color:red">*</span>)</div>
+    <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.CONTRIBUTE_PERCENT" | translate }}(<span style="color:red">*</span>)</div>
     <input
       class="info-input"
       type="text"
       NumbersOnly
-      [placeholder]="'Nhập % đóng góp của tác giả' | translate"
+      [placeholder]="'percentage' | translate"
       [(ngModel)]="selectedPercentage"
       (ngModelChange)="percentageValueChange($event)"
       maxlength="3"
+      (input)="changePercentage()"
+      [required]="percentageTouched"
     />
+    <div class="form-text text-danger" *ngIf="percentageTouched && !selectedPercentage">{{ "ADD-INSIDE-IDEA.VALIDATE.PERCENT" | translate }}</div>
   </div>
 </div>
 <div class="bottom-box">
   <div (click)="addNew()" class="bottom-btn">
     <img src="assets/img/icon/plus.svg" />
-    <div class="btn-text">{{ "Thêm mới" | translate }}</div>
+    <div class="btn-text">{{ "BUTTON.ADD_NEW" | translate }}</div>
   </div>
 </div>
