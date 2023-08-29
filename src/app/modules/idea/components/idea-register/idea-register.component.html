@@ -41,7 +41,9 @@
       type="text"
       [(ngModel)]="inputValue"
       (input)="onInputValueChange()"
+      [required]="isInputTouched"
     />
+    <div class="form-text text-danger" *ngIf="isInputTouched && !inputValue">{{ "ADD-INSIDE-IDEA.VALIDATE.IDEA-NAME" | translate }}</div>
   </div>
   <div class="input-form">
     <div class="input-name">
@@ -64,11 +66,16 @@
         autocomplete="off"
         [(ngModel)]="selectedStartDate"
         (ngModelChange)="startDateChange()"
+        [required]="isStartDateTouched"
       />
 
       <img src="assets/img/icon/calendar.svg" style="padding: 10px" />
     </div>
+    <div class="form-text text-danger" *ngIf="isStartDateTouched && !selectedStartDate">{{ "ADD-INSIDE-IDEA.VALIDATE.EMPTY_START_DATE" | translate }}</div>
+    <div class="form-text text-danger" *ngIf="isStartDateTouched && checkStartDate">{{ "ADD-INSIDE-IDEA.VALIDATE.START_DAY" | translate }}</div>
+    <div class="form-text text-danger" *ngIf="isStartDateTouched && checkNow">{{ "ADD-INSIDE-IDEA.VALIDATE.APPLY_START_DAY" | translate }}</div>
   </div>
+  
   <div class="input-form">
     <div class="input-name">
       {{ "IDEA_MANAGEMENT.LABEL.DATE_APPLY_TO" | translate }}
@@ -87,9 +94,13 @@
         autocomplete="off"
         [(ngModel)]="selectedEndDate"
         (ngModelChange)="endDateChange()"
+        [required]="isEndDateTouched"
       />
       <img src="assets/img/icon/calendar.svg" style="padding: 10px" />
     </label>
+    <div class="form-text text-danger" *ngIf="isEndDateTouched && !selectedEndDate">{{ "ADD-INSIDE-IDEA.VALIDATE.EMPTY_END_DATE" | translate }}</div>
+    <div class="form-text text-danger" *ngIf="isEndDateTouched && checkStartDate">{{ "ADD-INSIDE-IDEA.VALIDATE.START_DAY" | translate }}</div>
+    <div class="form-text text-danger" *ngIf="isEndDateTouched && checkNow2">{{ "ADD-INSIDE-IDEA.VALIDATE.APPLY_END_DAY" | translate }}</div>
   </div>
   <div class="input-form">
     <div class="input-name">
@@ -126,11 +137,16 @@
               [(ngModel)]="item.selected"
               (change)="onCheckboxChange(item)"
               [checked]="item.selected"
+              (focus)="unitFieldTouched = true"
             />
             {{ item.unitName }}
           </label>
+       
         </ng-container>
       </div>
+    </div>
+    <div class="form-text text-danger" *ngIf="unitFieldTouched && !selectedUnitValue?.length">
+      {{ "ADD-INSIDE-IDEA.VALIDATE.UNIT" | translate }}
     </div>
   </div>
 
@@ -145,6 +161,7 @@
       class="input-field"
       [(ngModel)]="selectedSpecialtyValue"
       (change)="onSelectSpecialtyChange()"
+      (focus)="specialtyTouched = true"
     >
       <option [ngValue]="null">
         {{ "IDEA_MANAGEMENT.PLACEHOLDER.SELECT_SPECIALTY" | translate }}
@@ -153,6 +170,9 @@
         <option [value]="item.value">{{ item.name }}</option>
       </ng-container>
     </select>
+    <div class="form-text text-danger" *ngIf="specialtyTouched && !selectedSpecialtyValue">
+      {{ "ADD-INSIDE-IDEA.VALIDATE.SPECIALTY" | translate }}
+    </div>
   </div>
 </div>
 <div class="line"></div>
@@ -242,7 +262,9 @@
               <b>{{ "IDEA_MANAGEMENT.LABEL.EMAIL" | translate }}:</b>
               {{ element.email }}<br />
               <b>{{ "IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH" | translate }}:</b>
-              {{ element.birthday }}<br />
+              <ng-container>
+                {{ isTypeOfString(element.birthday) ? element.birthday : (element.birthday | date:'dd/MM/yyyy') }}
+              </ng-container><br />
               <b>{{ "IDEA_MANAGEMENT.LABEL.WORK_PLACE" | translate }}:</b>
               {{ element.jobAddress }}<br />
               <b>{{ "IDEA_MANAGEMENT.LABEL.OFFICE" | translate }}:</b>
@@ -455,7 +477,9 @@
       "
       [(ngModel)]="beforeApplyStatus"
       (input)="beforeApplyStatusChange()"
+      [required]="isBeforeApplyStatusTouched"
     ></textarea>
+    <div class="form-text text-danger" *ngIf="isBeforeApplyStatusTouched && !beforeApplyStatus">{{ "ADD-INSIDE-IDEA.VALIDATE.BEFORE_APPLY_STATUS" | translate }}</div>
   </div>
   <div class="input-form">
     <div class="input-name">
@@ -474,7 +498,9 @@
       "
       [(ngModel)]="content"
       (input)="contentChange()"
+      [required]="isContentTouched"
     ></textarea>
+      <div class="form-text text-danger" *ngIf="isContentTouched && !content">{{ "ADD-INSIDE-IDEA.VALIDATE.CONTENT" | translate }}</div>
   </div>
   <div class="input-form">
     <div class="input-name">
@@ -493,7 +519,9 @@
       "
       [(ngModel)]="applyRange"
       (input)="applyRangeChange()"
+      [required]="isApplyRangeTouched"
     ></textarea>
+    <div class="form-text text-danger" *ngIf="isApplyRangeTouched && !applyRange">{{ "ADD-INSIDE-IDEA.VALIDATE.APPLY_RANGE" | translate }}</div>
   </div>
   <div class="input-form">
     <div class="input-name">
@@ -512,7 +540,9 @@
       "
       [(ngModel)]="effectiveness"
       (input)="effectivenessChange()"
+      [required]="isEffectivenesTouched"
     ></textarea>
+    <div class="form-text text-danger" *ngIf="isEffectivenesTouched && !effectiveness">{{ "ADD-INSIDE-IDEA.VALIDATE.EFFECTIVENESS" | translate }}</div>
   </div>
   <div class="input-form">
     <div class="input-name">
@@ -529,7 +559,9 @@
       [placeholder]="'IDEA_MANAGEMENT.PLACEHOLDER.ENTER_NEXT_STEP' | translate"
       [(ngModel)]="nextStep"
       (input)="nextStepChange()"
+      [required]="isNextStepTouched"
     ></textarea>
+    <div class="form-text text-danger" *ngIf="isNextStepTouched && !nextStep">{{ "ADD-INSIDE-IDEA.VALIDATE.NEXT" | translate }}</div>
   </div>
   <div class="input-form">
     <div class="input-name">
@@ -543,7 +575,9 @@
       [placeholder]="'IDEA_MANAGEMENT.PLACEHOLDER.ENTER_NOTE' | translate"
       [(ngModel)]="note"
       (input)="noteChange()"
+  
     ></textarea>
+   
   </div>
 </div>
 <div class="line"></div>

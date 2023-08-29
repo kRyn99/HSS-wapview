@@ -13,6 +13,7 @@
       [(ngModel)]="contributorDTO"
       (change)="onSelectedStaffCodeChange($event)"
     ></ng-select>
+    <div class="form-text text-danger" *ngIf="!contributorDTO?.staffCode">{{ "ADD-INSIDE-IDEA.VALIDATE.STAFF-CODE" | translate }}</div>
   </div>
   <div class="info-box">
     <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.FULL_NAME" | translate }}</div>
@@ -35,6 +36,8 @@
       (ngModelChange)="percentageValueChange($event)"
       maxlength="3"
     />
+    <div class="form-text text-danger" *ngIf=" !contributorDTO.percentage">{{ "ADD-INSIDE-IDEA.VALIDATE.PERCENT" | translate }}</div>
+
   </div>
   <div class="info-box">
     <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.PHONE" | translate }}(<span style="color:red">*</span>)</div>
@@ -45,6 +48,8 @@
       NumbersOnly
       maxlength="12"
     />
+    <div class="form-text text-danger" *ngIf=" !contributorDTO.phoneNumber">{{ "ADD-INSIDE-IDEA.VALIDATE.PHONE" | translate }}</div>
+
   </div>
   <div class="info-box">
     <div class="info-title">{{ "CONTRIVANCE_MAMAGEMENT.LABEL.EMAIL" | translate }}</div>
@@ -52,7 +57,10 @@
       class="info-input"
       [placeholder]="'MANAGE_CATEGORY.PLACEHOLDER.EMAIL' | translate"
       [(ngModel)]="contributorDTO.email"
+      (input)="changeEmail()"
     />
+    <div class="form-text text-danger" *ngIf=" !contributorDTO.email">{{ "ADD-INSIDE-IDEA.VALIDATE.EMAIL" | translate }}</div>
+    <div class="form-text text-danger" *ngIf="checkEmail && contributorDTO.email">{{ "ADD-INSIDE-IDEA.VALIDATE.EMAIL_FORM" | translate }}</div>
   </div>
   <div class="info-box">
     <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH" | translate }}(<span style="color: red">*</span>)</div>
@@ -72,6 +80,7 @@
       />
       <img src="assets/img/icon/calendar.svg" style="padding: 10px" />
     </label>
+    <div class="form-text text-danger" *ngIf=" !contributorDTO.birthDay">{{ "ADD-INSIDE-IDEA.VALIDATE.BIRTHDAY" | translate }}</div>
   </div>
   <div class="info-box">
     <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.WORK_PLACE" | translate }}</div>

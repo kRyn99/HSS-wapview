@@ -14,8 +14,9 @@
       (change)="onSelectedStaffCodeChange($event)"
       [addTag]="true"
       [addTagText]="'CHOOSE_AUTHOR_NAME' | translate"
+      [required]="isInputTouched"
     ></ng-select>
-
+    <div class="form-text text-danger" *ngIf="isInputTouched && !selectedStaffCodeSubject.value">{{ "ADD-INSIDE-IDEA.VALIDATE.NAME" | translate }}</div>
   </div>
 
   <div class="info-box">
@@ -26,8 +27,10 @@
         (selectedStaffCodeSubject | async)?.jobAddress || 'MANAGE_CATEGORY.PLACEHOLDER.WORK_PLACE' | translate
       "
       [(ngModel)]="selectedJobAddress"
-    
+      (input)="changeJobAddress()"
+      [required]="jobAddressTouched"
     />
+    <div class="form-text text-danger" *ngIf="jobAddressTouched && !selectedJobAddress">{{ "ADD-INSIDE-IDEA.VALIDATE.ADDRESS" | translate }}</div>
   </div>
   <div class="info-box">
     <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.OFFICE" | translate }}(<span style="color:red">*</span>)</div>
@@ -37,7 +40,10 @@
         (selectedStaffCodeSubject | async)?.jobPosition || 'MANAGE_CATEGORY.PLACEHOLDER.POSITION' | translate
       "
       [(ngModel)]="selectedJobPosition"
+      (input)="changeJobPosition()"
+      [required]="jobPositionTouched"
     />
+    <div class="form-text text-danger" *ngIf="jobPositionTouched && !selectedJobPosition">{{ "ADD-INSIDE-IDEA.VALIDATE.POSITION" | translate }}</div>
   </div>
   <div class="info-box">
     <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.PHONE" | translate }}(<span style="color:red">*</span>)</div>
@@ -50,7 +56,10 @@
       [(ngModel)]="selectedPhoneNumber"
       maxlength="12"
       NumbersOnly
+      (input)="changePhone()"
+      [required]="phoneTouched"
     />
+    <div class="form-text text-danger" *ngIf="phoneTouched && !selectedPhoneNumber">{{ "ADD-INSIDE-IDEA.VALIDATE.PHONE" | translate }}</div>
   </div>
   <div class="info-box">
     <div class="info-title">{{ "CONTRIVANCE_MAMAGEMENT.LABEL.EMAIL" | translate }}(<span style="color:red">*</span>)</div>
@@ -60,7 +69,12 @@
         (selectedStaffCodeSubject | async)?.email || 'MANAGE_CATEGORY.PLACEHOLDER.EMAIL' | translate
       "
       [(ngModel)]="selectedEmail"
+      (input)="changeEmail()"
+      [required]="emailTouched"
     />
+    <div class="form-text text-danger" *ngIf="emailTouched && !selectedEmail">{{ "ADD-INSIDE-IDEA.VALIDATE.EMAIL" | translate }}</div>
+    <div class="form-text text-danger" *ngIf="checkEmail && selectedEmail">{{ "ADD-INSIDE-IDEA.VALIDATE.EMAIL_FORM" | translate }}</div>
+  
   </div>
   <div class="info-box">
     <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.QUALIFICATION" | translate }}</div>
@@ -71,7 +85,10 @@
         'MANAGE_CATEGORY.PLACEHOLDER.QUALIFICATION' | translate
       "
       [(ngModel)]="selectedProfessionalQualification"
+      (input)="changeQualification()"
+      [required]="qualificationTouched"
     />
+    <div class="form-text text-danger" *ngIf="qualificationTouched && !selectedProfessionalQualification">{{ "ADD-INSIDE-IDEA.VALIDATE.QUALIFICATION" | translate }}</div>
   </div>
   <div class="info-box">
     <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.CONTRIBUTE_PERCENT" | translate }}(<span style="color:red">*</span>)</div>
@@ -83,7 +100,10 @@
       [(ngModel)]="selectedPercentage"
       (ngModelChange)="percentageValueChange($event)"
       maxlength="3"
+      (input)="changePercentage()"
+      [required]="percentageTouched"
     />
+    <div class="form-text text-danger" *ngIf="percentageTouched && !selectedPercentage">{{ "ADD-INSIDE-IDEA.VALIDATE.PERCENT" | translate }}</div>
   </div>
 </div>
 <div class="bottom-box">

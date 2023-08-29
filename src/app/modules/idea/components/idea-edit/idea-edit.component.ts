@@ -85,6 +85,9 @@ export class IdeaEditComponent implements OnInit {
     };
   }
   ideaId = JSON.parse(localStorage.getItem("ideaIdInLocalStorage"));
+  isTypeOfString(element) {
+    return typeof element == 'string';
+  }
   ngOnInit() {
     console.log(this.DataService.lstContributorDTOServiceEdit.value);
 
@@ -100,8 +103,8 @@ export class IdeaEditComponent implements OnInit {
     );
   }
   ideaNameValue;
-  applyStartTime: string;
-  applyEndTime: string;
+  applyStartTime: Date;
+  applyEndTime: Date;
   specialty;
   beforeApplyStatus;
   content;
@@ -113,6 +116,8 @@ export class IdeaEditComponent implements OnInit {
   documentDTO;
   nextStep;
   note;
+  applyStartTimeString;
+  applyEndTimeString;
   lang = localStorage.getItem("lang");
   getIdeaDetail() {
     const url = `${environment.API_HOST_NAME}/api/get-idea-detail`;
@@ -158,8 +163,8 @@ export class IdeaEditComponent implements OnInit {
 
 
         this.ideaNameValue = this.ideaDetail.ideaName;
-        this.applyStartTime = response.data.applyStartTime;
-        this.applyEndTime = response.data.applyEndTime;
+        this.applyStartTime = new Date(response.data.applyStartTime.split('/').reverse().join('/'));
+        this.applyEndTime = new Date(response.data.applyEndTime.split('/').reverse().join('/'));
         this.specialty = this.ideaDetail.specialty;
         this.beforeApplyStatus = this.ideaDetail.beforeApplyStatus;
         this.content = this.ideaDetail.content;
@@ -167,6 +172,8 @@ export class IdeaEditComponent implements OnInit {
         this.effectiveness = this.ideaDetail.effectiveness;
         this.nextStep = this.ideaDetail.nextStep;
         this.note = this.ideaDetail.note;
+        this.applyStartTimeString = this.applyStartTime.toLocaleDateString();
+        this.applyEndTimeString = this.applyEndTime.toLocaleDateString();
         this.getListUnit();
       },
       (error) => {
@@ -451,10 +458,11 @@ export class IdeaEditComponent implements OnInit {
   //   }
   // }
   validate() {
-    const startDate = new Date(this.applyStartTime.split('/').reverse().join('/'));
-    const endDate = new Date(this.applyEndTime.split('/').reverse().join('/'));
+
+
     let now = new Date();
     now.setHours(0, 0, 0, 0);
+
     if (
       this.ideaNameValue === undefined ||
       this.ideaNameValue === null ||
@@ -477,7 +485,7 @@ export class IdeaEditComponent implements OnInit {
       modalRef.componentInstance.closeIcon = false;
       return false;
     }
-    if (startDate === undefined || startDate === null) {
+    if (this.applyStartTime === undefined || this.applyStartTime === null) {
       const modalRef = this.modalService.open(MessagePopupComponent, {
         size: "sm",
         backdrop: "static",
@@ -494,7 +502,7 @@ export class IdeaEditComponent implements OnInit {
       modalRef.componentInstance.closeIcon = false;
       return false;
     }
-    if (startDate > endDate) {
+    if (this.applyStartTime > this.applyEndTime) {
       const modalRef = this.modalService.open(MessagePopupComponent, {
         size: "sm",
         backdrop: "static",
@@ -509,9 +517,10 @@ export class IdeaEditComponent implements OnInit {
         `ADD-INSIDE-IDEA.VALIDATE.START_DAY`
       );
       modalRef.componentInstance.closeIcon = false;
+
       return false;
     }
-    if (startDate < now || endDate < now) {
+    if (this.applyStartTime < now || this.applyEndTime < now) {
       const modalRef = this.modalService.open(MessagePopupComponent, {
         size: "sm",
         backdrop: "static",
@@ -693,28 +702,28 @@ export class IdeaEditComponent implements OnInit {
       modalRef.componentInstance.closeIcon = false;
       return false;
     }
-    if (
-      this.note === undefined ||
-      this.note === null ||
-      this.note === "" ||
-      this.note.trim() === ""
-    ) {
-      const modalRef = this.modalService.open(MessagePopupComponent, {
-        size: "sm",
-        backdrop: "static",
-        keyboard: false,
-        centered: true,
-      });
-      modalRef.componentInstance.type = "fail";
-      modalRef.componentInstance.title = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.ERROR`
-      );
-      modalRef.componentInstance.message = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.NOTE`
-      );
-      modalRef.componentInstance.closeIcon = false;
-      return false;
-    }
+    // if (
+    //   this.note === undefined ||
+    //   this.note === null ||
+    //   this.note === "" ||
+    //   this.note.trim() === ""
+    // ) {
+    //   const modalRef = this.modalService.open(MessagePopupComponent, {
+    //     size: "sm",
+    //     backdrop: "static",
+    //     keyboard: false,
+    //     centered: true,
+    //   });
+    //   modalRef.componentInstance.type = "fail";
+    //   modalRef.componentInstance.title = this.translateService.instant(
+    //     `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+    //   );
+    //   modalRef.componentInstance.message = this.translateService.instant(
+    //     `ADD-INSIDE-IDEA.VALIDATE.NOTE`
+    //   );
+    //   modalRef.componentInstance.closeIcon = false;
+    //   return false;
+    // }
     // if (this.documentDTO.url == "") {
     //   const modalRef = this.modalService.open(MessagePopupComponent, {
     //     size: "sm",
@@ -815,55 +824,71 @@ export class IdeaEditComponent implements OnInit {
   //   this.DataService.updatedListUnitDTO.next(this.updatedListUnitDTO)
   // }
   ideaDTO: any;
+  checkStartDate = false;
+  checkNow = false;
+  checkNow2 = false;
+  unitFieldTouched=false;
   selectStartDate() {
+
+    let now = new Date();
+    now.setHours(0, 0, 0, 0);
+    if (this.applyStartTime > this.applyEndTime
+    ) {
+      this.checkStartDate = true;
+    } else {
+      this.checkStartDate = false;
+    }
+    if (this.applyStartTime < now) {
+      this.checkNow = true;
+    }
+    else {
+      this.checkNow = false;
+    }
+
+
     this.getIdeaDTO()
+
   }
   selectEndDate() {
+    let now = new Date();
+    now.setHours(0, 0, 0, 0);
+ 
+    if (this.applyStartTime > this.applyEndTime) {
+      this.checkStartDate = true;
+    } else {
+      this.checkStartDate = false;
+    }
+    if (this.applyEndTime < now) {
+      this.checkNow2 = true;
+    }
+    else {
+      this.checkNow2 = false;
+    }
     this.getIdeaDTO()
 
 
   }
   getIdeaDTO() {
-    let startDateFormatted: string;
-    let endDateFormatted: string;
-    if (typeof this.applyStartTime !== 'string') {
-      // Nếu cả startDate và endDate không phải là chuỗi
-      const startDate = new Date(this.applyStartTime);
-
-      const startDay = startDate.getDate();
-      const startMonth = startDate.getMonth() + 1;
-      const startYear = startDate.getFullYear();
-
-
-      startDateFormatted =
-        startDay.toString().padStart(2, "0") +
-        "/" +
-        startMonth.toString().padStart(2, "0") +
-        "/" +
-        startYear;
-      this.applyStartTime = startDateFormatted
-
-    } else {
-      // Nếu ít nhất một trong startDate hoặc endDate là chuỗi
-      // Không xử lý và validate ở đây
-    }
-    if (typeof this.applyEndTime !== 'string') {
-      const endDate = new Date(this.applyEndTime);
-      const endDay = endDate.getDate();
-      const endMonth = endDate.getMonth() + 1;
-      const endYear = endDate.getFullYear();
-      endDateFormatted =
-        endDay.toString().padStart(2, "0") +
-        "/" +
-        endMonth.toString().padStart(2, "0") +
-        "/" +
-        endYear;
-      this.applyEndTime = endDateFormatted
-
-    } else {
-      // Nếu ít nhất một trong startDate hoặc endDate là chuỗi
-      // Không xử lý và validate ở đây
-    }
+    const startDate = this.applyStartTime;
+    const endDate = this.applyEndTime;
+    const startDay = startDate.getDate();
+    const startMonth = startDate.getMonth() + 1;
+    const startYear = startDate.getFullYear();
+    const endDay = endDate.getDate();
+    const endMonth = endDate.getMonth() + 1;
+    const endYear = endDate.getFullYear();
+    const startDateFormatted =
+      startDay.toString().padStart(2, "0") +
+      "/" +
+      startMonth.toString().padStart(2, "0") +
+      "/" +
+      startYear;
+    const endDateFormatted =
+      endDay.toString().padStart(2, "0") +
+      "/" +
+      endMonth.toString().padStart(2, "0") +
+      "/" +
+      endYear;
 
 
     const updatedListUnitDTO = [...this.listUnitDTO];
@@ -881,8 +906,8 @@ export class IdeaEditComponent implements OnInit {
       ideaId: this.ideaId,
       ideaName: this.ideaNameValue,
       specialty: this.specialty,
-      applyStartTime: this.applyStartTime,
-      applyEndTime: this.applyEndTime,
+      applyStartTime: startDateFormatted,
+      applyEndTime: endDateFormatted,
       beforeApplyStatus: this.beforeApplyStatus,
       content: this.content,
       applyRange: this.applyRange,
@@ -892,7 +917,7 @@ export class IdeaEditComponent implements OnInit {
       listUnitDTO: updatedListUnitDTO,
     };
     console.log(this.ideaDTO);
-    
+
   }
   validateBeforeCheckDuplicate() {
     if (this.validate()) {

@@ -25,7 +25,7 @@ export class EditOutsideAuthorComponent implements OnInit {
     private router: Router,
     private modalService: NgbModal,
     private translateService: TranslateService
-  ) {}
+  ) { }
 
   token = JSON.parse(localStorage.getItem("tokenInLocalStorage"));
   ngOnInit() {
@@ -36,14 +36,18 @@ export class EditOutsideAuthorComponent implements OnInit {
       if (params && params.phoneNumber && params.email) {
         if (this.backRoute == "contrivance") {
           this.contributorDTO =
-            this.contrivanceService.lstContributorDTOServiceOut.value.find(
+          {
+            ...this.contrivanceService.lstContributorDTOServiceOut.value.find(
               (item) => item.phoneNumber == Number(params.phoneNumber)
-            );
+            )
+          };
         } else {
           this.contributorDTO =
-            this.DataService.lstContributorDTOServiceOut.value.find(
+          {
+            ...this.DataService.lstContributorDTOServiceOut.value.find(
               (item) => item.phoneNumber == Number(params.phoneNumber)
-            );
+            )
+          };
         }
       }
     });
@@ -95,6 +99,38 @@ export class EditOutsideAuthorComponent implements OnInit {
       }
     }
   }
+  updateJobAddress(newValue: string) {
+    if (this.contributorDTO) {
+      this.contributorDTO.jobAddress = newValue;
+    }
+  }
+  updateJobPosition(newValue: string) {
+    if (this.contributorDTO) {
+      this.contributorDTO.jobPosition = newValue;
+    }
+  }
+  updatePhoneNumber(newValue: string) {
+    if (this.contributorDTO) {
+      this.contributorDTO.phoneNumber = newValue;
+    }
+  }
+  checkEmail = false;
+  updateEmail(newValue: string) {
+    if (this.contributorDTO) {
+      this.contributorDTO.email = newValue;
+      if (!this.isValidEmail(this.contributorDTO.email)) {
+        this.checkEmail = true;
+      } else {
+
+        this.checkEmail = false;
+      }
+    }
+  }
+  updateProfessionalQualification(newValue: string) {
+    if (this.contributorDTO) {
+      this.contributorDTO.professionalQualification = newValue;
+    }
+  }
   validate() {
     if (
       this.contributorDTO.percentage === undefined ||
@@ -112,7 +148,7 @@ export class EditOutsideAuthorComponent implements OnInit {
         `ADD-INSIDE-IDEA.VALIDATE.ERROR`
       );
       modalRef.componentInstance.message = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.CONTRIBUTION`
+        `ADD-INSIDE-IDEA.VALIDATE.PERCENT`
       );
       modalRef.componentInstance.closeIcon = false;
       return false;
@@ -134,7 +170,7 @@ export class EditOutsideAuthorComponent implements OnInit {
         `ADD-INSIDE-IDEA.VALIDATE.ERROR`
       );
       modalRef.componentInstance.message = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.hoten`
+        `ADD-INSIDE-IDEA.VALIDATE.NAME`
       );
       modalRef.componentInstance.closeIcon = false;
       return false;
@@ -156,7 +192,7 @@ export class EditOutsideAuthorComponent implements OnInit {
         `ADD-INSIDE-IDEA.VALIDATE.ERROR`
       );
       modalRef.componentInstance.message = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.phone`
+        `ADD-INSIDE-IDEA.VALIDATE.PHONE`
       );
       modalRef.componentInstance.closeIcon = false;
       return false;
@@ -178,7 +214,7 @@ export class EditOutsideAuthorComponent implements OnInit {
         `ADD-INSIDE-IDEA.VALIDATE.ERROR`
       );
       modalRef.componentInstance.message = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.email`
+        `ADD-INSIDE-IDEA.VALIDATE.EMAIL`
       );
       modalRef.componentInstance.closeIcon = false;
       return false;
@@ -195,9 +231,10 @@ export class EditOutsideAuthorComponent implements OnInit {
           `ADD-INSIDE-IDEA.VALIDATE.ERROR`
         );
         modalRef.componentInstance.message = this.translateService.instant(
-          `ADD-INSIDE-IDEA.VALIDATE.Form-email`
+          `ADD-INSIDE-IDEA.VALIDATE.EMAIL_FORM`
         );
         modalRef.componentInstance.closeIcon = false;
+        this.checkEmail = true;
         return false;
       }
     }
@@ -218,7 +255,7 @@ export class EditOutsideAuthorComponent implements OnInit {
         `ADD-INSIDE-IDEA.VALIDATE.ERROR`
       );
       modalRef.componentInstance.message = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.jP`
+        `ADD-INSIDE-IDEA.VALIDATE.POSITION`
       );
       modalRef.componentInstance.closeIcon = false;
       return false;
@@ -240,9 +277,31 @@ export class EditOutsideAuthorComponent implements OnInit {
         `ADD-INSIDE-IDEA.VALIDATE.ERROR`
       );
       modalRef.componentInstance.message = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.jA`
+        `ADD-INSIDE-IDEA.VALIDATE.ADDRESS`
       );
       modalRef.componentInstance.closeIcon = false;
+     
+      return false;
+    }
+    let hasDuplicate = false;
+    let lstContributorDTO = [];
+    if (this.backRoute == "contrivance") {
+      lstContributorDTO = this.contrivanceService.lstContributorDTOServiceOut.value;
+    } else {
+      lstContributorDTO = this.DataService.lstContributorDTOServiceOut.value;
+    }
+    lstContributorDTO.forEach(item => {
+      if (item.phoneNumber == this.contributorDTO.phoneNumber && item.email == this.contributorDTO.email ) {
+        const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
+        modalRef.componentInstance.type = 'fail';
+        modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
+        modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.EXIST`);
+        modalRef.componentInstance.closeIcon = false;
+        hasDuplicate = true;
+        return;
+      }
+    })
+    if (hasDuplicate) {
       return false;
     }
     return true;
@@ -259,24 +318,18 @@ export class EditOutsideAuthorComponent implements OnInit {
   edit() {
     if (this.validate()) {
       if (this.backRoute == "contrivance") {
-        this.contrivanceService.lstContributorDTOServiceOut.forEach((item) => {
-          if (
-            item.phoneNumber == this.contributorDTO.phoneNumber &&
-            item.email == this.contributorDTO.email
-          ) {
-            item = this.contributorDTO;
-          }
-        });
+        for (let i = 0; i < this.contrivanceService.lstContributorDTOServiceOut.value.length; i++) {
+        
+            this.contrivanceService.lstContributorDTOServiceOut.value[i] = this.contributorDTO;
+
+        }
         this.router.navigate(["contrivance/register"]);
       } else {
-        this.DataService.lstContributorDTOServiceOut.forEach((item) => {
-          if (
-            item.phoneNumber == this.contributorDTO.phoneNumber &&
-            item.email == this.contributorDTO.email
-          ) {
-            item = this.contributorDTO;
-          }
-        });
+        for (let i = 0; i < this.DataService.lstContributorDTOServiceOut.value.length; i++) {
+          
+            this.DataService.lstContributorDTOServiceOut.value[i] = this.contributorDTO;
+          
+        }
         this.router.navigate(["idea/register"]);
       }
     }
