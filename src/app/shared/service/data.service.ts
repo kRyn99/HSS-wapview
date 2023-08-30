@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class DataService {
+  isEndDateTouched=false;
   ideaName2= new BehaviorSubject<any>(null);
   // selectedStartDateEdit : Date;
   ideaDTO = new BehaviorSubject<any>(null);
@@ -16,7 +17,7 @@ export class DataService {
   selectedSpecialtyValue= new BehaviorSubject<any>(null);
   selectedSpecialtyValueEdit= new BehaviorSubject<any>(null);
   selectedStartDate= new BehaviorSubject<Date>(null);
-  selectedEndDate=new BehaviorSubject<Date>(null);
+  selectedEndDate=new BehaviorSubject<Date>(new Date());
   beforeApplyStatus= new BehaviorSubject<any>(null);
   content= new BehaviorSubject<any>(null);
   applyRange= new BehaviorSubject<any>(null);

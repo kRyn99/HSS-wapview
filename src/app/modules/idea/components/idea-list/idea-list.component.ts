@@ -85,7 +85,7 @@ export class IdeaListComponent implements OnInit {
     this.DataService.selectedUnitValue.next(reset);
     this.DataService.selectedSpecialtyValue.next(reset);
     this.DataService.selectedStartDate.next(reset);
-    this.DataService.selectedEndDate.next(reset);
+    this.DataService.selectedEndDate.next(new Date());
     this.DataService.beforeApplyStatus.next(reset);
     this.DataService.content.next(reset);
     this.DataService.applyRange.next(reset);

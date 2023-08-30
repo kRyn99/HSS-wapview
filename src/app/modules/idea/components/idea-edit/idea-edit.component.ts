@@ -104,7 +104,7 @@ export class IdeaEditComponent implements OnInit {
   }
   ideaNameValue;
   applyStartTime: Date;
-  applyEndTime: Date;
+  applyEndTime: Date =null;
   specialty;
   beforeApplyStatus;
   content;
@@ -166,13 +166,22 @@ export class IdeaEditComponent implements OnInit {
           this.ideaNameValue = response.data.ideaName;
         }
 
+        // if (this.DataService.selectedEndDate.value) {
+        //   this.applyEndTime = this.DataService.selectedEndDate.value
+        // } else {
+        //   if(this.DataService.selectedEndDate.value){
+        //     this.applyEndTime=null;
+        //   }
+        //   else(response.data.applyEndTime) {
+        //     this.applyEndTime = new Date(response.data.applyEndTime.split('/').reverse().join('/'));
+        //   }
+        // }
         if (this.DataService.selectedEndDate.value) {
-          this.applyEndTime = this.DataService.selectedEndDate.value
+          this.applyEndTime = this.DataService.selectedEndDate.value;
+        } else if (!this.DataService.selectedEndDate.value &&this.DataService.isEndDateTouched) {
+          this.applyEndTime = null
         } else {
-          if (response.data.applyEndTime) {
-            this.applyEndTime = new Date(response.data.applyEndTime.split('/').reverse().join('/'));
-            // this.applyEndTimeString = this.applyEndTime.toLocaleDateString();
-          }
+          this.applyEndTime = new Date(response.data.applyEndTime.split('/').reverse().join('/'));
         }
 
         if (this.DataService.selectedStartDate.value) {
@@ -782,7 +791,9 @@ export class IdeaEditComponent implements OnInit {
     this.getIdeaDTO()
 
   }
+  isEndDateTouched=false;
   selectEndDate() {
+    this.DataService.isEndDateTouched=true;
     let now = new Date();
     now.setHours(0, 0, 0, 0);
     console.log(this.applyEndTime);
