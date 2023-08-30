@@ -81,8 +81,11 @@
       <div class="form-text text-danger" *ngIf="checkEmail && (selectedStaffCodeSubject | async)?.email">{{ "ADD-INSIDE-IDEA.VALIDATE.EMAIL_FORM" | translate }}</div>
     </div>
     <div class="info-box">
-      <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH" | translate }}</div>
-      <label class="date">
+      <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH" | translate }}(<span
+        style="color: red"
+        >*</span
+      >)</div>
+      <label style="background-color: #f3f3f3" class="date">
         <input
           [placeholder]=" (selectedStaffCodeSubject | async)?.birthday ||
           'IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH' | translate"
@@ -90,14 +93,14 @@
           name="Date"
           [bsConfig]="bsConfig"
           class="date-text"
-          style="background-color: white; border: white"
+          style="background-color: #f3f3f3"
           #dprn="bsDatepicker"
           #vDate
           bsDatepicker
           autocomplete="off"
           [(ngModel)]="birthday"
           (ngModelChange)="birthdayChange()"
-          readonly
+          [disabled]="!isEdit"
           [required]="isInputTouched"
         />
         <img src="assets/img/icon/calendar.svg" style="padding: 10px" />

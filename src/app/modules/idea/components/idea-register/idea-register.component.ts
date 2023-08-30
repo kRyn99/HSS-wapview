@@ -19,6 +19,7 @@ import { DataService } from "../../../../shared/service/data.service";
 import { BehaviorSubject } from "rxjs";
 import { MatTableDataSource } from "@angular/material/table";
 import { DatePipe } from '@angular/common';
+import { NotificationService } from "@app/shared/service/notification.service";
 interface ideaRegisterDTO {
   ideaName?: any;
   specialty?: string;
@@ -81,7 +82,8 @@ export class IdeaRegisterComponent implements OnInit {
     private translateService: TranslateService,
     private http: HttpClient,
     public DataService: DataService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private notificationService: NotificationService,
   ) {
     this.bsConfig = {
       dateInputFormat: 'DD/MM/YYYY', // Định dạng ngày/tháng/năm
@@ -94,13 +96,11 @@ export class IdeaRegisterComponent implements OnInit {
   dataSource2: any;
   ideaRegisterDTO: ideaRegisterDTO;
   token = JSON.parse(localStorage.getItem("tokenInLocalStorage"));
-  
+
   isTypeOfString(element) {
     return typeof element == 'string';
   }
   ngOnInit() {
-    console.log(this.DataService.lstContributorDTOService.value);
-
     this.getListUnit();
     this.dataSource = new MatTableDataSource(
       this.DataService.lstContributorDTOService.value
@@ -108,7 +108,7 @@ export class IdeaRegisterComponent implements OnInit {
     this.dataSource2 = new MatTableDataSource(
       this.DataService.lstContributorDTOServiceOut.value
     );
-    console.log("Giá trị nhập vào:", this.DataService.ideaName2.value);
+ 
     this.inputValue = this.DataService.ideaName2.value;
     // this.selectedUnitValue = this.DataService.selectedUnitValue.value;
     this.DataService.selectedUnitValue.subscribe((value) => {
@@ -298,21 +298,39 @@ export class IdeaRegisterComponent implements OnInit {
     this.DataService.selectedStartDate.next(this.selectedStartDate);
   }
   endDateChange() {
+    console.log(this.selectedEndDate);
+
     let now = new Date();
     now.setHours(0, 0, 0, 0);
-    this.isEndDateTouched = true;
-    if (this.selectedStartDate > this.selectedEndDate) {
-      this.checkStartDate = true;
+    if (this.selectedStartDate === null || this.selectedEndDate === undefined) {
+      this.isEndDateTouched = false;
+      if (this.selectedStartDate > this.selectedEndDate) {
+        this.checkStartDate = false;
+      } else {
+        this.checkStartDate = false;
+      }
+      if (this.selectedEndDate < now) {
+        this.checkNow2 = true;
+      }
+      else {
+        this.checkNow2 = false;
+      }
     } else {
-      this.checkStartDate = false;
+      this.isEndDateTouched = true;
+      if (this.selectedStartDate > this.selectedEndDate) {
+        this.checkStartDate = true;
+      } else {
+        this.checkStartDate = false;
+      }
+      if (this.selectedEndDate < now) {
+        this.checkNow2 = true;
+      }
+      else {
+        this.checkNow2 = false;
+      }
+      this.DataService.selectedEndDate.next(this.selectedEndDate);
     }
-    if (this.selectedEndDate < now) {
-      this.checkNow2 = true;
-    }
-    else {
-      this.checkNow2 = false;
-    }
-    this.DataService.selectedEndDate.next(this.selectedEndDate);
+
   }
   isBeforeApplyStatusTouched = false;
   beforeApplyStatusChange() {
@@ -348,28 +366,33 @@ export class IdeaRegisterComponent implements OnInit {
   ideaDTO: {};
   listUnitDTO: any[] = [];
   listUnitDTO2: any[] = [];
-
+  endDateFormatted;
   getIdeaDTO() {
     const startDate = new Date(this.selectedStartDate);
-    const endDate = new Date(this.selectedEndDate);
+
     const startDay = startDate.getDate();
     const startMonth = startDate.getMonth() + 1;
     const startYear = startDate.getFullYear();
-    const endDay = endDate.getDate();
-    const endMonth = endDate.getMonth() + 1;
-    const endYear = endDate.getFullYear();
+    if (this.selectedEndDate) {
+      const endDate = new Date(this.selectedEndDate);
+      const endDay = endDate.getDate();
+      const endMonth = endDate.getMonth() + 1;
+      const endYear = endDate.getFullYear();
+      this.endDateFormatted =
+        endDay.toString().padStart(2, "0") +
+        "/" +
+        endMonth.toString().padStart(2, "0") +
+        "/" +
+        endYear;
+    }
+
     const startDateFormatted =
       startDay.toString().padStart(2, "0") +
       "/" +
       startMonth.toString().padStart(2, "0") +
       "/" +
       startYear;
-    const endDateFormatted =
-      endDay.toString().padStart(2, "0") +
-      "/" +
-      endMonth.toString().padStart(2, "0") +
-      "/" +
-      endYear;
+
     const updatedListUnitDTO = [...this.listUnitDTO];
 
     for (const item of this.selectedUnitValue) {
@@ -386,7 +409,7 @@ export class IdeaRegisterComponent implements OnInit {
       specialty: this.selectedSpecialtyValue,
 
       applyStartTime: startDateFormatted,
-      applyEndTime: endDateFormatted,
+      applyEndTime: this.endDateFormatted,
       beforeApplyStatus: this.beforeApplyStatus,
       content: this.content,
       applyRange: this.applyRange,
@@ -497,7 +520,7 @@ export class IdeaRegisterComponent implements OnInit {
       this.content === "" ||
       this.content.trim() === ""
     ) {
-      this.isContentTouched=true
+      this.isContentTouched = true
     }
     if (
       this.applyRange === undefined ||
@@ -505,7 +528,7 @@ export class IdeaRegisterComponent implements OnInit {
       this.applyRange === "" ||
       this.applyRange.trim() === ""
     ) {
-      this.isApplyRangeTouched=true;
+      this.isApplyRangeTouched = true;
     }
     if (
       this.effectiveness === undefined ||
@@ -513,7 +536,7 @@ export class IdeaRegisterComponent implements OnInit {
       this.effectiveness === "" ||
       this.effectiveness.trim() === ""
     ) {
-      this.isEffectivenesTouched=true;
+      this.isEffectivenesTouched = true;
     }
     if (
       this.nextStep === undefined ||
@@ -521,7 +544,7 @@ export class IdeaRegisterComponent implements OnInit {
       this.nextStep === "" ||
       this.nextStep.trim() === ""
     ) {
-      this.isNextStepTouched=true;
+      this.isNextStepTouched = true;
     }
   }
   validate() {
@@ -572,7 +595,7 @@ export class IdeaRegisterComponent implements OnInit {
       this.validateTemplate()
       return false;
     }
-    if (this.selectedStartDate > this.selectedEndDate) {
+    if ((this.selectedEndDate !== null || this.selectedEndDate !== undefined) && this.selectedStartDate > this.selectedEndDate) {
       const modalRef = this.modalService.open(MessagePopupComponent, {
         size: "sm",
         backdrop: "static",
@@ -781,7 +804,7 @@ export class IdeaRegisterComponent implements OnInit {
       this.validateTemplate()
       return false;
     }
- 
+
     // if (this.DataService.file.value.url == "") {
     //   const modalRef = this.modalService.open(MessagePopupComponent, {
     //     size: "sm",
@@ -888,11 +911,8 @@ export class IdeaRegisterComponent implements OnInit {
         return;
       }
       if (file.size > 25 * 1024 * 1024) {
-        // this.toastrService.error(
-        //   this.translate.instant(
-        //     "IDEA_MANAGEMENT.MESSAGE.FILE_UPLOAD_MAX_CAPACITY"
-        //   )
-        // );
+        const translatedMessage = this.translateService.instant("ADD-INSIDE-IDEA.VALIDATE.FILE_SIZE");
+        this.notificationService.notify("fail", translatedMessage);
         return;
       }
 

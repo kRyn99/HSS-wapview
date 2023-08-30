@@ -62,19 +62,20 @@
   </div>
   <div class="info-box">
     <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH" | translate }}(<span style="color: red">*</span>)</div>
-    <label class="date">
+    <label  style="background-color:#f3f3f3" class="date">
       <input
         [placeholder]="'dd/mm/yyyy'"
         type="text"
         name="Date"
         [bsConfig]="bsConfig"
         class="date-text"
-        style="background-color: white; border: white"
+        style="background-color:#f3f3f3"
         #dprn="bsDatepicker"
         #vDate
         bsDatepicker
         autocomplete="off"
         [(ngModel)]="contributorDTO.birthday"
+        [disabled]="true"
       />
      
       <img src="assets/img/icon/calendar.svg" style="padding: 10px" />

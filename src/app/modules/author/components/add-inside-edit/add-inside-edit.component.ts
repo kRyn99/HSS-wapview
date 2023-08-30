@@ -44,11 +44,7 @@ export class AddInsideEditComponent implements OnInit {
   ) {
     this.config.notFoundText = this.translateService.instant(`STAFF_CODE_NOT_EXIST`);
     this.config.appendTo = "body";
-    // set the bindValue to global config when you use the same
-    // bindValue in most of the place.
-    // You can also override bindValue for the specified template
-    // by defining `bindValue` as property
-    // Eg : <ng-select bindValue="some-new-value"></ng-select>
+
     this.config.bindValue = "value";
   }
   // bsConfig: Partial<BsDatepickerConfig>;

@@ -135,8 +135,8 @@ export class IdeaEditComponent implements OnInit {
         this.ideaDetail = response.data;
         this.listContributorDTO = response.data.listContributorDTO;
         this.documentDTO = response.data.documentDTO;
-        this.selectedSpecialtyValue = response.data.specialty;
-        this.selectedUnitValue = response.data.listUnitDTO;
+        // this.selectedSpecialtyValue = response.data.specialty;
+        // this.selectedUnitValue = response.data.listUnitDTO;
         console.log(this.documentDTO);
 
         const listContributorIn = response.data.listContributorDTO.filter(
@@ -160,20 +160,74 @@ export class IdeaEditComponent implements OnInit {
           );
           this.cdRef.detectChanges();
         }
+        if (this.DataService.ideaName2.value) {
+          this.ideaNameValue = this.DataService.ideaName2.value
+        } else {
+          this.ideaNameValue = response.data.ideaName;
+        }
+
+        if (this.DataService.selectedEndDate.value) {
+          this.applyEndTime = this.DataService.selectedEndDate.value
+        } else {
+          if (response.data.applyEndTime) {
+            this.applyEndTime = new Date(response.data.applyEndTime.split('/').reverse().join('/'));
+            // this.applyEndTimeString = this.applyEndTime.toLocaleDateString();
+          }
+        }
+
+        if (this.DataService.selectedStartDate.value) {
+          this.applyStartTime = this.DataService.selectedStartDate.value;
+        } else {
+          this.applyStartTime = new Date(response.data.applyStartTime.split('/').reverse().join('/'));
+        }
+        // else{
+        //     this.applyStartTimeString = this.applyStartTime.toLocaleDateString();
+        //   }
 
 
-        this.ideaNameValue = this.ideaDetail.ideaName;
-        this.applyStartTime = new Date(response.data.applyStartTime.split('/').reverse().join('/'));
-        this.applyEndTime = new Date(response.data.applyEndTime.split('/').reverse().join('/'));
-        this.specialty = this.ideaDetail.specialty;
-        this.beforeApplyStatus = this.ideaDetail.beforeApplyStatus;
-        this.content = this.ideaDetail.content;
-        this.applyRange = this.ideaDetail.applyRange;
-        this.effectiveness = this.ideaDetail.effectiveness;
-        this.nextStep = this.ideaDetail.nextStep;
-        this.note = this.ideaDetail.note;
-        this.applyStartTimeString = this.applyStartTime.toLocaleDateString();
-        this.applyEndTimeString = this.applyEndTime.toLocaleDateString();
+        if (this.DataService.beforeApplyStatus.value) {
+          this.beforeApplyStatus = this.DataService.beforeApplyStatus.value;
+        } else {
+          this.beforeApplyStatus = this.ideaDetail.beforeApplyStatus;
+        }
+        if (this.DataService.content.value) {
+          this.content = this.DataService.content.value;
+        } else {
+          this.content = this.ideaDetail.content;
+        }
+        if (this.DataService.applyRange.value) {
+          this.applyRange = this.DataService.applyRange.value;
+        } else {
+          this.applyRange = this.ideaDetail.applyRange;
+        }
+        if (this.DataService.effectiveness.value) {
+          this.effectiveness = this.DataService.effectiveness.value;
+        } else {
+          this.effectiveness = this.ideaDetail.effectiveness;
+        }
+        if (this.DataService.nextStep.value) {
+          this.nextStep = this.DataService.nextStep.value;
+        } else {
+          this.nextStep = this.ideaDetail.nextStep;
+        }
+        if (this.DataService.note.value) {
+          this.note = this.DataService.note.value
+        } else {
+          this.note = this.ideaDetail.note;
+        }
+        if (this.DataService.selectedUnitValueEdit.value) {
+          this.DataService.selectedUnitValueEdit.subscribe((value) => {
+            this.selectedUnitValue = value;
+          });
+        } else {
+          this.selectedUnitValue = response.data.listUnitDTO;
+        }
+        if (this.DataService.selectedSpecialtyValueEdit.value) {
+          this.specialty = this.DataService.selectedSpecialtyValueEdit.value;
+        } else {
+          this.specialty = response.data.specialty;
+        }
+
         this.getListUnit();
       },
       (error) => {
@@ -232,6 +286,24 @@ export class IdeaEditComponent implements OnInit {
   selectedSpecialtyValue;
   onSelectSpecialtyChange() {
     this.DataService.selectedSpecialtyValueEdit.next(this.specialty);
+  }
+  beforeApplyStatusChange() {
+    this.DataService.beforeApplyStatus.next(this.beforeApplyStatus);
+  }
+  contentChange() {
+    this.DataService.content.next(this.content);
+  }
+  applyRangeChange() {
+    this.DataService.applyRange.next(this.applyRange);
+  }
+  effectivenessChange() {
+    this.DataService.effectiveness.next(this.effectiveness);
+  }
+  nextStepChange() {
+    this.DataService.nextStep.next(this.nextStep);
+  }
+  noteChange() {
+    this.DataService.note.next(this.note);
   }
   toggleDropdown() {
     this.DataService.showDropdownEdit = !this.DataService.showDropdownEdit;
@@ -338,11 +410,8 @@ export class IdeaEditComponent implements OnInit {
         return;
       }
       if (file.size > 25 * 1024 * 1024) {
-        // this.toastrService.error(
-        //   this.translate.instant(
-        //     "IDEA_MANAGEMENT.MESSAGE.FILE_UPLOAD_MAX_CAPACITY"
-        //   )
-        // );
+        const translatedMessage = this.translateService.instant("ADD-INSIDE-IDEA.VALIDATE.FILE_SIZE");
+        this.notificationService.notify("fail", translatedMessage);
         return;
       }
 
@@ -370,93 +439,7 @@ export class IdeaEditComponent implements OnInit {
       // this.subscriptions.push(uploadFileAva);
     }
   }
-  // finishEdit() {
-  //   const url = `${environment.API_HOST_NAME}/api/update-idea`;
-  //   const headers = new HttpHeaders({
-  //     "Accept-Language": this.lang,
-  //     Authorization: `Bearer ` + this.token,
-  //   });
 
-  //   const updatedListUnitDTO = [...this.listUnitDTO];
-
-  //   for (const item of this.selectedUnitValue) {
-  //     if (this.selectedUnitValue) {
-  //       updatedListUnitDTO.push({
-  //         unitName: item.unitName,
-  //         unitCode: item.unitCode,
-  //         unitId: item.unitId,
-  //       });
-  //     }
-  //   }
-  //   const requestBody = {
-  //     ideaDTO: {
-  //       ideaId: this.ideaId,
-  //       ideaName: this.ideaNameValue,
-  //       specialty: this.specialty,
-  //       applyStartTime: this.applyStartTime,
-  //       applyEndTime: this.applyEndTime,
-  //       beforeApplyStatus: this.beforeApplyStatus,
-  //       content: this.content,
-  //       applyRange: this.applyRange,
-  //       effectiveness: this.effectiveness,
-  //       nextStep: this.nextStep,
-  //       note: this.note,
-  //       listUnitDTO: updatedListUnitDTO,
-  //     },
-  //     lstContributorDTO:
-  //       this.DataService.lstContributorDTOServiceOutEdit.value.concat(
-  //         this.DataService.lstContributorDTOServiceEdit.value
-  //       ),
-  //     documentDTO: {
-  //       url: this.documentDTO.url,
-  //       name: this.documentDTO.name,
-  //     },
-  //   };
-  //   if (this.validate()) {
-  //     const modalRefSuccess = this.modalService.open(MessagePopupComponent, {
-  //       size: "sm",
-  //       backdrop: "static",
-  //       keyboard: false,
-  //       centered: true,
-  //     });
-  //     modalRefSuccess.componentInstance.type = "confirm";
-  //     modalRefSuccess.componentInstance.title = this.translateService.instant(
-  //       `ADD-INSIDE-IDEA.CONFIRM.CONFIRM`
-  //     );
-  //     modalRefSuccess.componentInstance.message = this.translateService.instant(
-  //       `ADD-INSIDE-IDEA.CONFIRM.CONFIRM-EDIT`
-  //     );
-  //     modalRefSuccess.componentInstance.closeIcon = false;
-  //     modalRefSuccess.componentInstance.next.subscribe((result: any) => {
-  //       if (result === true) {
-  //         return this.http.post<any>(url, requestBody, { headers }).subscribe(
-  //           (res) => {
-  //             if (res.errorCode === "0") {
-  //               this.router.navigate(["idea/detail"]);
-  //             } else {
-  //               const modalRef = this.modalService.open(MessagePopupComponent, {
-  //                 size: "sm",
-  //                 backdrop: "static",
-  //                 keyboard: false,
-  //                 centered: true,
-  //               });
-  //               modalRef.componentInstance.type = "fail";
-  //               modalRef.componentInstance.title =
-  //                 this.translateService.instant(
-  //                   `ADD-INSIDE-IDEA.VALIDATE.ERROR`
-  //                 );
-  //               modalRef.componentInstance.message = res.description;
-  //               modalRef.componentInstance.closeIcon = false;
-  //               return false;
-  //             }
-  //           },
-  //           (error) => {}
-  //         );
-  //       } else {
-  //       }
-  //     });
-  //   }
-  // }
   validate() {
 
 
@@ -497,7 +480,7 @@ export class IdeaEditComponent implements OnInit {
         `ADD-INSIDE-IDEA.VALIDATE.ERROR`
       );
       modalRef.componentInstance.message = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+        `ADD-INSIDE-IDEA.VALIDATE.EMPTY_START_DATE`
       );
       modalRef.componentInstance.closeIcon = false;
       return false;
@@ -553,7 +536,7 @@ export class IdeaEditComponent implements OnInit {
       // );
       // modalRef.componentInstance.closeIcon = false;
       // return false;
-    // }
+    
     if (
       this.selectedUnitValue === undefined ||
       this.selectedUnitValue === null ||
@@ -702,45 +685,6 @@ export class IdeaEditComponent implements OnInit {
       modalRef.componentInstance.closeIcon = false;
       return false;
     }
-    // if (
-    //   this.note === undefined ||
-    //   this.note === null ||
-    //   this.note === "" ||
-    //   this.note.trim() === ""
-    // ) {
-    //   const modalRef = this.modalService.open(MessagePopupComponent, {
-    //     size: "sm",
-    //     backdrop: "static",
-    //     keyboard: false,
-    //     centered: true,
-    //   });
-    //   modalRef.componentInstance.type = "fail";
-    //   modalRef.componentInstance.title = this.translateService.instant(
-    //     `ADD-INSIDE-IDEA.VALIDATE.ERROR`
-    //   );
-    //   modalRef.componentInstance.message = this.translateService.instant(
-    //     `ADD-INSIDE-IDEA.VALIDATE.NOTE`
-    //   );
-    //   modalRef.componentInstance.closeIcon = false;
-    //   return false;
-    // }
-    // if (this.documentDTO.url == "") {
-    //   const modalRef = this.modalService.open(MessagePopupComponent, {
-    //     size: "sm",
-    //     backdrop: "static",
-    //     keyboard: false,
-    //     centered: true,
-    //   });
-    //   modalRef.componentInstance.type = "fail";
-    //   modalRef.componentInstance.title = this.translateService.instant(
-    //     `ADD-INSIDE-IDEA.VALIDATE.ERROR`
-    //   );
-    //   modalRef.componentInstance.message = this.translateService.instant(
-    //     `ADD-INSIDE-IDEA.VALIDATE.FILE`
-    //   );
-    //   modalRef.componentInstance.closeIcon = false;
-    //   return false;
-    // }
     if (this.DataService.lstContributorDTOServiceEdit.value.length === 0) {
       const modalRef = this.modalService.open(MessagePopupComponent, {
         size: "sm",
@@ -808,26 +752,15 @@ export class IdeaEditComponent implements OnInit {
   duplicationCheck() {
     this.validateBeforeCheckDuplicate();
   }
-  // updatedListUnitDTO: any[] = [];
-  // getUpdatedListUnitDTO() {
-  //   this.updatedListUnitDTO = [...this.listUnitDTO];
 
-  //   for (const item of this.selectedUnitValue) {
-  //     if (this.selectedUnitValue) {
-  //       this.updatedListUnitDTO.push({
-  //         unitName: item.unitName,
-  //         unitCode: item.unitCode,
-  //         unitId: item.unitId,
-  //       });
-  //     }
-  //   }
-  //   this.DataService.updatedListUnitDTO.next(this.updatedListUnitDTO)
-  // }
   ideaDTO: any;
   checkStartDate = false;
   checkNow = false;
   checkNow2 = false;
-  unitFieldTouched=false;
+  unitFieldTouched = false;
+  onInputValueChange() {
+    this.DataService.ideaName2.next(this.ideaNameValue);
+  }
   selectStartDate() {
 
     let now = new Date();
@@ -845,50 +778,78 @@ export class IdeaEditComponent implements OnInit {
       this.checkNow = false;
     }
 
-
+    this.DataService.selectedStartDate.next(this.applyStartTime)
     this.getIdeaDTO()
 
   }
   selectEndDate() {
     let now = new Date();
     now.setHours(0, 0, 0, 0);
- 
-    if (this.applyStartTime > this.applyEndTime) {
-      this.checkStartDate = true;
+    console.log(this.applyEndTime);
+    if (this.applyEndTime === null || this.applyEndTime === undefined) {
+      if (this.applyStartTime > this.applyEndTime) {
+        this.checkStartDate = false;
+      } else {
+        this.checkStartDate = false;
+      }
+      if (this.applyEndTime < now) {
+        this.checkNow2 = false;
+      }
+      else {
+        this.checkNow2 = false;
+      }
+      // this.getIdeaDTO()
     } else {
-      this.checkStartDate = false;
-    }
-    if (this.applyEndTime < now) {
-      this.checkNow2 = true;
-    }
-    else {
-      this.checkNow2 = false;
-    }
-    this.getIdeaDTO()
 
+      if (this.applyStartTime > this.applyEndTime) {
+        this.checkStartDate = true;
+      } else {
+        this.checkStartDate = false;
+      }
+      if (this.applyEndTime < now) {
+        this.checkNow2 = true;
+      }
+      else {
+        this.checkNow2 = false;
+      }
+      this.getIdeaDTO()
+    }
+    this.DataService.selectedEndDate.next(this.applyEndTime)
 
   }
+  endDateFormatted;
   getIdeaDTO() {
     const startDate = this.applyStartTime;
-    const endDate = this.applyEndTime;
+    if (this.applyEndTime) {
+      const endDate = this.applyEndTime;
+      const endDay = endDate.getDate();
+      const endMonth = endDate.getMonth() + 1;
+      const endYear = endDate.getFullYear();
+      this.endDateFormatted =
+        endDay.toString().padStart(2, "0") +
+        "/" +
+        endMonth.toString().padStart(2, "0") +
+        "/" +
+        endYear;
+    }
     const startDay = startDate.getDate();
     const startMonth = startDate.getMonth() + 1;
     const startYear = startDate.getFullYear();
-    const endDay = endDate.getDate();
-    const endMonth = endDate.getMonth() + 1;
-    const endYear = endDate.getFullYear();
+    // const endDay = endDate.getDate();
+    // const endMonth = endDate.getMonth() + 1;
+    // const endYear = endDate.getFullYear();
     const startDateFormatted =
       startDay.toString().padStart(2, "0") +
       "/" +
       startMonth.toString().padStart(2, "0") +
       "/" +
       startYear;
-    const endDateFormatted =
-      endDay.toString().padStart(2, "0") +
-      "/" +
-      endMonth.toString().padStart(2, "0") +
-      "/" +
-      endYear;
+    // const endDateFormatted =
+    //   endDay.toString().padStart(2, "0") +
+    //   "/" +
+    //   endMonth.toString().padStart(2, "0") +
+    //   "/" +
+    //   endYear;
 
 
     const updatedListUnitDTO = [...this.listUnitDTO];
@@ -907,7 +868,7 @@ export class IdeaEditComponent implements OnInit {
       ideaName: this.ideaNameValue,
       specialty: this.specialty,
       applyStartTime: startDateFormatted,
-      applyEndTime: endDateFormatted,
+      applyEndTime: this.endDateFormatted,
       beforeApplyStatus: this.beforeApplyStatus,
       content: this.content,
       applyRange: this.applyRange,

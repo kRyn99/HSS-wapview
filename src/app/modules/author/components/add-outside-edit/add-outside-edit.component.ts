@@ -140,15 +140,18 @@ export class AddOutsideEditComponent implements OnInit {
 
   jobAddressTouched = false;
   changeJobAddress() {
+    this.selectedStaffCodeSubject.value.jobAddress=this.selectedJobAddress
     this.jobAddressTouched = true;
 
   }
   jobPositionTouched = false;
   changeJobPosition() {
+    this.selectedStaffCodeSubject.value.jobPosition=this.selectedJobPosition
     this.jobPositionTouched = true;
   }
   phoneTouched = false;
   changePhone() {
+    this.selectedStaffCodeSubject.value.phoneNumber=this.selectedPhoneNumber
     this.phoneTouched = true;
   }
   emailTouched=false;
@@ -169,6 +172,7 @@ export class AddOutsideEditComponent implements OnInit {
   }
   qualificationTouched = false;
   changeQualification() {
+    this.selectedStaffCodeSubject.value.professionalQualification = this.selectedProfessionalQualification;
     this.qualificationTouched = true;
   }
   percentageTouched = false;
