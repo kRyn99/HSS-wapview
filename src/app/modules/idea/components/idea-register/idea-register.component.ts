@@ -122,10 +122,15 @@ export class IdeaRegisterComponent implements OnInit {
     if (this.DataService.selectedStartDate.value) {
       this.selectedStartDate = this.DataService.selectedStartDate.value;
     }
-    if (this.DataService.selectedEndDate.value) {
+    if (this.DataService.selectedEndDate.value ) {
       this.selectedEndDate = this.DataService.selectedEndDate.value;
-    }
+    }else {
+      this.selectedEndDate = null;
 
+    }
+    console.log(this.DataService.isEndDateTouched);
+    
+    // this.selectedEndDate = this.DataService.selectedEndDate.value;
     this.beforeApplyStatus = this.DataService.beforeApplyStatus.value;
     this.content = this.DataService.content.value;
     this.applyRange = this.DataService.applyRange.value;
@@ -249,7 +254,7 @@ export class IdeaRegisterComponent implements OnInit {
   selectedSpecialtyValue: string = "";
 
   selectedStartDate = new Date();
-  selectedEndDate = new Date();
+  selectedEndDate:Date = null;
   beforeApplyStatus: string = "";
   content: string = "";
   applyRange: string = "";
@@ -299,11 +304,11 @@ export class IdeaRegisterComponent implements OnInit {
   }
   endDateChange() {
     console.log(this.selectedEndDate);
-
+    debugger
     let now = new Date();
     now.setHours(0, 0, 0, 0);
     if (this.selectedStartDate === null || this.selectedEndDate === undefined) {
-      this.isEndDateTouched = false;
+      this.DataService.isEndDateTouched = true;
       if (this.selectedStartDate > this.selectedEndDate) {
         this.checkStartDate = false;
       } else {
@@ -315,8 +320,10 @@ export class IdeaRegisterComponent implements OnInit {
       else {
         this.checkNow2 = false;
       }
+      this.DataService.selectedEndDate.next(this.selectedEndDate);
+
     } else {
-      this.isEndDateTouched = true;
+      this.DataService.isEndDateTouched = true;
       if (this.selectedStartDate > this.selectedEndDate) {
         this.checkStartDate = true;
       } else {
@@ -330,6 +337,7 @@ export class IdeaRegisterComponent implements OnInit {
       }
       this.DataService.selectedEndDate.next(this.selectedEndDate);
     }
+// console.log(this.DataService.selectedEndDate.value);
 
   }
   isBeforeApplyStatusTouched = false;
@@ -493,7 +501,7 @@ export class IdeaRegisterComponent implements OnInit {
       this.checkNow = true;
     }
     if (this.selectedEndDate === undefined || this.selectedEndDate === null) {
-      this.isEndDateTouched = true;
+      this.DataService.isEndDateTouched = true;
     }
     if (this.selectedStartDate < now) {
       this.checkNow2 = true;

@@ -94,13 +94,13 @@
         autocomplete="off"
         [(ngModel)]="selectedEndDate"
         (ngModelChange)="endDateChange()"
-        [required]="isEndDateTouched"
+        [required]="DataService.isEndDateTouched"
       />
       <img src="assets/img/icon/calendar.svg" style="padding: 10px" />
     </label>
     <!-- <div class="form-text text-danger" *ngIf="isEndDateTouched && !selectedEndDate">{{ "ADD-INSIDE-IDEA.VALIDATE.EMPTY_END_DATE" | translate }}</div> -->
-    <div class="form-text text-danger" *ngIf="isEndDateTouched && checkStartDate">{{ "ADD-INSIDE-IDEA.VALIDATE.START_DAY" | translate }}</div>
-    <div class="form-text text-danger" *ngIf="isEndDateTouched && checkNow2">{{ "ADD-INSIDE-IDEA.VALIDATE.APPLY_END_DAY" | translate }}</div>
+    <div class="form-text text-danger" *ngIf="DataService.isEndDateTouched && checkStartDate">{{ "ADD-INSIDE-IDEA.VALIDATE.START_DAY" | translate }}</div>
+    <div class="form-text text-danger" *ngIf="DataService.isEndDateTouched && checkNow2">{{ "ADD-INSIDE-IDEA.VALIDATE.APPLY_END_DAY" | translate }}</div>
   </div>
   <div class="input-form">
     <div class="input-name">

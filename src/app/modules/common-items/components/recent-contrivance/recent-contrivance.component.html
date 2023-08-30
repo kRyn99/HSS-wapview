@@ -19,7 +19,8 @@
                     <span>{{item.contrivanceName | truncate:50}}</span>
                 </div>
                 <div class="line-text2">{{'HOME.PERCENT_DUP' |translate}}
-                    <span><b>{{item.percentDup}}{{' KIP'}}</b></span>
+                    <span *ngIf="item.effectiveValue"><b>{{item.effectiveValue}}{{' KIP'}}</b></span>
+                    <span *ngIf="!item.effectiveValue"><b>{{'CONTRIVANCE.DETAIL.CANNOT_CALCULATED' | translate}}</b></span>
                 </div>
                 <div class="user-info">
                     <img class="bg-white" src="assets/img/icon/avatar%20image.png">

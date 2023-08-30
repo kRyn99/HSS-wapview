@@ -89,12 +89,16 @@
         align-self: stretch;
         .idea-line1-text1{
           color: #000;
-          text-align: right;
+          text-align: left;
           //font-family: Inter;
           font-size: 14px;
           font-style: normal;
           font-weight: 700;
           line-height: 16px;
+          width: 70%;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
         }
         .idea-line1-text2{
           color: var(--text-placeholder, #929292);

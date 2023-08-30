@@ -95,6 +95,10 @@
           font-style: normal;
           font-weight: 700;
           line-height: 16px;
+          width: 60%;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
         }
         .idea-line1-text2{
           color: var(--text-placeholder, #929292);
