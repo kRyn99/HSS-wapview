@@ -95,6 +95,7 @@
         autocomplete="off"
         [(ngModel)]="applyEndTime"
         (ngModelChange)="selectEndDate()"
+        [required]="DataService.isEndDateTouched"
       />
       <img src="assets/img/icon/calendar.svg" style="padding: 10px" />
     </label>

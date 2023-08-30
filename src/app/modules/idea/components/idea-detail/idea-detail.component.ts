@@ -194,6 +194,7 @@ export class IdeaDetailComponent implements OnInit {
     this.DataService.effectiveness.next(null);
     this.DataService.nextStep.next(null);
     this.DataService.note.next(null);
+    this.DataService.isEndDateTouched=false;
     this.router.navigate(["idea/edit"], { queryParams: { id: this.ideaId } });
     window.scrollTo(0, 0);
   }
