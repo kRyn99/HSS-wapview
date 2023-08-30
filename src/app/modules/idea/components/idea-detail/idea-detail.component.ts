@@ -183,6 +183,17 @@ export class IdeaDetailComponent implements OnInit {
   }
   goToEdit() {
     this.DataService.backFromEdit = false;
+    this.DataService.ideaName2.next(null);
+    this.DataService.selectedStartDate.next(null);
+    this.DataService.selectedUnitValueEdit.next(null);
+    this.DataService.selectedSpecialtyValueEdit.next(null);
+    this.DataService.selectedEndDate.next(null);
+    this.DataService.beforeApplyStatus.next(null);
+    this.DataService.content.next(null);
+    this.DataService.applyRange.next(null);
+    this.DataService.effectiveness.next(null);
+    this.DataService.nextStep.next(null);
+    this.DataService.note.next(null);
     this.router.navigate(["idea/edit"], { queryParams: { id: this.ideaId } });
     window.scrollTo(0, 0);
   }
