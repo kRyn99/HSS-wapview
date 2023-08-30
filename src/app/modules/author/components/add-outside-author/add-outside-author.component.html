@@ -48,6 +48,7 @@
   <div class="info-box">
     <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.PHONE" | translate }}(<span style="color:red">*</span>)</div>
     <input
+    type="text"
       class="info-input"
       [placeholder]="
         (selectedStaffCodeSubject | async)?.phoneNumber || 'MANAGE_CATEGORY.PLACEHOLDER.PHONE_NUMBER' | translate

@@ -7,6 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class DataService {
   ideaName2= new BehaviorSubject<any>(null);
+  // selectedStartDateEdit : Date;
   ideaDTO = new BehaviorSubject<any>(null);
   ideaDTOEdit = new BehaviorSubject<any>(null);
   public lstContributorDTO= new BehaviorSubject<any>(null);
