@@ -273,19 +273,19 @@ export class AddInsideAuthorComponent implements OnInit {
         return false;
       }
     }
-    if (
-      this.birthday === undefined ||
-      this.birthday === null
+    // if (
+    //   this.birthday === undefined ||
+    //   this.birthday === null
 
-    ) {
-      const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
-      modalRef.componentInstance.type = 'fail';
-      modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
-      modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.BIRTHDAY`);
-      modalRef.componentInstance.closeIcon = false;
-      this.validateTemplate()
-      return false;
-    }
+    // ) {
+    //   const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
+    //   modalRef.componentInstance.type = 'fail';
+    //   modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
+    //   modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.BIRTHDAY`);
+    //   modalRef.componentInstance.closeIcon = false;
+    //   this.validateTemplate()
+    //   return false;
+    // }
     let lstContributorDTO = [];
     if (this.backRoute == "contrivance") {
       lstContributorDTO = this.contrivanceService.lstContributorDTOService.value;

@@ -78,15 +78,15 @@ export class IdeaEditComponent implements OnInit {
     private http: HttpClient,
     public DataService: DataService,
     private cdRef: ChangeDetectorRef,
-    private notificationService: NotificationService,
+    private notificationService: NotificationService
   ) {
     this.bsConfig = {
-      dateInputFormat: 'DD/MM/YYYY',
+      dateInputFormat: "DD/MM/YYYY",
     };
   }
   ideaId = JSON.parse(localStorage.getItem("ideaIdInLocalStorage"));
   isTypeOfString(element) {
-    return typeof element == 'string';
+    return typeof element == "string";
   }
   ngOnInit() {
     console.log(this.DataService.lstContributorDTOServiceEdit.value);
@@ -104,7 +104,7 @@ export class IdeaEditComponent implements OnInit {
   }
   ideaNameValue;
   applyStartTime: Date;
-  applyEndTime: Date =null;
+  applyEndTime: Date = null;
   specialty;
   beforeApplyStatus;
   content;
@@ -161,7 +161,7 @@ export class IdeaEditComponent implements OnInit {
           this.cdRef.detectChanges();
         }
         if (this.DataService.ideaName2.value) {
-          this.ideaNameValue = this.DataService.ideaName2.value
+          this.ideaNameValue = this.DataService.ideaName2.value;
         } else {
           this.ideaNameValue = response.data.ideaName;
         }
@@ -178,21 +178,30 @@ export class IdeaEditComponent implements OnInit {
         // }
         if (this.DataService.selectedEndDate.value) {
           this.applyEndTime = this.DataService.selectedEndDate.value;
-        } else if (!this.DataService.selectedEndDate.value &&this.DataService.isEndDateTouched) {
-          this.applyEndTime = null
+        } else if (
+          !this.DataService.selectedEndDate.value &&
+          this.DataService.isEndDateTouched
+        ) {
+          this.applyEndTime = null;
         } else {
-          this.applyEndTime = new Date(response.data.applyEndTime.split('/').reverse().join('/'));
+         if(this.applyEndTime){
+          this.applyEndTime = new Date(
+            response.data.applyEndTime.split("/").reverse().join("/")
+          );
+         }
+
         }
 
         if (this.DataService.selectedStartDate.value) {
           this.applyStartTime = this.DataService.selectedStartDate.value;
         } else {
-          this.applyStartTime = new Date(response.data.applyStartTime.split('/').reverse().join('/'));
+          this.applyStartTime = new Date(
+            response.data.applyStartTime.split("/").reverse().join("/")
+          );
         }
         // else{
         //     this.applyStartTimeString = this.applyStartTime.toLocaleDateString();
         //   }
-
 
         if (this.DataService.beforeApplyStatus.value) {
           this.beforeApplyStatus = this.DataService.beforeApplyStatus.value;
@@ -220,7 +229,7 @@ export class IdeaEditComponent implements OnInit {
           this.nextStep = this.ideaDetail.nextStep;
         }
         if (this.DataService.note.value) {
-          this.note = this.DataService.note.value
+          this.note = this.DataService.note.value;
         } else {
           this.note = this.ideaDetail.note;
         }
@@ -419,7 +428,9 @@ export class IdeaEditComponent implements OnInit {
         return;
       }
       if (file.size > 25 * 1024 * 1024) {
-        const translatedMessage = this.translateService.instant("ADD-INSIDE-IDEA.VALIDATE.FILE_SIZE");
+        const translatedMessage = this.translateService.instant(
+          "ADD-INSIDE-IDEA.VALIDATE.FILE_SIZE"
+        );
         this.notificationService.notify("fail", translatedMessage);
         return;
       }
@@ -450,8 +461,6 @@ export class IdeaEditComponent implements OnInit {
   }
 
   validate() {
-
-
     let now = new Date();
     now.setHours(0, 0, 0, 0);
 
@@ -494,7 +503,10 @@ export class IdeaEditComponent implements OnInit {
       modalRef.componentInstance.closeIcon = false;
       return false;
     }
-    if (this.applyStartTime > this.applyEndTime) {
+    if (
+      this.applyStartTime > this.applyEndTime &&
+      (this.applyEndTime !== null && this.applyEndTime !== undefined)
+    ) {
       const modalRef = this.modalService.open(MessagePopupComponent, {
         size: "sm",
         backdrop: "static",
@@ -512,7 +524,8 @@ export class IdeaEditComponent implements OnInit {
 
       return false;
     }
-    if (this.applyStartTime < now || this.applyEndTime < now) {
+    if (this.applyStartTime < now || this.applyEndTime < now  &&
+      (this.applyEndTime !== null && this.applyEndTime !== undefined)) {
       const modalRef = this.modalService.open(MessagePopupComponent, {
         size: "sm",
         backdrop: "static",
@@ -530,22 +543,22 @@ export class IdeaEditComponent implements OnInit {
       return false;
     }
     // if (endDate === undefined || endDate === null) {
-      // const modalRef = this.modalService.open(MessagePopupComponent, {
-      //   size: "sm",
-      //   backdrop: "static",
-      //   keyboard: false,
-      //   centered: true,
-      // });
-      // modalRef.componentInstance.type = "fail";
-      // modalRef.componentInstance.title = this.translateService.instant(
-      //   `ADD-INSIDE-IDEA.VALIDATE.ERROR`
-      // );
-      // modalRef.componentInstance.message = this.translateService.instant(
-      //   `ADD-INSIDE-IDEA.VALIDATE.ERROR`
-      // );
-      // modalRef.componentInstance.closeIcon = false;
-      // return false;
-    
+    // const modalRef = this.modalService.open(MessagePopupComponent, {
+    //   size: "sm",
+    //   backdrop: "static",
+    //   keyboard: false,
+    //   centered: true,
+    // });
+    // modalRef.componentInstance.type = "fail";
+    // modalRef.componentInstance.title = this.translateService.instant(
+    //   `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+    // );
+    // modalRef.componentInstance.message = this.translateService.instant(
+    //   `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+    // );
+    // modalRef.componentInstance.closeIcon = false;
+    // return false;
+
     if (
       this.selectedUnitValue === undefined ||
       this.selectedUnitValue === null ||
@@ -771,29 +784,25 @@ export class IdeaEditComponent implements OnInit {
     this.DataService.ideaName2.next(this.ideaNameValue);
   }
   selectStartDate() {
-
     let now = new Date();
     now.setHours(0, 0, 0, 0);
-    if (this.applyStartTime > this.applyEndTime
-    ) {
+    if (this.applyStartTime > this.applyEndTime) {
       this.checkStartDate = true;
     } else {
       this.checkStartDate = false;
     }
     if (this.applyStartTime < now) {
       this.checkNow = true;
-    }
-    else {
+    } else {
       this.checkNow = false;
     }
 
-    this.DataService.selectedStartDate.next(this.applyStartTime)
-    this.getIdeaDTO()
-
+    this.DataService.selectedStartDate.next(this.applyStartTime);
+    this.getIdeaDTO();
   }
-  isEndDateTouched=false;
+  isEndDateTouched = false;
   selectEndDate() {
-    this.DataService.isEndDateTouched=true;
+    this.DataService.isEndDateTouched = true;
     let now = new Date();
     now.setHours(0, 0, 0, 0);
     console.log(this.applyEndTime);
@@ -805,13 +814,11 @@ export class IdeaEditComponent implements OnInit {
       }
       if (this.applyEndTime < now) {
         this.checkNow2 = false;
-      }
-      else {
+      } else {
         this.checkNow2 = false;
       }
       // this.getIdeaDTO()
     } else {
-
       if (this.applyStartTime > this.applyEndTime) {
         this.checkStartDate = true;
       } else {
@@ -819,14 +826,12 @@ export class IdeaEditComponent implements OnInit {
       }
       if (this.applyEndTime < now) {
         this.checkNow2 = true;
-      }
-      else {
+      } else {
         this.checkNow2 = false;
       }
-      this.getIdeaDTO()
+      this.getIdeaDTO();
     }
-    this.DataService.selectedEndDate.next(this.applyEndTime)
-
+    this.DataService.selectedEndDate.next(this.applyEndTime);
   }
   endDateFormatted;
   getIdeaDTO() {
@@ -862,7 +867,6 @@ export class IdeaEditComponent implements OnInit {
     //   "/" +
     //   endYear;
 
-
     const updatedListUnitDTO = [...this.listUnitDTO];
 
     for (const item of this.selectedUnitValue) {
@@ -889,7 +893,6 @@ export class IdeaEditComponent implements OnInit {
       listUnitDTO: updatedListUnitDTO,
     };
     console.log(this.ideaDTO);
-
   }
   validateBeforeCheckDuplicate() {
     if (this.validate()) {
@@ -910,7 +913,6 @@ export class IdeaEditComponent implements OnInit {
           name: this.documentDTO.name,
         },
       };
-
 
       return this.http.post<any>(url, requestBody, { headers }).subscribe(
         (response) => {

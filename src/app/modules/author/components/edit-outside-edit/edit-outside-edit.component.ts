@@ -226,17 +226,17 @@ export class EditOutsideEditComponent implements OnInit {
         } else {
           lstContributorDTO = this.DataService.lstContributorDTOServiceOutEdit.value;
         }
-        lstContributorDTO.forEach(item => {
-          if (item.phoneNumber == this.contributorDTO.phoneNumber && item.email == this.contributorDTO.email ) {
-            const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
-            modalRef.componentInstance.type = 'fail';
-            modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
-            modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.EXIST`);
-            modalRef.componentInstance.closeIcon = false;
-            hasDuplicate = true;
-            return;
-          }
-        })
+        // lstContributorDTO.forEach(item => {
+        //   if (item.phoneNumber == this.contributorDTO.phoneNumber && item.email == this.contributorDTO.email ) {
+        //     const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
+        //     modalRef.componentInstance.type = 'fail';
+        //     modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
+        //     modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.EXIST`);
+        //     modalRef.componentInstance.closeIcon = false;
+        //     hasDuplicate = true;
+        //     return;
+        //   }
+        // })
         if (hasDuplicate) {
           return false;
         }
@@ -254,15 +254,27 @@ export class EditOutsideEditComponent implements OnInit {
         if (this.validate()) {
             if (this.backRoute == "contrivance") {
                 for(let i = 0; i < this.contrivanceService.lstContributorDTOServiceOut.value.length; i++) {
+                    if (
+                        this.contrivanceService.lstContributorDTOServiceOut.value[i].phoneNumber == this.contributorDTO.phoneNumber && 
+                        this.contrivanceService.lstContributorDTOServiceOut.value[i].email == this.contributorDTO.email
+                      ) {
+                        this.contrivanceService.lstContributorDTOServiceOut.value[i] = this.contributorDTO;
+                      }
                   
-                      this.contrivanceService.lstContributorDTOServiceOut.value[i] = this.contributorDTO;
+                    //   this.contrivanceService.lstContributorDTOServiceOut.value[i] = this.contributorDTO;
                     
                   }
                 this.router.navigate(["contrivance/edit"]);
             } else {
                 for(let i = 0; i < this.DataService.lstContributorDTOServiceOutEdit.value.length; i++) {
+                    if (
+                        this.DataService.lstContributorDTOServiceOutEdit.value[i].phoneNumber == this.contributorDTO.phoneNumber && 
+                        this.DataService.lstContributorDTOServiceOutEdit.value[i].email == this.contributorDTO.email
+                      ) {
+                        this.DataService.lstContributorDTOServiceOutEdit.value[i] = this.contributorDTO;
+                      }
                 
-                      this.DataService.lstContributorDTOServiceOutEdit.value[i] = this.contributorDTO;
+                    //   this.DataService.lstContributorDTOServiceOutEdit.value[i] = this.contributorDTO;
          
                   }
                 this.router.navigate(["idea/edit"]);
