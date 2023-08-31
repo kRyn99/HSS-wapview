@@ -296,29 +296,29 @@ export class EditOutsideAuthorComponent implements OnInit {
     } else {
       lstContributorDTO = this.DataService.lstContributorDTOServiceOut.value;
     }
-    // lstContributorDTO.forEach((item) => {
-    //   if (
-    //     item.phoneNumber == this.contributorDTO.phoneNumber &&
-    //     item.email == this.contributorDTO.email
-    //   ) {
-    //     const modalRef = this.modalService.open(MessagePopupComponent, {
-    //       size: "sm",
-    //       backdrop: "static",
-    //       keyboard: false,
-    //       centered: true,
-    //     });
-    //     modalRef.componentInstance.type = "fail";
-    //     modalRef.componentInstance.title = this.translateService.instant(
-    //       `ADD-INSIDE-IDEA.VALIDATE.ERROR`
-    //     );
-    //     modalRef.componentInstance.message = this.translateService.instant(
-    //       `ADD-INSIDE-IDEA.VALIDATE.EXIST`
-    //     );
-    //     modalRef.componentInstance.closeIcon = false;
-    //     hasDuplicate = true;
-    //     return;
-    //   }
-    // });
+    lstContributorDTO.forEach((item) => {
+      if (
+        item.phoneNumber == this.contributorDTO.phoneNumber &&
+        item.email == this.contributorDTO.email && item.contributorId !== this.idContributorDTO
+      ) {
+        const modalRef = this.modalService.open(MessagePopupComponent, {
+          size: "sm",
+          backdrop: "static",
+          keyboard: false,
+          centered: true,
+        });
+        modalRef.componentInstance.type = "fail";
+        modalRef.componentInstance.title = this.translateService.instant(
+          `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+        );
+        modalRef.componentInstance.message = this.translateService.instant(
+          `ADD-INSIDE-IDEA.VALIDATE.EXIST`
+        );
+        modalRef.componentInstance.closeIcon = false;
+        hasDuplicate = true;
+        return;
+      }
+    });
     if (hasDuplicate) {
       return false;
     }
@@ -360,14 +360,14 @@ export class EditOutsideAuthorComponent implements OnInit {
         }
         this.router.navigate(["contrivance/register"]);
       } else {
-        let foundMatch = false; // Tạo một biến trạng thái để kiểm soát
+        let foundMatch = false; 
 
         for (let i = 0; i < this.DataService.lstContributorDTOServiceOut.value.length; i++) {
           if (
             this.DataService.lstContributorDTOServiceOut.value[i].phoneNumber ==
             this.contributorDTO.phoneNumber &&
             this.DataService.lstContributorDTOServiceOut.value[i].email ==
-            this.contributorDTO.email
+            this.contributorDTO.email && this.DataService.lstContributorDTOServiceOut.value[i].contributorId == this.idContributorDTO
           ) {
             this.DataService.lstContributorDTOServiceOut.value[i] =
               this.contributorDTO;
