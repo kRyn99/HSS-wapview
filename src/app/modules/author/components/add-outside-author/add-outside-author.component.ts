@@ -70,7 +70,7 @@ export class AddOutsideAuthorComponent implements OnInit {
       jobAddress: this.selectedJobAddress,
       professionalQualification:
         this.selectedProfessionalQualification,
-        contributorId:this.selectedStaffCodeSubject.value?.contributorId
+      contributorId: this.selectedStaffCodeSubject.value?.contributorId
     }
     if (this.backRoute == "contrivance") {
       this.contrivanceService.lstContributorDTOServiceOut.value.push(contributorDTO);
@@ -318,7 +318,7 @@ export class AddOutsideAuthorComponent implements OnInit {
       lstContributorDTO = this.DataService.lstContributorDTOServiceOut.value;
     }
     lstContributorDTO.forEach(item => {
-      if (item.phoneNumber == this.selectedStaffCodeSubject.value?.phoneNumber && item.email == this.selectedStaffCodeSubject.value?.email) {
+      if (item.phoneNumber == this.selectedStaffCodeSubject.value?.phoneNumber || item.email == this.selectedStaffCodeSubject.value?.email) {
         const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
         modalRef.componentInstance.type = 'fail';
         modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);

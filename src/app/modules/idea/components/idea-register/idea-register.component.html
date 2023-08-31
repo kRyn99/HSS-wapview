@@ -401,7 +401,7 @@
               {{ element.jobAddress }}<br />
               <b>{{ "IDEA_MANAGEMENT.LABEL.OFFICE" | translate }}:</b>
               {{ element.jobPosition }}<br />
-              <b>{{ "IDEA_MANAGEMENT.LABEL.QUALIFICATION" | translate }}:</b>
+              <b *ngIf="element.professionalQualification">{{ "IDEA_MANAGEMENT.LABEL.QUALIFICATION" | translate }}:</b>
               {{ element.professionalQualification }}<br />
             </div>
             <div class="example-element-description row">

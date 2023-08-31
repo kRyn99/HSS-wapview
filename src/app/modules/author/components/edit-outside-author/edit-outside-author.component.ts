@@ -26,7 +26,8 @@ export class EditOutsideAuthorComponent implements OnInit {
     private modalService: NgbModal,
     private translateService: TranslateService
   ) { }
-
+  oldNumber: number = 0;
+  oldEmail: string = '';
   token = JSON.parse(localStorage.getItem("tokenInLocalStorage"));
   idContributorDTO: number;
   ngOnInit() {
@@ -44,7 +45,7 @@ export class EditOutsideAuthorComponent implements OnInit {
         } else {
           this.contributorDTO = {
             ...this.DataService.lstContributorDTOServiceOut.value.find(
-              (item) => item.phoneNumber == Number(params.phoneNumber)
+              (item) => (item.phoneNumber == Number(params.phoneNumber) && item.email == params.email)
             ),
           };
         }
@@ -53,6 +54,10 @@ export class EditOutsideAuthorComponent implements OnInit {
     });
 
     this.idContributorDTO = this.contributorDTO.contributorId;
+    this.oldNumber = this.contributorDTO.phoneNumber;
+    this.oldEmail = this.contributorDTO.email;
+
+
 
     console.log(this.idContributorDTO);
 
@@ -296,29 +301,30 @@ export class EditOutsideAuthorComponent implements OnInit {
     } else {
       lstContributorDTO = this.DataService.lstContributorDTOServiceOut.value;
     }
-    lstContributorDTO.forEach((item) => {
-      if (
-        item.phoneNumber == this.contributorDTO.phoneNumber &&
-        item.email == this.contributorDTO.email && item.contributorId !== this.idContributorDTO
-      ) {
-        const modalRef = this.modalService.open(MessagePopupComponent, {
-          size: "sm",
-          backdrop: "static",
-          keyboard: false,
-          centered: true,
-        });
-        modalRef.componentInstance.type = "fail";
-        modalRef.componentInstance.title = this.translateService.instant(
-          `ADD-INSIDE-IDEA.VALIDATE.ERROR`
-        );
-        modalRef.componentInstance.message = this.translateService.instant(
-          `ADD-INSIDE-IDEA.VALIDATE.EXIST`
-        );
-        modalRef.componentInstance.closeIcon = false;
-        hasDuplicate = true;
-        return;
-      }
-    });
+
+    let lstDupicate = lstContributorDTO.filter(item => {
+      return item.phoneNumber == this.contributorDTO.phoneNumber ||
+        item.email == this.contributorDTO.email
+    })
+    if (lstDupicate.length == 2) {
+      const modalRef = this.modalService.open(MessagePopupComponent, {
+        size: "sm",
+        backdrop: "static",
+        keyboard: false,
+        centered: true,
+      });
+      modalRef.componentInstance.type = "fail";
+      modalRef.componentInstance.title = this.translateService.instant(
+        `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+      );
+      modalRef.componentInstance.message = this.translateService.instant(
+        `ADD-INSIDE-IDEA.VALIDATE.EXIST`
+      );
+      modalRef.componentInstance.closeIcon = false;
+      hasDuplicate = true;
+      return;
+    }
+
     if (hasDuplicate) {
       return false;
     }
@@ -338,58 +344,25 @@ export class EditOutsideAuthorComponent implements OnInit {
 
     if (this.validate()) {
       if (this.backRoute == "contrivance") {
-        for (
-          let i = 0;
-          i < this.contrivanceService.lstContributorDTOServiceOut.value.length;
-          i++
-        ) {
-          if (
-            this.contrivanceService.lstContributorDTOServiceOut.value[i]
-              .phoneNumber == this.contributorDTO.phoneNumber &&
-            this.contrivanceService.lstContributorDTOServiceOut.value[i]
-              .email == this.contributorDTO.email
-          ) {
-            this.contrivanceService.lstContributorDTOServiceOut.value[i] =
-              this.contributorDTO;
-            break;
-          } else {
-            this.contrivanceService.lstContributorDTOServiceOut.value[i] =
-              this.contributorDTO;
-            break;
+        if (this.backRoute == "contrivance") {
+          for (let i = 0; i < this.contrivanceService.lstContributorDTOServiceOut.value.length; i++) {
+            if (this.oldEmail == this.contrivanceService.lstContributorDTOServiceOut.value[i].email && this.oldNumber == this.contrivanceService.lstContributorDTOServiceOut.value[i].phoneNumber) {
+              this.contrivanceService.lstContributorDTOServiceOut.value[i] = this.contributorDTO
+              break;
+            }
+
           }
         }
         this.router.navigate(["contrivance/register"]);
       } else {
-        let foundMatch = false; 
-
         for (let i = 0; i < this.DataService.lstContributorDTOServiceOut.value.length; i++) {
-          if (
-            this.DataService.lstContributorDTOServiceOut.value[i].phoneNumber ==
-            this.contributorDTO.phoneNumber &&
-            this.DataService.lstContributorDTOServiceOut.value[i].email ==
-            this.contributorDTO.email && this.DataService.lstContributorDTOServiceOut.value[i].contributorId == this.idContributorDTO
-          ) {
-            this.DataService.lstContributorDTOServiceOut.value[i] =
-              this.contributorDTO;
-            foundMatch = true;
-            // break;
+          if (this.oldEmail == this.DataService.lstContributorDTOServiceOut.value[i].email && this.oldNumber == this.DataService.lstContributorDTOServiceOut.value[i].phoneNumber) {
+            this.DataService.lstContributorDTOServiceOut.value[i] = this.contributorDTO
+            break;
           }
-          // this.router.navigate(["idea/register"]);
+
         }
 
-        if (!foundMatch) {
-          for (let i = 0; i < this.DataService.lstContributorDTOServiceOut.value.length; i++) {
-            if (
-              (this.DataService.lstContributorDTOServiceOut.value[i].phoneNumber !== this.contributorDTO.phoneNumber ||
-                this.DataService.lstContributorDTOServiceOut.value[i].email !== this.contributorDTO.email) && (this.DataService.lstContributorDTOServiceOut.value[i].contributorId == this.idContributorDTO)
-            ) {
-              const updatedContributor = { ...this.contributorDTO };
-              updatedContributor.contributorId = this.DataService.lstContributorDTOServiceOut.value[i].contributorId;
-              this.DataService.lstContributorDTOServiceOut.value[i] = updatedContributor;
-
-            }
-          }
-        }
 
         this.router.navigate(["idea/register"]);
       }
