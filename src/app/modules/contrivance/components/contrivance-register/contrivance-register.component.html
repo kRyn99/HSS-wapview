@@ -157,7 +157,7 @@
         />
         <img src="assets/img/icon/calendar.svg" style="padding: 10px" />
       </div>
-      <small
+      <!-- <small
         class="form-text text-danger"
         *ngIf="formUtils.controlHasError('required', 'applyEndTime')"
       >
@@ -168,7 +168,7 @@
                   name: "IDEA_MANAGEMENT.LABEL.DATE_APPLY_TO" | translate
                 }
         }}
-      </small>
+      </small> -->
       <small
         class="form-text text-danger"
         *ngIf="formUtils.controlHasError('invalid', 'applyEndTime')"
@@ -532,10 +532,10 @@
               <div class="example-element-description">
                 <b>{{'IDEA_MANAGEMENT.LABEL.TELEPHONE' | translate}}:</b> {{ element.phoneNumber }}<br>
                 <b>{{'IDEA_MANAGEMENT.LABEL.EMAIL' | translate}}:</b> {{ element.email }}<br>
-                <b>{{'IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH' | translate}}:</b> {{ element.birthday }}<br>
+                <!-- <b>{{'IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH' | translate}}:</b> {{ element.birthday }}<br> -->
                 <b>{{'IDEA_MANAGEMENT.LABEL.WORK_PLACE' | translate}}:</b> {{ element.jobAddress }}<br>
                 <b>{{'IDEA_MANAGEMENT.LABEL.OFFICE' | translate}}:</b> {{ element.jobPosition }}<br>
-                <b>{{'IDEA_MANAGEMENT.LABEL.QUALIFICATION' | translate}}:</b> {{ element.professionalQualification }}<br>
+                <b *ngIf="element.professionalQualification">{{'IDEA_MANAGEMENT.LABEL.QUALIFICATION' | translate}}:</b> {{ element.professionalQualification }}<br>
               </div>
               <div class="example-element-description row">
                 <div class="col-6">
