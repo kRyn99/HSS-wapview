@@ -791,11 +791,11 @@
     "TO_DATE": "ຫາວັນທີ່"
   },
 
-  "CONTRIVANCES_IDEA_MANAGE_CONTRIVANCES": "ການຄຸ້ມຄອງແນວຄວາມຄິດ",
+  "CONTRIVANCES_IDEA_MANAGE_CONTRIVANCES": "ການຄຸ້ມຄອງປະດິດສ້າງ",
   "TABLE": {
     "CODE": "ລະຫັດພະນັກງານ",
-    "NAME": "ຊື່ແລະນາມສະກຸນ",
-    "CONTRIBUTION": "% ປະກອບສ່ວນ"    
+    "NAME": "ຊື່ ແລະ ນາມສະກູນ",
+    "CONTRIBUTION": "% ມີສ່ວນຮ່ວມ"   
   },
 
   "ADD-INSIDE-IDEA": {
