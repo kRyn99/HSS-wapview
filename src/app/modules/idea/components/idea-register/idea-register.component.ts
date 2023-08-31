@@ -115,7 +115,8 @@ export class IdeaRegisterComponent implements OnInit {
       this.selectedUnitValue = value;
     });
 
-    console.log(this.selectedUnitValue);
+  console.log(this.DataService.lstContributorDTOServiceOut.value);
+  
 
     // this.selectedUnitValue = this.DataService.selectedUnitValue$.value;
     this.selectedSpecialtyValue = this.DataService.selectedSpecialtyValue.value;
@@ -173,7 +174,7 @@ export class IdeaRegisterComponent implements OnInit {
 
     // }
     this.DataService.selectedUnitValue.next(this.selectedUnitValue);
-    console.log(this.selectedUnitValue);
+    
   }
 
   //   onSelectUnitChange() {
@@ -196,7 +197,7 @@ export class IdeaRegisterComponent implements OnInit {
     return this.http.post<any>(url, requestBody, { headers }).subscribe(
       (response) => {
         this.listUnit = response.data;
-        console.log(this.listUnit);
+       
         let listIdSelect = this.selectedUnitValue?.map((item) => item.unitId);
         this.listUnit.forEach((item: any) => {
           if (listIdSelect?.includes(item.unitId)) {
@@ -268,16 +269,13 @@ export class IdeaRegisterComponent implements OnInit {
 
   onSelectUnitChange() {
     this.DataService.selectedUnitValue.next(this.selectedUnitValue);
-    console.log(this.selectedUnitValue);
+  
   }
   specialtyTouched = false;
   onSelectSpecialtyChange() {
     this.DataService.selectedSpecialtyValue.next(this.selectedSpecialtyValue);
   }
-  // onSelectSpecialtyChange1() {
-  //  console.log(this.selectedSpecialtyValue);
-
-  // }
+  
   isStartDateTouched = false;
   isEndDateTouched = false;
   checkStartDate = false;
@@ -300,7 +298,7 @@ export class IdeaRegisterComponent implements OnInit {
     this.DataService.selectedStartDate.next(this.selectedStartDate);
   }
   endDateChange() {
-    console.log(this.selectedEndDate);
+    
     let now = new Date();
     now.setHours(0, 0, 0, 0);
     if (this.selectedStartDate === null || this.selectedEndDate === undefined) {
@@ -330,7 +328,7 @@ export class IdeaRegisterComponent implements OnInit {
       }
       this.DataService.selectedEndDate.next(this.selectedEndDate);
     }
-    // console.log(this.DataService.selectedEndDate.value);
+    
   }
   isBeforeApplyStatusTouched = false;
   beforeApplyStatusChange() {
@@ -855,7 +853,7 @@ export class IdeaRegisterComponent implements OnInit {
         "Accept-Language": this.lang,
         Authorization: `Bearer ` + this.token,
       });
-      console.log(this.DataService.file.value);
+      
 
       const requestBody = {
         ideaDTO: this.ideaDTO,
@@ -872,7 +870,7 @@ export class IdeaRegisterComponent implements OnInit {
         (response) => {
           if (response.errorCode == 0) {
             this.router.navigate(["/idea"]);
-            console.log(response);
+        
           } else {
             const modalRef = this.modalService.open(MessagePopupComponent, {
               size: "sm",

@@ -25,9 +25,10 @@ export class EditOutsideAuthorComponent implements OnInit {
     private router: Router,
     private modalService: NgbModal,
     private translateService: TranslateService
-  ) {}
+  ) { }
 
   token = JSON.parse(localStorage.getItem("tokenInLocalStorage"));
+  idContributorDTO: number;
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
       if (params && params.for) {
@@ -48,7 +49,14 @@ export class EditOutsideAuthorComponent implements OnInit {
           };
         }
       }
+
     });
+
+    this.idContributorDTO = this.contributorDTO.contributorId;
+
+    console.log(this.idContributorDTO);
+
+
 
     this.apiListContributorOut();
   }
@@ -326,6 +334,8 @@ export class EditOutsideAuthorComponent implements OnInit {
 
   backRoute = null;
   edit() {
+
+
     if (this.validate()) {
       if (this.backRoute == "contrivance") {
         for (
@@ -355,31 +365,32 @@ export class EditOutsideAuthorComponent implements OnInit {
         for (let i = 0; i < this.DataService.lstContributorDTOServiceOut.value.length; i++) {
           if (
             this.DataService.lstContributorDTOServiceOut.value[i].phoneNumber ==
-              this.contributorDTO.phoneNumber &&
+            this.contributorDTO.phoneNumber &&
             this.DataService.lstContributorDTOServiceOut.value[i].email ==
-              this.contributorDTO.email
+            this.contributorDTO.email
           ) {
             this.DataService.lstContributorDTOServiceOut.value[i] =
               this.contributorDTO;
-            foundMatch = true; // Đặt biến trạng thái thành true nếu tìm thấy sự khớp
-            break; // Kết thúc vòng lặp nếu đã tìm thấy sự khớp
+            foundMatch = true;
+            // break;
           }
+          // this.router.navigate(["idea/register"]);
         }
-        
+
         if (!foundMatch) {
-          // Chỉ chạy điều kiện thứ hai nếu không tìm thấy sự khớp trong điều kiện thứ nhất
           for (let i = 0; i < this.DataService.lstContributorDTOServiceOut.value.length; i++) {
             if (
-              this.DataService.lstContributorDTOServiceOut.value[i].phoneNumber !== this.contributorDTO.phoneNumber &&
-              this.DataService.lstContributorDTOServiceOut.value[i].email == this.contributorDTO.email
+              (this.DataService.lstContributorDTOServiceOut.value[i].phoneNumber !== this.contributorDTO.phoneNumber ||
+                this.DataService.lstContributorDTOServiceOut.value[i].email !== this.contributorDTO.email) && (this.DataService.lstContributorDTOServiceOut.value[i].contributorId == this.idContributorDTO)
             ) {
-              this.DataService.lstContributorDTOServiceOut.value[i] =
-                this.contributorDTO;
-               
+              const updatedContributor = { ...this.contributorDTO };
+              updatedContributor.contributorId = this.DataService.lstContributorDTOServiceOut.value[i].contributorId;
+              this.DataService.lstContributorDTOServiceOut.value[i] = updatedContributor;
+
             }
           }
         }
-        
+
         this.router.navigate(["idea/register"]);
       }
     }
