@@ -40,7 +40,7 @@ export class EditOutsideEditComponent implements OnInit {
             if (params && params.for) {
                 this.backRoute = params.for;
             }
-            if (params && params.phoneNumber && params.email) {
+            if (params && params.phoneNumber) {
                 if (this.backRoute == "contrivance") {
                     this.contributorDTO = { ...this.contrivanceService.lstContributorDTOServiceOut.value.find((item) => (item.phoneNumber == Number(params.phoneNumber) && item.email == params.email)) }
                 }
@@ -52,6 +52,7 @@ export class EditOutsideEditComponent implements OnInit {
         })
         this.oldNumber = this.contributorDTO.phoneNumber;
         this.oldEmail = this.contributorDTO.email;
+
 
         this.apiListContributorOut()
     }
@@ -193,16 +194,41 @@ export class EditOutsideEditComponent implements OnInit {
         if (lstContributorDTO.length > 1) {
             for (let i = 0; i < lstContributorDTO.length; i++) {
                 if (this.oldEmail == lstContributorDTO[i].email && this.oldNumber == lstContributorDTO[i].phoneNumber) {
-                    lstContributorDTO[i] = this.contributorDTO
+                    lstContributorDTO[i] = this.contributorDTO;
                     break;
                 }
-
             }
-            let listDuplicate = lstContributorDTO.filter(item => {
-                return item.phoneNumber == this.contributorDTO.phoneNumber ||
-                    item.email == this.contributorDTO.email
-            })
-            if (listDuplicate.length > 1) {
+
+            if (this.contributorDTO.email !== '') {
+                let listDuplicate = lstContributorDTO.filter(item => {
+                    return item.email == this.contributorDTO.email;
+                });
+
+                if (listDuplicate.length > 1) {
+                    const modalRef = this.modalService.open(MessagePopupComponent, {
+                        size: "sm",
+                        backdrop: "static",
+                        keyboard: false,
+                        centered: true,
+                    });
+                    modalRef.componentInstance.type = "fail";
+                    modalRef.componentInstance.title = this.translateService.instant(
+                        `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+                    );
+                    modalRef.componentInstance.message = this.translateService.instant(
+                        `ADD-INSIDE-IDEA.VALIDATE.EXIST`
+                    );
+                    modalRef.componentInstance.closeIcon = false;
+                    hasDuplicate = true;
+                    return;
+                }
+            }
+
+            let phoneDuplicate = lstContributorDTO.filter(item => {
+                return item.phoneNumber == this.contributorDTO.phoneNumber;
+            });
+
+            if (phoneDuplicate.length > 1) {
                 const modalRef = this.modalService.open(MessagePopupComponent, {
                     size: "sm",
                     backdrop: "static",
@@ -220,8 +246,8 @@ export class EditOutsideEditComponent implements OnInit {
                 hasDuplicate = true;
                 return;
             }
-
         }
+
 
         if (hasDuplicate) {
             return false;
@@ -254,7 +280,7 @@ export class EditOutsideEditComponent implements OnInit {
             } else {
                 for (let i = 0; i < this.DataService.lstContributorDTOServiceOutEdit.value.length; i++) {
                     if (
-                        this.oldEmail == this.DataService.lstContributorDTOServiceOutEdit.value[i].email && this.oldNumber == this.DataService.lstContributorDTOServiceOutEdit.value[i].phoneNumber
+                        (this.oldEmail == this.DataService.lstContributorDTOServiceOutEdit.value[i].email) && this.oldNumber == this.DataService.lstContributorDTOServiceOutEdit.value[i].phoneNumber
                     ) {
                         this.DataService.lstContributorDTOServiceOutEdit.value[i] = this.contributorDTO
                         break;
