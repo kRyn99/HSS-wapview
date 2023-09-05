@@ -70,6 +70,7 @@ export class AddOutsideAuthorComponent implements OnInit {
       jobAddress: this.selectedJobAddress,
       professionalQualification:
         this.selectedProfessionalQualification,
+      contributorId: this.selectedStaffCodeSubject.value?.contributorId
     }
     if (this.backRoute == "contrivance") {
       this.contrivanceService.lstContributorDTOServiceOut.value.push(contributorDTO);
@@ -133,13 +134,13 @@ export class AddOutsideAuthorComponent implements OnInit {
   }
   jobAddressTouched = false;
   changeJobAddress() {
-    this.selectedStaffCodeSubject.value.jobAddress=this.selectedJobAddress;
+    this.selectedStaffCodeSubject.value.jobAddress = this.selectedJobAddress;
     this.jobAddressTouched = true;
 
   }
   jobPositionTouched = false;
   changeJobPosition() {
-    this.selectedStaffCodeSubject.value.jobPosition=this.selectedJobPosition;
+    this.selectedStaffCodeSubject.value.jobPosition = this.selectedJobPosition;
     this.jobPositionTouched = true;
   }
   phoneTouched = false;
@@ -157,10 +158,10 @@ export class AddOutsideAuthorComponent implements OnInit {
     this.emailTouched = true;
     this.selectedStaffCodeSubject.value.email = this.selectedEmail;
     if (!this.isValidEmail(this.selectedStaffCodeSubject.value.email)) {
-      this.checkEmail=true;
-    }else{
+      this.checkEmail = true;
+    } else {
 
-      this.checkEmail=false;
+      this.checkEmail = false;
     }
   }
   qualificationTouched = false;
@@ -173,7 +174,7 @@ export class AddOutsideAuthorComponent implements OnInit {
     this.percentageTouched = true;
   }
   validateTemplate() {
-  
+
     if (
       !this.selectedStaffCodeSubject.value
     ) { this.isInputTouched = true }
@@ -271,7 +272,7 @@ export class AddOutsideAuthorComponent implements OnInit {
       modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
       modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.EMAIL_FORM`);
       modalRef.componentInstance.closeIcon = false;
-      this.checkEmail=true;
+      this.checkEmail = true;
       return false;
     };
     if (
@@ -317,7 +318,7 @@ export class AddOutsideAuthorComponent implements OnInit {
       lstContributorDTO = this.DataService.lstContributorDTOServiceOut.value;
     }
     lstContributorDTO.forEach(item => {
-      if (item.phoneNumber == this.selectedStaffCodeSubject.value?.phoneNumber && item.email == this.selectedStaffCodeSubject.value?.email) {
+      if (item.phoneNumber == this.selectedStaffCodeSubject.value?.phoneNumber || item.email == this.selectedStaffCodeSubject.value?.email) {
         const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
         modalRef.componentInstance.type = 'fail';
         modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
