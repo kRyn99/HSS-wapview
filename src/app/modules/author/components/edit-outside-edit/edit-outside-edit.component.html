@@ -70,7 +70,7 @@
       [ngModel]="contributorDTO?.professionalQualification"
       (ngModelChange)="updateProfessionalQualification($event)"
     />
-    <div class="form-text text-danger" *ngIf="!contributorDTO?.professionalQualification">{{ "ADD-INSIDE-IDEA.VALIDATE.QUALIFICATION" | translate }}</div>
+    <!-- <div class="form-text text-danger" *ngIf="!contributorDTO?.professionalQualification">{{ "ADD-INSIDE-IDEA.VALIDATE.QUALIFICATION" | translate }}</div> -->
   </div>
   <div *ngIf="contributorDTO" class="info-box">
     <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.CONTRIBUTE_PERCENT" | translate }}(<span style="color:red">*</span>)</div>

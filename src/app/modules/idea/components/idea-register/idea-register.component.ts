@@ -254,7 +254,7 @@ export class IdeaRegisterComponent implements OnInit {
   selectedSpecialtyValue: string = "";
 
   selectedStartDate = new Date();
-  selectedEndDate: Date = null;
+  selectedEndDate=  new Date();
   beforeApplyStatus: string = "";
   content: string = "";
   applyRange: string = "";
@@ -549,6 +549,7 @@ export class IdeaRegisterComponent implements OnInit {
   validate() {
     let now = new Date();
     now.setHours(0, 0, 0, 0);
+    this.selectedStartDate.setHours(0, 0, 0, 0);
     if (
       this.inputValue === undefined ||
       this.inputValue === null ||
@@ -616,7 +617,7 @@ export class IdeaRegisterComponent implements OnInit {
       this.validateTemplate();
       return false;
     }
-    if ((this.selectedStartDate <= now || this.selectedEndDate <= now) && (this.selectedEndDate !== null && this.selectedEndDate !== undefined )) {
+    if ((this.selectedStartDate < now || this.selectedEndDate < now) && (this.selectedEndDate !== null && this.selectedEndDate !== undefined )) {
       const modalRef = this.modalService.open(MessagePopupComponent, {
         size: "sm",
         backdrop: "static",

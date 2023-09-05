@@ -39,7 +39,7 @@ export class EditOutsideAuthorComponent implements OnInit {
         if (this.backRoute == "contrivance") {
           this.contributorDTO = {
             ...this.contrivanceService.lstContributorDTOServiceOut.value.find(
-              (item) => item.phoneNumber == Number(params.phoneNumber)
+              (item) => (item.phoneNumber == Number(params.phoneNumber) && item.email == params.email)
             ),
           };
         } else {
@@ -297,32 +297,41 @@ export class EditOutsideAuthorComponent implements OnInit {
     let lstContributorDTO = [];
     if (this.backRoute == "contrivance") {
       lstContributorDTO =
-        this.contrivanceService.lstContributorDTOServiceOut.value;
+        [...this.contrivanceService.lstContributorDTOServiceOut.value];
     } else {
-      lstContributorDTO = this.DataService.lstContributorDTOServiceOut.value;
+      lstContributorDTO = [...this.DataService.lstContributorDTOServiceOut.value];
     }
+    if (lstContributorDTO.length > 1) {
+      for (let i = 0; i < lstContributorDTO.length; i++) {
+        if (this.oldEmail == lstContributorDTO[i].email && this.oldNumber == lstContributorDTO[i].phoneNumber) {
+          lstContributorDTO[i] = this.contributorDTO
+          break;
+        }
 
-    let lstDupicate = lstContributorDTO.filter(item => {
-      return item.phoneNumber == this.contributorDTO.phoneNumber ||
-        item.email == this.contributorDTO.email
-    })
-    if (lstDupicate.length == 2) {
-      const modalRef = this.modalService.open(MessagePopupComponent, {
-        size: "sm",
-        backdrop: "static",
-        keyboard: false,
-        centered: true,
-      });
-      modalRef.componentInstance.type = "fail";
-      modalRef.componentInstance.title = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.ERROR`
-      );
-      modalRef.componentInstance.message = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.EXIST`
-      );
-      modalRef.componentInstance.closeIcon = false;
-      hasDuplicate = true;
-      return;
+      }
+      let listDuplicate = lstContributorDTO.filter(item => {
+        return item.phoneNumber == this.contributorDTO.phoneNumber ||
+          item.email == this.contributorDTO.email
+      })
+      if (listDuplicate.length > 1) {
+        const modalRef = this.modalService.open(MessagePopupComponent, {
+          size: "sm",
+          backdrop: "static",
+          keyboard: false,
+          centered: true,
+        });
+        modalRef.componentInstance.type = "fail";
+        modalRef.componentInstance.title = this.translateService.instant(
+          `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+        );
+        modalRef.componentInstance.message = this.translateService.instant(
+          `ADD-INSIDE-IDEA.VALIDATE.EXIST`
+        );
+        modalRef.componentInstance.closeIcon = false;
+        hasDuplicate = true;
+        return;
+      }
+
     }
 
     if (hasDuplicate) {

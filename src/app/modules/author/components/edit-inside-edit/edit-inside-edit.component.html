@@ -66,7 +66,7 @@
     <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH" | translate }}(<span style="color: red">*</span>)</div>
     <label style="background-color: #f3f3f3" class="date">
       <input
-        [placeholder]="'dd/mm/yyyy'"
+        [placeholder]="contributorDTO.birthday"
         type="text"
         name="Date"
         [bsConfig]="bsConfig"
@@ -76,12 +76,13 @@
         #vDate
         bsDatepicker
         autocomplete="off"
-        [(ngModel)]="contributorDTO.birthDay"
+        [(ngModel)]="contributorDTO.birthday"
+       
         [disabled]="true"
       />
       <img src="assets/img/icon/calendar.svg" style="padding: 10px" />
     </label>
-    <div class="form-text text-danger" *ngIf=" !contributorDTO.birthDay">{{ "ADD-INSIDE-IDEA.VALIDATE.BIRTHDAY" | translate }}</div>
+    <div class="form-text text-danger" *ngIf=" !contributorDTO.birthday">{{ "ADD-INSIDE-IDEA.VALIDATE.BIRTHDAY" | translate }}</div>
   </div>
   <div class="info-box">
     <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.WORK_PLACE" | translate }}</div>

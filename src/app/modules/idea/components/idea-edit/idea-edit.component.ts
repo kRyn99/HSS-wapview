@@ -176,6 +176,7 @@ export class IdeaEditComponent implements OnInit {
         //     this.applyEndTime = new Date(response.data.applyEndTime.split('/').reverse().join('/'));
         //   }
         // }
+
         if (this.DataService.selectedEndDate.value) {
           this.applyEndTime = this.DataService.selectedEndDate.value;
         } else if (
@@ -184,11 +185,11 @@ export class IdeaEditComponent implements OnInit {
         ) {
           this.applyEndTime = null;
         } else {
-         if(this.applyEndTime){
-          this.applyEndTime = new Date(
-            response.data.applyEndTime.split("/").reverse().join("/")
-          );
-         }
+          if (response.data.applyEndTime) {
+            this.applyEndTime = new Date(
+              response.data.applyEndTime.split("/").reverse().join("/")
+            );
+          }
 
         }
 
@@ -524,7 +525,7 @@ export class IdeaEditComponent implements OnInit {
 
       return false;
     }
-    if (this.applyStartTime < now || this.applyEndTime < now  &&
+    if (this.applyStartTime < now || this.applyEndTime < now &&
       (this.applyEndTime !== null && this.applyEndTime !== undefined)) {
       const modalRef = this.modalService.open(MessagePopupComponent, {
         size: "sm",
@@ -786,7 +787,7 @@ export class IdeaEditComponent implements OnInit {
   selectStartDate() {
     let now = new Date();
     now.setHours(0, 0, 0, 0);
-    if (this.applyStartTime > this.applyEndTime) {
+    if ((this.applyStartTime > this.applyEndTime) && (this.applyEndTime!== null && this.applyEndTime !== undefined)) {
       this.checkStartDate = true;
     } else {
       this.checkStartDate = false;
@@ -806,7 +807,7 @@ export class IdeaEditComponent implements OnInit {
     let now = new Date();
     now.setHours(0, 0, 0, 0);
     console.log(this.applyEndTime);
-    if (this.applyEndTime === null || this.applyEndTime === undefined) {
+    if (this.applyEndTime === null && this.applyEndTime === undefined) {
       if (this.applyStartTime > this.applyEndTime) {
         this.checkStartDate = false;
       } else {
@@ -819,7 +820,7 @@ export class IdeaEditComponent implements OnInit {
       }
       // this.getIdeaDTO()
     } else {
-      if (this.applyStartTime > this.applyEndTime) {
+      if ((this.applyStartTime > this.applyEndTime) && (this.applyEndTime !== null && this.applyEndTime !== undefined)) {
         this.checkStartDate = true;
       } else {
         this.checkStartDate = false;

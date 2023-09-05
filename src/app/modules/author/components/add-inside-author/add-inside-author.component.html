@@ -15,7 +15,7 @@
     ></ng-select>
     <div class="form-text text-danger" *ngIf="isInputTouched && !selectedStaffCodeSubject.value">{{ "ADD-INSIDE-IDEA.VALIDATE.STAFF-CODE" | translate }}</div>
     <div class="info-box">
-      <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.FULL_NAME" | translate }}</div>
+      <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.FULL_NAME" | translate }}(<span style="color: red">*</span>)</div>
       <input
         class="info-input"
         [placeholder]="
@@ -64,7 +64,10 @@
       <div class="form-text text-danger" *ngIf="isInputTouched && !(selectedStaffCodeSubject | async)?.phoneNumber">{{ "ADD-INSIDE-IDEA.VALIDATE.PHONE" | translate }}</div>
     </div>
     <div class="info-box">
-      <div class="info-title">{{ "CONTRIVANCE_MAMAGEMENT.LABEL.EMAIL" | translate }}</div>
+      <div class="info-title">{{ "CONTRIVANCE_MAMAGEMENT.LABEL.EMAIL" | translate }}(<span
+        style="color: red"
+        >*</span
+      >)</div>
       <input
         type="text"
         class="info-input"
@@ -106,7 +109,7 @@
       <!-- <div class="form-text text-danger" *ngIf="isInputTouched && !(selectedStaffCodeSubject | async)?.birthday">{{ "ADD-INSIDE-IDEA.VALIDATE.BIRTHDAY" | translate }}</div> -->
     </div>
     <div class="info-box">
-      <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.WORK_PLACE" | translate }}</div>
+      <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.WORK_PLACE" | translate }}(<span style="color: red">*</span>)</div>
       <input
         class="info-input"
         [placeholder]="
@@ -117,7 +120,7 @@
       />
     </div>
     <div class="info-box">
-      <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.OFFICE" | translate }}</div>
+      <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.OFFICE" | translate }}(<span style="color: red">*</span>)</div>
       <input
         class="info-input"
         [placeholder]="
@@ -128,7 +131,7 @@
       />
     </div>
     <div class="info-box">
-      <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.QUALIFICATION" | translate }}</div>
+      <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.QUALIFICATION" | translate }}(<span style="color: red">*</span>)</div>
       <input
         class="info-input"
         [placeholder]="

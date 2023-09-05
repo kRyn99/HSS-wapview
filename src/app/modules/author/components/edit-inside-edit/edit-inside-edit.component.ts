@@ -29,7 +29,7 @@ export class EditInsideEditComponent implements OnInit {
         private modalService: NgbModal,
         private translateService: TranslateService,
         public contrivanceService: ContrivanceService
-    ) { 
+    ) {
         this.config.notFoundText = this.translateService.instant(`STAFF_CODE_NOT_EXIST`);
         this.config.appendTo = "body";
         this.config.bindValue = "value";
@@ -37,16 +37,16 @@ export class EditInsideEditComponent implements OnInit {
     token = JSON.parse(localStorage.getItem("tokenInLocalStorage"));
     ngOnInit() {
         console.log(this.DataService.lstContributorDTOServiceEdit.value);
-        
+
         this.route.queryParams.subscribe((params) => {
             if (params && params.for) {
                 this.backRoute = params.for;
             }
             if (params && params.id) {
                 if (this.backRoute == "contrivance") {
-                    this.contributorDTO = {...this.contrivanceService.lstContributorDTOService.value.find(item => item.staffId == Number(params.id))}
+                    this.contributorDTO = { ...this.contrivanceService.lstContributorDTOService.value.find(item => item.staffId == Number(params.id)) }
                 } else {
-                    this.contributorDTO = {...this.DataService.lstContributorDTOServiceEdit.value.find(item => item.staffId == Number(params.id))}
+                    this.contributorDTO = { ...this.DataService.lstContributorDTOServiceEdit.value.find(item => item.staffId == Number(params.id)) }
                 }
             }
 
@@ -84,8 +84,8 @@ export class EditInsideEditComponent implements OnInit {
     onSelectedStaffCodeChange(value: any) {
         this.contributorDTO = value;
 
-
         console.log(value);
+        console.log(this.contributorDTO.birthday);
     }
     bsConfig = {
         dateInputFormat: "DD/MM/YYYY",
@@ -114,6 +114,10 @@ export class EditInsideEditComponent implements OnInit {
             this.checkEmail = false;
         }
     }
+    // changeBirthDay(){
+    //     console.log(this.contributorDTO.birthDay);
+
+    // }
     validate() {
         if (
             this.contributorDTO.staffCode === undefined ||
@@ -201,8 +205,8 @@ export class EditInsideEditComponent implements OnInit {
             modalRef.componentInstance.closeIcon = false;
             return false;
         }
-      
-          
+
+
 
         return true;
     }
@@ -217,22 +221,22 @@ export class EditInsideEditComponent implements OnInit {
     edit() {
         if (this.validate()) {
             if (this.backRoute == "contrivance") {
-                for(let i = 0; i < this.contrivanceService.lstContributorDTOService.value.length; i++) {
+                for (let i = 0; i < this.contrivanceService.lstContributorDTOService.value.length; i++) {
                     if (
-                      this.contrivanceService.lstContributorDTOService.value[i].staffId == this.contributorDTO.staffId 
+                        this.contrivanceService.lstContributorDTOService.value[i].staffId == this.contributorDTO.staffId
                     ) {
-                      this.contrivanceService.lstContributorDTOService.value[i] = this.contributorDTO;
+                        this.contrivanceService.lstContributorDTOService.value[i] = this.contributorDTO;
                     }
-                  }
+                }
                 this.router.navigate(["contrivance/edit"]);
             } else {
-                for(let i = 0; i < this.DataService.lstContributorDTOServiceEdit.value.length; i++) {
+                for (let i = 0; i < this.DataService.lstContributorDTOServiceEdit.value.length; i++) {
                     if (
-                      this.DataService.lstContributorDTOServiceEdit.value[i].staffId == this.contributorDTO.staffId 
+                        this.DataService.lstContributorDTOServiceEdit.value[i].staffId == this.contributorDTO.staffId
                     ) {
-                      this.DataService.lstContributorDTOServiceEdit.value[i] = this.contributorDTO;
+                        this.DataService.lstContributorDTOServiceEdit.value[i] = this.contributorDTO;
                     }
-                  }
+                }
                 this.router.navigate(["idea/edit"]);
             }
         }
