@@ -686,28 +686,7 @@ export class IdeaEditComponent implements OnInit {
       modalRef.componentInstance.closeIcon = false;
       return false;
     }
-    if (
-      this.nextStep === undefined ||
-      this.nextStep === null ||
-      this.nextStep === "" ||
-      this.nextStep.trim() === ""
-    ) {
-      const modalRef = this.modalService.open(MessagePopupComponent, {
-        size: "sm",
-        backdrop: "static",
-        keyboard: false,
-        centered: true,
-      });
-      modalRef.componentInstance.type = "fail";
-      modalRef.componentInstance.title = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.ERROR`
-      );
-      modalRef.componentInstance.message = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.NEXT`
-      );
-      modalRef.componentInstance.closeIcon = false;
-      return false;
-    }
+
     if (this.DataService.lstContributorDTOServiceEdit.value.length === 0) {
       const modalRef = this.modalService.open(MessagePopupComponent, {
         size: "sm",

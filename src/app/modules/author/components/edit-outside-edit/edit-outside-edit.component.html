@@ -19,17 +19,16 @@
 
   </div>
   <div class="info-box">
-    <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.WORK_PLACE" | translate }}(<span style="color:red">*</span>)</div>
+    <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.WORK_PLACE" | translate }}</div>
     <input
       class="info-input"
       [placeholder]="'MANAGE_CATEGORY.PLACEHOLDER.WORK_PLACE' | translate"
       [ngModel]="contributorDTO?.jobAddress"
       (ngModelChange)="updateJobAddress($event)"
     />
-    <div class="form-text text-danger" *ngIf="!contributorDTO?.jobAddress">{{ "ADD-INSIDE-IDEA.VALIDATE.ADDRESS" | translate }}</div>
   </div>
   <div class="info-box">
-    <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.OFFICE" | translate }}(<span style="color:red">*</span>)</div>
+    <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.OFFICE" | translate }}</div>
     <input
       class="info-input"
       [placeholder]="'MANAGE_CATEGORY.PLACEHOLDER.POSITION' | translate"
@@ -52,17 +51,16 @@
     <div class="form-text text-danger" *ngIf="!contributorDTO?.phoneNumber">{{ "ADD-INSIDE-IDEA.VALIDATE.PHONE" | translate }}</div>
   </div>
   <div class="info-box">
-    <div class="info-title">{{ "CONTRIVANCE_MAMAGEMENT.LABEL.EMAIL" | translate }}(<span style="color:red">*</span>)</div>
+    <div class="info-title">{{ "CONTRIVANCE_MAMAGEMENT.LABEL.EMAIL" | translate }}</div>
     <input
       class="info-input"
       [placeholder]="'MANAGE_CATEGORY.PLACEHOLDER.EMAIL' | translate"
       [ngModel]="contributorDTO?.email"
       (ngModelChange)="updateEmail($event)"
     />
-    <div class="form-text text-danger" *ngIf="!contributorDTO?.email">{{ "ADD-INSIDE-IDEA.VALIDATE.EMAIL" | translate }}</div>
     <div class="form-text text-danger" *ngIf="checkEmail && contributorDTO.email">{{ "ADD-INSIDE-IDEA.VALIDATE.EMAIL_FORM" | translate }}</div>
   </div>
-  <div class="info-box">
+  <!-- <div class="info-box">
     <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.QUALIFICATION" | translate }}</div>
     <input
       class="info-input"
@@ -70,8 +68,7 @@
       [ngModel]="contributorDTO?.professionalQualification"
       (ngModelChange)="updateProfessionalQualification($event)"
     />
-    <!-- <div class="form-text text-danger" *ngIf="!contributorDTO?.professionalQualification">{{ "ADD-INSIDE-IDEA.VALIDATE.QUALIFICATION" | translate }}</div> -->
-  </div>
+  </div> -->
   <div *ngIf="contributorDTO" class="info-box">
     <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.CONTRIBUTE_PERCENT" | translate }}(<span style="color:red">*</span>)</div>
     <input

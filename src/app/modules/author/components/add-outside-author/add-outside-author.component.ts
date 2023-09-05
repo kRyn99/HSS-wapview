@@ -132,16 +132,16 @@ export class AddOutsideAuthorComponent implements OnInit {
       this.DataService.percentageOut.next(this.selectedPercentage)
     }
   }
-  jobAddressTouched = false;
+ 
   changeJobAddress() {
     this.selectedStaffCodeSubject.value.jobAddress = this.selectedJobAddress;
-    this.jobAddressTouched = true;
+
 
   }
-  jobPositionTouched = false;
+ 
   changeJobPosition() {
     this.selectedStaffCodeSubject.value.jobPosition = this.selectedJobPosition;
-    this.jobPositionTouched = true;
+
   }
   phoneTouched = false;
   changePhone() {
@@ -178,20 +178,8 @@ export class AddOutsideAuthorComponent implements OnInit {
     if (
       !this.selectedStaffCodeSubject.value
     ) { this.isInputTouched = true }
-    if (
-      this.selectedJobAddress === undefined ||
-      this.selectedJobAddress === null ||
-      this.selectedJobAddress === ''
-    ) {
-      this.jobAddressTouched = true
-    }
-    if (
-      this.selectedJobPosition === undefined ||
-      this.selectedJobPosition === null ||
-      this.selectedJobPosition === ''
-    ) {
-      this.jobPositionTouched = true;
-    }
+  
+   
     if (
       this.selectedPhoneNumber === undefined ||
       this.selectedPhoneNumber === null ||
@@ -199,13 +187,7 @@ export class AddOutsideAuthorComponent implements OnInit {
     ) {
       this.phoneTouched = true;
     }
-    if (
-      this.selectedEmail === undefined ||
-      this.selectedEmail === null ||
-      this.selectedEmail === ''
-    ) {
-      this.emailTouched = true;
-    }
+  
     // if (
     //   this.selectedProfessionalQualification === undefined ||
     //   this.selectedProfessionalQualification === null ||
@@ -265,7 +247,7 @@ export class AddOutsideAuthorComponent implements OnInit {
       modalRef.componentInstance.closeIcon = false;
       return false;
     }
-    if (!isValidEmail(this.selectedEmail)
+    if ((!isValidEmail(this.selectedEmail)) && this.selectedEmail
     ) {
       const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
       modalRef.componentInstance.type = 'fail';
@@ -275,30 +257,7 @@ export class AddOutsideAuthorComponent implements OnInit {
       this.checkEmail = true;
       return false;
     };
-    if (
-      this.selectedJobAddress === undefined ||
-      this.selectedJobAddress === null ||
-      this.selectedJobAddress === ''
-    ) {
-      const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
-      modalRef.componentInstance.type = 'fail';
-      modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
-      modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ADDRESS`);
-      modalRef.componentInstance.closeIcon = false;
-      return false;
-    }
-    if (
-      this.selectedJobPosition === undefined ||
-      this.selectedJobPosition === null ||
-      this.selectedJobPosition === ''
-    ) {
-      const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
-      modalRef.componentInstance.type = 'fail';
-      modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
-      modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.POSITION`);
-      modalRef.componentInstance.closeIcon = false;
-      return false;
-    }
+
     // if (
     //   this.selectedProfessionalQualification === undefined ||
     //   this.selectedProfessionalQualification === null ||

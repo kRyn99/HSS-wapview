@@ -83,7 +83,8 @@ export class EditInsideEditComponent implements OnInit {
     }
     onSelectedStaffCodeChange(value: any) {
         this.contributorDTO = value;
-
+        this.contributorDTO.birthDay=this.contributorDTO.birthday;
+        this.contributorDTO.staffId=this.DataService.lstContributorDTOServiceEdit.value.staffId;
         console.log(value);
         console.log(this.contributorDTO.birthday);
     }
@@ -194,8 +195,8 @@ export class EditInsideEditComponent implements OnInit {
 
         }
         if (
-            this.contributorDTO.birthDay === undefined ||
-            this.contributorDTO.birthDay === null ||
+            this.contributorDTO.birthday === undefined ||
+            this.contributorDTO.birthday === null ||
             this.contributorDTO.birthday === ""
         ) {
             const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });

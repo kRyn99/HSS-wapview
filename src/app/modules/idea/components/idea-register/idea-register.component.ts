@@ -350,9 +350,9 @@ export class IdeaRegisterComponent implements OnInit {
     this.isEffectivenesTouched = true;
     this.DataService.effectiveness.next(this.effectiveness);
   }
-  isNextStepTouched = false;
+ 
   nextStepChange() {
-    this.isNextStepTouched = true;
+    
     this.DataService.nextStep.next(this.nextStep);
   }
 
@@ -537,14 +537,7 @@ export class IdeaRegisterComponent implements OnInit {
     ) {
       this.isEffectivenesTouched = true;
     }
-    if (
-      this.nextStep === undefined ||
-      this.nextStep === null ||
-      this.nextStep === "" ||
-      this.nextStep.trim() === ""
-    ) {
-      this.isNextStepTouched = true;
-    }
+   
   }
   validate() {
     let now = new Date();
@@ -784,29 +777,7 @@ export class IdeaRegisterComponent implements OnInit {
       this.validateTemplate();
       return false;
     }
-    if (
-      this.nextStep === undefined ||
-      this.nextStep === null ||
-      this.nextStep === "" ||
-      this.nextStep.trim() === ""
-    ) {
-      const modalRef = this.modalService.open(MessagePopupComponent, {
-        size: "sm",
-        backdrop: "static",
-        keyboard: false,
-        centered: true,
-      });
-      modalRef.componentInstance.type = "fail";
-      modalRef.componentInstance.title = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.ERROR`
-      );
-      modalRef.componentInstance.message = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.NEXT`
-      );
-      modalRef.componentInstance.closeIcon = false;
-      this.validateTemplate();
-      return false;
-    }
+
 
     // if (this.DataService.file.value.url == "") {
     //   const modalRef = this.modalService.open(MessagePopupComponent, {
