@@ -405,16 +405,15 @@
             <div class="example-element-description">
               <b>{{ "IDEA_MANAGEMENT.LABEL.TELEPHONE" | translate }}:</b>
               {{ element.phoneNumber }}<br />
-              <b>{{ "IDEA_MANAGEMENT.LABEL.EMAIL" | translate }}:</b>
+              <b *ngIf="element.email">{{ "IDEA_MANAGEMENT.LABEL.EMAIL" | translate }}:</b>
               {{ element.email }}<br />
               <!-- <b>{{ "IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH" | translate }}:</b>
               {{ element.birthDay }}<br /> -->
-              <b>{{ "IDEA_MANAGEMENT.LABEL.WORK_PLACE" | translate }}:</b>
+              <b *ngIf="element.jobAddress">{{ "IDEA_MANAGEMENT.LABEL.WORK_PLACE" | translate }}:</b>
               {{ element.jobAddress }}<br />
-              <b>{{ "IDEA_MANAGEMENT.LABEL.OFFICE" | translate }}:</b>
+              <b *ngIf="element.jobPosition">{{ "IDEA_MANAGEMENT.LABEL.OFFICE" | translate }}:</b>
               {{ element.jobPosition }}<br />
-              <b>{{ "IDEA_MANAGEMENT.LABEL.QUALIFICATION" | translate }}:</b>
-              {{ element.professionalQualification }}<br />
+
             </div>
             <div class="example-element-description row">
               <div class="col-6">
@@ -561,10 +560,7 @@
   </div>
   <div class="input-form">
     <div class="input-name">
-      3.5 {{ "IDEA_MANAGEMENT.LABEL.NEXT_STEP" | translate }} (<span
-      style="color: red"
-      >*</span
-    >)
+      3.5 {{ "IDEA_MANAGEMENT.LABEL.NEXT_STEP" | translate }}
     </div>
     <textarea
       class="input-field"
@@ -576,9 +572,7 @@
       (input)="nextStepChange()"
       >{{ "" | translate }}</textarea
     >
-    <div class="form-text text-danger" *ngIf="!nextStep">
-      {{ "ADD-INSIDE-IDEA.VALIDATE.NEXT" | translate }}
-    </div>
+  
   </div>
   <div class="input-form">
     <div class="input-name">3.6 {{ "IDEA_MANAGEMENT.LABEL.NOTE" | translate }}</div>
