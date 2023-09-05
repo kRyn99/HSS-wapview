@@ -43,7 +43,9 @@
       (input)="onInputValueChange()"
       [required]="isInputTouched"
     />
-    <div class="form-text text-danger" *ngIf="isInputTouched && !inputValue">{{ "ADD-INSIDE-IDEA.VALIDATE.IDEA-NAME" | translate }}</div>
+    <div class="form-text text-danger" *ngIf="isInputTouched && !inputValue">
+      {{ "ADD-INSIDE-IDEA.VALIDATE.IDEA-NAME" | translate }}
+    </div>
   </div>
   <div class="input-form">
     <div class="input-name">
@@ -71,11 +73,23 @@
 
       <img src="assets/img/icon/calendar.svg" style="padding: 10px" />
     </div>
-    <div class="form-text text-danger" *ngIf="isStartDateTouched && !selectedStartDate">{{ "ADD-INSIDE-IDEA.VALIDATE.EMPTY_START_DATE" | translate }}</div>
-    <div class="form-text text-danger" *ngIf="isStartDateTouched && checkStartDate">{{ "ADD-INSIDE-IDEA.VALIDATE.START_DAY" | translate }}</div>
-    <div class="form-text text-danger" *ngIf="isStartDateTouched && checkNow">{{ "ADD-INSIDE-IDEA.VALIDATE.APPLY_START_DAY" | translate }}</div>
+    <div
+      class="form-text text-danger"
+      *ngIf="isStartDateTouched && !selectedStartDate"
+    >
+      {{ "ADD-INSIDE-IDEA.VALIDATE.EMPTY_START_DATE" | translate }}
+    </div>
+    <div
+      class="form-text text-danger"
+      *ngIf="isStartDateTouched && checkStartDate"
+    >
+      {{ "ADD-INSIDE-IDEA.VALIDATE.START_DAY" | translate }}
+    </div>
+    <div class="form-text text-danger" *ngIf="isStartDateTouched && checkNow">
+      {{ "ADD-INSIDE-IDEA.VALIDATE.APPLY_START_DAY" | translate }}
+    </div>
   </div>
-  
+
   <div class="input-form">
     <div class="input-name">
       {{ "IDEA_MANAGEMENT.LABEL.DATE_APPLY_TO" | translate }}
@@ -99,8 +113,18 @@
       <img src="assets/img/icon/calendar.svg" style="padding: 10px" />
     </label>
     <!-- <div class="form-text text-danger" *ngIf="isEndDateTouched && !selectedEndDate">{{ "ADD-INSIDE-IDEA.VALIDATE.EMPTY_END_DATE" | translate }}</div> -->
-    <div class="form-text text-danger" *ngIf="DataService.isEndDateTouched && checkStartDate">{{ "ADD-INSIDE-IDEA.VALIDATE.START_DAY" | translate }}</div>
-    <div class="form-text text-danger" *ngIf="DataService.isEndDateTouched && checkNow2">{{ "ADD-INSIDE-IDEA.VALIDATE.APPLY_END_DAY" | translate }}</div>
+    <div
+      class="form-text text-danger"
+      *ngIf="DataService.isEndDateTouched && checkStartDate"
+    >
+      {{ "ADD-INSIDE-IDEA.VALIDATE.START_DAY" | translate }}
+    </div>
+    <div
+      class="form-text text-danger"
+      *ngIf="DataService.isEndDateTouched && checkNow2"
+    >
+      {{ "ADD-INSIDE-IDEA.VALIDATE.APPLY_END_DAY" | translate }}
+    </div>
   </div>
   <div class="input-form">
     <div class="input-name">
@@ -141,11 +165,13 @@
             />
             {{ item.unitName }}
           </label>
-       
         </ng-container>
       </div>
     </div>
-    <div class="form-text text-danger" *ngIf="unitFieldTouched && !selectedUnitValue?.length">
+    <div
+      class="form-text text-danger"
+      *ngIf="unitFieldTouched && !selectedUnitValue?.length"
+    >
       {{ "ADD-INSIDE-IDEA.VALIDATE.UNIT" | translate }}
     </div>
   </div>
@@ -170,7 +196,10 @@
         <option [value]="item.value">{{ item.name }}</option>
       </ng-container>
     </select>
-    <div class="form-text text-danger" *ngIf="specialtyTouched && !selectedSpecialtyValue">
+    <div
+      class="form-text text-danger"
+      *ngIf="specialtyTouched && !selectedSpecialtyValue"
+    >
       {{ "ADD-INSIDE-IDEA.VALIDATE.SPECIALTY" | translate }}
     </div>
   </div>
@@ -263,8 +292,12 @@
               {{ element.email }}<br />
               <b>{{ "IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH" | translate }}:</b>
               <ng-container>
-                {{ isTypeOfString(element.birthday) ? element.birthday : (element.birthday | date:'dd/MM/yyyy') }}
-              </ng-container><br />
+                {{
+                  isTypeOfString(element.birthday)
+                    ? element.birthday
+                    : (element.birthday | date : "dd/MM/yyyy")
+                }} </ng-container
+              ><br />
               <b>{{ "IDEA_MANAGEMENT.LABEL.WORK_PLACE" | translate }}:</b>
               {{ element.jobAddress }}<br />
               <b>{{ "IDEA_MANAGEMENT.LABEL.OFFICE" | translate }}:</b>
@@ -312,8 +345,11 @@
         class="example-detail-row"
       ></tr>
     </table>
-    <button (click)="AddInsideAuthor()" class="btn btn-success btn-idea-action mt-2">
-      <img src="assets/img/icon/plus.svg"  />
+    <button
+      (click)="AddInsideAuthor()"
+      class="btn btn-success btn-idea-action mt-2"
+    >
+      <img src="assets/img/icon/plus.svg" />
       {{ "ACTION.ADD" | translate }}
     </button>
   </div>
@@ -393,16 +429,15 @@
             <div class="example-element-description">
               <b>{{ "IDEA_MANAGEMENT.LABEL.TELEPHONE" | translate }}:</b>
               {{ element.phoneNumber }}<br />
-              <b>{{ "IDEA_MANAGEMENT.LABEL.EMAIL" | translate }}:</b>
+              <b *ngIf="element.email">{{ "IDEA_MANAGEMENT.LABEL.EMAIL" | translate }}:</b>
               {{ element.email }}<br />
               <!-- <b>{{ "IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH" | translate }}:</b>
               {{ element.birthday }}<br /> -->
-              <b>{{ "IDEA_MANAGEMENT.LABEL.WORK_PLACE" | translate }}:</b>
+              <b *ngIf="element.jobAddress">{{ "IDEA_MANAGEMENT.LABEL.WORK_PLACE" | translate }}:</b>
               {{ element.jobAddress }}<br />
-              <b>{{ "IDEA_MANAGEMENT.LABEL.OFFICE" | translate }}:</b>
+              <b *ngIf="element.jobPosition">{{ "IDEA_MANAGEMENT.LABEL.OFFICE" | translate }}:</b>
               {{ element.jobPosition }}<br />
-              <b *ngIf="element.professionalQualification">{{ "IDEA_MANAGEMENT.LABEL.QUALIFICATION" | translate }}:</b>
-              {{ element.professionalQualification }}<br />
+             
             </div>
             <div class="example-element-description row">
               <div class="col-6">
@@ -448,10 +483,12 @@
         class="example-detail-row"
       ></tr>
     </table>
-    <button (click)="AddOutsideAuthor()" class="btn btn-success btn-idea-action mt-2">
-      <img src="assets/img/icon/plus.svg"  />
+    <button
+      (click)="AddOutsideAuthor()"
+      class="btn btn-success btn-idea-action mt-2"
+    >
+      <img src="assets/img/icon/plus.svg" />
       {{ "ACTION.ADD" | translate }}
-      
     </button>
   </div>
 </div>
@@ -479,7 +516,12 @@
       (input)="beforeApplyStatusChange()"
       [required]="isBeforeApplyStatusTouched"
     ></textarea>
-    <div class="form-text text-danger" *ngIf="isBeforeApplyStatusTouched && !beforeApplyStatus">{{ "ADD-INSIDE-IDEA.VALIDATE.BEFORE_APPLY_STATUS" | translate }}</div>
+    <div
+      class="form-text text-danger"
+      *ngIf="isBeforeApplyStatusTouched && !beforeApplyStatus"
+    >
+      {{ "ADD-INSIDE-IDEA.VALIDATE.BEFORE_APPLY_STATUS" | translate }}
+    </div>
   </div>
   <div class="input-form">
     <div class="input-name">
@@ -500,7 +542,9 @@
       (input)="contentChange()"
       [required]="isContentTouched"
     ></textarea>
-      <div class="form-text text-danger" *ngIf="isContentTouched && !content">{{ "ADD-INSIDE-IDEA.VALIDATE.CONTENT" | translate }}</div>
+    <div class="form-text text-danger" *ngIf="isContentTouched && !content">
+      {{ "ADD-INSIDE-IDEA.VALIDATE.CONTENT" | translate }}
+    </div>
   </div>
   <div class="input-form">
     <div class="input-name">
@@ -521,7 +565,12 @@
       (input)="applyRangeChange()"
       [required]="isApplyRangeTouched"
     ></textarea>
-    <div class="form-text text-danger" *ngIf="isApplyRangeTouched && !applyRange">{{ "ADD-INSIDE-IDEA.VALIDATE.APPLY_RANGE" | translate }}</div>
+    <div
+      class="form-text text-danger"
+      *ngIf="isApplyRangeTouched && !applyRange"
+    >
+      {{ "ADD-INSIDE-IDEA.VALIDATE.APPLY_RANGE" | translate }}
+    </div>
   </div>
   <div class="input-form">
     <div class="input-name">
@@ -542,14 +591,16 @@
       (input)="effectivenessChange()"
       [required]="isEffectivenesTouched"
     ></textarea>
-    <div class="form-text text-danger" *ngIf="isEffectivenesTouched && !effectiveness">{{ "ADD-INSIDE-IDEA.VALIDATE.EFFECTIVENESS" | translate }}</div>
+    <div
+      class="form-text text-danger"
+      *ngIf="isEffectivenesTouched && !effectiveness"
+    >
+      {{ "ADD-INSIDE-IDEA.VALIDATE.EFFECTIVENESS" | translate }}
+    </div>
   </div>
   <div class="input-form">
     <div class="input-name">
-      3.5 {{ "IDEA_MANAGEMENT.LABEL.NEXT_STEP" | translate }} (<span
-      style="color: red"
-      >*</span
-    >)
+      3.5 {{ "IDEA_MANAGEMENT.LABEL.NEXT_STEP" | translate }}
     </div>
     <textarea
       class="input-field"
@@ -559,9 +610,8 @@
       [placeholder]="'IDEA_MANAGEMENT.PLACEHOLDER.ENTER_NEXT_STEP' | translate"
       [(ngModel)]="nextStep"
       (input)="nextStepChange()"
-      [required]="isNextStepTouched"
     ></textarea>
-    <div class="form-text text-danger" *ngIf="isNextStepTouched && !nextStep">{{ "ADD-INSIDE-IDEA.VALIDATE.NEXT" | translate }}</div>
+    <!-- <div class="form-text text-danger" *ngIf="isNextStepTouched && !nextStep">{{ "ADD-INSIDE-IDEA.VALIDATE.NEXT" | translate }}</div> -->
   </div>
   <div class="input-form">
     <div class="input-name">
@@ -575,9 +625,7 @@
       [placeholder]="'IDEA_MANAGEMENT.PLACEHOLDER.ENTER_NOTE' | translate"
       [(ngModel)]="note"
       (input)="noteChange()"
-  
     ></textarea>
-   
   </div>
 </div>
 <div class="line"></div>
@@ -628,4 +676,4 @@
       {{ "IDEA_MANAGEMENT.BUTTON.DUPLICATION_CHECK" | translate }}
     </div>
   </div>
- </div>
+</div>

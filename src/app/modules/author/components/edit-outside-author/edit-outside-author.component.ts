@@ -35,11 +35,11 @@ export class EditOutsideAuthorComponent implements OnInit {
       if (params && params.for) {
         this.backRoute = params.for;
       }
-      if (params && params.phoneNumber && params.email) {
+      if (params && params.phoneNumber) {
         if (this.backRoute == "contrivance") {
           this.contributorDTO = {
             ...this.contrivanceService.lstContributorDTOServiceOut.value.find(
-              (item) => item.phoneNumber == Number(params.phoneNumber)
+              (item) => (item.phoneNumber == Number(params.phoneNumber) && item.email == params.email)
             ),
           };
         } else {
@@ -207,12 +207,8 @@ export class EditOutsideAuthorComponent implements OnInit {
       modalRef.componentInstance.closeIcon = false;
       return false;
     }
-    if (
-      this.contributorDTO.email === undefined ||
-      this.contributorDTO.email === null ||
-      this.contributorDTO.email === "" ||
-      this.contributorDTO.email.trim() === ""
-    ) {
+
+    if ((!this.isValidEmail(this.contributorDTO.email)) && this.contributorDTO.email) {
       const modalRef = this.modalService.open(MessagePopupComponent, {
         size: "sm",
         backdrop: "static",
@@ -224,12 +220,34 @@ export class EditOutsideAuthorComponent implements OnInit {
         `ADD-INSIDE-IDEA.VALIDATE.ERROR`
       );
       modalRef.componentInstance.message = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.EMAIL`
+        `ADD-INSIDE-IDEA.VALIDATE.EMAIL_FORM`
       );
       modalRef.componentInstance.closeIcon = false;
+      this.checkEmail = true;
       return false;
+    }
+
+    let hasDuplicate = false;
+    let lstContributorDTO = [];
+    if (this.backRoute == "contrivance") {
+      lstContributorDTO =
+        [...this.contrivanceService.lstContributorDTOServiceOut.value];
     } else {
-      if (!this.isValidEmail(this.contributorDTO.email)) {
+      lstContributorDTO = [...this.DataService.lstContributorDTOServiceOut.value];
+    }
+    if (lstContributorDTO.length > 1) {
+      for (let i = 0; i < lstContributorDTO.length; i++) {
+        if (this.oldEmail == lstContributorDTO[i].email && this.oldNumber == lstContributorDTO[i].phoneNumber) {
+          lstContributorDTO[i] = this.contributorDTO
+          break;
+        }
+
+      }
+      let listDuplicate = lstContributorDTO.filter(item => {
+        return item.phoneNumber == this.contributorDTO.phoneNumber ||
+          item.email == this.contributorDTO.email
+      })
+      if (listDuplicate.length > 1) {
         const modalRef = this.modalService.open(MessagePopupComponent, {
           size: "sm",
           backdrop: "static",
@@ -241,88 +259,13 @@ export class EditOutsideAuthorComponent implements OnInit {
           `ADD-INSIDE-IDEA.VALIDATE.ERROR`
         );
         modalRef.componentInstance.message = this.translateService.instant(
-          `ADD-INSIDE-IDEA.VALIDATE.EMAIL_FORM`
+          `ADD-INSIDE-IDEA.VALIDATE.EXIST`
         );
         modalRef.componentInstance.closeIcon = false;
-        this.checkEmail = true;
-        return false;
+        hasDuplicate = true;
+        return;
       }
-    }
-    if (
-      this.contributorDTO.jobPosition === undefined ||
-      this.contributorDTO.jobPosition === null ||
-      this.contributorDTO.jobPosition === "" ||
-      this.contributorDTO.jobPosition.trim() === ""
-    ) {
-      const modalRef = this.modalService.open(MessagePopupComponent, {
-        size: "sm",
-        backdrop: "static",
-        keyboard: false,
-        centered: true,
-      });
-      modalRef.componentInstance.type = "fail";
-      modalRef.componentInstance.title = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.ERROR`
-      );
-      modalRef.componentInstance.message = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.POSITION`
-      );
-      modalRef.componentInstance.closeIcon = false;
-      return false;
-    }
-    if (
-      this.contributorDTO.jobAddress === undefined ||
-      this.contributorDTO.jobAddress === null ||
-      this.contributorDTO.jobAddress === "" ||
-      this.contributorDTO.jobAddress.trim() === ""
-    ) {
-      const modalRef = this.modalService.open(MessagePopupComponent, {
-        size: "sm",
-        backdrop: "static",
-        keyboard: false,
-        centered: true,
-      });
-      modalRef.componentInstance.type = "fail";
-      modalRef.componentInstance.title = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.ERROR`
-      );
-      modalRef.componentInstance.message = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.ADDRESS`
-      );
-      modalRef.componentInstance.closeIcon = false;
 
-      return false;
-    }
-    let hasDuplicate = false;
-    let lstContributorDTO = [];
-    if (this.backRoute == "contrivance") {
-      lstContributorDTO =
-        this.contrivanceService.lstContributorDTOServiceOut.value;
-    } else {
-      lstContributorDTO = this.DataService.lstContributorDTOServiceOut.value;
-    }
-
-    let lstDupicate = lstContributorDTO.filter(item => {
-      return item.phoneNumber == this.contributorDTO.phoneNumber ||
-        item.email == this.contributorDTO.email
-    })
-    if (lstDupicate.length == 2) {
-      const modalRef = this.modalService.open(MessagePopupComponent, {
-        size: "sm",
-        backdrop: "static",
-        keyboard: false,
-        centered: true,
-      });
-      modalRef.componentInstance.type = "fail";
-      modalRef.componentInstance.title = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.ERROR`
-      );
-      modalRef.componentInstance.message = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.EXIST`
-      );
-      modalRef.componentInstance.closeIcon = false;
-      hasDuplicate = true;
-      return;
     }
 
     if (hasDuplicate) {
@@ -340,7 +283,6 @@ export class EditOutsideAuthorComponent implements OnInit {
 
   backRoute = null;
   edit() {
-
 
     if (this.validate()) {
       if (this.backRoute == "contrivance") {

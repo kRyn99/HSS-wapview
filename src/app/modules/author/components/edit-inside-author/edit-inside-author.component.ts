@@ -40,6 +40,7 @@ export class EditInsideAuthorComponent implements OnInit {
   };
 
   backRoute = null;
+  staffId;
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
       if (params && params.for) {
@@ -48,15 +49,20 @@ export class EditInsideAuthorComponent implements OnInit {
       if (params && params.id) {
         if (this.backRoute == 'contrivance') {
           this.contributorDTO =
-            {...this.contrivanceService.lstContributorDTOService.value.find(
+          {
+            ...this.contrivanceService.lstContributorDTOService.value.find(
               (item) => item.staffId == Number(params.id)
-            )};
+            )
+          };
         } else {
           this.contributorDTO =
-            {...this.DataService.lstContributorDTOService.value.find(
+          {
+            ...this.DataService.lstContributorDTOService.value.find(
               (item) => item.staffId == Number(params.id)
-            )};
+            )
+          };
         }
+        this.staffId = params.id
       }
     });
     this.getListStaff();
@@ -86,8 +92,11 @@ export class EditInsideAuthorComponent implements OnInit {
   }
   onSelectedStaffCodeChange(value: any) {
     this.contributorDTO = value;
+    this.contributorDTO.staffId = value.id;
 
     console.log(value);
+    console.log(this.contributorDTO.staffId);
+    
   }
   percentageValueChange(newValue: string) {
     const parsedValue = parseInt(newValue, 10);
@@ -104,13 +113,13 @@ export class EditInsideAuthorComponent implements OnInit {
       }
     }
   }
-  checkEmail=false;
-  changeEmail(){
+  checkEmail = false;
+  changeEmail() {
     if (!this.isValidEmail(this.contributorDTO.email)) {
-      this.checkEmail=true;
-    }else{
+      this.checkEmail = true;
+    } else {
 
-      this.checkEmail=false;
+      this.checkEmail = false;
     }
   }
   validate() {
@@ -221,7 +230,7 @@ export class EditInsideAuthorComponent implements OnInit {
         `ADD-INSIDE-IDEA.VALIDATE.EMAIL`
       );
       modalRef.componentInstance.closeIcon = false;
-      this.checkEmail=true;
+      this.checkEmail = true;
       return false;
     } else {
       if (!this.isValidEmail(this.contributorDTO.email)) {
@@ -264,6 +273,52 @@ export class EditInsideAuthorComponent implements OnInit {
       return false;
     }
 
+    let hasDuplicate = false;
+    let lstContributorDTO = [];
+    if (this.backRoute == "contrivance") {
+      lstContributorDTO = [...this.contrivanceService.lstContributorDTOService.value];
+    } else {
+      lstContributorDTO = [...this.DataService.lstContributorDTOService.value];
+    }
+    if (lstContributorDTO.length > 1) {
+      for (let i = 0; i < lstContributorDTO.length; i++) {
+        if (this.staffId == lstContributorDTO[i].staffId) {
+          lstContributorDTO[i] = this.contributorDTO
+          break;
+        }
+
+      }
+      let listDuplicate = lstContributorDTO.filter(item => {
+        return item.staffId == this.contributorDTO.staffId
+      })
+      if (listDuplicate.length > 1) {
+        const modalRef = this.modalService.open(MessagePopupComponent, {
+          size: "sm",
+          backdrop: "static",
+          keyboard: false,
+          centered: true,
+        });
+        modalRef.componentInstance.type = "fail";
+        modalRef.componentInstance.title = this.translateService.instant(
+          `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+        );
+        modalRef.componentInstance.message = this.translateService.instant(
+          `ADD-INSIDE-IDEA.VALIDATE.EXIST`
+        );
+        modalRef.componentInstance.closeIcon = false;
+        hasDuplicate = true;
+        return;
+      }
+
+    }
+
+    if (hasDuplicate) {
+      return false;
+    }
+    if (hasDuplicate) {
+      return false;
+    }
+
     return true;
   }
   isValidEmail(email: string): boolean {
@@ -276,18 +331,18 @@ export class EditInsideAuthorComponent implements OnInit {
   edit() {
     if (this.validate()) {
       if (this.backRoute == 'contrivance') {
-        for(let i = 0; i < this.contrivanceService.lstContributorDTOService.value.length; i++) {
+        for (let i = 0; i < this.contrivanceService.lstContributorDTOService.value.length; i++) {
           if (
-            this.contrivanceService.lstContributorDTOService.value[i].staffId == this.contributorDTO.staffId 
+            this.contrivanceService.lstContributorDTOService.value[i].staffId == this.contributorDTO.staffId
           ) {
             this.contrivanceService.lstContributorDTOService.value[i] = this.contributorDTO;
           }
         }
         this.router.navigate(['contrivance/register']);
       } else {
-        for(let i = 0; i < this.DataService.lstContributorDTOService.value.length; i++) {
+        for (let i = 0; i < this.DataService.lstContributorDTOService.value.length; i++) {
           if (
-            this.DataService.lstContributorDTOService.value[i].staffId == this.contributorDTO.staffId 
+            this.DataService.lstContributorDTOService.value[i].staffId == this.staffId
           ) {
             this.DataService.lstContributorDTOService.value[i] = this.contributorDTO;
           }

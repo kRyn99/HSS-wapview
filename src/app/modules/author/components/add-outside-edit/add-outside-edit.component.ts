@@ -138,16 +138,16 @@ export class AddOutsideEditComponent implements OnInit {
     }
   }
 
-  jobAddressTouched = false;
+
   changeJobAddress() {
     this.selectedStaffCodeSubject.value.jobAddress=this.selectedJobAddress
-    this.jobAddressTouched = true;
+
 
   }
-  jobPositionTouched = false;
+
   changeJobPosition() {
     this.selectedStaffCodeSubject.value.jobPosition=this.selectedJobPosition
-    this.jobPositionTouched = true;
+
   }
   phoneTouched = false;
   changePhone() {
@@ -184,20 +184,7 @@ export class AddOutsideEditComponent implements OnInit {
     if (
       !this.selectedStaffCodeSubject.value
     ) { this.isInputTouched = true }
-    if (
-      this.selectedJobAddress === undefined ||
-      this.selectedJobAddress === null ||
-      this.selectedJobAddress === ''
-    ) {
-      this.jobAddressTouched = true
-    }
-    if (
-      this.selectedJobPosition === undefined ||
-      this.selectedJobPosition === null ||
-      this.selectedJobPosition === ''
-    ) {
-      this.jobPositionTouched = true;
-    }
+ 
     if (
       this.selectedPhoneNumber === undefined ||
       this.selectedPhoneNumber === null ||
@@ -205,20 +192,14 @@ export class AddOutsideEditComponent implements OnInit {
     ) {
       this.phoneTouched = true;
     }
-    if (
-      this.selectedEmail === undefined ||
-      this.selectedEmail === null ||
-      this.selectedEmail === ''
-    ) {
-      this.emailTouched = true;
-    }
-    if (
-      this.selectedProfessionalQualification === undefined ||
-      this.selectedProfessionalQualification === null ||
-      this.selectedProfessionalQualification === ''
-    ) {
-      this.qualificationTouched = true;
-    }
+ 
+    // if (
+    //   this.selectedProfessionalQualification === undefined ||
+    //   this.selectedProfessionalQualification === null ||
+    //   this.selectedProfessionalQualification === ''
+    // ) {
+    //   this.qualificationTouched = true;
+    // }
     if (
       this.selectedPercentage === undefined ||
       this.selectedPercentage === null ||
@@ -271,7 +252,7 @@ export class AddOutsideEditComponent implements OnInit {
       modalRef.componentInstance.closeIcon = false;
       return false;
     }
-    if (!isValidEmail(this.selectedEmail)
+    if ((!isValidEmail(this.selectedEmail)) && this.selectedEmail
     ) {
       const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
       modalRef.componentInstance.type = 'fail';
@@ -281,42 +262,20 @@ export class AddOutsideEditComponent implements OnInit {
       this.checkEmail=true;
       return false;
     };
-    if (
-      this.selectedJobAddress === undefined ||
-      this.selectedJobAddress === null ||
-      this.selectedJobAddress === ''
-    ) {
-      const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
-      modalRef.componentInstance.type = 'fail';
-      modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
-      modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ADDRESS`);
-      modalRef.componentInstance.closeIcon = false;
-      return false;
-    }
-    if (
-      this.selectedJobPosition === undefined ||
-      this.selectedJobPosition === null ||
-      this.selectedJobPosition === ''
-    ) {
-      const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
-      modalRef.componentInstance.type = 'fail';
-      modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
-      modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.POSITION`);
-      modalRef.componentInstance.closeIcon = false;
-      return false;
-    }
-    if (
-      this.selectedProfessionalQualification === undefined ||
-      this.selectedProfessionalQualification === null ||
-      this.selectedProfessionalQualification === ''
-    ) {
-      const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
-      modalRef.componentInstance.type = 'fail';
-      modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
-      modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.QUALIFICATION`);
-      modalRef.componentInstance.closeIcon = false;
-      return false;
-    }
+
+
+    // if (
+    //   this.selectedProfessionalQualification === undefined ||
+    //   this.selectedProfessionalQualification === null ||
+    //   this.selectedProfessionalQualification === ''
+    // ) {
+    //   const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
+    //   modalRef.componentInstance.type = 'fail';
+    //   modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
+    //   modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.QUALIFICATION`);
+    //   modalRef.componentInstance.closeIcon = false;
+    //   return false;
+    // }
     let lstContributorDTO = [];
     if (this.backRoute == "contrivance") {
       lstContributorDTO = this.contrivanceService.lstContributorDTOServiceOut.value;
