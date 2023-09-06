@@ -130,7 +130,7 @@
                 <b>{{'IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH' | translate}}:</b> {{ element.birthDay }}<br>
                 <b>{{'IDEA_MANAGEMENT.LABEL.WORK_PLACE' | translate}}:</b> {{ element.jobAddress }}<br>
                 <b>{{'IDEA_MANAGEMENT.LABEL.OFFICE' | translate}}:</b> {{ element.jobPosition }}<br>
-                <b>{{'IDEA_MANAGEMENT.LABEL.QUALIFICATION' | translate}}:</b> {{ element.professionalQualification }}<br>
+                <!-- <b>{{'IDEA_MANAGEMENT.LABEL.QUALIFICATION' | translate}}:</b> {{ element.professionalQualification }}<br> -->
             </div>
           </div>
         </td>
@@ -227,11 +227,11 @@
         >
             <div class="example-element-description">
                 <b>{{'IDEA_MANAGEMENT.LABEL.TELEPHONE' | translate}}:</b> {{ element.phoneNumber }}<br>
-                <b>{{'IDEA_MANAGEMENT.LABEL.EMAIL' | translate}}:</b> {{ element.email }}<br>
-                <b>{{'IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH' | translate}}:</b> {{ element.birthDay }}<br>
-                <b>{{'IDEA_MANAGEMENT.LABEL.WORK_PLACE' | translate}}:</b> {{ element.jobAddress }}<br>
-                <b>{{'IDEA_MANAGEMENT.LABEL.OFFICE' | translate}}:</b> {{ element.jobPosition }}<br>
-                <b>{{'IDEA_MANAGEMENT.LABEL.QUALIFICATION' | translate}}:</b> {{ element.professionalQualification }}<br>
+                <b *ngIf="element.email">{{'IDEA_MANAGEMENT.LABEL.EMAIL' | translate}}:</b> {{ element.email }}<br>
+                <!-- <b>{{'IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH' | translate}}:</b> {{ element.birthDay }}<br> -->
+                <b *ngIf="element.jobAddress">{{'IDEA_MANAGEMENT.LABEL.WORK_PLACE' | translate}}:</b> {{ element.jobAddress }}<br>
+                <b *ngIf="element.jobPosition">{{'IDEA_MANAGEMENT.LABEL.OFFICE' | translate}}:</b> {{ element.jobPosition }}<br>
+                <!-- <b>{{'IDEA_MANAGEMENT.LABEL.QUALIFICATION' | translate}}:</b> {{ element.professionalQualification }}<br> -->
             </div>
         </div>
         </td>
