@@ -315,10 +315,7 @@ export class EditInsideAuthorComponent implements OnInit {
     if (hasDuplicate) {
       return false;
     }
-    if (hasDuplicate) {
-      return false;
-    }
-
+   
     return true;
   }
   isValidEmail(email: string): boolean {

@@ -16,6 +16,7 @@ import { environment } from "@env/environment";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { DataService } from "../../../../shared/service/data.service";
 import { HomepageService } from "@app/modules/home/shared/service/homepage.service";
+import { NotificationService } from "@app/shared/service/notification.service";
 interface IdeaDetail {
   ideaId: number;
   ideaName: string;
@@ -72,7 +73,8 @@ export class IdeaDetailComponent implements OnInit {
     private http: HttpClient,
     public DataService: DataService,
     private route: ActivatedRoute,
-    public homeService: HomepageService
+    public homeService: HomepageService,
+    private notificationService: NotificationService
   ) {}
   onSelectFile(event: any) {
     if (event.target.files && event.target.files.length > 0) {
@@ -258,6 +260,7 @@ export class IdeaDetailComponent implements OnInit {
         return this.http.post<any>(url, request, { headers }).subscribe(
           (response) => {
             if (response.errorCode == 0) {
+              this.notificationService.notify("success", response.description);
               this.router.navigate(["idea"]);
             } else {
               const modalRef = this.modalService.open(MessagePopupComponent, {
