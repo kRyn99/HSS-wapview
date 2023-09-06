@@ -286,7 +286,6 @@ export class EditOutsideEditComponent implements OnInit {
                         break;
                     }
 
-                    //   this.DataService.lstContributorDTOServiceOutEdit.value[i] = this.contributorDTO;
 
                 }
                 this.router.navigate(["idea/edit"]);

@@ -53,7 +53,6 @@ export class EditOutsideAuthorComponent implements OnInit {
 
     });
 
-    this.idContributorDTO = this.contributorDTO.contributorId;
     this.oldNumber = this.contributorDTO.phoneNumber;
     this.oldEmail = this.contributorDTO.email;
 
@@ -243,30 +242,54 @@ export class EditOutsideAuthorComponent implements OnInit {
         }
 
       }
-      let listDuplicate = lstContributorDTO.filter(item => {
-        return item.phoneNumber == this.contributorDTO.phoneNumber ||
-          item.email == this.contributorDTO.email
-      })
-      if (listDuplicate.length > 1) {
+      if (this.contributorDTO.email !== '') {
+        let listDuplicate = lstContributorDTO.filter(item => {
+            return item.email == this.contributorDTO.email;
+        });
+
+        if (listDuplicate.length > 1) {
+            const modalRef = this.modalService.open(MessagePopupComponent, {
+                size: "sm",
+                backdrop: "static",
+                keyboard: false,
+                centered: true,
+            });
+            modalRef.componentInstance.type = "fail";
+            modalRef.componentInstance.title = this.translateService.instant(
+                `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+            );
+            modalRef.componentInstance.message = this.translateService.instant(
+                `ADD-INSIDE-IDEA.VALIDATE.EXIST`
+            );
+            modalRef.componentInstance.closeIcon = false;
+            hasDuplicate = true;
+            return;
+        }
+    }
+
+    let phoneDuplicate = lstContributorDTO.filter(item => {
+        return item.phoneNumber == this.contributorDTO.phoneNumber;
+    });
+
+    if (phoneDuplicate.length > 1) {
         const modalRef = this.modalService.open(MessagePopupComponent, {
-          size: "sm",
-          backdrop: "static",
-          keyboard: false,
-          centered: true,
+            size: "sm",
+            backdrop: "static",
+            keyboard: false,
+            centered: true,
         });
         modalRef.componentInstance.type = "fail";
         modalRef.componentInstance.title = this.translateService.instant(
-          `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+            `ADD-INSIDE-IDEA.VALIDATE.ERROR`
         );
         modalRef.componentInstance.message = this.translateService.instant(
-          `ADD-INSIDE-IDEA.VALIDATE.EXIST`
+            `ADD-INSIDE-IDEA.VALIDATE.EXIST`
         );
         modalRef.componentInstance.closeIcon = false;
         hasDuplicate = true;
         return;
-      }
-
     }
+}
 
     if (hasDuplicate) {
       return false;
