@@ -364,7 +364,10 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
     };
     requestBody.contrivancesDTO.checkBonus = requestBody.contrivancesDTO.checkBonus ? 0 : 1;
     requestBody.contrivancesDTO.applyStartTime = moment(requestBody.contrivancesDTO.applyStartTime).format("DD/MM/YYYY");
-    requestBody.contrivancesDTO.applyEndTime = moment(requestBody.contrivancesDTO.applyEndTime).format("DD/MM/YYYY");
+    if(this.contrivancesDTO.applyEndTime){
+      requestBody.contrivancesDTO.applyEndTime = moment(requestBody.contrivancesDTO.applyEndTime).format("DD/MM/YYYY");
+
+    }
     const validate = this.contrivanceService.callApiCommon("validate-before-create-contrivance-cms", requestBody).subscribe(
       (response) => {
         if (response.errorCode == 0) {
@@ -385,6 +388,8 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
 
   AddInsideAuthor() {
     this.getContrivancesDTO();
+    console.log(this.contrivancesDTO);
+    
     this.contrivanceService.contrivancesDTO.next(this.contrivancesDTO);
     this.router.navigate(["author/add-inside"], {
       queryParams: { for: "contrivance" },
