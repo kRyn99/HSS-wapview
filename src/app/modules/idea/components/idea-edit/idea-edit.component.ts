@@ -89,7 +89,7 @@ export class IdeaEditComponent implements OnInit {
     return typeof element == "string";
   }
   ngOnInit() {
-    console.log(this.DataService.lstContributorDTOServiceEdit.value);
+    this.selectedLanguage = this.DataService.selectedLanguage.value;
 
     this.getIdeaDetail();
     this.getListSpecialty();
@@ -119,6 +119,12 @@ export class IdeaEditComponent implements OnInit {
   applyStartTimeString;
   applyEndTimeString;
   lang = localStorage.getItem("lang");
+  selectedLanguage: string = '';
+  onLanguageChange() {
+    this.DataService.selectedLanguage.next(this.selectedLanguage);
+    console.log(this.DataService.selectedLanguage.value);
+
+  }
   getIdeaDetail() {
     const url = `${environment.API_HOST_NAME}/api/get-idea-detail`;
     const headers = new HttpHeaders({
@@ -245,6 +251,11 @@ export class IdeaEditComponent implements OnInit {
           this.specialty = this.DataService.selectedSpecialtyValueEdit.value;
         } else {
           this.specialty = response.data.specialty;
+        }
+        if (this.DataService.selectedLanguage.value) {
+          this.selectedLanguage = this.DataService.selectedLanguage.value;
+        } else {
+          this.selectedLanguage = response.data.language;
         }
 
         this.getListUnit();
@@ -464,7 +475,24 @@ export class IdeaEditComponent implements OnInit {
   validate() {
     let now = new Date();
     now.setHours(0, 0, 0, 0);
+    if (!this.selectedLanguage) {
+      const modalRef = this.modalService.open(MessagePopupComponent, {
+        size: "sm",
+        backdrop: "static",
+        keyboard: false,
+        centered: true,
+      });
+      modalRef.componentInstance.type = "fail";
+      modalRef.componentInstance.title = this.translateService.instant(
+        `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+      );
+      modalRef.componentInstance.message = this.translateService.instant(
+        `ADD-INSIDE-IDEA.VALIDATE.EMPTY_LANG`
+      );
+      modalRef.componentInstance.closeIcon = false;
 
+      return false;
+    }
     if (
       this.ideaNameValue === undefined ||
       this.ideaNameValue === null ||
@@ -766,7 +794,7 @@ export class IdeaEditComponent implements OnInit {
   selectStartDate() {
     let now = new Date();
     now.setHours(0, 0, 0, 0);
-    if ((this.applyStartTime > this.applyEndTime) && (this.applyEndTime!== null && this.applyEndTime !== undefined)) {
+    if ((this.applyStartTime > this.applyEndTime) && (this.applyEndTime !== null && this.applyEndTime !== undefined)) {
       this.checkStartDate = true;
     } else {
       this.checkStartDate = false;
@@ -859,6 +887,7 @@ export class IdeaEditComponent implements OnInit {
       }
     }
     this.ideaDTO = {
+      language: this.selectedLanguage,
       ideaId: this.ideaId,
       ideaName: this.ideaNameValue,
       specialty: this.specialty,
@@ -889,37 +918,62 @@ export class IdeaEditComponent implements OnInit {
             this.DataService.lstContributorDTOServiceEdit.value
           ),
         documentDTO: {
-          url: this.documentDTO.url,
-          name: this.documentDTO.name,
+          url: this.documentDTO?.url,
+          name: this.documentDTO?.name,
         },
       };
-
-      return this.http.post<any>(url, requestBody, { headers }).subscribe(
-        (response) => {
-          if (response.errorCode == 0) {
-            this.DataService.ideaDTOEdit.next(this.ideaDTO);
-            this.DataService.isFromAdd = false;
-            this.router.navigate(["idea/check-duplicate-idea"]);
-          } else {
-            const modalRef = this.modalService.open(MessagePopupComponent, {
-              size: "sm",
-              backdrop: "static",
-              keyboard: false,
-              centered: true,
-            });
-            modalRef.componentInstance.type = "fail";
-            modalRef.componentInstance.title = this.translateService.instant(
-              `ADD-INSIDE-IDEA.VALIDATE.ERROR`
-            );
-            modalRef.componentInstance.message =
-              modalRef.componentInstance.message = response.description;
-            modalRef.componentInstance.closeIcon = false;
-          }
-        },
-        (error) => {
-          console.error(error.data);
-        }
+      const modalRefSuccess = this.modalService.open(MessagePopupComponent, {
+        size: "sm",
+        backdrop: "static",
+        keyboard: false,
+        centered: true,
+      });
+      modalRefSuccess.componentInstance.type = "confirm";
+      modalRefSuccess.componentInstance.title = this.translateService.instant(
+        `ADD-INSIDE-IDEA.CONFIRM.CONFIRM`
       );
+      if (this.selectedLanguage == 'vi') {
+        modalRefSuccess.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.ENSURE_VI`);
+      } else if (this.selectedLanguage === 'la') {
+        modalRefSuccess.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.ENSURE_LA`);
+      } else if (this.selectedLanguage === 'en') {
+        modalRefSuccess.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.ENSURE_EN`);
+      } else {
+        modalRefSuccess.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.INVALID_LANGUAGE`);
+      }
+  
+      modalRefSuccess.componentInstance.closeIcon = false;
+      modalRefSuccess.componentInstance.next.subscribe((result: any) => {
+        if (result === true) {
+          return this.http.post<any>(url, requestBody, { headers }).subscribe(
+            (response) => {
+              if (response.errorCode == 0) {
+                this.DataService.ideaDTOEdit.next(this.ideaDTO);
+                this.DataService.isFromAdd = false;
+                this.router.navigate(["idea/check-duplicate-idea"]);
+              } else {
+                const modalRef = this.modalService.open(MessagePopupComponent, {
+                  size: "sm",
+                  backdrop: "static",
+                  keyboard: false,
+                  centered: true,
+                });
+                modalRef.componentInstance.type = "fail";
+                modalRef.componentInstance.title = this.translateService.instant(
+                  `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+                );
+                modalRef.componentInstance.message =
+                  modalRef.componentInstance.message = response.description;
+                modalRef.componentInstance.closeIcon = false;
+              }
+            },
+            (error) => {
+              console.error(error.data);
+            }
+          );
+        }
+        else{}});
+   
     }
   }
 }

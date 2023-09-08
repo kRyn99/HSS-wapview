@@ -28,6 +28,21 @@
     1. {{ "IDEA_MANAGEMENT.LABEL.IDEA" | translate }}
   </div>
   <div class="input-form">
+    <div class="input-name">{{"ADD-INSIDE-IDEA.LANGUAGE.SELECTED_LANGUAGE" | translate }}(<span
+      style="color: red"
+      >*</span
+    >)</div>
+    <select class="input-field" [(ngModel)]="selectedLanguage" (change)="onLanguageChange()">
+      <option [ngValue]="null">{{"ADD-INSIDE-IDEA.LANGUAGE.SELECTED_LANGUAGE" | translate }}</option>
+      <option value="vi">{{"ADD-INSIDE-IDEA.LANGUAGE.VI" | translate }}</option>
+      <option value="la">{{"ADD-INSIDE-IDEA.LANGUAGE.LA" | translate }}</option>
+      <option value="en">{{"ADD-INSIDE-IDEA.LANGUAGE.EN" | translate }}</option>
+    </select>
+    <div class="form-text text-danger" *ngIf="!selectedLanguage">
+      {{ "ADD-INSIDE-IDEA.VALIDATE.EMPTY_LANG" | translate }}
+    </div>
+  </div>
+  <div class="input-form">
     <div class="input-name">{{ "IDEA_MANAGEMENT.LABEL.IDEA_NAME" | translate }} (<span
       style="color: red"
       >*</span
@@ -278,8 +293,8 @@
               {{ element.jobAddress }}<br />
               <b>{{ "IDEA_MANAGEMENT.LABEL.OFFICE" | translate }}:</b>
               {{ element.jobPosition }}<br />
-              <b>{{ "IDEA_MANAGEMENT.LABEL.QUALIFICATION" | translate }}:</b>
-              {{ element.professionalQualification }}<br />
+              <!-- <b>{{ "IDEA_MANAGEMENT.LABEL.QUALIFICATION" | translate }}:</b>
+              {{ element.professionalQualification }}<br /> -->
             </div>
             <div class="example-element-description row">
               <div class="col-6">

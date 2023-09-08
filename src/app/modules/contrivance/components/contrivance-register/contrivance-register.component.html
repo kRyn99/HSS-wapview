@@ -30,6 +30,40 @@
     </div>
     <div class="input-form">
       <div class="input-name">
+        {{ "ADD-INSIDE-IDEA.LANGUAGE.SELECTED_LANGUAGE" | translate }} (<span
+          class="required-mark"
+          >*</span
+        >)
+      </div>
+      <select class="input-field" formControlName="language">
+        <option [ngValue]="null">
+          {{ "ADD-INSIDE-IDEA.LANGUAGE.SELECTED_LANGUAGE" | translate }}
+        </option>
+        <option value="vi">
+          {{ "ADD-INSIDE-IDEA.LANGUAGE.VI" | translate }}
+        </option>
+        <option value="la">
+          {{ "ADD-INSIDE-IDEA.LANGUAGE.LA" | translate }}
+        </option>
+        <option value="en">
+          {{ "ADD-INSIDE-IDEA.LANGUAGE.EN" | translate }}
+        </option>
+      </select>
+      <small
+        class="form-text text-danger"
+        *ngIf="formUtils.controlHasError('required', 'language')"
+      >
+        {{
+          "VALIDATION.REQUIRED"
+            | translate
+              : {
+                  name: "CONTRIVANCE_MAMAGEMENT.LABEL.LANG" | translate
+                }
+        }}
+      </small>
+    </div>
+    <div class="input-form">
+      <div class="input-name">
         {{ "CONTRIVANCE_MAMAGEMENT.LABEL.CONTRIVANCE_NAME" | translate }} (<span
           class="required-mark"
           >*</span
@@ -255,10 +289,7 @@
           >*</span
         >)
       </div>
-      <select
-        class="input-field"
-        formControlName="specialty"
-      >
+      <select class="input-field" formControlName="specialty">
         <option [ngValue]="null">
           {{ "IDEA_MANAGEMENT.PLACEHOLDER.SELECT_SPECIALTY" | translate }}
         </option>
@@ -286,10 +317,7 @@
           >*</span
         >)
       </div>
-      <select
-        class="input-field"
-        formControlName="ideaId"
-      >
+      <select class="input-field" formControlName="ideaId">
         <option [ngValue]="null">
           {{ "CONTRIVANCE_MAMAGEMENT.PLACEHOLDER.SELECT_IDEA" | translate }}
         </option>
@@ -307,7 +335,8 @@
           "VALIDATION.REQUIRED"
             | translate
               : {
-                  name: "CONTRIVANCE_MAMAGEMENT.LABEL.BASED_ON_IDEAS" | translate
+                  name:
+                    "CONTRIVANCE_MAMAGEMENT.LABEL.BASED_ON_IDEAS" | translate
                 }
         }}
       </small>
@@ -397,11 +426,16 @@
               "
             >
               <div class="example-element-description">
-                <b>{{'IDEA_MANAGEMENT.LABEL.TELEPHONE' | translate}}:</b> {{ element.phoneNumber }}<br>
-                <b>{{'IDEA_MANAGEMENT.LABEL.EMAIL' | translate}}:</b> {{ element.email }}<br>
-                <b>{{'IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH' | translate}}:</b> {{ element.birthday }}<br>
-                <b>{{'IDEA_MANAGEMENT.LABEL.WORK_PLACE' | translate}}:</b> {{ element.jobAddress }}<br>
-                <b>{{'IDEA_MANAGEMENT.LABEL.OFFICE' | translate}}:</b> {{ element.jobPosition }}<br>
+                <b>{{ "IDEA_MANAGEMENT.LABEL.TELEPHONE" | translate }}:</b>
+                {{ element.phoneNumber }}<br />
+                <b>{{ "IDEA_MANAGEMENT.LABEL.EMAIL" | translate }}:</b>
+                {{ element.email }}<br />
+                <b>{{ "IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH" | translate }}:</b>
+                {{ element.birthday }}<br />
+                <b>{{ "IDEA_MANAGEMENT.LABEL.WORK_PLACE" | translate }}:</b>
+                {{ element.jobAddress }}<br />
+                <b>{{ "IDEA_MANAGEMENT.LABEL.OFFICE" | translate }}:</b>
+                {{ element.jobPosition }}<br />
                 <!-- <b>{{'IDEA_MANAGEMENT.LABEL.QUALIFICATION' | translate}}:</b> {{ element.professionalQualification }}<br> -->
               </div>
               <div class="example-element-description row">
@@ -530,11 +564,21 @@
               "
             >
               <div class="example-element-description">
-                <b>{{'IDEA_MANAGEMENT.LABEL.TELEPHONE' | translate}}:</b> {{ element.phoneNumber }}<br>
-                <b *ngIf="element.email">{{'IDEA_MANAGEMENT.LABEL.EMAIL' | translate}}:</b> {{ element.email }}<br>
+                <b>{{ "IDEA_MANAGEMENT.LABEL.TELEPHONE" | translate }}:</b>
+                {{ element.phoneNumber }}<br />
+                <b *ngIf="element.email"
+                  >{{ "IDEA_MANAGEMENT.LABEL.EMAIL" | translate }}:</b
+                >
+                {{ element.email }}<br />
                 <!-- <b>{{'IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH' | translate}}:</b> {{ element.birthday }}<br> -->
-                <b *ngIf="element.jobAddress">{{'IDEA_MANAGEMENT.LABEL.WORK_PLACE' | translate}}:</b> {{ element.jobAddress }}<br>
-                <b *ngIf="element.jobPosition">{{'IDEA_MANAGEMENT.LABEL.OFFICE' | translate}}:</b> {{ element.jobPosition }}<br>
+                <b *ngIf="element.jobAddress"
+                  >{{ "IDEA_MANAGEMENT.LABEL.WORK_PLACE" | translate }}:</b
+                >
+                {{ element.jobAddress }}<br />
+                <b *ngIf="element.jobPosition"
+                  >{{ "IDEA_MANAGEMENT.LABEL.OFFICE" | translate }}:</b
+                >
+                {{ element.jobPosition }}<br />
                 <!-- <b *ngIf="element.professionalQualification">{{'IDEA_MANAGEMENT.LABEL.QUALIFICATION' | translate}}:</b> {{ element.professionalQualification }}<br> -->
               </div>
               <div class="example-element-description row">

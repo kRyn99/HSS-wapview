@@ -30,6 +30,40 @@
     </div>
     <div class="input-form">
       <div class="input-name">
+        {{ "ADD-INSIDE-IDEA.LANGUAGE.SELECTED_LANGUAGE" | translate }} (<span
+          class="required-mark"
+          >*</span
+        >)
+      </div>
+      <select class="input-field" formControlName="language">
+        <option [ngValue]="null">
+          {{ "ADD-INSIDE-IDEA.LANGUAGE.SELECTED_LANGUAGE" | translate }}
+        </option>
+        <option value="vi">
+          {{ "ADD-INSIDE-IDEA.LANGUAGE.VI" | translate }}
+        </option>
+        <option value="la">
+          {{ "ADD-INSIDE-IDEA.LANGUAGE.LA" | translate }}
+        </option>
+        <option value="en">
+          {{ "ADD-INSIDE-IDEA.LANGUAGE.EN" | translate }}
+        </option>
+      </select>
+      <small
+        class="form-text text-danger"
+        *ngIf="formUtils.controlHasError('required', 'language')"
+      >
+        {{
+          "VALIDATION.REQUIRED"
+            | translate
+              : {
+                  name: "CONTRIVANCE_MAMAGEMENT.LABEL.LANG" | translate
+                }
+        }}
+      </small>
+    </div>
+    <div class="input-form">
+      <div class="input-name">
         {{ "CONTRIVANCE_MAMAGEMENT.LABEL.CONTRIVANCE_NAME" | translate }} (<span
           class="required-mark"
           >*</span
@@ -287,7 +321,7 @@
       >
         <option [ngValue]="null">{{ "CONTRIVANCE_MAMAGEMENT.PLACEHOLDER.SELECT_IDEA" | translate }}</option>
         <ng-container *ngFor="let item of listIdea">
-          <option [value]="item.ideaId" s>{{ item.ideaName | truncate:50 }}</option>
+          <option [value]="item.ideaId">{{ item.ideaName | truncate:50 }}</option>
         </ng-container>
       </select>
       <small
@@ -390,10 +424,9 @@
               <div class="example-element-description">
                 <b>{{'IDEA_MANAGEMENT.LABEL.TELEPHONE' | translate}}:</b> {{ element.phoneNumber }}<br>
                 <b>{{'IDEA_MANAGEMENT.LABEL.EMAIL' | translate}}:</b> {{ element.email }}<br>
-                <b>{{'IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH' | translate}}:</b> {{ element.birthday }}<br>
+                <b>{{'IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH' | translate}}:</b> {{ element.birthDay }}<br>
                 <b>{{'IDEA_MANAGEMENT.LABEL.WORK_PLACE' | translate}}:</b> {{ element.jobAddress }}<br>
                 <b>{{'IDEA_MANAGEMENT.LABEL.OFFICE' | translate}}:</b> {{ element.jobPosition }}<br>
-                <b>{{'IDEA_MANAGEMENT.LABEL.QUALIFICATION' | translate}}:</b> {{ element.professionalQualification }}<br>
               </div>
               <div class="example-element-description row">
                 <div class="col-6">
@@ -514,11 +547,9 @@
             >
               <div class="example-element-description">
                 <b>{{'IDEA_MANAGEMENT.LABEL.TELEPHONE' | translate}}:</b> {{ element.phoneNumber }}<br>
-                <b>{{'IDEA_MANAGEMENT.LABEL.EMAIL' | translate}}:</b> {{ element.email }}<br>
-                <b>{{'IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH' | translate}}:</b> {{ element.birthday }}<br>
-                <b>{{'IDEA_MANAGEMENT.LABEL.WORK_PLACE' | translate}}:</b> {{ element.jobAddress }}<br>
-                <b>{{'IDEA_MANAGEMENT.LABEL.OFFICE' | translate}}:</b> {{ element.jobPosition }}<br>
-                <b>{{'IDEA_MANAGEMENT.LABEL.QUALIFICATION' | translate}}:</b> {{ element.professionalQualification }}<br>
+                <b *ngIf="element.email">{{'IDEA_MANAGEMENT.LABEL.EMAIL' | translate}}:</b> {{ element.email }}<br>
+                <b *ngIf="element.jobAddress">{{'IDEA_MANAGEMENT.LABEL.WORK_PLACE' | translate}}:</b> {{ element.jobAddress }}<br>
+                <b *ngIf="element.jobPosition">{{'IDEA_MANAGEMENT.LABEL.OFFICE' | translate}}:</b> {{ element.jobPosition }}<br>
               </div>
               <div class="example-element-description row">
                 <div class="col-6">

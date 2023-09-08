@@ -631,6 +631,7 @@
     },
 
     "LABEL": {
+      "LANG":"Language",
       "INDEX": "STT",
       "DUPICATE_RATE": "Duplicate rate ( %)",
       "ACTION": "Action",
@@ -825,12 +826,29 @@
       "CONTRIBUTOR":"Employee code is duplicated",
       "ADDRESS":"Workplace cannot be empty",
       "POSITION":"Position cannot be empty",
-      "QUALIFICATION":"Qualification cannot be empty"
+      "QUALIFICATION":"Qualification cannot be empty",
+      "EMPTY_START_DATE": "Apply from the date cannot be empty",
+      "EMPTY_END_DATE": "Apply to the date cannot be empty",
+      "FILE_SIZE": "File size larger than 25Mb",
+      "EMPTY_LANG":"Language cannot be empty"
     },
     "CONFIRM": {
       "CONFIRM": "Confirm",
       "CONFIRM-ADD": "Do you want to add ?",
       "CONFIRM-DELETE": "Do you want to delete this idea ?"
+    },
+    "LANGUAGE": {
+      "SELECTED_LANGUAGE":"Select language",
+      "VI": "Vietnamese",
+      "LA": "Laos",
+      "EN":"English",
+      "ENSURE_VI":"Please ensure the content of the idea must be in Vietnamese!",
+      "ENSURE_LA":"Please ensure the content of the idea must be in Lao!",
+      "ENSURE_EN":"Please ensure the content of the idea must be in English!",
+      "ENSURE_VI_CON":"Please ensure the content of the contrivance must be in Vietnamese!",
+      "ENSURE_LA_CON":"Please ensure the content of the contrivance must be in Lao!",
+      "ENSURE_EN_CON":"Please ensure the content of the contrivance must be in English!",
+      "INVALID_LANGUAGE":"Invalid language"
     }
   },
   "IDEA-DETAIL": {
