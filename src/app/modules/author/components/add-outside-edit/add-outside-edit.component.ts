@@ -282,8 +282,11 @@ export class AddOutsideEditComponent implements OnInit {
     } else {
       lstContributorDTO = this.DataService.lstContributorDTOServiceOutEdit.value;
     }
-    let duplcate = lstContributorDTO.some(item => item.phoneNumber == this.selectedStaffCodeSubject.value?.phoneNumber && item.email == this.selectedStaffCodeSubject.value?.email)
-    if (duplcate) {
+    let duplicate = lstContributorDTO.some(item => {
+      return (item.phoneNumber == this.selectedStaffCodeSubject.value?.phoneNumber) ||
+             (this.selectedStaffCodeSubject.value?.email && item.email == this.selectedStaffCodeSubject.value.email);
+    });
+    if (duplicate) {
       const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
       modalRef.componentInstance.type = 'fail';
       modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);

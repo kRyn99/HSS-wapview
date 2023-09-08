@@ -84,6 +84,7 @@ export class CheckDuplicateComponent implements OnInit {
             this.paginator.total = this.recordTotal;
             this.paginator.page = 1;
             this.handlePaginatorChange();
+    
           } else {
             this.notificationService.notify("fail", res.description);
           }
@@ -131,8 +132,8 @@ export class CheckDuplicateComponent implements OnInit {
     modalRefSuccess.componentInstance.next.subscribe((result: any) => {
       if (result === true) {
         const currentFileValue = this.contrivanceService.file.getValue();
-        const fileName = currentFileValue.name;
-        const fileUrl = currentFileValue.url;
+        const fileName = currentFileValue?.name;
+        const fileUrl = currentFileValue?.url;
         const requestBody = {
           contrivancesDTO: {
             ...this.contrivanceService.contrivancesDTO.value,
@@ -148,8 +149,8 @@ export class CheckDuplicateComponent implements OnInit {
           },
         };
         requestBody.contrivancesDTO.checkBonus = requestBody.contrivancesDTO.checkBonus ? 0 : 1;
-        requestBody.contrivancesDTO.applyStartTime = moment(requestBody.contrivancesDTO.applyStartTime).format("DD/MM/YYYY");
-        requestBody.contrivancesDTO.applyEndTime = moment(requestBody.contrivancesDTO.applyEndTime).format("DD/MM/YYYY");
+        requestBody.contrivancesDTO.applyStartTime =  moment(requestBody.contrivancesDTO.applyStartTime).format("DD/MM/YYYY");
+        requestBody.contrivancesDTO.applyEndTime = !requestBody.contrivancesDTO.applyEndTime ? null : moment(requestBody.contrivancesDTO.applyEndTime).format("DD/MM/YYYY");
         this.contrivanceService.callApiCommon(this.isFromAdd ? "create-contrivance" : "update-contrivance", requestBody).subscribe(
           (response) => {
             if (response.errorCode == 0) {

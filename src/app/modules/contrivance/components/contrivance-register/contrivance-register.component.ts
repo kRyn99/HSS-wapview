@@ -26,6 +26,9 @@ import { ContrivanceService } from "@app/shared/service/contrivance.service";
 import { CommonFormUtils } from "@app/shared/utils/form.utils";
 import * as moment from "moment";
 import { MatTableDataSource } from "@angular/material/table";
+import { TranslateService } from "@ngx-translate/core";
+import { MessagePopupComponent } from "@app/modules/common-items/components/message-popup/message-popup.component";
+
 
 @Component({
   selector: "app-contrivance-register",
@@ -104,8 +107,9 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
     public modalService: NgbModal,
     private activatedRoute: ActivatedRoute,
     private cdRef: ChangeDetectorRef,
-    public formUtils: CommonFormUtils
-  ) {}
+    public formUtils: CommonFormUtils,
+    private translateService: TranslateService,
+  ) { }
 
   ngOnInit() {
     const slu = this.getListUnit();
@@ -185,12 +189,14 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
   }
 
   loadAddForm() {
-    this.startDateModel.setHours(0, 0, 0, 0);
-    this.endDateModel.setHours(0, 0, 0, 0);
+
     if (this.contrivanceService.contrivancesDTO.value) {
       let contrivancesDTO = this.contrivanceService.contrivancesDTO.value;
+      this.startDateModel = contrivancesDTO.applyStartTime;
+      this.endDateModel = contrivancesDTO.applyEndTime;
       this.formUtils.setForm(
         this.fb.group({
+          language: [contrivancesDTO.language, Validators.required],
           contrivanceName: [contrivancesDTO.contrivanceName, Validators.required],
           currentStatus: [contrivancesDTO.currentStatus, Validators.required],
           content: [contrivancesDTO.content, Validators.required],
@@ -208,8 +214,11 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
         })
       );
     } else {
+      this.startDateModel.setHours(0, 0, 0, 0);
+      this.endDateModel.setHours(0, 0, 0, 0);
       this.formUtils.setForm(
         this.fb.group({
+          language: [null, Validators.required],
           contrivanceName: ["", Validators.required],
           currentStatus: ["", Validators.required],
           content: ["", Validators.required],
@@ -328,6 +337,7 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
 
   getContrivancesDTO() {
     this.contrivancesDTO = {
+      language: this.formUtils.control("language").value,
       contrivanceName: this.formUtils.control("contrivanceName").value,
       currentStatus: this.formUtils.control("currentStatus").value,
       content: this.formUtils.control("content").value,
@@ -352,7 +362,7 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
     const fileUrl = currentFileValue.url;
     this.getContrivancesDTO();
     const requestBody = {
-      contrivancesDTO: {...this.contrivancesDTO},
+      contrivancesDTO: { ...this.contrivancesDTO },
       lstContributorDTO:
         this.contrivanceService.lstContributorDTOServiceOut.value.concat(
           this.contrivanceService.lstContributorDTOService.value
@@ -363,28 +373,63 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
       },
     };
     requestBody.contrivancesDTO.checkBonus = requestBody.contrivancesDTO.checkBonus ? 0 : 1;
-    requestBody.contrivancesDTO.applyStartTime = moment(requestBody.contrivancesDTO.applyStartTime).format("DD/MM/YYYY");
-    requestBody.contrivancesDTO.applyEndTime = moment(requestBody.contrivancesDTO.applyEndTime).format("DD/MM/YYYY");
-    const validate = this.contrivanceService.callApiCommon("validate-before-create-contrivance-cms", requestBody).subscribe(
-      (response) => {
-        if (response.errorCode == 0) {
-          this.contrivanceService.contrivancesDTO.next(this.contrivancesDTO);
-          this.contrivanceService.isFromAdd = true;
-          this.router.navigate(["contrivance/check-duplicate"]);
-        } else {
-          this.notificationService.notify("fail", response.description);
-          this.formUtils.form.markAllAsTouched();
-        }
-      },
-      (error) => {
-        this.notificationService.notify("fail", "COMMON.ERROR_SERVICE");
-      }
+    if (this.contrivancesDTO.applyStartTime) {
+    requestBody.contrivancesDTO.applyStartTime = moment(requestBody.contrivancesDTO.applyStartTime).format("DD/MM/YYYY");}
+    if (this.contrivancesDTO.applyEndTime) {
+      requestBody.contrivancesDTO.applyEndTime = moment(requestBody.contrivancesDTO.applyEndTime).format("DD/MM/YYYY");
+
+    }
+    const modalRefSuccess = this.modalService.open(MessagePopupComponent, {
+      size: "sm",
+      backdrop: "static",
+      keyboard: false,
+      centered: true,
+    });
+    modalRefSuccess.componentInstance.type = "confirm";
+    modalRefSuccess.componentInstance.title = this.translateService.instant(
+      `ADD-INSIDE-IDEA.CONFIRM.CONFIRM`
     );
-    this.subscriptions.push(validate);
+
+    if (this.contrivancesDTO.language == 'vi') {
+      modalRefSuccess.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.ENSURE_VI_CON`);
+    } else if (this.contrivancesDTO.language === 'la') {
+      modalRefSuccess.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.ENSURE_LA_CON`);
+    } else if (this.contrivancesDTO.language === 'en') {
+      modalRefSuccess.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.ENSURE_EN_CON`);
+    } else {
+      modalRefSuccess.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.INVALID_LANGUAGE`);
+    }
+
+    modalRefSuccess.componentInstance.closeIcon = false;
+    modalRefSuccess.componentInstance.next.subscribe((result: any) => {
+      if (result === true) {
+        const validate = this.contrivanceService.callApiCommon("validate-before-create-contrivance-cms", requestBody).subscribe(
+          (response) => {
+            if (response.errorCode == 0) {
+              this.contrivanceService.contrivancesDTO.next(this.contrivancesDTO);
+              this.contrivanceService.isFromAdd = true;
+              this.router.navigate(["contrivance/check-duplicate"]);
+            } else {
+              this.notificationService.notify("fail", response.description);
+              this.formUtils.form.markAllAsTouched();
+            }
+          },
+          (error) => {
+            this.notificationService.notify("fail", "COMMON.ERROR_SERVICE");
+          }
+        );
+        this.subscriptions.push(validate);
+      }
+      else {
+      }
+    });
+
   }
 
   AddInsideAuthor() {
     this.getContrivancesDTO();
+    console.log(this.contrivancesDTO);
+
     this.contrivanceService.contrivancesDTO.next(this.contrivancesDTO);
     this.router.navigate(["author/add-inside"], {
       queryParams: { for: "contrivance" },

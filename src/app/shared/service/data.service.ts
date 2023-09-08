@@ -7,6 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class DataService {
   isEndDateTouched=false;
+  selectedLanguage= new BehaviorSubject<any>(null);
   ideaName2= new BehaviorSubject<any>(null);
   // selectedStartDateEdit : Date;
   ideaDTO = new BehaviorSubject<any>(null);

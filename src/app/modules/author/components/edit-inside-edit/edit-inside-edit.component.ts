@@ -35,6 +35,7 @@ export class EditInsideEditComponent implements OnInit {
         this.config.bindValue = "value";
     }
     token = JSON.parse(localStorage.getItem("tokenInLocalStorage"));
+    staffId;
     ngOnInit() {
         console.log(this.DataService.lstContributorDTOServiceEdit.value);
 
@@ -49,6 +50,7 @@ export class EditInsideEditComponent implements OnInit {
                     this.contributorDTO = { ...this.DataService.lstContributorDTOServiceEdit.value.find(item => item.staffId == Number(params.id)) }
                 }
             }
+            this.staffId = params.id
 
         })
         console.log(this.DataService.lstContributorDTOServiceEdit.value);
@@ -83,10 +85,11 @@ export class EditInsideEditComponent implements OnInit {
     }
     onSelectedStaffCodeChange(value: any) {
         this.contributorDTO = value;
+        this.contributorDTO.staffId = value.id;
         this.contributorDTO.birthDay=this.contributorDTO.birthday;
-        this.contributorDTO.staffId=this.DataService.lstContributorDTOServiceEdit.value.staffId;
+        // this.contributorDTO.staffId=this.DataService.lstContributorDTOServiceEdit.value.staffId;
         console.log(value);
-        console.log(this.contributorDTO.birthday);
+        console.log(this.contributorDTO.staffId);
     }
     bsConfig = {
         dateInputFormat: "DD/MM/YYYY",
@@ -194,21 +197,48 @@ export class EditInsideEditComponent implements OnInit {
             }
 
         }
-        if (
-            this.contributorDTO.birthday === undefined ||
-            this.contributorDTO.birthday === null ||
-            this.contributorDTO.birthday === ""
-        ) {
-            const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
-            modalRef.componentInstance.type = 'fail';
-            modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
-            modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.BIRTHDAY`);
-            modalRef.componentInstance.closeIcon = false;
-            return false;
+        let hasDuplicate = false;
+        let lstContributorDTO = [];
+        if (this.backRoute == "contrivance") {
+          lstContributorDTO = [...this.contrivanceService.lstContributorDTOService.value];
+        } else {
+          lstContributorDTO = [...this.DataService.lstContributorDTOServiceEdit.value];
         }
-
-
-
+        if (lstContributorDTO.length > 1) {
+          for (let i = 0; i < lstContributorDTO.length; i++) {
+            if (this.staffId == lstContributorDTO[i].staffId) {
+              lstContributorDTO[i] = this.contributorDTO
+              break;
+            }
+    
+          }
+          let listDuplicate = lstContributorDTO.filter(item => {
+            return item.staffId == this.contributorDTO.staffId
+          })
+          if (listDuplicate.length > 1) {
+            const modalRef = this.modalService.open(MessagePopupComponent, {
+              size: "sm",
+              backdrop: "static",
+              keyboard: false,
+              centered: true,
+            });
+            modalRef.componentInstance.type = "fail";
+            modalRef.componentInstance.title = this.translateService.instant(
+              `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+            );
+            modalRef.componentInstance.message = this.translateService.instant(
+              `ADD-INSIDE-IDEA.VALIDATE.EXIST`
+            );
+            modalRef.componentInstance.closeIcon = false;
+            hasDuplicate = true;
+            return;
+          }
+    
+        }
+    
+        if (hasDuplicate) {
+          return false;
+        }
         return true;
     }
     isValidEmail(email: string): boolean {
@@ -233,7 +263,7 @@ export class EditInsideEditComponent implements OnInit {
             } else {
                 for (let i = 0; i < this.DataService.lstContributorDTOServiceEdit.value.length; i++) {
                     if (
-                        this.DataService.lstContributorDTOServiceEdit.value[i].staffId == this.contributorDTO.staffId
+                        this.DataService.lstContributorDTOServiceEdit.value[i].staffId == this.staffId
                     ) {
                         this.DataService.lstContributorDTOServiceEdit.value[i] = this.contributorDTO;
                     }
