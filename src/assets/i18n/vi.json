@@ -632,6 +632,7 @@
     },
 
     "LABEL": {
+      "LANG":"Ngôn ngữ",
       "INDEX": "STT",
       "DUPICATE_RATE": "Tỉ lệ trùng(%)",
       "ACTION": "Thao tác",
@@ -823,18 +824,32 @@
       "NOTE": "Ghi chú không được trống",
       "FILE": "Tài liệu không được trống",
       "AUTHOR_WITHIN": "Không tìm thấy nhân viên tập đoàn trong danh sách tác giả",
-      "CONTRIBUTOR":"Mã nhân viên bị trùng",
-      "ADDRESS":"Nơi công tác không được trống",
-      "POSITION":"Chức vụ không được trống",
-      "QUALIFICATION":"Trình độ chuyên môn không được trống",
-      "EMPTY_START_DATE":"Áp dụng từ ngày không được trống",
-      "EMPTY_END_DATE":"Áp dụng đến ngày không được trống",
-      "FILE_SIZE":"Dung lượng file lớn hơn 25Mb"
+      "CONTRIBUTOR": "Mã nhân viên bị trùng",
+      "ADDRESS": "Nơi công tác không được trống",
+      "POSITION": "Chức vụ không được trống",
+      "QUALIFICATION": "Trình độ chuyên môn không được trống",
+      "EMPTY_START_DATE": "Áp dụng từ ngày không được trống",
+      "EMPTY_END_DATE": "Áp dụng đến ngày không được trống",
+      "FILE_SIZE": "Dung lượng file lớn hơn 25Mb",
+      "EMPTY_LANG":"Ngôn ngữ không được để trống"
     },
     "CONFIRM": {
       "CONFIRM": "Xác nhận",
       "CONFIRM-ADD": "Bạn có muốn thêm mới ?",
       "CONFIRM-DELETE": "Bạn có muốn xóa ý tưởng này không?"
+    },
+    "LANGUAGE": {
+      "SELECTED_LANGUAGE":"Chọn ngôn ngữ",
+      "VI": "Tiếng Việt",
+      "LA": "Tiếng Lào",
+      "EN":"Tiếng Anh",
+      "ENSURE_VI":"Hãy đảm bảo các nội dung của ý tưởng phải là Tiếng Việt!",
+      "ENSURE_LA":"Hãy đảm bảo các nội dung của ý tưởng phải là Tiếng Lào!",
+      "ENSURE_EN":"Hãy đảm bảo các nội dung của ý tưởng phải là Tiếng Anh!",
+      "ENSURE_VI_CON":"Hãy đảm bảo các nội dung của sáng kiến phải là Tiếng Việt!",
+      "ENSURE_LA_CON":"Hãy đảm bảo các nội dung của sáng kiến phải là Tiếng Lào!",
+      "ENSURE_EN_CON":"Hãy đảm bảo các nội dung của sáng kiến phải là Tiếng Anh!",
+      "INVALID_LANGUAGE":"Ngôn ngữ không hợp lệ"
     }
   },
   "IDEA-DETAIL": {
@@ -927,10 +942,10 @@
   },
   "SEE_MORE": "Xem thêm",
   "SEE_LESS": "Thu gọn",
-  "ADD_AUTHOR_IN_GROUP":"Thêm tác giả trong tập đoàn",
+  "ADD_AUTHOR_IN_GROUP": "Thêm tác giả trong tập đoàn",
   "ADD_AUTHOR_OUTSIDE_GROUP": "Thêm tác giả ngoài tập đoàn",
-  "EDIT_AUTHOR_IN_GROUP":"Sửa tác giả trong tập đoàn",
-  "EDIT_AUTHOR_OUTSIDE_GROUP":"Sửa tác giả ngoài tập đoàn",
+  "EDIT_AUTHOR_IN_GROUP": "Sửa tác giả trong tập đoàn",
+  "EDIT_AUTHOR_OUTSIDE_GROUP": "Sửa tác giả ngoài tập đoàn",
   "CHOOSE_AUTHOR_NAME": "Chọn tên tác giả",
   "STAFF_CODE_NOT_EXIST": "Mã nhân viên không tồn tại"
 }

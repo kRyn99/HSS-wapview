@@ -85,6 +85,7 @@ export class IdeaRegisterComponent implements OnInit {
     private datePipe: DatePipe,
     private notificationService: NotificationService
   ) {
+    this.selectedLanguage = null;
     this.bsConfig = {
       dateInputFormat: "DD/MM/YYYY", // Định dạng ngày/tháng/năm
     };
@@ -110,13 +111,16 @@ export class IdeaRegisterComponent implements OnInit {
     );
 
     this.inputValue = this.DataService.ideaName2.value;
+    this.selectedLanguage=this.DataService.selectedLanguage.value;
+   
+    
     // this.selectedUnitValue = this.DataService.selectedUnitValue.value;
     this.DataService.selectedUnitValue.subscribe((value) => {
       this.selectedUnitValue = value;
     });
 
-  console.log(this.DataService.lstContributorDTOServiceOut.value);
-  
+    console.log(this.DataService.lstContributorDTOServiceOut.value);
+
 
     // this.selectedUnitValue = this.DataService.selectedUnitValue$.value;
     this.selectedSpecialtyValue = this.DataService.selectedSpecialtyValue.value;
@@ -140,7 +144,14 @@ export class IdeaRegisterComponent implements OnInit {
     // this.inputValue = ''
     this.getListSpecialty();
   }
-
+  selectedLanguage: string = '';
+  isLangTouched = false;
+  onLanguageChange() {
+    this.isLangTouched = true;
+    this.DataService.selectedLanguage.next(this.selectedLanguage);
+    console.log(this.DataService.selectedLanguage.value);
+    
+  }
   toggleDropdown() {
     this.DataService.showDropdown = !this.DataService.showDropdown;
   }
@@ -174,7 +185,7 @@ export class IdeaRegisterComponent implements OnInit {
 
     // }
     this.DataService.selectedUnitValue.next(this.selectedUnitValue);
-    
+
   }
 
   //   onSelectUnitChange() {
@@ -197,7 +208,7 @@ export class IdeaRegisterComponent implements OnInit {
     return this.http.post<any>(url, requestBody, { headers }).subscribe(
       (response) => {
         this.listUnit = response.data;
-       
+
         let listIdSelect = this.selectedUnitValue?.map((item) => item.unitId);
         this.listUnit.forEach((item: any) => {
           if (listIdSelect?.includes(item.unitId)) {
@@ -254,7 +265,7 @@ export class IdeaRegisterComponent implements OnInit {
   selectedSpecialtyValue: string = "";
 
   selectedStartDate = new Date();
-  selectedEndDate=  new Date();
+  selectedEndDate = new Date();
   beforeApplyStatus: string = "";
   content: string = "";
   applyRange: string = "";
@@ -269,13 +280,13 @@ export class IdeaRegisterComponent implements OnInit {
 
   onSelectUnitChange() {
     this.DataService.selectedUnitValue.next(this.selectedUnitValue);
-  
+
   }
   specialtyTouched = false;
   onSelectSpecialtyChange() {
     this.DataService.selectedSpecialtyValue.next(this.selectedSpecialtyValue);
   }
-  
+
   isStartDateTouched = false;
   isEndDateTouched = false;
   checkStartDate = false;
@@ -298,7 +309,7 @@ export class IdeaRegisterComponent implements OnInit {
     this.DataService.selectedStartDate.next(this.selectedStartDate);
   }
   endDateChange() {
-    
+
     let now = new Date();
     now.setHours(0, 0, 0, 0);
     if (this.selectedStartDate === null || this.selectedEndDate === undefined) {
@@ -328,7 +339,7 @@ export class IdeaRegisterComponent implements OnInit {
       }
       this.DataService.selectedEndDate.next(this.selectedEndDate);
     }
-    
+
   }
   isBeforeApplyStatusTouched = false;
   beforeApplyStatusChange() {
@@ -350,9 +361,9 @@ export class IdeaRegisterComponent implements OnInit {
     this.isEffectivenesTouched = true;
     this.DataService.effectiveness.next(this.effectiveness);
   }
- 
+
   nextStepChange() {
-    
+
     this.DataService.nextStep.next(this.nextStep);
   }
 
@@ -402,6 +413,7 @@ export class IdeaRegisterComponent implements OnInit {
       }
     }
     this.ideaDTO = {
+      language: this.selectedLanguage,
       ideaName: this.inputValue,
       specialty: this.selectedSpecialtyValue,
 
@@ -469,6 +481,9 @@ export class IdeaRegisterComponent implements OnInit {
   validateTemplate() {
     let now = new Date();
     now.setHours(0, 0, 0, 0);
+    if (!this.selectedLanguage) {
+      this.isLangTouched = true;
+    }
     if (
       this.inputValue === undefined ||
       this.inputValue === null ||
@@ -537,7 +552,7 @@ export class IdeaRegisterComponent implements OnInit {
     ) {
       this.isEffectivenesTouched = true;
     }
-   
+
   }
   validate() {
     let now = new Date();
@@ -610,7 +625,7 @@ export class IdeaRegisterComponent implements OnInit {
       this.validateTemplate();
       return false;
     }
-    if ((this.selectedStartDate < now || this.selectedEndDate < now) && (this.selectedEndDate !== null && this.selectedEndDate !== undefined )) {
+    if ((this.selectedStartDate < now || this.selectedEndDate < now) && (this.selectedEndDate !== null && this.selectedEndDate !== undefined)) {
       const modalRef = this.modalService.open(MessagePopupComponent, {
         size: "sm",
         backdrop: "static",
@@ -680,6 +695,24 @@ export class IdeaRegisterComponent implements OnInit {
       );
       modalRef.componentInstance.message = this.translateService.instant(
         `ADD-INSIDE-IDEA.VALIDATE.SPECIALTY`
+      );
+      modalRef.componentInstance.closeIcon = false;
+      this.validateTemplate();
+      return false;
+    }
+    if (!this.selectedLanguage) {
+      const modalRef = this.modalService.open(MessagePopupComponent, {
+        size: "sm",
+        backdrop: "static",
+        keyboard: false,
+        centered: true,
+      });
+      modalRef.componentInstance.type = "fail";
+      modalRef.componentInstance.title = this.translateService.instant(
+        `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+      );
+      modalRef.componentInstance.message = this.translateService.instant(
+        `ADD-INSIDE-IDEA.VALIDATE.EMPTY_LANG`
       );
       modalRef.componentInstance.closeIcon = false;
       this.validateTemplate();
@@ -825,7 +858,7 @@ export class IdeaRegisterComponent implements OnInit {
         "Accept-Language": this.lang,
         Authorization: `Bearer ` + this.token,
       });
-      
+
 
       const requestBody = {
         ideaDTO: this.ideaDTO,
@@ -842,7 +875,7 @@ export class IdeaRegisterComponent implements OnInit {
         (response) => {
           if (response.errorCode == 0) {
             this.router.navigate(["/idea"]);
-        
+
           } else {
             const modalRef = this.modalService.open(MessagePopupComponent, {
               size: "sm",
@@ -935,6 +968,7 @@ export class IdeaRegisterComponent implements OnInit {
 
       this.getIdeaDTO();
       const requestBody = {
+
         ideaDTO: { ...this.ideaDTO },
         lstContributorDTO:
           this.DataService.lstContributorDTOServiceOut.value.concat(
@@ -946,32 +980,58 @@ export class IdeaRegisterComponent implements OnInit {
         },
       };
 
-      return this.http.post<any>(url, requestBody, { headers }).subscribe(
-        (response) => {
-          if (response.errorCode == 0) {
-            this.DataService.ideaDTO.next(this.ideaDTO);
-            this.DataService.isFromAdd = true;
-            this.router.navigate(["idea/check-duplicate-idea"]);
-          } else {
-            const modalRef = this.modalService.open(MessagePopupComponent, {
-              size: "sm",
-              backdrop: "static",
-              keyboard: false,
-              centered: true,
-            });
-            modalRef.componentInstance.type = "fail";
-            modalRef.componentInstance.title = this.translateService.instant(
-              `ADD-INSIDE-IDEA.VALIDATE.ERROR`
-            );
-            modalRef.componentInstance.message =
-              modalRef.componentInstance.message = response.description;
-            modalRef.componentInstance.closeIcon = false;
-          }
-        },
-        (error) => {
-          console.error(error.data);
-        }
+      const modalRefSuccess = this.modalService.open(MessagePopupComponent, {
+        size: "sm",
+        backdrop: "static",
+        keyboard: false,
+        centered: true,
+      });
+      modalRefSuccess.componentInstance.type = "confirm";
+      modalRefSuccess.componentInstance.title = this.translateService.instant(
+        `ADD-INSIDE-IDEA.CONFIRM.CONFIRM`
       );
+      if (this.selectedLanguage == 'vi') {
+        modalRefSuccess.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.ENSURE_VI`);
+      } else if (this.selectedLanguage === 'la') {
+        modalRefSuccess.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.ENSURE_LA`);
+      } else if (this.selectedLanguage === 'en') {
+        modalRefSuccess.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.ENSURE_EN`);
+      } else {
+        modalRefSuccess.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.INVALID_LANGUAGE`);
+      }
+  
+      modalRefSuccess.componentInstance.closeIcon = false;
+      modalRefSuccess.componentInstance.next.subscribe((result: any) => {
+        if (result === true) {
+          return this.http.post<any>(url, requestBody, { headers }).subscribe(
+            (response) => {
+              if (response.errorCode == 0) {
+                this.DataService.ideaDTO.next(this.ideaDTO);
+                this.DataService.isFromAdd = true;
+                this.router.navigate(["idea/check-duplicate-idea"]);
+              } else {
+                const modalRef = this.modalService.open(MessagePopupComponent, {
+                  size: "sm",
+                  backdrop: "static",
+                  keyboard: false,
+                  centered: true,
+                });
+                modalRef.componentInstance.type = "fail";
+                modalRef.componentInstance.title = this.translateService.instant(
+                  `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+                );
+                modalRef.componentInstance.message =
+                  modalRef.componentInstance.message = response.description;
+                modalRef.componentInstance.closeIcon = false;
+              }
+            },
+            (error) => {
+              console.error(error.data);
+            }
+          );
+        } else {
+        }
+      });
     }
   }
 }

@@ -82,6 +82,7 @@ export class IdeaListComponent implements OnInit {
   handleCreate() {
     const reset = null;
     this.DataService.ideaName2.next(reset);
+    this.DataService.selectedLanguage.next(reset);
     this.DataService.selectedUnitValue.next(reset);
     this.DataService.selectedSpecialtyValue.next(reset);
     this.DataService.selectedStartDate.next(reset);

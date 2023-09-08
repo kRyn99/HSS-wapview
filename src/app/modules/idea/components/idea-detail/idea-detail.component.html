@@ -290,7 +290,7 @@
     ><b>{{ documentDTO?.name ? documentDTO?.name : ('CONTRIVANCE.DETAIL.DOCUMENTS_NOT_EXIST' | translate) }}</b></span
   >
 </div>
-<div *ngIf="documentDTO?.name != ''" (click)="handleFileDownload()" class="file">
+<div *ngIf="documentDTO != null &&  documentDTO?.name != ''" (click)="handleFileDownload()" class="file">
   <div class="upload-file">
     <img src="assets/img/icon/download.svg" alt="ic_camera" />
     <div class="upload-label">

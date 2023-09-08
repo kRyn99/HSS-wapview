@@ -167,8 +167,7 @@ export class AddInsideAuthorComponent implements OnInit {
       email: this.selectedStaffCodeSubject.value?.email,
       jobPosition: this.selectedStaffCodeSubject.value?.jobPosition,
       jobAddress: this.selectedStaffCodeSubject.value?.jobAddress,
-      professionalQualification:
-        this.selectedStaffCodeSubject.value?.professionalQualification,
+
     };
 
     if (this.backRoute == "contrivance") {

@@ -186,6 +186,7 @@ export class IdeaDetailComponent implements OnInit {
   goToEdit() {
     this.DataService.backFromEdit = false;
     this.DataService.ideaName2.next(null);
+    this.DataService.selectedLanguage.next(null);
     this.DataService.selectedStartDate.next(null);
     this.DataService.selectedUnitValueEdit.next(null);
     this.DataService.selectedSpecialtyValueEdit.next(null);
