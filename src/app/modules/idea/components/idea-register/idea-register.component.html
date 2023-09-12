@@ -34,9 +34,9 @@
     >)</div>
     <select class="input-field" [(ngModel)]="selectedLanguage" (change)="onLanguageChange()">
       <option [ngValue]="null">{{"ADD-INSIDE-IDEA.LANGUAGE.SELECTED_LANGUAGE" | translate }}</option>
-      <option value="vi">{{"ADD-INSIDE-IDEA.LANGUAGE.VI" | translate }}</option>
-      <option value="la">{{"ADD-INSIDE-IDEA.LANGUAGE.LA" | translate }}</option>
-      <option value="en">{{"ADD-INSIDE-IDEA.LANGUAGE.EN" | translate }}</option>
+      <option value="VI">{{"ADD-INSIDE-IDEA.LANGUAGE.VI" | translate }}</option>
+      <option value="LA">{{"ADD-INSIDE-IDEA.LANGUAGE.LA" | translate }}</option>
+      <option value="EN">{{"ADD-INSIDE-IDEA.LANGUAGE.EN" | translate }}</option>
     </select>
     <div class="form-text text-danger" *ngIf="isLangTouched && !selectedLanguage">
       {{ "ADD-INSIDE-IDEA.VALIDATE.EMPTY_LANG" | translate }}

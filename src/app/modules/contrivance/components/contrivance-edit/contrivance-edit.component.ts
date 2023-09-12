@@ -15,6 +15,7 @@ import { Subject, Subscription, BehaviorSubject } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { MessagePopupComponent } from '@app/modules/common-items/components/message-popup/message-popup.component';
 import { TranslateService } from '@ngx-translate/core';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-contrivance-edit',
@@ -60,8 +61,8 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy{
   fileInfo = { url: "", name: "" };
   listUnitData: UnitDTO[] = [];
   unitName: string = "";
-  startDateModel = new Date();
-  endDateModel = new Date();
+  // startDateModel =new Date();
+  // endDateModel :Date;
   userName: string = "";
   listSelect: any;
   modelChangedIn = new Subject<string>();
@@ -89,7 +90,8 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy{
     private fb: FormBuilder,
     private translateService: TranslateService,
     public modalService: NgbModal,
-    public formUtils: CommonFormUtils
+    public formUtils: CommonFormUtils,
+    private datePipe: DatePipe
   ) {}
 
   ngOnInit() {
@@ -174,10 +176,17 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy{
   }
 
   loadAddForm() {
-    this.startDateModel.setHours(0, 0, 0, 0);
-    this.endDateModel.setHours(0, 0, 0, 0);
+    // if(this.startDateModel){
+    //   this.startDateModel.setHours(0, 0, 0, 0);
+    // }
+    // if(this.endDateModel){
+    //   this.endDateModel.setHours(0, 0, 0, 0);
+    // }
+    // this.startDateModel.setHours(0, 0, 0, 0);
+    // this.endDateModel.setHours(0, 0, 0, 0);
     if (this.contrivanceService.contrivancesDTO.value) {
       let contrivancesDTO = this.contrivanceService.contrivancesDTO.value;
+     
       this.formUtils.setForm(
         this.fb.group({
           language: [contrivancesDTO.language, Validators.required],
@@ -185,8 +194,8 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy{
           currentStatus: [contrivancesDTO.currentStatus, Validators.required],
           content: [contrivancesDTO.content, Validators.required],
           applianceCondition: [contrivancesDTO.applianceCondition, Validators.required],
-          applyStartTime: [contrivancesDTO.applyStartTime, Validators.required],
-          applyEndTime: [contrivancesDTO.applyEndTime],
+          applyStartTime: [new Date(contrivancesDTO.applyStartDate), Validators.required],
+          applyEndTime: [new Date(contrivancesDTO.applyEndDate)],
           effectiveness: [contrivancesDTO.effectiveness, Validators.required],
           creativePoint: [contrivancesDTO.creativePoint, Validators.required],
           specialty: [contrivancesDTO.specialty, Validators.required],
@@ -205,8 +214,8 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy{
           currentStatus: ["", Validators.required],
           content: ["", Validators.required],
           applianceCondition: ["", Validators.required],
-          applyStartTime: [this.startDateModel, Validators.required],
-          applyEndTime: [this.endDateModel],
+          applyStartTime: [new Date().setHours(0, 0, 0, 0), Validators.required],
+          applyEndTime: [new Date().setHours(0, 0, 0, 0)],
           effectiveness: ["", Validators.required],
           creativePoint: ["", Validators.required],
           specialty: [null, Validators.required],
@@ -371,11 +380,11 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy{
       `ADD-INSIDE-IDEA.CONFIRM.CONFIRM`
     );
 
-    if (this.contrivancesDTO.language == 'vi') {
+    if (this.contrivancesDTO.language == 'VI') {
       modalRefSuccess.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.ENSURE_VI_CON`);
-    } else if (this.contrivancesDTO.language === 'la') {
+    } else if (this.contrivancesDTO.language === 'LA') {
       modalRefSuccess.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.ENSURE_LA_CON`);
-    } else if (this.contrivancesDTO.language === 'en') {
+    } else if (this.contrivancesDTO.language === 'EN') {
       modalRefSuccess.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.ENSURE_EN_CON`);
     } else {
       modalRefSuccess.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.INVALID_LANGUAGE`);
