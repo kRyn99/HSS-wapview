@@ -39,13 +39,13 @@
         <option [ngValue]="null">
           {{ "ADD-INSIDE-IDEA.LANGUAGE.SELECTED_LANGUAGE" | translate }}
         </option>
-        <option value="vi">
+        <option value="VI">
           {{ "ADD-INSIDE-IDEA.LANGUAGE.VI" | translate }}
         </option>
-        <option value="la">
+        <option value="LA">
           {{ "ADD-INSIDE-IDEA.LANGUAGE.LA" | translate }}
         </option>
-        <option value="en">
+        <option value="EN">
           {{ "ADD-INSIDE-IDEA.LANGUAGE.EN" | translate }}
         </option>
       </select>
@@ -111,7 +111,7 @@
           bsDatepicker
           autocomplete="off"
           formControlName="applyStartTime"
-          [ngModel]="startDateModel"
+
           (ngModelChange)="formUtils.isControlInvalidDateRange('start', 'applyStartTime', 'applyEndTime', 'Date', 'before')"
         />
         <img src="assets/img/icon/calendar.svg" style="padding: 10px" />
@@ -176,7 +176,7 @@
           bsDatepicker
           autocomplete="off"
           formControlName="applyEndTime"
-          [ngModel]="endDateModel"
+
           (ngModelChange)="formUtils.isControlInvalidDateRange('end', 'applyStartTime', 'applyEndTime', 'Date', 'before')"
         />
         <img src="assets/img/icon/calendar.svg" style="padding: 10px" />

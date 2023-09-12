@@ -31,6 +31,7 @@ import { DirectivesModule } from '@app/shared/directive/directives.module';
 import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CheckDuplicateComponent } from './components/check-duplicate/check-duplicate.component';
 import { CRUDTableModule } from '@app/shared/crud-table';
+import { DatePipe } from '@angular/common';
 @NgModule({
     imports: [
         CommonModule,
@@ -64,7 +65,11 @@ import { CRUDTableModule } from '@app/shared/crud-table';
         ContrivanceEditComponent,
         ContrivanceRegisterComponent,
         CheckDuplicateComponent
-    ]
+    ],
+    providers: [
+        DatePipe, // Thêm DatePipe vào danh sách providers
+        // ...
+      ],
 })
 export class ContrivanceModule{
 }
