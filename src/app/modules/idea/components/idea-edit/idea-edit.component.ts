@@ -932,11 +932,11 @@ export class IdeaEditComponent implements OnInit {
       modalRefSuccess.componentInstance.title = this.translateService.instant(
         `ADD-INSIDE-IDEA.CONFIRM.CONFIRM`
       );
-      if (this.selectedLanguage == 'vi') {
+      if (this.selectedLanguage == 'VI') {
         modalRefSuccess.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.ENSURE_VI`);
-      } else if (this.selectedLanguage === 'la') {
+      } else if (this.selectedLanguage === 'LA') {
         modalRefSuccess.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.ENSURE_LA`);
-      } else if (this.selectedLanguage === 'en') {
+      } else if (this.selectedLanguage === 'EN') {
         modalRefSuccess.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.ENSURE_EN`);
       } else {
         modalRefSuccess.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.INVALID_LANGUAGE`);
