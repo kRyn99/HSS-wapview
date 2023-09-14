@@ -226,7 +226,6 @@ export class ContrivanceDetailComponent implements OnInit, OnDestroy {
     );
     modalRefSuccess.componentInstance.message = this.translateService.instant(
       "CONTRIVANCE_MAMAGEMENT.LABEL.CF_APPROVE_CONTRIVANCE",
-      { name: this.contrivanceData?.contrivanceName }
     );
     modalRefSuccess.componentInstance.closeIcon = false;
     modalRefSuccess.componentInstance.next.subscribe((result: any) => {
