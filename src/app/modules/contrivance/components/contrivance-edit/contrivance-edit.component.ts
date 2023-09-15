@@ -130,6 +130,7 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy{
       .subscribe(
         (response) => {
           this.listUnit = response.data;
+          this.selectAllForDropdownItems(this.listUnit);
           let listIdSelect = this.selectedUnitValue?.map((item) => item.unitId);
           this.listUnit.forEach((item: any) => {
             if (listIdSelect?.includes(item.unitId)) {
@@ -144,7 +145,15 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy{
         }
       );
   }
+  selectAllForDropdownItems(items: any[]) {
+    let allSelect = items => {
+      items.forEach(element => {
+        element['selectedAllGroup'] = 'selectedAllGroup';
+      });
+    };
 
+    allSelect(items);
+  }
   listSpecialty: any[] = [];
   getListSpecialty() {
     const requestBody = {};
