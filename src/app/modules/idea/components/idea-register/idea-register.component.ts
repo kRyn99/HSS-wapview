@@ -102,6 +102,8 @@ export class IdeaRegisterComponent implements OnInit {
     return typeof element == "string";
   }
   ngOnInit() {
+    console.log(this.selectedUnit);
+
     this.getListUnit();
     this.dataSource = new MatTableDataSource(
       this.DataService.lstContributorDTOService.value
@@ -111,12 +113,17 @@ export class IdeaRegisterComponent implements OnInit {
     );
 
     this.inputValue = this.DataService.ideaName2.value;
-    this.selectedLanguage=this.DataService.selectedLanguage.value;
-   
-    
+    this.selectedLanguage = this.DataService.selectedLanguage.value;
+
+
     // this.selectedUnitValue = this.DataService.selectedUnitValue.value;
     this.DataService.selectedUnitValue.subscribe((value) => {
       this.selectedUnitValue = value;
+    });
+    this.DataService.selectedUnit.subscribe((value) => {
+      this.selectedUnit = value;
+      console.log(this.selectedUnit);
+      
     });
 
     console.log(this.DataService.lstContributorDTOServiceOut.value);
@@ -150,43 +157,44 @@ export class IdeaRegisterComponent implements OnInit {
     this.isLangTouched = true;
     this.DataService.selectedLanguage.next(this.selectedLanguage);
     console.log(this.DataService.selectedLanguage.value);
-    
+
   }
   toggleDropdown() {
     this.DataService.showDropdown = !this.DataService.showDropdown;
   }
   // selectedItems: any[] = [];
-  onCheckboxChange(item: any) {
-    if (item) {
-      if (item.selected) {
-        if (!this.selectedUnitValue) {
-          this.selectedUnitValue = []; // Khởi tạo mảng nếu chưa tồn tại
-        }
-        this.selectedUnitValue.push(item);
-        // this.DataService.selectedItems.push(item.unitName);
-      } else {
-        // this.DataService.setItemSelection(item.unitId, item.selected);
-        let tempListUnit = this.selectedUnitValue;
-        tempListUnit.forEach((unit, index) => {
-          if (unit.unitId == item.unitId) {
-            tempListUnit.splice(index, 1);
-          }
-        });
-        this.selectedUnitValue = tempListUnit;
-        // const index = this.selectedUnitValue?.indexOf(item);
-        // if (index !== undefined && index !== -1) {
-        //     this.selectedUnitValue.splice(index, 1);
-        //     this.DataService.selectedItems.splice(index, 1);
-        //     // this.DataService.selectedItems.push(item.unitName);
-        // }
-      }
-    }
-    // if (item) {
+  // onCheckboxChange(item: any) {
 
-    // }
-    this.DataService.selectedUnitValue.next(this.selectedUnitValue);
+  //   if (item) {
+  //     if (item.selected) {
+  //       if (!this.selectedUnitValue) {
+  //         this.selectedUnitValue = []; // Khởi tạo mảng nếu chưa tồn tại
+  //       }
+  //       this.selectedUnitValue.push(item);
+  //       // this.DataService.selectedItems.push(item.unitName);
+  //     } else {
+  //       // this.DataService.setItemSelection(item.unitId, item.selected);
+  //       let tempListUnit = this.selectedUnitValue;
+  //       tempListUnit.forEach((unit, index) => {
+  //         if (unit.unitId == item.unitId) {
+  //           tempListUnit.splice(index, 1);
+  //         }
+  //       });
+  //       this.selectedUnitValue = tempListUnit;
+  //       // const index = this.selectedUnitValue?.indexOf(item);
+  //       // if (index !== undefined && index !== -1) {
+  //       //     this.selectedUnitValue.splice(index, 1);
+  //       //     this.DataService.selectedItems.splice(index, 1);
+  //       //     // this.DataService.selectedItems.push(item.unitName);
+  //       // }
+  //     }
+  //   }
+  //   // if (item) {
 
-  }
+  //   // }
+  //   this.DataService.selectedUnitValue.next(this.selectedUnitValue);
+
+  // }
 
   //   onSelectUnitChange() {
   //     // Xử lý khi lựa chọn các đơn vị áp dụng
@@ -196,6 +204,7 @@ export class IdeaRegisterComponent implements OnInit {
 
   listUnit: [];
   unitFieldTouched: boolean = false;
+  selectedUnit;;
   getListUnit() {
     const url = `${environment.API_HOST_NAME}/api/get-list-unit`;
     const headers = new HttpHeaders({
@@ -208,7 +217,8 @@ export class IdeaRegisterComponent implements OnInit {
     return this.http.post<any>(url, requestBody, { headers }).subscribe(
       (response) => {
         this.listUnit = response.data;
-
+        console.log(this.listUnit);
+        this.selectAllForDropdownItems(this.listUnit);
         let listIdSelect = this.selectedUnitValue?.map((item) => item.unitId);
         this.listUnit.forEach((item: any) => {
           if (listIdSelect?.includes(item.unitId)) {
@@ -232,6 +242,21 @@ export class IdeaRegisterComponent implements OnInit {
         console.error(error.description);
       }
     );
+  }
+  selectAllForDropdownItems(items: any[]) {
+    let allSelect = items => {
+      items.forEach(element => {
+        element['selectedAllGroup'] = 'selectedAllGroup';
+      });
+    };
+
+    allSelect(items);
+  }
+  onNgSelectChange(item) {
+    this.unitFieldTouched=true;
+    this.selectedUnitValue = [...item]
+    this.DataService.selectedUnit.next(this.selectedUnit);
+    this.DataService.selectedUnitValue.next(this.selectedUnitValue);
   }
   loadingUnits: boolean = false;
 
@@ -278,10 +303,10 @@ export class IdeaRegisterComponent implements OnInit {
     this.DataService.ideaName2.next(this.inputValue);
   }
 
-  onSelectUnitChange() {
-    this.DataService.selectedUnitValue.next(this.selectedUnitValue);
+  // onSelectUnitChange() {
+  //   this.DataService.selectedUnitValue.next(this.selectedUnitValue);
 
-  }
+  // }
   specialtyTouched = false;
   onSelectSpecialtyChange() {
     this.DataService.selectedSpecialtyValue.next(this.selectedSpecialtyValue);
@@ -430,6 +455,7 @@ export class IdeaRegisterComponent implements OnInit {
   }
 
   AddInsideAuthor() {
+
     this.router.navigate(["author/add-inside"], {
       queryParams: { for: "idea" },
     });
@@ -512,7 +538,7 @@ export class IdeaRegisterComponent implements OnInit {
     }
     if (
       this.selectedUnitValue === undefined ||
-      this.selectedUnitValue === null ||
+      this.selectedUnitValue === null||
       this.selectedUnitValue.length === 0
     ) {
       this.unitFieldTouched = true;
@@ -999,7 +1025,7 @@ export class IdeaRegisterComponent implements OnInit {
       } else {
         modalRefSuccess.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.INVALID_LANGUAGE`);
       }
-  
+
       modalRefSuccess.componentInstance.closeIcon = false;
       modalRefSuccess.componentInstance.next.subscribe((result: any) => {
         if (result === true) {

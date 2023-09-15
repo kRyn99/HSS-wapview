@@ -14,6 +14,7 @@ export class DataService {
   ideaDTOEdit = new BehaviorSubject<any>(null);
   public lstContributorDTO= new BehaviorSubject<any>(null);
   selectedUnitValue: BehaviorSubject<any> = new BehaviorSubject([]);
+  selectedUnit: BehaviorSubject<any> = new BehaviorSubject([]);
   selectedUnitValueEdit: BehaviorSubject<any> = new BehaviorSubject([]);
   selectedSpecialtyValue= new BehaviorSubject<any>(null);
   selectedSpecialtyValueEdit= new BehaviorSubject<any>(null);
@@ -71,14 +72,14 @@ export class DataService {
     return this.isFromAdd;
   }
 
-  public selectedUnit = new BehaviorSubject<any>(null);
-  setselectedUnit(code: any) {
-    this.selectedUnit.next(code);
-  }
+  // public selectedUnit = new BehaviorSubject<any>(null);
+  // setselectedUnit(code: any) {
+  //   this.selectedUnit.next(code);
+  // }
 
-  getselectedUnit() {
-    return this.selectedUnit.asObservable();
-  }
+  // getselectedUnit() {
+  //   return this.selectedUnit.asObservable();
+  // }
 
  
   messageSource = new BehaviorSubject<any>('default message');
@@ -100,4 +101,22 @@ export class DataService {
   //   this.selectedItems.set(itemId, selected);
   // }
   public selectedStaffCodeSubject = new BehaviorSubject<any>(null);
+  selectedUnits: any[] = [];
+
+  addUnit(unit: any) {
+    this.selectedUnits.push(unit);
+  }
+
+  removeUnit(unit: any) {
+    const index = this.selectedUnits.indexOf(unit);
+    if (index !== -1) {
+      this.selectedUnits.splice(index, 1);
+    }
+  }
+  setSelectedUnits(units: any[]) { // Đảm bảo tên phương thức là "setSelectedUnits"
+    this.selectedUnits = units;
+  }
+  getSelectedUnits() {
+    return this.selectedUnits;
+  }
 }

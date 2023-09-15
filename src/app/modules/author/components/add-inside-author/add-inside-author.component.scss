@@ -1,3 +1,6 @@
+:root {
+  --top: 29% !important;; /* Đặt giá trị nền màu đỏ làm ví dụ */
+}
 .body {
   display: flex;
   padding: 5px 20px;
@@ -87,6 +90,9 @@
 // }
 
 
-::ng-deep .ng-dropdown-panel {
+// ::ng-deep .ng-dropdown-panel {
+//   top: 29% !important;
+// }
+::ng-deep ng-dropdown-panel.custom-class-aia {
   top: 29% !important;
 }
