@@ -31,6 +31,7 @@ import { EditInsideEditComponent } from './components/edit-inside-edit/edit-insi
 import { EditOutsideEditComponent } from './components/edit-outside-edit/edit-outside-edit.component';
 import { AddInsideEditComponent } from './components/add-inside-edit/add-inside-edit.component';
 import { AddOutsideEditComponent } from './components/add-outside-edit/add-outside-edit.component';
+import { ChangeDomDirective } from './components/change-dom.directive';
 
 
 @NgModule({
@@ -66,7 +67,8 @@ import { AddOutsideEditComponent } from './components/add-outside-edit/add-outsi
         EditInsideEditComponent,
         EditOutsideEditComponent,
         AddInsideEditComponent,
-        AddOutsideEditComponent
+        AddOutsideEditComponent,
+        ChangeDomDirective
     ]
 })
 export class AuthorModule{

@@ -46,7 +46,7 @@ export class CheckDuplicateComponent implements OnInit {
   contrivanceId = JSON.parse(
     localStorage.getItem("contrivanceIdInLocalStorage")
   );
-  
+
   constructor(
     public contrivanceService: ContrivanceService,
     private router: Router,
@@ -55,7 +55,7 @@ export class CheckDuplicateComponent implements OnInit {
     private notificationService: NotificationService,
   ) {
   }
-  
+
   ngOnInit() {
     if (this.contrivanceService.contrivancesDTO.value == null) {
       this.notificationService.notify("fail", "CONTRIVANCE_MAMAGEMENT.LABEL.ACTION_CORRUPTED");
@@ -64,7 +64,7 @@ export class CheckDuplicateComponent implements OnInit {
     this.isFromAdd = this.contrivanceService.isFromAdd;
     this.checkDuplicate();
   }
-  
+
   checkDuplicate() {
     if (this.contrivanceService.contrivancesDTO.value) {
       let requestBody = {
@@ -77,14 +77,14 @@ export class CheckDuplicateComponent implements OnInit {
       this.contrivanceService.callApiCommon("check-duplicate-contrivance", requestBody).subscribe(
         (res) => {
           if (res.errorCode == "0" || res.errorCode == "200") {
-            let data = res.data.map((item) => ({...item, isCollapsed: true}));
+            let data = res.data.map((item) => ({ ...item, isCollapsed: true }));
             //Pagination
             this.listContrivanceFull = data;
             this.recordTotal = data.length;
             this.paginator.total = this.recordTotal;
             this.paginator.page = 1;
             this.handlePaginatorChange();
-    
+
           } else {
             this.notificationService.notify("fail", res.description);
           }
@@ -148,8 +148,17 @@ export class CheckDuplicateComponent implements OnInit {
             name: fileName,
           },
         };
+        if (typeof requestBody.contrivancesDTO.applyStartTime !== 'string') {
+          const dateObject = new Date(requestBody.contrivancesDTO.applyStartTime);
+          const day = dateObject.getDate();
+          const month = dateObject.getMonth() + 1;
+          const year = dateObject.getFullYear();
+          const formattedDate = `${day}/${month}/${year}`;
+          requestBody.contrivancesDTO.applyStartTime = formattedDate;
+        }
         requestBody.contrivancesDTO.checkBonus = requestBody.contrivancesDTO.checkBonus ? 0 : 1;
-        requestBody.contrivancesDTO.applyStartTime =  moment(requestBody.contrivancesDTO.applyStartTime).format("DD/MM/YYYY");
+        // requestBody.contrivancesDTO.applyStartTime =  moment(requestBody.contrivancesDTO.applyStartTime).format("DD/MM/YYYY");
+     
         requestBody.contrivancesDTO.applyEndTime = !requestBody.contrivancesDTO.applyEndTime ? null : moment(requestBody.contrivancesDTO.applyEndTime).format("DD/MM/YYYY");
         this.contrivanceService.callApiCommon(this.isFromAdd ? "create-contrivance" : "update-contrivance", requestBody).subscribe(
           (response) => {

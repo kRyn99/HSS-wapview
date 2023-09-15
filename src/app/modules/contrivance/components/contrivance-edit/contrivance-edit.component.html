@@ -130,7 +130,7 @@
       </small>
       <small
         class="form-text text-danger"
-        *ngIf="formUtils.controlHasError('invalid', 'applyStartTime')"
+        *ngIf="formUtils.controlHasError('invalid', 'applyStartTime') "
       >
         {{
           "VALIDATION.INVALID_FIELD"
@@ -181,18 +181,7 @@
         />
         <img src="assets/img/icon/calendar.svg" style="padding: 10px" />
       </div>
-      <small
-        class="form-text text-danger"
-        *ngIf="formUtils.controlHasError('required', 'applyEndTime')"
-      >
-        {{
-          "VALIDATION.REQUIRED"
-            | translate
-              : {
-                  name: "IDEA_MANAGEMENT.LABEL.DATE_APPLY_TO" | translate
-                }
-        }}
-      </small>
+    
       <small
         class="form-text text-danger"
         *ngIf="formUtils.controlHasError('invalid', 'applyEndTime')"
@@ -224,59 +213,44 @@
         }}
       </small>
     </div>
+  
     <div class="input-form">
       <div class="input-name">
-        {{ "MANAGE_REQ.LABEL.UNIT_APPLY" | translate }} (<span
-          class="required-mark"
+        {{ "IDEA_MANAGEMENT.LABEL.UNIT_APPLY" | translate }} (<span
+          style="color: red"
           >*</span
         >)
       </div>
-      <div style="width: 100%" class="dropdown">
-        <button
-          style="text-align: start"
-          class="input-field btn-unit"
-          (click)="toggleDropdown()"
-        >
-          <ng-container
-            *ngIf="selectedUnitValue?.length > 0; else showDefaultText"
-          >
-            <span
-              style="font-size: 16px"
-              *ngFor="let selectedItem of selectedUnitValue; let last = last"
-            >
-              {{ selectedItem.unitName }}{{ !last ? ", " : "" }}
-            </span>
-          </ng-container>
-          <ng-template #showDefaultText>
-            {{ "IDEA_MANAGEMENT.PLACEHOLDER.SELECT_UNIT" | translate }}
-          </ng-template>
-        </button>
-        <div class="dropdown-content" *ngIf="contrivanceService.showDropdown">
-          <ng-container *ngFor="let item of listUnit">
-            <label>
-              <input
-                type="checkbox"
-                (change)="onCheckboxChange(item, $event)"
-                [checked]="item.selected"
-                />
-                <!-- [(ngModel)]="item.selected" -->
-              {{ item.unitName }}
-            </label>
-          </ng-container>
-        </div>
-      </div>
-      <small
-        class="form-text text-danger"
-        *ngIf="formUtils.controlHasError('required', 'listUnitDTO')"
+      <ng-select
+      style="width: 100%;"
+      [items]="listUnit"
+      [multiple]="true"
+      bindLabel="unitName"
+      groupBy="selectedAllGroup"      
+      [selectableGroup]="true"
+      [selectableGroupAsModel]="false"
+      [closeOnSelect]="false"
+      bindValue="unitId"
+      formControlName="listUnitDTO"
+      (change)="onNgSelectChange($event)"
+    
+    >
+      <ng-template
+        ng-optgroup-tmp
+        let-item="item"
+        let-item$="item$"
+        let-index="index"
       >
-        {{
-          "VALIDATION.REQUIRED"
-            | translate
-              : {
-                  name: "MANAGE_REQ.LABEL.UNIT_APPLY" | translate
-                }
-        }}
-      </small>
+        <input id="item-{{ index }}" type="checkbox" [checked]="item$.selected"/>
+        Select All
+      </ng-template>
+    
+      <ng-template ng-option-tmp let-item="item" let-item$="item$">
+        <input id="item-{{ index }}" type="checkbox" [checked]="item$.selected" />
+        {{ item.unitName }}
+      </ng-template>
+    </ng-select>
+   
     </div>
     <div class="input-form">
       <div class="input-name">

@@ -23,6 +23,7 @@ import { CRUDTableModule } from "../../shared/crud-table/crud-table.module";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { NgbModalModule, NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { DatePipe } from '@angular/common';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { DatePipe } from '@angular/common';
     CheckDuplicateComponentIdea,
   ],
   imports: [
+    NgSelectModule,
     CommonModule,
     CommonItemsModule,
     IdeaRoutingModule,

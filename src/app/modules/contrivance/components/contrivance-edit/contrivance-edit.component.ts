@@ -1,9 +1,9 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {animate, state, style, transition, trigger} from '@angular/animations';
-import {BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
-import {PeriodicElement} from '@app/modules/idea/PeriodicElement';
-import {Router} from '@angular/router';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
+import { PeriodicElement } from '@app/modules/idea/PeriodicElement';
+import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { UnitDTO } from '@app/shared/model/unit.model';
@@ -23,14 +23,14 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./contrivance-edit.component.scss'],
   animations: [
     trigger('detailExpand', [
-      state('collapsed', style({height: '0px', minHeight: '0'})),
-      state('expanded', style({height: '*'})),
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],
 
 })
-export class ContrivanceEditComponent implements OnInit, OnDestroy{
+export class ContrivanceEditComponent implements OnInit, OnDestroy {
   bsConfig: Partial<BsDatepickerConfig> = {
     isAnimated: true,
     dateInputFormat: "DD/MM/YYYY",
@@ -92,7 +92,7 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy{
     public modalService: NgbModal,
     public formUtils: CommonFormUtils,
     private datePipe: DatePipe
-  ) {}
+  ) { }
 
   ngOnInit() {
     if (this.contrivanceService.contrivancesDTO.value == null) {
@@ -130,6 +130,7 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy{
       .subscribe(
         (response) => {
           this.listUnit = response.data;
+          this.selectAllForDropdownItems(this.listUnit);
           let listIdSelect = this.selectedUnitValue?.map((item) => item.unitId);
           this.listUnit.forEach((item: any) => {
             if (listIdSelect?.includes(item.unitId)) {
@@ -144,7 +145,15 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy{
         }
       );
   }
+  selectAllForDropdownItems(items: any[]) {
+    let allSelect = items => {
+      items.forEach(element => {
+        element['selectedAllGroup'] = 'selectedAllGroup';
+      });
+    };
 
+    allSelect(items);
+  }
   listSpecialty: any[] = [];
   getListSpecialty() {
     const requestBody = {};
@@ -186,7 +195,16 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy{
     // this.endDateModel.setHours(0, 0, 0, 0);
     if (this.contrivanceService.contrivancesDTO.value) {
       let contrivancesDTO = this.contrivanceService.contrivancesDTO.value;
-     
+      const unit = []
+      for (let i = 0; i < this.contrivanceService.contrivancesDTO.value.listUnitDTO.length; i++) {
+        unit.push(this.contrivanceService.contrivancesDTO.value.listUnitDTO[i].unitId);
+      }
+      this.selectedUnit = [...unit]
+      this.contrivanceService.selectedUnit.next(this.selectedUnit);
+      console.log(this.selectedUnit);
+
+      //  console.log(this.contrivanceService.contrivancesDTO.value.listUnitDTO);
+
       this.formUtils.setForm(
         this.fb.group({
           language: [contrivancesDTO.language, Validators.required],
@@ -194,8 +212,8 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy{
           currentStatus: [contrivancesDTO.currentStatus, Validators.required],
           content: [contrivancesDTO.content, Validators.required],
           applianceCondition: [contrivancesDTO.applianceCondition, Validators.required],
-          applyStartTime: [new Date(contrivancesDTO.applyStartDate), Validators.required],
-          applyEndTime: [new Date(contrivancesDTO.applyEndDate)],
+          applyStartTime: [contrivancesDTO.applyStartTime, Validators.required],
+          applyEndTime: [contrivancesDTO.applyEndTime],
           effectiveness: [contrivancesDTO.effectiveness, Validators.required],
           creativePoint: [contrivancesDTO.creativePoint, Validators.required],
           specialty: [contrivancesDTO.specialty, Validators.required],
@@ -203,7 +221,7 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy{
           checkBonus: [contrivancesDTO.checkBonus],
           effectiveValue: [contrivancesDTO.effectiveValue, Validators.required],
           bonus: [contrivancesDTO.bonus, Validators.required],
-          listUnitDTO: [contrivancesDTO.listUnitDTO, Validators.required],
+          listUnitDTO: [this.contrivanceService.selectedUnit.value, Validators.required],
         })
       );
     } else {
@@ -231,7 +249,20 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy{
       this.changeCheckBonus(true);
     }
   }
+  selectedUnit;
+  onNgSelectChange(item) {
+    this.selectedUnitValue = [...item]
+    console.log(this.selectedUnitValue);
 
+    const unit = []
+    for (let i = 0; i < this.selectedUnitValue.length; i++) {
+      unit.push(this.selectedUnitValue[i].unitId);
+    }
+    this.selectedUnit = [...unit]
+    this.contrivanceService.selectedUnit.next(this.selectedUnit);
+    this.formUtils.control("listUnitDTO").setValue(this.selectedUnit);
+    this.contrivanceService.selectedUnitValue.next(this.selectedUnitValue);
+  }
   toggleDropdown() {
     this.contrivanceService.showDropdown =
       !this.contrivanceService.showDropdown;
@@ -328,16 +359,29 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy{
     this.validateBeforeCheckDuplicate();
     // }
   }
-
+  listUnitDTO: any[] = [];
   getContrivancesDTO() {
+    const updatedListUnitDTO = [...this.listUnitDTO];
+
+    for (const item of this.selectedUnitValue) {
+      if (this.selectedUnitValue) {
+        updatedListUnitDTO.push({
+          unitName: item.unitName,
+          unitCode: item.unitCode,
+          unitId: item.unitId,
+        });
+      }
+    }
     this.contrivancesDTO = {
       language: this.formUtils.control("language").value,
+      contrivanceId: this.contrivanceId,
       contrivanceName: this.formUtils.control("contrivanceName").value,
       currentStatus: this.formUtils.control("currentStatus").value,
       content: this.formUtils.control("content").value,
       applianceCondition: this.formUtils.control("applianceCondition").value,
       applyStartTime: this.formUtils.control("applyStartTime").value,
-      applyEndTime: this.formUtils.control("applyEndTime").value,
+      
+      applyEndTime: this.formUtils.control("applyEndTime").value ? this.formUtils.control("applyEndTime").value : null,
       effectiveness: this.formUtils.control("effectiveness").value,
       creativePoint: this.formUtils.control("creativePoint").value,
       specialty: this.formUtils.control("specialty").value,
@@ -345,7 +389,7 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy{
       checkBonus: this.formUtils.control("checkBonus").value,
       effectiveValue: this.formUtils.control("effectiveValue").value,
       bonus: this.formUtils.control("bonus").value,
-      listUnitDTO: this.formUtils.control("listUnitDTO").value,
+      listUnitDTO: [...updatedListUnitDTO]
     };
     this.contrivanceService.file.next(this.fileInfo);
   }
@@ -356,7 +400,7 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy{
     const fileUrl = currentFileValue?.url;
     this.getContrivancesDTO();
     const requestBody = {
-      contrivancesDTO: {...this.contrivancesDTO},
+      contrivancesDTO: { ...this.contrivancesDTO },
       lstContributorDTO:
         this.contrivanceService.lstContributorDTOServiceOut.value.concat(
           this.contrivanceService.lstContributorDTOService.value
@@ -366,9 +410,20 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy{
         name: fileName,
       },
     };
+    if (typeof requestBody.contrivancesDTO.applyStartTime !== 'string') {
+      const dateObject = new Date(requestBody.contrivancesDTO.applyStartTime);
+      const day = dateObject.getDate();
+      const month = dateObject.getMonth() + 1;
+      const year = dateObject.getFullYear();
+      const formattedDate = `${day}/${month}/${year}`;
+      requestBody.contrivancesDTO.applyStartTime = formattedDate;
+    }
+  
     requestBody.contrivancesDTO.checkBonus = requestBody.contrivancesDTO.checkBonus ? 0 : 1;
-    requestBody.contrivancesDTO.applyStartTime = moment(requestBody.contrivancesDTO.applyStartTime).format("DD/MM/YYYY");
-    requestBody.contrivancesDTO.applyEndTime = moment(requestBody.contrivancesDTO.applyEndTime).format("DD/MM/YYYY");
+    // requestBody.contrivancesDTO.applyStartTime = moment(requestBody.contrivancesDTO.applyStartTime).format("DD/MM/YYYY");
+    // requestBody.contrivancesDTO.applyEndTime = moment(requestBody.contrivancesDTO.applyEndTime).format("DD/MM/YYYY");
+    
+    requestBody.contrivancesDTO.applyEndTime = !requestBody.contrivancesDTO.applyEndTime ? null : moment(requestBody.contrivancesDTO.applyEndTime).format("DD/MM/YYYY");
     const modalRefSuccess = this.modalService.open(MessagePopupComponent, {
       size: "sm",
       backdrop: "static",
@@ -409,9 +464,10 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy{
           }
         );
         this.subscriptions.push(validate);
-       }
-      else{}});
-  
+      }
+      else { }
+    });
+
   }
 
   deleteContrivance() {

@@ -166,6 +166,7 @@ export class ContrivanceDetailComponent implements OnInit, OnDestroy {
     return this.backToPage
   }
   goToEdit() {
+    this.contrivanceService.selectedUnit.next(null);
     this.contrivanceData.checkBonus =
       this.contrivanceData.checkBonus == 0 ? true : false;
     this.contrivanceService.contrivancesDTO.next(this.contrivanceData);

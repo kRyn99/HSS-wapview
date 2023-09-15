@@ -252,11 +252,10 @@ export class CommonFormUtils {
     let originErrorEndDate = this.control(endDateControlName).errors;
     switch (dateDataType) {
       case "Date":
-        error = startDateValue > endDateValue ? { startEnd: true } : null;
+        error = endDateValue !== null && startDateValue > endDateValue ? { startEnd: true } : null;
         break;
       case "NgbDate":
-        error = this.compareAfterNgbDate(startDateValue, endDateValue) ? { startEnd: true } : null;
-        break;
+        error = endDateValue !== null && this.compareAfterNgbDate(startDateValue, endDateValue) ? { startEnd: true } : null;        break;
     }
     if (error) {
       this.control(startDateControlName).setErrors({ ...originErrorStartDate, ...error });

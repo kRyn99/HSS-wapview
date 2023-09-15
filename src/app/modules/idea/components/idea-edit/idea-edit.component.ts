@@ -105,7 +105,7 @@ export class IdeaEditComponent implements OnInit {
   ideaNameValue;
   applyStartTime: Date;
   applyEndTime: Date = null;
-  specialty;
+  specialty:number;
   beforeApplyStatus;
   content;
   applyRange;
@@ -246,6 +246,21 @@ export class IdeaEditComponent implements OnInit {
           });
         } else {
           this.selectedUnitValue = response.data.listUnitDTO;
+          console.log(this.selectedUnitValue);
+        }
+        if (this.DataService.selectedUnitValueEdit.value) {
+          this.DataService.selectedUnitValueEdit.subscribe((value) => {
+            this.selectedUnit = value;
+          });
+        } else {
+          const unit=[]
+          for (let i = 0; i < response.data.listUnitDTO.length; i++) {
+            unit.push(response.data.listUnitDTO[i].unitId);
+          }
+          this.selectedUnit=[...unit]
+          // this.selectedUnit = response.data.listUnitDTO.unitId;
+          console.log(this.selectedUnit);
+          
         }
         if (this.DataService.selectedSpecialtyValueEdit.value) {
           this.specialty = this.DataService.selectedSpecialtyValueEdit.value;
@@ -297,7 +312,7 @@ export class IdeaEditComponent implements OnInit {
       (response) => {
         this.listUnit = response.data;
         console.log(this.listUnit);
-
+        this.selectAllForDropdownItems(this.listUnit);
         let listIdSelect = this.selectedUnitValue?.map((item) => item.unitId);
         this.listUnit.forEach((item: any) => {
           if (listIdSelect?.includes(item.unitId)) {
@@ -312,6 +327,23 @@ export class IdeaEditComponent implements OnInit {
         console.error(error.description);
       }
     );
+  }
+  selectedUnit;
+  onNgSelectChange(item) {
+    this.unitFieldTouched=true;
+    this.selectedUnitValue = [...item]
+    this.DataService.selectedUnit.next(this.selectedUnit);
+    this.DataService.selectedUnitValueEdit.next(this.selectedUnitValue);
+   
+  }
+  selectAllForDropdownItems(items: any[]) {
+    let allSelect = items => {
+      items.forEach(element => {
+        element['selectedAllGroup'] = 'selectedAllGroup';
+      });
+    };
+
+    allSelect(items);
   }
   selectedSpecialtyValue;
   onSelectSpecialtyChange() {
