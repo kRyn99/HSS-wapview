@@ -243,7 +243,6 @@ export class IdeaDetailComponent implements OnInit {
     );
     modalRefSuccess.componentInstance.message = this.translateService.instant(
       `IDEA_MANAGEMENT.MESSAGE.CONFIRM_EVALUATION_MESSAGE`,
-      { id: this.ideaId }
     );
     modalRefSuccess.componentInstance.closeIcon = false;
     const url = `${environment.API_HOST_NAME}/api/request-approve-idea`;
