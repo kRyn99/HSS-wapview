@@ -130,7 +130,7 @@
       </small>
       <small
         class="form-text text-danger"
-        *ngIf="formUtils.controlHasError('invalid', 'applyStartTime')"
+        *ngIf="formUtils.controlHasError('invalid', 'applyStartTime') "
       >
         {{
           "VALIDATION.INVALID_FIELD"
@@ -181,18 +181,7 @@
         />
         <img src="assets/img/icon/calendar.svg" style="padding: 10px" />
       </div>
-      <small
-        class="form-text text-danger"
-        *ngIf="formUtils.controlHasError('required', 'applyEndTime')"
-      >
-        {{
-          "VALIDATION.REQUIRED"
-            | translate
-              : {
-                  name: "IDEA_MANAGEMENT.LABEL.DATE_APPLY_TO" | translate
-                }
-        }}
-      </small>
+    
       <small
         class="form-text text-danger"
         *ngIf="formUtils.controlHasError('invalid', 'applyEndTime')"
