@@ -69,3 +69,6 @@
 .ng-select{
   width: 100%;
 }
+::ng-deep .ng-dropdown-panel.custom-class-eoa {
+  top: 29% !important;
+}

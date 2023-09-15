@@ -72,6 +72,7 @@ export class ContrivanceListComponent implements OnInit, AfterViewInit {
   }
 
   handleCreate() {
+    this.contrivanceService.selectedUnit.next(null);
     this.router.navigate(["contrivance/register"]);
   }
 

@@ -13,6 +13,7 @@ import { CONFIG } from "./constants";
 })
 export class ContrivanceService {
   selectedUnitValue: BehaviorSubject<any> = new BehaviorSubject([]);
+  selectedUnit: BehaviorSubject<any> = new BehaviorSubject([]);
   showDropdown = false;
   lstContributorDTOService = new BehaviorSubject<any>([]);
   lstContributorDTOServiceOut = new BehaviorSubject<any>([]);

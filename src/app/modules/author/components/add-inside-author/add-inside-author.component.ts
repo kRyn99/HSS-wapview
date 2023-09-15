@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Component, OnInit } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, OnInit, Renderer2 } from "@angular/core";
 import { environment } from "@env/environment";
 import { NgSelectConfig } from "@ng-select/ng-select";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -21,7 +21,7 @@ import { ContrivanceService } from "@app/shared/service/contrivance.service";
   styleUrls: ["./add-inside-author.component.scss"],
 })
 
-export class AddInsideAuthorComponent implements OnInit {
+export class AddInsideAuthorComponent implements OnInit  {
   public selectedStaffCodeSubject = new BehaviorSubject<any>(null);
   setSelectedStaffCode(code: any) {
     this.selectedStaffCodeSubject.next(code);
@@ -35,6 +35,7 @@ export class AddInsideAuthorComponent implements OnInit {
   selectedStaffCode: any;
   token = JSON.parse(localStorage.getItem("tokenInLocalStorage"));
   constructor(
+  
     private http: HttpClient,
     private config: NgSelectConfig,
     public DataService: DataService,
@@ -42,11 +43,18 @@ export class AddInsideAuthorComponent implements OnInit {
     private modalService: NgbModal,
     private translateService: TranslateService,
     public contrivanceService: ContrivanceService,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute,private renderer: Renderer2, private el: ElementRef
   ) {
     this.config.notFoundText = this.translateService.instant(`STAFF_CODE_NOT_EXIST`);
     this.config.appendTo = "body";
     this.config.bindValue = "value";
+  
+  }
+
+  eClickSelect(){
+    debugger
+    const dropdownPanelElement = this.el.nativeElement.querySelector('.ng-dropdown-panel');
+    this.renderer.addClass(dropdownPanelElement, 'your-custom-class');
   }
   // bsConfig: Partial<BsDatepickerConfig>;
   bsConfig = {

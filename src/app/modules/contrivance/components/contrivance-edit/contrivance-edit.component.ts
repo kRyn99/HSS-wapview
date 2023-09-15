@@ -130,6 +130,7 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy{
       .subscribe(
         (response) => {
           this.listUnit = response.data;
+          this.selectAllForDropdownItems(this.listUnit);
           let listIdSelect = this.selectedUnitValue?.map((item) => item.unitId);
           this.listUnit.forEach((item: any) => {
             if (listIdSelect?.includes(item.unitId)) {
@@ -144,7 +145,15 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy{
         }
       );
   }
+  selectAllForDropdownItems(items: any[]) {
+    let allSelect = items => {
+      items.forEach(element => {
+        element['selectedAllGroup'] = 'selectedAllGroup';
+      });
+    };
 
+    allSelect(items);
+  }
   listSpecialty: any[] = [];
   getListSpecialty() {
     const requestBody = {};
@@ -186,6 +195,15 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy{
     // this.endDateModel.setHours(0, 0, 0, 0);
     if (this.contrivanceService.contrivancesDTO.value) {
       let contrivancesDTO = this.contrivanceService.contrivancesDTO.value;
+      const unit = []
+    for (let i = 0; i < this.contrivanceService.contrivancesDTO.value.listUnitDTO.length; i++) {
+      unit.push(this.contrivanceService.contrivancesDTO.value.listUnitDTO[i].unitId);
+    }
+    this.selectedUnit = [...unit]
+    this.contrivanceService.selectedUnit.next(this.selectedUnit);
+    console.log(this.selectedUnit);
+    
+    //  console.log(this.contrivanceService.contrivancesDTO.value.listUnitDTO);
      
       this.formUtils.setForm(
         this.fb.group({
@@ -203,7 +221,7 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy{
           checkBonus: [contrivancesDTO.checkBonus],
           effectiveValue: [contrivancesDTO.effectiveValue, Validators.required],
           bonus: [contrivancesDTO.bonus, Validators.required],
-          listUnitDTO: [contrivancesDTO.listUnitDTO, Validators.required],
+          listUnitDTO: [this.contrivanceService.selectedUnit.value, Validators.required],
         })
       );
     } else {
@@ -231,7 +249,20 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy{
       this.changeCheckBonus(true);
     }
   }
-
+  selectedUnit;
+  onNgSelectChange(item) {
+    this.selectedUnitValue = [...item]
+    console.log(this.selectedUnitValue);
+    
+    const unit = []
+    for (let i = 0; i < this.selectedUnitValue.length; i++) {
+      unit.push(this.selectedUnitValue[i].unitId);
+    }
+    this.selectedUnit = [...unit]
+    this.contrivanceService.selectedUnit.next(this.selectedUnit);
+    this.formUtils.control("listUnitDTO").setValue(this.selectedUnit);
+    this.contrivanceService.selectedUnitValue.next(this.selectedUnitValue);
+  }
   toggleDropdown() {
     this.contrivanceService.showDropdown =
       !this.contrivanceService.showDropdown;
@@ -328,8 +359,19 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy{
     this.validateBeforeCheckDuplicate();
     // }
   }
-
+  listUnitDTO: any[] = [];
   getContrivancesDTO() {
+    const updatedListUnitDTO = [...this.listUnitDTO];
+
+    for (const item of this.selectedUnitValue) {
+      if (this.selectedUnitValue) {
+        updatedListUnitDTO.push({
+          unitName: item.unitName,
+          unitCode: item.unitCode,
+          unitId: item.unitId,
+        });
+      }
+    }
     this.contrivancesDTO = {
       language: this.formUtils.control("language").value,
       contrivanceName: this.formUtils.control("contrivanceName").value,
@@ -345,7 +387,7 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy{
       checkBonus: this.formUtils.control("checkBonus").value,
       effectiveValue: this.formUtils.control("effectiveValue").value,
       bonus: this.formUtils.control("bonus").value,
-      listUnitDTO: this.formUtils.control("listUnitDTO").value,
+      listUnitDTO: [...updatedListUnitDTO]
     };
     this.contrivanceService.file.next(this.fileInfo);
   }

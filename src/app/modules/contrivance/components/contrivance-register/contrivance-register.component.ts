@@ -127,6 +127,9 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
     this.contrivanceService.selectedUnitValue.subscribe((value) => {
       this.selectedUnitValue = value;
     });
+    this.contrivanceService.selectedUnit.subscribe((value) => {
+      this.selectedUnit = value;
+    });
     this.contrivanceService.file.subscribe((value) => {
       this.fileInfo = value;
     });
@@ -143,6 +146,7 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
       .subscribe(
         (response) => {
           this.listUnit = response.data;
+          this.selectAllForDropdownItems(this.listUnit);
           let listIdSelect = this.selectedUnitValue?.map((item) => item.unitId);
           this.listUnit.forEach((item: any) => {
             if (listIdSelect?.includes(item.unitId)) {
@@ -157,7 +161,15 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
         }
       );
   }
+  selectAllForDropdownItems(items: any[]) {
+    let allSelect = items => {
+      items.forEach(element => {
+        element['selectedAllGroup'] = 'selectedAllGroup';
+      });
+    };
 
+    allSelect(items);
+  }
   listSpecialty: any[] = [];
   getListSpecialty() {
     const requestBody = {};
@@ -191,6 +203,8 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
   loadAddForm() {
 
     if (this.contrivanceService.contrivancesDTO.value) {
+      console.log(this.contrivanceService.selectedUnit.value);
+      
       let contrivancesDTO = this.contrivanceService.contrivancesDTO.value;
       this.startDateModel = contrivancesDTO.applyStartTime;
       this.endDateModel = contrivancesDTO.applyEndTime;
@@ -210,7 +224,7 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
           checkBonus: [contrivancesDTO.checkBonus],
           effectiveValue: [contrivancesDTO.effectiveValue, Validators.required],
           bonus: [contrivancesDTO.bonus, Validators.required],
-          listUnitDTO: [contrivancesDTO.listUnitDTO, Validators.required],
+          listUnitDTO: [this.contrivanceService.selectedUnit.value, Validators.required],
         })
       );
     } else {
@@ -243,28 +257,28 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
       !this.contrivanceService.showDropdown;
   }
 
-  onCheckboxChange(item: any, event: any) {
-    if (item) {
-      item.selected = event.target.checked;
-      if (item.selected) {
-        if (!this.selectedUnitValue) {
-          this.selectedUnitValue = []; // Khởi tạo mảng nếu chưa tồn tại
-        }
-        this.selectedUnitValue.push(item);
-      } else {
-        let tempListUnit = this.selectedUnitValue;
-        tempListUnit.forEach((unit, index) => {
-          if (unit.unitId == item.unitId) {
-            tempListUnit.splice(index, 1);
-          }
-        });
-        this.selectedUnitValue = tempListUnit;
-      }
-    }
-    this.contrivanceService.selectedUnitValue.next(this.selectedUnitValue);
-    this.formUtils.control("listUnitDTO").setValue(this.selectedUnitValue);
-    this.formUtils.control("listUnitDTO").markAsTouched();
-  }
+  // onCheckboxChange(item: any, event: any) {
+  //   if (item) {
+  //     item.selected = event.target.checked;
+  //     if (item.selected) {
+  //       if (!this.selectedUnitValue) {
+  //         this.selectedUnitValue = []; // Khởi tạo mảng nếu chưa tồn tại
+  //       }
+  //       this.selectedUnitValue.push(item);
+  //     } else {
+  //       let tempListUnit = this.selectedUnitValue;
+  //       tempListUnit.forEach((unit, index) => {
+  //         if (unit.unitId == item.unitId) {
+  //           tempListUnit.splice(index, 1);
+  //         }
+  //       });
+  //       this.selectedUnitValue = tempListUnit;
+  //     }
+  //   }
+  //   this.contrivanceService.selectedUnitValue.next(this.selectedUnitValue);
+  //   this.formUtils.control("listUnitDTO").setValue(this.selectedUnitValue);
+  //   this.formUtils.control("listUnitDTO").markAsTouched();
+  // }
 
   onSelectFile(event: any) {
     if (event.target.files && event.target.files.length > 0) {
@@ -334,8 +348,19 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
     this.validateBeforeCheckDuplicate();
     // }
   }
-
+  listUnitDTO: any[] = [];
   getContrivancesDTO() {
+    const updatedListUnitDTO = [...this.listUnitDTO];
+
+    for (const item of this.selectedUnitValue) {
+      if (this.selectedUnitValue) {
+        updatedListUnitDTO.push({
+          unitName: item.unitName,
+          unitCode: item.unitCode,
+          unitId: item.unitId,
+        });
+      }
+    }
     this.contrivancesDTO = {
       language: this.formUtils.control("language").value,
       contrivanceName: this.formUtils.control("contrivanceName").value,
@@ -351,7 +376,8 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
       checkBonus: this.formUtils.control("checkBonus").value,
       effectiveValue: this.formUtils.control("effectiveValue").value,
       bonus: this.formUtils.control("bonus").value,
-      listUnitDTO: this.formUtils.control("listUnitDTO").value,
+      // listUnitDTO: this.formUtils.control("listUnitDTO").value,
+      listUnitDTO: [...updatedListUnitDTO]
     };
     this.contrivanceService.file.next(this.fileInfo);
   }
@@ -374,7 +400,8 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
     };
     requestBody.contrivancesDTO.checkBonus = requestBody.contrivancesDTO.checkBonus ? 0 : 1;
     if (this.contrivancesDTO.applyStartTime) {
-    requestBody.contrivancesDTO.applyStartTime = moment(requestBody.contrivancesDTO.applyStartTime).format("DD/MM/YYYY");}
+      requestBody.contrivancesDTO.applyStartTime = moment(requestBody.contrivancesDTO.applyStartTime).format("DD/MM/YYYY");
+    }
     if (this.contrivancesDTO.applyEndTime) {
       requestBody.contrivancesDTO.applyEndTime = moment(requestBody.contrivancesDTO.applyEndTime).format("DD/MM/YYYY");
 
@@ -424,8 +451,19 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
       }
     });
 
+  } s
+  selectedUnit;
+  onNgSelectChange(item) {
+    this.selectedUnitValue = [...item]
+    const unit = []
+    for (let i = 0; i < this.selectedUnitValue.length; i++) {
+      unit.push(this.selectedUnitValue[i].unitId);
+    }
+    this.selectedUnit = [...unit]
+    this.contrivanceService.selectedUnit.next(this.selectedUnit);
+    this.formUtils.control("listUnitDTO").setValue(this.selectedUnit);
+    this.contrivanceService.selectedUnitValue.next(this.selectedUnitValue);
   }
-
   AddInsideAuthor() {
     this.getContrivancesDTO();
     console.log(this.contrivancesDTO);

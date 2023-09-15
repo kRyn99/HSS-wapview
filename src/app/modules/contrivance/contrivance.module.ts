@@ -32,8 +32,10 @@ import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CheckDuplicateComponent } from './components/check-duplicate/check-duplicate.component';
 import { CRUDTableModule } from '@app/shared/crud-table';
 import { DatePipe } from '@angular/common';
+import { NgSelectModule } from '@ng-select/ng-select';
 @NgModule({
     imports: [
+        NgSelectModule,
         CommonModule,
         CommonItemsModule,
         ContrivanceRoutingModule,
