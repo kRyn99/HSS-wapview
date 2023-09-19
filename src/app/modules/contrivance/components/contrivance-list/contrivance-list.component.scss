@@ -95,6 +95,10 @@
           font-style: normal;
           font-weight: 700;
           line-height: 16px;
+          width: 60%;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
         }
         .idea-line1-text2{
           color: var(--text-placeholder, #929292);
@@ -110,6 +114,8 @@
         display: flex;
         align-items: flex-start;
         gap: 10px;
+        justify-content: space-between;
+        align-self: stretch;
         .idea-line2-text{
           color: #000;
           text-align: left;
@@ -118,6 +124,10 @@
           font-style: normal;
           font-weight: 400;
           line-height: 16px;
+          width: 70%;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
         }
       }
       .idea-line3{

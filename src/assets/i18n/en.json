@@ -108,7 +108,7 @@
     "MISSING_PARAMETER": "Missing passed parameters",
     "PROVINCE": "Province",
     "DISTRICT": "District",
-    "INDEX": "STT",
+    "INDEX": "No",
     "VALID_FROM_FATE": "Valid from date",
     "VALID_TO_FATE": "Valid to date",
     "STATUS": {
@@ -308,7 +308,7 @@
       "FULL_NAME": "Full name",
       "ACTION": "Action",
       "AUTHOR": "Author",
-      "NO": "STT",
+      "NO": "No",
       "UNIT": "Unit",
       "IDEA_DESCRIPTION": "Idea description",
       "FILE_DOCCUMENT": "Attached Documents",
@@ -402,7 +402,7 @@
       "WORK_PLACE_NOT_NULL": "Job address cannot be empty",
       "OFFICE_NOT_NULL": "Job position cannot be empty",
       "PHONE_NUMBER_INVALID_LENGTH": "Invalid phone number length",
-      "CONFIRM_EVALUATION_MESSAGE": "Are you sure to approve idea {{id}} ?",
+      "CONFIRM_EVALUATION_MESSAGE": "Do you confirm send the request for appraisal of Idea registration form?",
       "CONFIRM_DELETE_MESSAGE": "Are you sure to delete idea {{id}} ?",
       "CONFIRM": "Confirm",
       "CF_ADD_IDEA": "Are you sure to add new idea?",
@@ -428,7 +428,8 @@
       "DOWNLOAD_FILE": "Download file",
       "CHOOSE_DOCUMENT": "Choose file",
       "DONE": "Finish",
-      "RELOAD_LIST": "Reload list "
+      "RELOAD_LIST": "Reload list ",
+      "SEND_REQUEST_EVALUATE": "Send evaluate request"
     },
     "STATUS": {
       "REJECTED": "Rejected",
@@ -484,7 +485,7 @@
       "CONTRIVANCES_DETAIL": "Contrivance detail "
     },
     "LABEL": {
-      "STT": "STT",
+      "STT": "No",
       "ACTION": "Action",
       "CODE": "Request code",
       "TYPE": "Request type",
@@ -588,7 +589,7 @@
       "WORK_PLACE": "Job address",
       "POSITION": "Job position",
       "QUALIFICATION": "Proqualification",
-      "STT": "STT",
+      "STT": "No",
       "ACTION": "Action",
       "CODE": "Request code",
       "TYPE": "Request type",
@@ -632,7 +633,7 @@
 
     "LABEL": {
       "LANG":"Language",
-      "INDEX": "STT",
+      "INDEX": "No",
       "DUPICATE_RATE": "Duplicate rate ( %)",
       "ACTION": "Action",
       "CONTRIVANCE_NAME": "Contrivance name",
@@ -651,7 +652,7 @@
       "AUTHOR": "Author",
       "TEXT_HEADER": "PEOPLE'S DEMOCRACY REPUBLIC OF LAOS",
       "SUB_TEXT_HEADER": "Peace - Independence - Democracy - Unity - Prosperity",
-      "TEXT_FORM_HEADER": "Contrivances registration form",
+      "TEXT_FORM_HEADER": "Initiative registration form",
       "SUB_TEXT_FORM_HEADER": "Dear: Standing Committee and Idea Initiative Council",
       "SELECT_UNIT": "Choose unit apply",
       "ERROR_EXIST_STAFF": "The author already exists in the list",
@@ -671,7 +672,7 @@
       "MIN_VALUE": "{{name}} must be greater than {{min}}",
       "MAX_VALUE": "{{name}} must be less than {{max}}",
       "CF_DELETE_CONTRIVANCE": "Are you sure to delete this <b>{{name}}</b> contrivance?",
-      "CF_APPROVE_CONTRIVANCE": "Are you sure to confirm approve this <b>{{name}}</b> contrivance?",
+      "CF_APPROVE_CONTRIVANCE": "Do you confirm send the request for appraisal of Initiative registration form?",
       "DUPLICATE_CONTRIVANCE_LIST": "List of contrivance that are likely to be duplicated",
       "DUPLICATE_LIST": "Duplicate list",
       "CF_UPDATE_CONTRIVANCE": "Are you sure want to update this contrivance?",
@@ -684,7 +685,7 @@
       "CF_CHANGE_VALUE": "You have not saved your changes. Are you sure you want to ignore this change?",
       "DOWNLOAD_THE_SAMPLE_CONTRIVANCE_REGISTRATION_LIST": "Download the sample contrivance registration list",
       "TEXT_FORM_HEADER_IDEA": "Ideas registration form",
-      "TEXT_FORM_HEADER_CONTRIVANCES": "Contrivances registration form",
+      "TEXT_FORM_HEADER_CONTRIVANCES": "Initiative registration form",
       "STAFF_CODE_SHORT_LABEL": "Staff code",
       "STAFF_NAME_SHORT_LABEL": "Staff name",
       "TOTAL_NUMBER": "Total",
@@ -938,5 +939,13 @@
       "CANNOT_CALCULATED": "Cannot calculated",
       "DOCUMENTS_NOT_EXIST": "No documents attached"
     }
-  }
+  },
+  "SEE_MORE": "See more",
+  "SEE_LESS": "See less",
+  "ADD_AUTHOR_IN_GROUP":"Add author in group",
+  "ADD_AUTHOR_OUTSIDE_GROUP": "Add author outside group",
+  "EDIT_AUTHOR_IN_GROUP":"Edit author in group",
+  "EDIT_AUTHOR_OUTSIDE_GROUP":"Edit author outside group",
+  "CHOOSE_AUTHOR_NAME": "Choose name",
+  "STAFF_CODE_NOT_EXIST": "Staff code not exist"
 }
