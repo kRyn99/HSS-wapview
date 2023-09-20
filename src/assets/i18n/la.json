@@ -403,7 +403,7 @@
       "WORK_PLACE_NOT_NULL": "ສະຖານທີ່ເຮັດວຽກບໍ່ສາມາດປະຫວ່າງ",
       "OFFICE_NOT_NULL": "ຕຳແໜ່ງບໍ່ສາມາດປະຫວ່າງ",
       "PHONE_NUMBER_INVALID_LENGTH": "ຄວາມຍາວເບິໂທບໍ່ຖືກຕ້ອງ",
-      "CONFIRM_EVALUATION_MESSAGE": "ທ່ານໄດ້ຢືນຢັນປະເມິນຄຳຄິດເຫັນ {{id}} ນີ້ບໍ່",
+      "CONFIRM_EVALUATION_MESSAGE": "ທ່ານຢືນຢັນການຍື່ນຄໍາຮ້ອງຂໍປະເມີນຟອມລົງທະບຽນຫົວຄິດສ້າງສັນນີ້ບໍ?",
       "CONFIRM_DELETE_MESSAGE": "ທ່ານຢືນຢັນລົບຄຳຄິດເຫັນ {{id}} ນີ້ບໍ່?",
       "CONFIRM": "ຢືນຢັງ",
       "CF_ADD_IDEA": "ທ່ານຕ້ອງການເພີ່ມຄວາມຄິດເຫັນນີ້ບໍ່?",
@@ -673,7 +673,7 @@
       "MIN_VALUE": "{{name}} ຕ້ອງໃຫຍ່ກວ່າ {{min}}",
       "MAX_VALUE": "{{name}} ຕ້ອງນ້ອຍກວ່າ {{max}}",
       "CF_DELETE_CONTRIVANCE": "ທ່ານຕ້ອງການລົບຄວາມຄິດລິເລີ່ມ <b>{{name}}</b> ນີ້ບໍ່?",
-      "CF_APPROVE_CONTRIVANCE": "ທ່ານຕ້ອງການຢືນຢັງຄວາມຄິດລິເລີ່ມ <b>{{name}}</b> ນີ້ບໍ່?",
+      "CF_APPROVE_CONTRIVANCE": "ທ່ານຢືນຢັນການຍື່ນຄໍາຮ້ອງຂໍປະເມີນຟອມລົງທະບຽນປະດິດສ້າງນີ້ບໍ?",
       "DUPLICATE_CONTRIVANCE_LIST": "ລາຍການຄວາມຄິດລິເລີ່ມສາມາດຊ້ຳກັນ",
       "DUPLICATE_LIST": "ລາຍຊື່ທີ່ຊຳກັນ",
       "CF_UPDATE_CONTRIVANCE": "ທ່ນາຕ້ອງການອັບເດດຄວາມຄິດລິເລີ່ມນີ້ບໍ່?",
@@ -792,11 +792,11 @@
     "TO_DATE": "ຫາວັນທີ່"
   },
 
-  "CONTRIVANCES_IDEA_MANAGE_CONTRIVANCES": "ການຄຸ້ມຄອງແນວຄວາມຄິດ",
+  "CONTRIVANCES_IDEA_MANAGE_CONTRIVANCES": "ການຄຸ້ມຄອງປະດິດສ້າງ",
   "TABLE": {
     "CODE": "ລະຫັດພະນັກງານ",
-    "NAME": "ຊື່ແລະນາມສະກຸນ",
-    "CONTRIBUTION": "% ປະກອບສ່ວນ"    
+    "NAME": "ຊື່ ແລະ ນາມສະກູນ",
+    "CONTRIBUTION": "% ມີສ່ວນຮ່ວມ"   
   },
 
   "ADD-INSIDE-IDEA": {
@@ -819,7 +819,7 @@
       "SPECIALTY": "ໂຂງເຂດບໍ່ສາມາດປະຫວ່າງ",
       "BEFORE_APPLY_STATUS": "ສະຖານະກ່ອນນຳໃຊ້ຫົວຄິດສ້າງສັນບໍ່ສາມາດປະຫວ່າງ",
       "CONTENT": "ເນື້ອໃນຫົວຄິດສ້າງສັນບໍ່ສາມາດປະຫວ່າງ",
-      "APPLY_RANGE": "Phạm vi áp dụng ý tưởng không được trống",
+      "APPLY_RANGE": "ຂອບເຂດຂອງການນໍາໃຊ້ຫົວຄິດສ້າງສັນບໍ່ສາມາດຫວ່າງເປົ່າ",
       "EFFECTIVENESS": "ປະສິດທິຜົນທີ່ໄດ້ຮັບບໍ່ສາມາດປະຫວ່າງ",
       "NEXT": "ແນວທາງການພັດທະນາຕໍ່ໄປບໍ່ສາມາດປະຫວ່າງ",
       "NOTE": "ໝາຍເຫດບໍ່ສາມາດປະຫວ່າງ",
@@ -857,7 +857,7 @@
     "IDEA_DETAILS": "Idea detail",
     "LAO_PEOPLES_DEMOCRATIC_REPUBLIC": "ສາທາລະນະລັດ ປະຊາທິປະໄຕ ປະຊາຊົນລາວ",
     "PEACE_INDEPENDENCE": "ສັນຕິພາບ - ເອກະລາດ - ປະຊາທິປະໄຕ - ເອກະພາບ - ວັດທະນາຖາວວນ",
-    "TO_STANDING_COMMITTEE": "To: Standing Committee and Idea Initiative Council",
+    "TO_STANDING_COMMITTEE": "ເຖິງ: ຄະນະກຳມະການແລະຊະພາຈັດຕັ້ງຄວາມຄິດເຫັນ",
     "IDEA_NAME": "ຫົວຄິດສ້າງສັນ: ",
     "APPLICATION_PERIOD": "ເວລານຳໃຊ້: ",
     "APPLYING_UNIT": "Applying Unit:",
@@ -918,7 +918,7 @@
     "DETAIL": {
       "LAO_PEOPLES_DEMOCRATIC_REPUBLIC": "ສາທາລະນະລັດ ປະຊາທິປະໄຕ ປະຊາຊົນລາວ",
       "PEACE_INDEPENDENCE": "ສັນຕິພາບ - ເອກະລາດ - ປະຊາທິປະໄຕ - ເອກະພາບ - ວັດທະນາຖາວວນ",
-      "TO_STANDING_COMMITTEE": "To: Standing Committee and Idea Initiative Council",
+      "TO_STANDING_COMMITTEE": "ເຖິງ: ຄະນະກຳມະການແລະຊະພາຈັດຕັ້ງຄວາມຄິດເຫັນ",
       "TEXT_FORM_HEADER": "ຄໍາຮ້ອງສະຫມັກຫົວຄິດສ້າງສັນ",
       "SUB_TEXT_FORM_HEADER": "ເຖິງ: ຄະນະກຳມະການແລະສະພາຫົວຄິດສ້າງສັນແລະປະດິດສ້າງ",
       "CONTRIVANCE_NAME": "ປະດິດສ້າງ: ",
@@ -937,16 +937,17 @@
       "PROFIT_AMOUNT": "ຈຳນວນເງິນຜົນປະໂຫຍດ: ",
       "TEMPORARY_BONUS": "ໂບນັດຊົ່ວຄາວ: ",
       "ATTACHED_DOCUMENTS": "ເອກະສານແນບ: ",
-      "CANNOT_CALCULATED": "Cannot calculated",
-      "DOCUMENTS_NOT_EXIST": "No documents attached"
+      "CANNOT_CALCULATED": "ບໍ່ສາມາດນັບໄດ້",
+      "DOCUMENTS_NOT_EXIST": "ບໍ່ມີເອກະສານຕິດຄັດມາ"
+      
     }
   },
   "SEE_MORE": "ເບິ່ງເພີ່ມເຕີມ",
   "SEE_LESS": "ຫຍໍ້ເຂົ້າ",
   "ADD_AUTHOR_IN_GROUP":"Thêm tác giả trong tập đoàn",
-  "ADD_AUTHOR_OUTSIDE_GROUP": "Thêm tác giả ngoài tập đoàn",
-  "EDIT_AUTHOR_IN_GROUP":"Sửa tác giả trong tập đoàn",
-  "EDIT_AUTHOR_OUTSIDE_GROUP":"Sửa tác giả ngoài tập đoàn",
-  "CHOOSE_AUTHOR_NAME": "Chọn tên tác giả",
-  "STAFF_CODE_NOT_EXIST": "Mã nhân viên không tồn tại"
+  "ADD_AUTHOR_OUTSIDE_GROUP": "ເພີ່ມຜູ້ຂຽນນອກບໍລິສັດ",
+  "EDIT_AUTHOR_IN_GROUP": "ແກ້ໄຂຜູ້ຂຽນໃນບໍລິສັດ",
+  "EDIT_AUTHOR_OUTSIDE_GROUP": "ແກ້ໄຂຜູ້ຂຽນນອກນອກບໍລິສັດ",
+  "CHOOSE_AUTHOR_NAME": "ເລືອກຊື່ຜູ້ຂຽນ",
+  "STAFF_CODE_NOT_EXIST": "ບໍ່ມີລະຫັດພະນັກງານ"
 }
