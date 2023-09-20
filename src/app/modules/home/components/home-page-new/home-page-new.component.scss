@@ -46,3 +46,14 @@
     padding: 10px;
   }
 }
+.custom {
+  display: flex;
+  flex-direction: column;
+}
+.app-recent-idea {
+  height: 300px; /* Điều chỉnh chiều cao tùy ý */
+}
+
+.app-nav-menu {
+  height: 100px; /* Điều chỉnh chiều cao tùy ý */
+}

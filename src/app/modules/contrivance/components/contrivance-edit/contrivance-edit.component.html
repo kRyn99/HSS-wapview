@@ -284,10 +284,7 @@
     </div>
     <div class="input-form">
       <div class="input-name">
-        {{ "CONTRIVANCE_MAMAGEMENT.LABEL.BASED_ON_IDEAS" | translate }} (<span
-          class="required-mark"
-          >*</span
-        >)
+        {{ "CONTRIVANCE_MAMAGEMENT.LABEL.BASED_ON_IDEAS" | translate }}
       </div>
       <select 
         class="input-field"
@@ -298,7 +295,7 @@
           <option [value]="item.ideaId">{{ item.ideaName | truncate:50 }}</option>
         </ng-container>
       </select>
-      <small
+      <!-- <small
         class="form-text text-danger"
         *ngIf="formUtils.controlHasError('required', 'ideaId')"
       >
@@ -309,7 +306,7 @@
                   name: "CONTRIVANCE_MAMAGEMENT.LABEL.BASED_ON_IDEAS" | translate
                 }
         }}
-      </small>
+      </small> -->
     </div>
   </div>
   <div class="line"></div>
