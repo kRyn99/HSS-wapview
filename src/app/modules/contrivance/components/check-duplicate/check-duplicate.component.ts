@@ -158,8 +158,12 @@ export class CheckDuplicateComponent implements OnInit {
         }
         requestBody.contrivancesDTO.checkBonus = requestBody.contrivancesDTO.checkBonus ? 0 : 1;
         // requestBody.contrivancesDTO.applyStartTime =  moment(requestBody.contrivancesDTO.applyStartTime).format("DD/MM/YYYY");
-     
-        requestBody.contrivancesDTO.applyEndTime = !requestBody.contrivancesDTO.applyEndTime ? null : moment(requestBody.contrivancesDTO.applyEndTime).format("DD/MM/YYYY");
+
+        if (typeof requestBody.contrivancesDTO.applyEndTime !== 'string') {
+          requestBody.contrivancesDTO.applyEndTime = !requestBody.contrivancesDTO.applyEndTime ? null : moment(requestBody.contrivancesDTO.applyEndTime).format("DD/MM/YYYY");
+        } else {
+          requestBody.contrivancesDTO.applyEndTime = requestBody.contrivancesDTO.applyEndTime
+        } 
         this.contrivanceService.callApiCommon(this.isFromAdd ? "create-contrivance" : "update-contrivance", requestBody).subscribe(
           (response) => {
             if (response.errorCode == 0) {

@@ -380,7 +380,7 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy {
       content: this.formUtils.control("content").value,
       applianceCondition: this.formUtils.control("applianceCondition").value,
       applyStartTime: this.formUtils.control("applyStartTime").value,
-      
+
       applyEndTime: this.formUtils.control("applyEndTime").value ? this.formUtils.control("applyEndTime").value : null,
       effectiveness: this.formUtils.control("effectiveness").value,
       creativePoint: this.formUtils.control("creativePoint").value,
@@ -418,12 +418,16 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy {
       const formattedDate = `${day}/${month}/${year}`;
       requestBody.contrivancesDTO.applyStartTime = formattedDate;
     }
-  
+
     requestBody.contrivancesDTO.checkBonus = requestBody.contrivancesDTO.checkBonus ? 0 : 1;
     // requestBody.contrivancesDTO.applyStartTime = moment(requestBody.contrivancesDTO.applyStartTime).format("DD/MM/YYYY");
     // requestBody.contrivancesDTO.applyEndTime = moment(requestBody.contrivancesDTO.applyEndTime).format("DD/MM/YYYY");
-    
-    requestBody.contrivancesDTO.applyEndTime = !requestBody.contrivancesDTO.applyEndTime ? null : moment(requestBody.contrivancesDTO.applyEndTime).format("DD/MM/YYYY");
+
+    if (typeof requestBody.contrivancesDTO.applyEndTime !== 'string') {
+      requestBody.contrivancesDTO.applyEndTime = !requestBody.contrivancesDTO.applyEndTime ? null : moment(requestBody.contrivancesDTO.applyEndTime).format("DD/MM/YYYY");
+    } else {
+      requestBody.contrivancesDTO.applyEndTime = requestBody.contrivancesDTO.applyEndTime
+    }
     const modalRefSuccess = this.modalService.open(MessagePopupComponent, {
       size: "sm",
       backdrop: "static",
