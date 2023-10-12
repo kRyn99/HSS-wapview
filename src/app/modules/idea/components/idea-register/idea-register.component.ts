@@ -20,6 +20,7 @@ import { BehaviorSubject } from "rxjs";
 import { MatTableDataSource } from "@angular/material/table";
 import { DatePipe } from "@angular/common";
 import { NotificationService } from "@app/shared/service/notification.service";
+import { ToastrService } from "ngx-toastr";
 interface ideaRegisterDTO {
   ideaName?: any;
   specialty?: string;
@@ -83,7 +84,8 @@ export class IdeaRegisterComponent implements OnInit {
     private http: HttpClient,
     public DataService: DataService,
     private datePipe: DatePipe,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    public toastrService: ToastrService,
   ) {
     this.selectedLanguage = null;
     this.bsConfig = {
@@ -102,7 +104,6 @@ export class IdeaRegisterComponent implements OnInit {
     return typeof element == "string";
   }
   ngOnInit() {
-    console.log(this.selectedUnit);
 
     this.getListUnit();
     this.dataSource = new MatTableDataSource(
@@ -122,7 +123,6 @@ export class IdeaRegisterComponent implements OnInit {
     });
     this.DataService.selectedUnit.subscribe((value) => {
       this.selectedUnit = value;
-      console.log(this.selectedUnit);
       
     });
 
@@ -217,7 +217,6 @@ export class IdeaRegisterComponent implements OnInit {
     return this.http.post<any>(url, requestBody, { headers }).subscribe(
       (response) => {
         this.listUnit = response.data;
-        console.log(this.listUnit);
         this.selectAllForDropdownItems(this.listUnit);
         let listIdSelect = this.selectedUnitValue?.map((item) => item.unitId);
         this.listUnit.forEach((item: any) => {
@@ -936,11 +935,10 @@ export class IdeaRegisterComponent implements OnInit {
       );
       const isValidFile = regex.test(file.name);
       if (!isValidFile) {
-        // this.toastrService.error(
-        //   this.translate.instant(
-        //     "IDEA_MANAGEMENT.MESSAGE.FILE_UPLOAD_INCORRECT_TYPE"
-        //   )
-        // );
+        const translatedMessage = this.translateService.instant(
+          "IDEA_MANAGEMENT.MESSAGE.FILE_UPLOAD_INCORRECT_TYPE"
+        );
+        this.notificationService.notify("fail", translatedMessage);
         return;
       }
       if (file.size > 25 * 1024 * 1024) {

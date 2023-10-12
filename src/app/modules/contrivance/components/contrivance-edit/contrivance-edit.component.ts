@@ -117,6 +117,7 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy {
     this.contrivanceService.file.subscribe((value) => {
       this.fileInfo = value;
     });
+    
     this.loadAddForm();
   }
 
@@ -314,7 +315,10 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy {
         );
         return;
       }
-      this.fileInfo.name = file.name;
+      this.contrivanceService.file.next(file);
+      this.contrivanceService.file.subscribe((value) => {
+        this.fileInfo = value
+      })
 
       const formData: FormData = new FormData();
       formData.append("listDocument", file);
