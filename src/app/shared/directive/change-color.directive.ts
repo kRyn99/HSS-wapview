@@ -12,7 +12,7 @@ export class ChangeColorDirective {
     const color = this.getColorByStatus(this.status); // Lấy màu dựa trên trạng thái
 
     // Áp dụng màu văn bản vào phần tử
-    this.renderer.setStyle(this.el.nativeElement, "background", color);
+    this.renderer.setStyle(this.el.nativeElement, "color", color);
   }
 
   getColorByStatus(status: number): string {

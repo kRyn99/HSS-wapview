@@ -52,6 +52,7 @@ import { RecentContrivanceComponent } from './components/recent-contrivance/rece
 import { StatusColorComponent } from './components/status-color/status-color.component';
 import {SwiperModule} from "swiper/angular";
 import { SharedDisplayHtmlModule } from '@app/shared/shared-display-html/shared-display-html.module';
+import { TitleNavIdeaComponent } from './components/title-nav-idea/title-nav-idea.component';
 
 // @ts-ignore
 // @ts-ignore
@@ -62,6 +63,7 @@ import { SharedDisplayHtmlModule } from '@app/shared/shared-display-html/shared-
     InputOtpComponent,
     InputPasswordComponent,
     TitleNavComponent,
+    TitleNavIdeaComponent,
     FooterNavComponent,
     FooterNavNoFixComponent,
     DropdownFieldComponent,
@@ -93,7 +95,8 @@ import { SharedDisplayHtmlModule } from '@app/shared/shared-display-html/shared-
     NavMenuComponent,
     RecentIdeaComponent,
     RecentContrivanceComponent,
-    StatusColorComponent
+    StatusColorComponent,
+    TitleNavIdeaComponent
   ],
   imports: [
     NgbModule,
@@ -126,6 +129,7 @@ import { SharedDisplayHtmlModule } from '@app/shared/shared-display-html/shared-
     InputOtpComponent,
     InputPasswordComponent,
     TitleNavComponent,
+    TitleNavIdeaComponent,
     FooterNavComponent,
     FooterNavNoFixComponent,
     DropdownFieldComponent,

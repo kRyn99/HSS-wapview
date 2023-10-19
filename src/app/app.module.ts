@@ -24,6 +24,8 @@ import {ApplicationInitializerFactory} from './translation.config';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import {TimepickerModule} from 'ngx-bootstrap/timepicker';
+import { IdeaNewComponent } from './modules/idea-new/idea-new.component';
+import { ContrivanceNewComponent } from './modules/contrivance-new/contrivance-new.component';
 
 
 declare global {
@@ -41,6 +43,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     declarations: [
         AppComponent,
         LoaderComponent,
+        IdeaNewComponent,
+        ContrivanceNewComponent,
     ],
     imports: [
         CommonsModule,

@@ -30,6 +30,12 @@ export const routes: Routes = [
 		loadChildren: () => import('./modules/idea/idea.module').then(m => m.IdeaModule)
 	},
 	{
+		path: 'idea-new',
+		// canActivate: [AuthGuard],
+		loadChildren: () => import('./modules/idea-new/idea-new.module').then(m => m.IdeaNewModule)
+	},
+	
+	{
 		path:'author',
 		// canActivate:[AuthGuard],
 		loadChildren: () =>import('./modules/author/author.module').then((m =>m.AuthorModule))
@@ -38,6 +44,11 @@ export const routes: Routes = [
 		path:'contrivance',
 		// canActivate:[AuthGuard],
 		loadChildren: () =>import('./modules/contrivance/contrivance.module').then((m =>m.ContrivanceModule))
+	},
+	{
+		path:'contrivance-new',
+		// canActivate:[AuthGuard],
+		loadChildren: () =>import('./modules/contrivance-new/contrivance-new.module').then((m =>m.ContrivanceNewModule))
 	},
 ];
 
