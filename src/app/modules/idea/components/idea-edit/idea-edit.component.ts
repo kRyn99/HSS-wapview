@@ -17,6 +17,7 @@ import { DataService } from "../../../../shared/service/data.service";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { MatTableDataSource } from "@angular/material/table";
 import { NotificationService } from "@app/shared/service/notification.service";
+import { ToastrService } from "ngx-toastr";
 
 interface IdeaDetail {
   ideaId: number;
@@ -34,7 +35,6 @@ interface IdeaDetail {
   note: string;
   specialty: number;
 }
-
 @Component({
   selector: "app-idea-edit",
   templateUrl: "./idea-edit.component.html",
@@ -78,7 +78,8 @@ export class IdeaEditComponent implements OnInit {
     private http: HttpClient,
     public DataService: DataService,
     private cdRef: ChangeDetectorRef,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    public toastrService: ToastrService,
   ) {
     this.bsConfig = {
       dateInputFormat: "DD/MM/YYYY",
@@ -143,8 +144,6 @@ export class IdeaEditComponent implements OnInit {
         this.documentDTO = response.data.documentDTO;
         // this.selectedSpecialtyValue = response.data.specialty;
         // this.selectedUnitValue = response.data.listUnitDTO;
-        console.log(this.documentDTO);
-
         const listContributorIn = response.data.listContributorDTO.filter(
           (contributor) => contributor.staffCode
         );
@@ -311,7 +310,6 @@ export class IdeaEditComponent implements OnInit {
     return this.http.post<any>(url, requestBody, { headers }).subscribe(
       (response) => {
         this.listUnit = response.data;
-        console.log(this.listUnit);
         this.selectAllForDropdownItems(this.listUnit);
         let listIdSelect = this.selectedUnitValue?.map((item) => item.unitId);
         this.listUnit.forEach((item: any) => {
@@ -464,11 +462,10 @@ export class IdeaEditComponent implements OnInit {
       );
       const isValidFile = regex.test(file.name);
       if (!isValidFile) {
-        // this.toastrService.error(
-        //   this.translate.instant(
-        //     "IDEA_MANAGEMENT.MESSAGE.FILE_UPLOAD_INCORRECT_TYPE"
-        //   )
-        // );
+        const translatedMessage = this.translateService.instant(
+          "IDEA_MANAGEMENT.MESSAGE.FILE_UPLOAD_INCORRECT_TYPE"
+        );
+        this.notificationService.notify("fail", translatedMessage);
         return;
       }
       if (file.size > 25 * 1024 * 1024) {
@@ -484,8 +481,15 @@ export class IdeaEditComponent implements OnInit {
         Authorization: `Bearer ` + this.token,
       });
       this.showFileName = true;
+      // this.documentDTO = file
       // this.fileURL = file.name;
       // upload img
+
+      this.DataService.file.next(file);
+      this.DataService.file.subscribe((value) => {
+        this.documentDTO = value
+      })
+      
       const formData: FormData = new FormData();
       formData.append("listDocument", file);
       const url = `${environment.API_HOST_NAME}/api/upload-document`;
@@ -494,10 +498,10 @@ export class IdeaEditComponent implements OnInit {
         .subscribe((res) => {
           if (res.errorCode === "0" || res.errorCode === "200") {
             // const currentFileValue = this.DataService.file.value;
-            this.documentDTO.name = file.name;
             this.documentDTO.url = res.data;
             // this.DataService.file.next(currentFileValue);
           } else {
+            this.notificationService.notify("fail", res.description);
           }
         });
       // this.subscriptions.push(uploadFileAva);
@@ -950,8 +954,8 @@ export class IdeaEditComponent implements OnInit {
             this.DataService.lstContributorDTOServiceEdit.value
           ),
         documentDTO: {
-          url: this.documentDTO?.url,
-          name: this.documentDTO?.name,
+          url: this.documentDTO.url,
+          name: this.documentDTO.name,
         },
       };
       const modalRefSuccess = this.modalService.open(MessagePopupComponent, {

@@ -117,6 +117,7 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy {
     this.contrivanceService.file.subscribe((value) => {
       this.fileInfo = value;
     });
+    
     this.loadAddForm();
   }
 
@@ -217,7 +218,7 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy {
           effectiveness: [contrivancesDTO.effectiveness, Validators.required],
           creativePoint: [contrivancesDTO.creativePoint, Validators.required],
           specialty: [contrivancesDTO.specialty, Validators.required],
-          ideaId: [contrivancesDTO.ideaId, Validators.required],
+          ideaId: [contrivancesDTO.ideaId],
           checkBonus: [contrivancesDTO.checkBonus],
           effectiveValue: [contrivancesDTO.effectiveValue, Validators.required],
           bonus: [contrivancesDTO.bonus, Validators.required],
@@ -237,7 +238,7 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy {
           effectiveness: ["", Validators.required],
           creativePoint: ["", Validators.required],
           specialty: [null, Validators.required],
-          ideaId: [null, Validators.required],
+          ideaId: [null],
           checkBonus: [false],
           effectiveValue: ["", Validators.required],
           bonus: ["", Validators.required],
@@ -314,7 +315,10 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy {
         );
         return;
       }
-      this.fileInfo.name = file.name;
+      this.contrivanceService.file.next(file);
+      this.contrivanceService.file.subscribe((value) => {
+        this.fileInfo = value
+      })
 
       const formData: FormData = new FormData();
       formData.append("listDocument", file);
@@ -380,7 +384,7 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy {
       content: this.formUtils.control("content").value,
       applianceCondition: this.formUtils.control("applianceCondition").value,
       applyStartTime: this.formUtils.control("applyStartTime").value,
-      
+
       applyEndTime: this.formUtils.control("applyEndTime").value ? this.formUtils.control("applyEndTime").value : null,
       effectiveness: this.formUtils.control("effectiveness").value,
       creativePoint: this.formUtils.control("creativePoint").value,
@@ -418,12 +422,16 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy {
       const formattedDate = `${day}/${month}/${year}`;
       requestBody.contrivancesDTO.applyStartTime = formattedDate;
     }
-  
+
     requestBody.contrivancesDTO.checkBonus = requestBody.contrivancesDTO.checkBonus ? 0 : 1;
     // requestBody.contrivancesDTO.applyStartTime = moment(requestBody.contrivancesDTO.applyStartTime).format("DD/MM/YYYY");
     // requestBody.contrivancesDTO.applyEndTime = moment(requestBody.contrivancesDTO.applyEndTime).format("DD/MM/YYYY");
-    
-    requestBody.contrivancesDTO.applyEndTime = !requestBody.contrivancesDTO.applyEndTime ? null : moment(requestBody.contrivancesDTO.applyEndTime).format("DD/MM/YYYY");
+
+    if (typeof requestBody.contrivancesDTO.applyEndTime !== 'string') {
+      requestBody.contrivancesDTO.applyEndTime = !requestBody.contrivancesDTO.applyEndTime ? null : moment(requestBody.contrivancesDTO.applyEndTime).format("DD/MM/YYYY");
+    } else {
+      requestBody.contrivancesDTO.applyEndTime = requestBody.contrivancesDTO.applyEndTime
+    }
     const modalRefSuccess = this.modalService.open(MessagePopupComponent, {
       size: "sm",
       backdrop: "static",
