@@ -1,26 +1,68 @@
-<div class="nav-bar fixed-bottom background-transparent">
-    <div class="bottom-nav background-transparent">
-        <div class="center-btn" (click)="homeRoute()">
-            <img src="assets/img/icon/home button.svg">
-        </div>
-        <div class="nav-btn top-right-shadow">
-            <div class="top-right-invert-round-corner">
-                <div class="nav-icon" (click)="ideaRoute()">
-                    <img src="assets/img/icon/idea.svg" *ngIf="!(homeService.isIdeaChecked |async)">
-                    <img src="assets/img/icon/ideablue.svg" *ngIf="(homeService.isIdeaChecked |async)">         
-                    <div class="nav-icon-text" [ngClass]="(homeService.isIdeaChecked |async) ? 'active' : ''">{{'IDEA_MANAGEMENT.LABEL.IDEA' | translate}}</div>
-                </div>
-            </div>
-        </div>
-        <div class="nav-btn top-left-shadow">
-            <div class="top-left-invert-round-corner">
-                <div class="nav-icon" (click)="contrivanceRoute()">
-                    <img src="assets/img/icon/write.svg" *ngIf="!(homeService.isContrivanceChecked | async)">
-                    <img src="assets/img/icon/writeblue.svg" *ngIf="(homeService.isContrivanceChecked | async)">
-
-                    <div class="nav-icon-text" [ngClass]="(homeService.isContrivanceChecked | async) ? 'active' : ''" >{{'CONTRIVANCE_MAMAGEMENT.TITLE.CONTRIVANCE' | translate}}</div>
-                </div>
-            </div>
-        </div>
+<!-- <div class="nav-bar fixed-bottom background-transparent">
+  <div class="bottom-nav background-transparent">
+    <div class="center-btn" (click)="homeRoute()">
+      <img src="assets/img/icon/home button.svg" />
     </div>
+    <div class="nav-btn top-right-shadow">
+      <div class="top-right-invert-round-corner">
+        <div class="nav-icon" (click)="ideaRoute()">
+          <img
+            src="assets/img/icon/idea.svg"
+            *ngIf="!(homeService.isIdeaChecked | async)"
+          />
+          <img
+            src="assets/img/icon/ideablue.svg"
+            *ngIf="homeService.isIdeaChecked | async"
+          />
+          <div
+            class="nav-icon-text"
+            [ngClass]="(homeService.isIdeaChecked | async) ? 'active' : ''"
+          >
+            {{ "IDEA_MANAGEMENT.LABEL.IDEA" | translate }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="nav-btn top-left-shadow">
+      <div class="top-left-invert-round-corner">
+        <div class="nav-icon" (click)="contrivanceRoute()">
+          <img
+            src="assets/img/icon/write.svg"
+            *ngIf="!(homeService.isContrivanceChecked | async)"
+          />
+          <img
+            src="assets/img/icon/writeblue.svg"
+            *ngIf="homeService.isContrivanceChecked | async"
+          />
+
+          <div
+            class="nav-icon-text"
+            [ngClass]="
+              (homeService.isContrivanceChecked | async) ? 'active' : ''
+            "
+          >
+            {{ "CONTRIVANCE_MAMAGEMENT.TITLE.CONTRIVANCE" | translate }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+<div class="footer">
+  <div class="footer__container">
+    <div class="footer__container__item">
+      <div class="menu-icon">
+        <div (click)="homeRoute()">
+          <img [src]="(homeService.isHomeChecked | async) ? 'assets/img/icon/home_selected.png' : 'assets/img/icon/home.png'" />
+        </div>
+        <div (click)="contrivanceRoute()">
+          <img [src]="(homeService.isContrivanceChecked | async) ? 'assets/img/icon/contrivance_selected.png' : 'assets/img/icon/contrivance.png'" />
+        </div>
+        <div (click)="ideaRoute()">
+          <img [src]="(homeService.isIdeaChecked | async) ? 'assets/img/icon/idea_selected.png' : 'assets/img/icon/idea.png'" />
+        </div>
+     
+      </div>
+    </div>
+  </div>
 </div>

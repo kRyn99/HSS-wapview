@@ -11,6 +11,8 @@ export class HomepageService{
     tokenAutoLogin = new BehaviorSubject<any>([])
     isIdeaChecked= new BehaviorSubject<boolean>(false);
     isContrivanceChecked= new BehaviorSubject<boolean>(false);
+    isHomeChecked= new BehaviorSubject<boolean>(true);
+
     constructor(private http:HttpClient) {
     }
     redirectList(token){
