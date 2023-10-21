@@ -36,6 +36,15 @@ export class ContrivanceListNewComponent implements OnInit  {
   get backRoute() {
     return this.backToPage
   }
+  isMoiNhatSelected: boolean = true;
+  isLinhVucSelected: boolean = false;
+  isTrangThaiSelected: boolean = false;
+
+  selectTab(tab: string) {
+    this.isMoiNhatSelected = tab === 'MoiNhat';
+    this.isLinhVucSelected = tab === 'LinhVuc';
+    this.isTrangThaiSelected = tab === 'TrangThai';
+  }
   listContrivance = new BehaviorSubject<ContrivanceDTO[]>([]);
   contrivanceDTO: ContrivanceDTO;
   getListContrivance() {
@@ -50,7 +59,7 @@ export class ContrivanceListNewComponent implements OnInit  {
           if (res.data && res.data.listContrivancesDTO) {
             this.listContrivance.next(res.data?.listContrivancesDTO);
             this.contrivanceDTO = res.data.recordInfoDTO;
-            console.log(this.contrivanceDTO);
+            console.log(this.listContrivance.value);
             
           }
         } else {

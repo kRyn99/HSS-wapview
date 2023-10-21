@@ -1,56 +1,58 @@
-<nav [class.justify-content-center]="!backRoute" style="z-index: 1000;padding:12px 16px;margin-bottom: 12px;">
-   <div style="display: flex;justify-content: space-between;">
-    <div>
-        <span *ngIf="backRoute" style="width: 24px;height: 24px;display: flex; justify-content: center; align-items: center;"
-          (click)="handleBack()"
-    ><img src="../../../../../assets/img/icon/icon-back.png" alt="icon-back"></span>
-    </div>
-    <div>
-        <span style="font-size: 14px;">20975504175</span>
-        <img style="margin-left: 8px;" src="../../../../../assets/img/icon/icon-header-vn.png" alt="icon-back">
-    </div>
-   </div>
-    <div *ngIf="merchantModel" class="merchant-name">
-        {{merchantModel.name}}
-        <div *ngIf="!(collaboratorModel || endUserModel)" class="mt-2">
-            <span class="merchant-upoint d-flex justify-content-start">s
-                <div class="merchant-upoint-text">Upoint: &nbsp;<span
-                        [style]="hiddenMerchantUpoint ? 'position: relative; top: .2em;' : ''">{{hiddenMerchantUpoint ? '******' : (merchantModel.upoint | number: '1.0':'en-US')}}</span></div>
-                <div class="merchant-upoint-btn my-auto" (click)="toggleMerchantUpoint()"><i
-                        [ngClass]="hiddenMerchantUpoint ? 'far fa-eye-slash toggle-password' : 'far fa-eye toggle-password'"></i></div>
-            </span>
+<div class="container">
+    <nav [class.justify-content-center]="!backRoute" style="z-index: 1000;padding:12px 0px;margin-bottom: 12px;">
+        <div style="display: flex;justify-content: space-between;">
+         <div>
+             <span *ngIf="backRoute" style="width: 24px;height: 24px;display: flex; justify-content: center; align-items: center;"
+               (click)="handleBack()"
+         ><img src="../../../../../assets/img/icon/icon-back.png" alt="icon-back"></span>
+         </div>
+         <div>
+             <span style="font-size: 14px;">20975504175</span>
+             <img style="margin-left: 8px;" src="../../../../../assets/img/icon/icon-header-vn.png" alt="icon-back">
+         </div>
         </div>
-    </div>
-    <!-- <div class="text-center title-cus">{{ title | truncate: 35 }}</div> -->
-  
-   
-</nav>
-<div *ngIf="collaboratorModel" class="collaborator-card">
-    <table width="100%" height="100%">
-        <tr>
-            <td class="col-name">{{collaboratorModel.name}}</td>
-        </tr>
-        <tr>
-            <td class="col-des">{{'TITLE_NAV.LABEL.REMAIN_UPOINT' | translate}}</td>
-        </tr>
-        <tr>
-            <td class="col-upoint">{{collaboratorModel.upoint | number: '1.0':'en-US' }}</td>
-        </tr>
-    </table>
-</div>
-<div *ngIf="endUserModel" class="end-user-card">
-    <table width="100%" height="100%">
-        <colgroup>
-            <col span="1" style="width: 60%;">
-            <col span="1" style="width: 40%;">
-        </colgroup>
-        <tr>
-            <td class="col-label">{{'TITLE_NAV.LABEL.AVAILABLE_UPOINT' | translate}}</td>
-            <!--            <td class="col-label">{{'TITLE_NAV.LABEL.EXP_DATE' | translate}}</td>-->
-        </tr>
-        <tr>
-            <td class="col-value">{{endUserModel.availableUpoint | number: '1.0':'en-US' }}</td>
-            <!--            <td class="col-value">{{endUserModel.expDate}}</td>-->
-        </tr>
-    </table>
+         <div *ngIf="merchantModel" class="merchant-name">
+             {{merchantModel.name}}
+             <div *ngIf="!(collaboratorModel || endUserModel)" class="mt-2">
+                 <span class="merchant-upoint d-flex justify-content-start">s
+                     <div class="merchant-upoint-text">Upoint: &nbsp;<span
+                             [style]="hiddenMerchantUpoint ? 'position: relative; top: .2em;' : ''">{{hiddenMerchantUpoint ? '******' : (merchantModel.upoint | number: '1.0':'en-US')}}</span></div>
+                     <div class="merchant-upoint-btn my-auto" (click)="toggleMerchantUpoint()"><i
+                             [ngClass]="hiddenMerchantUpoint ? 'far fa-eye-slash toggle-password' : 'far fa-eye toggle-password'"></i></div>
+                 </span>
+             </div>
+         </div>
+         <!-- <div class="text-center title-cus">{{ title | truncate: 35 }}</div> -->
+       
+        
+     </nav>
+     <div *ngIf="collaboratorModel" class="collaborator-card">
+         <table width="100%" height="100%">
+             <tr>
+                 <td class="col-name">{{collaboratorModel.name}}</td>
+             </tr>
+             <tr>
+                 <td class="col-des">{{'TITLE_NAV.LABEL.REMAIN_UPOINT' | translate}}</td>
+             </tr>
+             <tr>
+                 <td class="col-upoint">{{collaboratorModel.upoint | number: '1.0':'en-US' }}</td>
+             </tr>
+         </table>
+     </div>
+     <div *ngIf="endUserModel" class="end-user-card">
+         <table width="100%" height="100%">
+             <colgroup>
+                 <col span="1" style="width: 60%;">
+                 <col span="1" style="width: 40%;">
+             </colgroup>
+             <tr>
+                 <td class="col-label">{{'TITLE_NAV.LABEL.AVAILABLE_UPOINT' | translate}}</td>
+                 <!--            <td class="col-label">{{'TITLE_NAV.LABEL.EXP_DATE' | translate}}</td>-->
+             </tr>
+             <tr>
+                 <td class="col-value">{{endUserModel.availableUpoint | number: '1.0':'en-US' }}</td>
+                 <!--            <td class="col-value">{{endUserModel.expDate}}</td>-->
+             </tr>
+         </table>
+     </div>
 </div>

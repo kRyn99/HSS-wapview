@@ -5,7 +5,7 @@
   createRoute="this"
 >
 </app-title-nav-idea>
-<!-- <div class="back-ground">
+<div class="back-ground">
     <div class="container">
       <div
         class="list-idea"
@@ -15,6 +15,7 @@
           display: flex;
           justify-content: space-between;
           align-items: center;
+          margin-bottom: 8px;
         "
       >
         <div class="list-idea-text" style="display: flex; flex-direction: column">
@@ -22,7 +23,7 @@
             >Danh sách</span
           >
           <span style="color: #000000; font-size: 40px; font-weight: bold"
-            >Ý tưởng</span
+            >Sáng kiến</span
           >
         </div>
         <div style="display: flex; flex-direction: column; align-items: center">
@@ -33,31 +34,31 @@
       <div class="status-border">
         <div class="status-info">
           <div class="status-info-number">
-            <div class="status-text1">{{ recordInfoDTO?.totalNumber }}</div>
+            <div class="status-text1">{{ contrivanceDTO ? contrivanceDTO.totalNumber : 0 }}</div>
             <div class="status-text2">
               {{ "IDEA_MANAGEMENT.LABEL.TOTAL_NUMBER" | translate }}
             </div>
           </div>
           <div class="status-info-number">
-            <div class="status-text1">{{ recordInfoDTO?.approveNumber }}</div>
+            <div class="status-text1">{{ contrivanceDTO ? contrivanceDTO.approveNumber : 0 }}</div>
             <div class="status-text2" style="color: #00820D;">
               {{ "IDEA_MANAGEMENT.LABEL.APPROVE_NUMBER" | translate }}
             </div>
           </div>
           <div class="status-info-number">
-            <div class="status-text1">{{ recordInfoDTO?.declinedNumber }}</div>
+            <div class="status-text1"> {{ contrivanceDTO ? contrivanceDTO.declinedNumber : 0 }}</div>
             <div class="status-text2" style="color:#DA251D">
               {{ "IDEA_MANAGEMENT.LABEL.DECLINED_NUMBER" | translate }}
             </div>
           </div>
           <div class="status-info-number">
-            <div class="status-text1">{{ recordInfoDTO?.approveAwaitNumber }}</div>
+            <div class="status-text1">{{ contrivanceDTO ? contrivanceDTO.approveAwaitNumber : 0 }}</div>
             <div class="status-text2">
               {{ "IDEA_MANAGEMENT.LABEL.APPROVEAWAIT_NUMBER" | translate }}
             </div>
           </div>
           <div class="status-info-number" style="border-right: #ffffff">
-            <div class="status-text1">{{ recordInfoDTO?.createdNumber }}</div>
+            <div class="status-text1">{{ contrivanceDTO ? contrivanceDTO.createdNumber : 0 }}</div>
             <div class="status-text2">
               {{ "IDEA_MANAGEMENT.LABEL.CREATED_NUMBER" | translate }}
             </div>
@@ -102,15 +103,22 @@
           <span style="font-size: 14px">Trạng thái</span>
         </div>
       </div>
-      <div  *ngIf="listIdea && listIdea.length > 0" class="list-all-idea">
-          <div *ngFor="let item of listIdea" style="width: 100%;background-color: #ffffff;border-radius: 16px;padding: 20px 20px 12px 20px;margin-top: 12px;">
-              <div style="border-bottom: solid 1px rgba(0, 0, 0, 0.1);margin-bottom: 12px;">
+      <div    *ngIf="
+      listContrivance && (listContrivance | async).length > 0;
+      
+    " class="list-all-idea">
+          <div *ngFor="let item of listContrivance | async; let i = index" style="width: 100%;background-color: #ffffff;border-radius: 16px;padding: 20px 20px 12px 20px;margin-top: 12px;">
+              <div style="border-bottom: solid 1px rgba(0, 0, 0, 0.1);margin-bottom: 12px;">     
                   <div style="margin-bottom: 12px;">
-                      <span style="font-size: 14px;color: #00820D;">Ý tưởng số {{item.ideaId}}</span>
+                      <span style="font-size: 14px;color: #00820D;">{{item.contrivanceName}}</span>
                   </div>
                   <div style="margin-bottom: 12px;">
+                    <span style="font-size: 14px;color: rgba(0, 0, 0, 0.6);">Dựa trên ý tưởng số</span>
+                    <span style="font-size: 14px;font-weight: bold;">: {{item.ideaName}}</span>
+                </div>
+                  <div style="margin-bottom: 12px;">
                       <span style="font-size: 14px;color: rgba(0, 0, 0, 0.6);">Đơn vị</span>
-                      <span style="font-size: 14px;font-weight: bold;">: {{item.unitNames}}</span>
+                      <span style="font-size: 14px;font-weight: bold;">: {{item.unitNames | truncate: 30}}</span>
                   </div>
                   <div style="margin-bottom: 12px;">
                       <span style="font-size: 14px;color: rgba(0, 0, 0, 0.6);">Lĩnh vực</span>
@@ -127,4 +135,5 @@
           
       </div>
     </div>
-  </div> -->
+  </div>
+  <app-nav-menu></app-nav-menu>
