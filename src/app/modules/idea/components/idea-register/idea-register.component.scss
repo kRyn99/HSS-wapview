@@ -377,3 +377,12 @@ tr.example-element-row:not(.example-expanded-row):active {
   z-index: 999999;
   overflow-y: auto;
 }
+::ng-deep .ng-select.ng-select-multiple
+  .ng-select-container
+  .ng-value-container
+  .ng-placeholder {
+  top: 8px;
+  padding-bottom: 5px;
+  padding-left: 9px;
+  color: black;
+}

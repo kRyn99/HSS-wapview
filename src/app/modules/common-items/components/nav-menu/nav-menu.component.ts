@@ -39,14 +39,14 @@ export class NavMenuComponent implements OnInit {
     this.homeService.isIdeaChecked.next(true);
     this.homeService.isContrivanceChecked.next(false);
     this.homeService.isHomeChecked.next(false);
-    this.router.navigate(["idea-new/list-new"]);
+    this.router.navigate(["idea/list"]);
   }
   contrivanceRoute() {
     this.homeService.isIdeaChecked.next(false);
     this.homeService.isContrivanceChecked.next(true);
     this.homeService.isHomeChecked.next(false);
 
-    this.router.navigate(["contrivance-new/list-new"]);
+    this.router.navigate(["contrivance/list"]);
   }
   homeRoute() {
     this.homeService.isIdeaChecked.next(false);

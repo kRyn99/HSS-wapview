@@ -69,16 +69,14 @@ export class CheckDuplicateComponentIdea implements OnInit {
   token = JSON.parse(localStorage.getItem("tokenInLocalStorage"));
   lang = localStorage.getItem("lang");
   checkDuplicate() {
-   
-    
     const url = `${environment.API_HOST_NAME}/api/check-duplicate-idea`;
     const headers = new HttpHeaders({
       "Accept-Language": this.lang,
       Authorization: `Bearer ` + this.token,
     });
-  
+
     let requestBody = {};
-  
+
     if (this.isFromAdd) {
       requestBody = {
         ideaDTO: {
@@ -96,7 +94,7 @@ export class CheckDuplicateComponentIdea implements OnInit {
         },
       };
     }
-  
+
     return this.http.post<any>(url, requestBody, { headers }).subscribe(
       (res) => {
         if (res.errorCode == "0" || res.errorCode == "200") {
@@ -197,6 +195,8 @@ export class CheckDuplicateComponentIdea implements OnInit {
         return this.http.post<any>(url, requestBody, { headers }).subscribe(
           (response) => {
             if (response.errorCode == 0) {
+              this.DataService.showBg = false;
+              this.DataService.showDuplicateIdea = false;
               this.notificationService.notify("success", response.description);
               this.router.navigate(["/idea"]);
             } else {
@@ -264,6 +264,8 @@ export class CheckDuplicateComponentIdea implements OnInit {
         return this.http.post<any>(url, requestBody, { headers }).subscribe(
           (response) => {
             if (response.errorCode == 0) {
+              this.DataService.showBg = false;
+              this.DataService.showDuplicateIdea = false;
               this.notificationService.notify("success", response.description);
               this.router.navigate(["/idea"]);
             } else {

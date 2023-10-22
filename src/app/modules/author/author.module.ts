@@ -64,10 +64,10 @@ import { ChangeDomDirective } from './components/change-dom.directive';
        
         InsideTableComponent,
         OutsideTableComponent,
-        EditInsideEditComponent,
-        EditOutsideEditComponent,
-        AddInsideEditComponent,
-        AddOutsideEditComponent,
+      
+       
+        
+        
         ChangeDomDirective
     ]
 })

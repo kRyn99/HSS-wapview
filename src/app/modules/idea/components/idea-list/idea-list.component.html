@@ -1,34 +1,58 @@
-<app-title-nav
-  [title]="'IDEA_MANAGEMENT.TITLE.LIST_IDEA' | translate"
-  backRoute="home/homepage"
-  isBackHome="true"
-  createRoute="this"
-  (create)="handleCreate()"
+<div class="back-ground">
+  <app-title-nav-idea
+[title]="'IDEA_MANAGEMENT.TITLE.LIST_IDEA' | translate"
+[backRoute]="backRoute"
+isBackHome="true"
+createRoute="this"
 >
-</app-title-nav>
-
-<div class="status">
+</app-title-nav-idea>
+<div>
+<div class="container">
+  <div
+    class="list-idea"
+    style="
+      width: 100%;
+      height: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    "
+  >
+    <div class="list-idea-text" style="display: flex; flex-direction: column">
+      <span style="color: rgba(0, 0, 0, 0.6); font-size: 16px"
+        >Danh sách</span
+      >
+      <span style="color: #000000; font-size: 40px; font-weight: bold"
+        >Ý tưởng</span
+      >
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: center" (click)="handleCreate()">
+      <img src="../../../../../assets/img/icon/idea-add.png" alt="idea-add" />
+      <span style="color: #ff4d00; font-size: 12px">Tạo mới</span>
+    </div>
+  </div>
   <div class="status-border">
     <div class="status-info">
-      <div class="status-info-number">
+      <div class="status-info-number" style=" border-right: 1px solid #929292;">
         <div class="status-text1">{{ recordInfoDTO?.totalNumber }}</div>
         <div class="status-text2">
           {{ "IDEA_MANAGEMENT.LABEL.TOTAL_NUMBER" | translate }}
         </div>
       </div>
-      <div class="status-info-number">
+      <div class="status-info-number" style=" border-right: 1px solid #929292;">
         <div class="status-text1">{{ recordInfoDTO?.approveNumber }}</div>
-        <div class="status-text2">
+        <div class="status-text2" style="color: #00820D;">
           {{ "IDEA_MANAGEMENT.LABEL.APPROVE_NUMBER" | translate }}
         </div>
       </div>
       <div class="status-info-number">
         <div class="status-text1">{{ recordInfoDTO?.declinedNumber }}</div>
-        <div class="status-text2">
+        <div class="status-text2" style="color:#DA251D">
           {{ "IDEA_MANAGEMENT.LABEL.DECLINED_NUMBER" | translate }}
         </div>
       </div>
-      <div class="status-info-number">
+      <!-- <div class="status-info-number">
         <div class="status-text1">{{ recordInfoDTO?.approveAwaitNumber }}</div>
         <div class="status-text2">
           {{ "IDEA_MANAGEMENT.LABEL.APPROVEAWAIT_NUMBER" | translate }}
@@ -39,72 +63,72 @@
         <div class="status-text2">
           {{ "IDEA_MANAGEMENT.LABEL.CREATED_NUMBER" | translate }}
         </div>
-      </div>
+      </div> -->
     </div>
+  </div>
+  <div style="display: flex; justify-content: space-evenly">
+    <div
+      (click)="selectTab('MoiNhat')"
+      [ngClass]="{ selectedTab: isMoiNhatSelected }"
+      style="
+        width: 20%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      "
+    >
+      <span style="font-size: 14px">Mới nhất</span>
+    </div>
+    <div
+      (click)="selectTab('LinhVuc')"
+      [ngClass]="{ selectedTab: isLinhVucSelected }"
+      style="
+        width: 20%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      "
+    >
+      <span style="font-size: 14px">Lĩnh vực</span>
+    </div>
+    <div
+      (click)="selectTab('TrangThai')"
+      [ngClass]="{ selectedTab: isTrangThaiSelected }"
+      style="
+        width: 20%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      "
+    >
+      <span style="font-size: 14px">Trạng thái</span>
+    </div>
+  </div>
+  <div  *ngIf="listIdea && listIdea.length > 0" class="list-all-idea">
+      <div *ngFor="let item of listIdea" style="width: 100%;background-color: #ffffff;border-radius: 16px;box-shadow: 0px 2px 80px 0px rgba(0, 0, 0, 0.10);padding: 20px 20px 12px 20px;margin-top: 12px;">
+          <div style="border-bottom: solid 1px rgba(0, 0, 0, 0.1);margin-bottom: 12px;">
+              <div style="margin-bottom: 12px;">
+                  <span style="font-size: 14px;color: #00820D;">{{item.ideaName}}</span>
+              </div>
+              <div style="margin-bottom: 12px;">
+                  <span style="font-size: 14px;color: rgba(0, 0, 0, 0.6);">Đơn vị</span>
+                  <span style="font-size: 14px;font-weight: bold;">: {{item.unitNames | truncate: 30}}</span>
+              </div>
+              <div style="margin-bottom: 12px;">
+                  <span style="font-size: 14px;color: rgba(0, 0, 0, 0.6);">Lĩnh vực</span>
+                  <span style="font-size: 14px;font-weight: bold;">: {{item.specialtyName}}</span>
+              </div>
+          </div>
+          <div style="display: flex;justify-content: space-between;">
+              <span style="font-size: 12px;color: rgba(0, 0, 0, 0.6);">{{ item.createDatetime.slice(0, 11) }}</span>
+              <span statusColor
+              [statusColor]="item?.approveStatus" style="font-size: 14px;font-weight: bold;">{{item.approveStatusName}}</span>
+          </div>
+      </div>
+   
+      
   </div>
 </div>
-<label class="sort">
-  <input
-    class="sort-input"
-    [placeholder]="'IDEA_MANAGEMENT.PLACEHOLDER.SORT_IDEA' | translate"
-    [(ngModel)]="searchAdvance"
-    #advanceSearch 
-    type="text"
-  />
-</label>
-<!--  <div  style="margin-top: 25px;margin-bottom: 10px;">
-    <input
-      style="width: 100%;border: none;border-bottom: 1px solid gray;box-sizing: border-box;outline: none;"
-      type="text"
-      [placeholder]="'IDEA_MANAGEMENT.PLACEHOLDER.SORT_IDEA' | translate"
-      [(ngModel)]="searchTerm"
-      (input)="onSearch()"
-      class="input-search-loan-list"
-    />
-  </div> -->
-<div class="idea">
-  <div
-    class="idea-box"
-    *ngIf="listIdea && listIdea.length > 0; else noRecord"
-  >
-    <div
-      *ngFor="let item of listIdea"
-      (click)="redirectTodDetail(item.ideaId)"
-      class="idea-flexbox"
-    >
-      <div class="idea-line1">
-        <div class="idea-line1-text1">{{ item.ideaName }}</div>
-        <div class="idea-line1-text2">
-          {{ item.createDatetime.slice(0, 11) }}
-        </div>
-      </div>
-      <div class="idea-line2">
-        <div class="idea-line2-text">
-          {{ "IDEA_MANAGEMENT.LABEL.UNIT" | translate }}:
-          {{ item.unitNames }}
-        </div>
-      </div>
-      <div class="idea-line3">
-        <div class="idea-line3-text1">
-          {{ "IDEA_MANAGEMENT.LABEL.SPECIALTY" | translate }}:
-          {{ item.specialtyName }}
-        </div>
-        <div class="idea-line3-textbox">
-          <span
-            statusColor
-            [statusColor]="item?.approveStatus"
-            class="idea-line3-text2"
-          >
-            {{ item?.approveStatusName }}
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <ng-template #noRecord>
-    <span class="text-center">
-      {{ "VALIDATION.NO_RECORD_VALID" | translate }}
-    </span>
-  </ng-template>
+</div>
 </div>
 <app-nav-menu></app-nav-menu>

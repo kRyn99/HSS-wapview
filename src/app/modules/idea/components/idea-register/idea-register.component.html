@@ -1,6 +1,6 @@
 <app-title-nav
   [title]="'IDEA_MANAGEMENT.TITLE.IDEA_REGISTRATION' | translate"
-  backRoute="idea-new/list-new"
+  backRoute="idea/list"
 ></app-title-nav>
 <div class="nation-brand">
   <div class="nation">
@@ -207,6 +207,7 @@
       bindValue="unitId"
       [(ngModel)]="selectedUnit"
       (change)="onNgSelectChange($event)"
+      [placeholder]="'Chọn đơn vị'"
     >
       <ng-template
         ng-optgroup-tmp
@@ -570,39 +571,6 @@
   </div>
 </div>
 
-<!-- <button (click)="showDiv()">Hiển thị Div</button> -->
-
-<div *ngIf="this.DataService.showAddInsideAuthor" class="slide-up-div">
-  <app-add-inside-author
-    (handleAddInsideAuthor)="handleAddInsideAuthor()"
-    (handleAddInsideAuthorPopup)="handleAddInsideAuthorPopup()"
-  ></app-add-inside-author>
-</div>
-<div *ngIf="this.DataService.showEditInsideAuthor" class="slide-up-div">
-  <app-edit-inside-author
-  (handleEditInsideAuthor)="handleEditInsideAuthor()"
-  (handleEditInsideAuthorPopup)="handleEditInsideAuthorPopup()"
-  ></app-edit-inside-author>
-</div>
-<div *ngIf="this.DataService.showAddOutsideAuthor" class="slide-up-div">
-  <app-add-outside-author
-  (handleAddOutsideAuthor)="handleAddOutsideAuthor()"
-  (handleAddOutsideAuthorPopup)="handleAddOutsideAuthorPopup()"
-  ></app-add-outside-author>
-</div>
-<div *ngIf="this.DataService.showEditOutsideAuthor" class="slide-up-div">
-  <app-edit-outside-author
-  (handleEditOutsideAuthor)="handleEditOutsideAuthor()"
-  (handleEditOutsideAuthorPopup)="handleEditOutsideAuthorPopup()"
-  ></app-edit-outside-author>
-</div>
-<div *ngIf="this.DataService.showDuplicateIdea" class="slide-up-div-duplicate">
-  <app-check-duplicate-idea
-
-  ></app-check-duplicate-idea>
-</div>
-
-
 <!-- <div class="line"></div> -->
 <div class="idea-form">
   <div class="header-text">
@@ -788,4 +756,35 @@
       {{ 'IDEA_MANAGEMENT.BUTTON.DUPLICATION_CHECK' | translate }}
     </div>
   </div>
+</div>
+<!-- <button (click)="showDiv()">Hiển thị Div</button> -->
+
+<div *ngIf="this.DataService.showAddInsideAuthor" class="slide-up-div">
+  <app-add-inside-author
+    (handleAddInsideAuthor)="handleAddInsideAuthor()"
+    (handleAddInsideAuthorPopup)="handleAddInsideAuthorPopup()"
+  ></app-add-inside-author>
+</div>
+<div *ngIf="this.DataService.showEditInsideAuthor" class="slide-up-div">
+  <app-edit-inside-author
+  (handleEditInsideAuthor)="handleEditInsideAuthor()"
+  (handleEditInsideAuthorPopup)="handleEditInsideAuthorPopup()"
+  ></app-edit-inside-author>
+</div>
+<div *ngIf="this.DataService.showAddOutsideAuthor" class="slide-up-div">
+  <app-add-outside-author
+  (handleAddOutsideAuthor)="handleAddOutsideAuthor()"
+  (handleAddOutsideAuthorPopup)="handleAddOutsideAuthorPopup()"
+  ></app-add-outside-author>
+</div>
+<div *ngIf="this.DataService.showEditOutsideAuthor" class="slide-up-div">
+  <app-edit-outside-author
+  (handleEditOutsideAuthor)="handleEditOutsideAuthor()"
+  (handleEditOutsideAuthorPopup)="handleEditOutsideAuthorPopup()"
+  ></app-edit-outside-author>
+</div>
+<div *ngIf="this.DataService.showDuplicateIdea" class="slide-up-div-duplicate">
+  <app-check-duplicate-idea
+
+  ></app-check-duplicate-idea>
 </div>

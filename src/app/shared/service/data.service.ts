@@ -15,6 +15,11 @@ export class DataService {
   phoneEditOutsideAuthor:number;
   emailEditOutsideAuthor:string;
   showBg:boolean=false;
+  showAddInsideEdit:boolean=false;
+  showEditInsideEdit:boolean=false;
+  showAddOutsideEdit:boolean=false;
+  showEditOutsideEdit:boolean=false;
+
   isEndDateTouched=false;
   selectedLanguage= new BehaviorSubject<any>(null);
   ideaName2= new BehaviorSubject<any>(null);

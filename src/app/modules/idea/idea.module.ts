@@ -28,9 +28,17 @@ import { AddInsideAuthorComponent } from "../author/components/add-inside-author
 import { EditInsideAuthorComponent } from "../author/components/edit-inside-author/edit-inside-author.component";
 import { AddOutsideAuthorComponent } from "../author/components/add-outside-author/add-outside-author.component";
 import { EditOutsideAuthorComponent } from "../author/components/edit-outside-author/edit-outside-author.component";
+import { EditInsideEditComponent } from "../author/components/edit-inside-edit/edit-inside-edit.component";
+import { AddInsideEditComponent } from "../author/components/add-inside-edit/add-inside-edit.component";
+import { AddOutsideEditComponent } from "../author/components/add-outside-edit/add-outside-edit.component";
+import { EditOutsideEditComponent } from "../author/components/edit-outside-edit/edit-outside-edit.component";
 
 @NgModule({
   declarations: [
+    EditOutsideEditComponent,
+    AddOutsideEditComponent,
+    AddInsideEditComponent,
+    EditInsideEditComponent,
     EditOutsideAuthorComponent,
     AddOutsideAuthorComponent,
     EditInsideAuthorComponent,
