@@ -251,27 +251,27 @@ export class EditInsideAuthorComponent implements OnInit {
         return false;
       }
     }
-    if (
-      this.contributorDTO.birthday === undefined ||
-      this.contributorDTO.birthday === null ||
-      this.contributorDTO.birthday === ''
-    ) {
-      const modalRef = this.modalService.open(MessagePopupComponent, {
-        size: 'sm',
-        backdrop: 'static',
-        keyboard: false,
-        centered: true,
-      });
-      modalRef.componentInstance.type = 'fail';
-      modalRef.componentInstance.title = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.ERROR`
-      );
-      modalRef.componentInstance.message = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.BIRTHDAY`
-      );
-      modalRef.componentInstance.closeIcon = false;
-      return false;
-    }
+    // if (
+    //   this.contributorDTO.birthday === undefined ||
+    //   this.contributorDTO.birthday === null ||
+    //   this.contributorDTO.birthday === ''
+    // ) {
+    //   const modalRef = this.modalService.open(MessagePopupComponent, {
+    //     size: 'sm',
+    //     backdrop: 'static',
+    //     keyboard: false,
+    //     centered: true,
+    //   });
+    //   modalRef.componentInstance.type = 'fail';
+    //   modalRef.componentInstance.title = this.translateService.instant(
+    //     `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+    //   );
+    //   modalRef.componentInstance.message = this.translateService.instant(
+    //     `ADD-INSIDE-IDEA.VALIDATE.BIRTHDAY`
+    //   );
+    //   modalRef.componentInstance.closeIcon = false;
+    //   return false;
+    // }
 
     let hasDuplicate = false;
     let lstContributorDTO = [];
