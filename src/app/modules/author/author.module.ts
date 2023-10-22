@@ -58,10 +58,10 @@ import { ChangeDomDirective } from './components/change-dom.directive';
     ],
     declarations: [
         AuthorComponent,
-        AddInsideAuthorComponent,
-        AddOutsideAuthorComponent,
-        EditOutsideAuthorComponent,
-        EditInsideAuthorComponent,
+      
+   
+      
+       
         InsideTableComponent,
         OutsideTableComponent,
         EditInsideEditComponent,

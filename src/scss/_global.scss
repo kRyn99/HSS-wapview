@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Lao&display=swap");
+@import "~@ng-select/ng-select/themes/default.theme.css";
 .icon-box {
   width: 35px;
   height: 35px;
@@ -72,7 +73,7 @@ body {
 button:disabled {
   background: #c1c1c1 !important;
   color: #ffffff;
-  box-shadow: none !important
+  box-shadow: none !important;
 }
 
 .recent-summary {
@@ -139,7 +140,7 @@ button:disabled {
 
 .blue-underline-text {
   text-transform: capitalize;
-  color: #3275E0;
+  color: #3275e0;
   font-weight: 700;
   font-size: 1rem;
   text-decoration: underline;
@@ -152,7 +153,7 @@ button:disabled {
 
 .red-text {
   text-transform: capitalize;
-  color: #FF0000;
+  color: #ff0000;
   font-weight: 700;
   font-size: 1rem;
 }
@@ -226,48 +227,54 @@ button:disabled {
 
 @font-face {
   font-family: ShowcardGothic;
-  src: url('./../assets/font/Gothic/SHOWG.TTF') format("opentype");
+  src: url("./../assets/font/Gothic/SHOWG.TTF") format("opentype");
 }
 
 @font-face {
   font-family: SFUIText;
-  src: url('./../assets/font/SFUIText/SFUIText-Regular.ttf') format("opentype");
+  src: url("./../assets/font/SFUIText/SFUIText-Regular.ttf") format("opentype");
 }
 
 @font-face {
   font-family: SFProText;
-  src: url('./../assets/font/SFUIText/SFProText-Regular.ttf') format("opentype");
+  src: url("./../assets/font/SFUIText/SFProText-Regular.ttf") format("opentype");
 }
 
 @font-face {
   font-family: Montserrat;
-  src: url('./../assets/font/Montserrat/static/Montserrat-Regular.ttf') format("opentype");
+  src: url("./../assets/font/Montserrat/static/Montserrat-Regular.ttf")
+    format("opentype");
 }
 
 @font-face {
   font-family: NotoSansLao;
-  src: url('./../assets/font/NotoSansLao/Noto-Sans-Lao-Regular.ttf.woff') format("woff"), url('./../assets/font/NotoSansLao/Noto-Sans-Lao-Regular.ttf.eot');
+  src: url("./../assets/font/NotoSansLao/Noto-Sans-Lao-Regular.ttf.woff")
+      format("woff"),
+    url("./../assets/font/NotoSansLao/Noto-Sans-Lao-Regular.ttf.eot");
 }
 
 @font-face {
   font-family: OpenSans;
-  src: url('./../assets/font/Open_Sans/static/OpenSans/OpenSans-Regular.ttf') format("opentype");
+  src: url("./../assets/font/Open_Sans/static/OpenSans/OpenSans-Regular.ttf")
+    format("opentype");
 }
 
 @font-face {
   font-family: phetsarath_ot;
-  src: url('./../assets/font/phetsarath_ot/phetsarath_ot.ttf') format("opentype");
+  src: url("./../assets/font/phetsarath_ot/phetsarath_ot.ttf")
+    format("opentype");
 }
 
 @font-face {
   font-family: NotoSerifLao;
-  src: url('./../assets/font/Noto_Serif_Lao/static/NotoSerifLao/NotoSerifLao-Regular.ttf') format("truetype");
+  src: url("./../assets/font/Noto_Serif_Lao/static/NotoSerifLao/NotoSerifLao-Regular.ttf")
+    format("truetype");
 }
 
 // global
 * {
   // font-family: NotoSerifLao;
-  font-family: 'phetsarath_ot', sans-serif;
+  font-family: "phetsarath_ot", sans-serif;
   // word-break: break-word;
 }
 
@@ -280,7 +287,7 @@ button:disabled {
   margin-top: 123px !important;
 }
 
-.ma-b-0{
+.ma-b-0 {
   margin-bottom: unset !important;
 }
 
@@ -308,24 +315,24 @@ button:disabled {
   margin-bottom: 80px;
 }
 
-.ma-t-10{
+.ma-t-10 {
   margin-top: 10px;
 }
 
-.ma-t-15{
+.ma-t-15 {
   margin-top: 15px;
 }
 
-.ma-t-18{
+.ma-t-18 {
   margin-top: 18px;
 }
-.ma-t-20{
+.ma-t-20 {
   margin-top: 20px;
 }
-.ma-t-25{
+.ma-t-25 {
   margin-top: 25px;
 }
-.ma-t-35{
+.ma-t-35 {
   margin-top: 35px;
 }
 
@@ -369,19 +376,19 @@ button:disabled {
 }
 
 .color-green-success {
-  color: #01A024;
+  color: #01a024;
 }
 
 .color-red-fail {
-  color: #B54608;
+  color: #b54608;
 }
 
 .color-blue-info {
-  color: #576C8A;
+  color: #576c8a;
 }
 
-.color-orange-primary{
-  color: #ED5E0D !important;
+.color-orange-primary {
+  color: #ed5e0d !important;
 }
 
 // update p2
@@ -390,7 +397,7 @@ button:disabled {
   height: 70px;
 
   .big-action {
-    background: linear-gradient(181.93deg, #FF8E33 -13.77%, #EE4019 98.37%);
+    background: linear-gradient(181.93deg, #ff8e33 -13.77%, #ee4019 98.37%);
     box-shadow: 0 6px 10px rgb(255 168 32 / 15%);
     border-radius: 8px;
     border: none;
@@ -421,7 +428,7 @@ button:disabled {
   }
 }
 
-.input-hidden{
+.input-hidden {
   height: 0;
   padding: unset;
   border: unset;
@@ -452,7 +459,7 @@ overlay {
   }
 }
 
-.filter-darken{
+.filter-darken {
   filter: brightness(0.5);
 }
 
@@ -476,7 +483,7 @@ overlay {
     height: 160px;
   }
 
-  .content-part-1{
+  .content-part-1 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -496,32 +503,31 @@ overlay {
       margin-top: 20px;
     }
 
-    .event-name{
+    .event-name {
       font-weight: 700;
       font-size: 20px;
       line-height: 28px;
       text-align: center;
       padding: 10px 35px;
-      font-family: 'Inter';
+      font-family: "Inter";
     }
 
-    .note{
+    .note {
       font-weight: 400;
       font-size: 14px;
       line-height: 23.03px;
       color: #5e5e5e;
     }
 
-    .ticket-class{
+    .ticket-class {
       font-weight: 700;
       font-size: 16px;
       line-height: 26.32px;
       margin-bottom: 0 !important;
     }
-
   }
 
-  .content-part-2{
+  .content-part-2 {
     flex-direction: column;
     justify-content: flex-start;
     display: flex;
@@ -535,7 +541,7 @@ overlay {
       line-height: 16px;
     }
 
-    .value{
+    .value {
       font-size: 14px;
       font-weight: 600;
       line-height: 20px;

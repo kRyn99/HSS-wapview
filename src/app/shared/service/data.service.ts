@@ -6,6 +6,15 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class DataService {
+  showDuplicateIdea:boolean=false;
+  showAddInsideAuthor:boolean=false;
+  showEditInsideAuthor:boolean=false;
+  idEditInsideAuthor:number;
+  showAddOutsideAuthor:boolean=false;
+  showEditOutsideAuthor:boolean=false;
+  phoneEditOutsideAuthor:number;
+  emailEditOutsideAuthor:string;
+  showBg:boolean=false;
   isEndDateTouched=false;
   selectedLanguage= new BehaviorSubject<any>(null);
   ideaName2= new BehaviorSubject<any>(null);

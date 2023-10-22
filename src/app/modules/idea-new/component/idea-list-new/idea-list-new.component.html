@@ -27,20 +27,20 @@
           >Ý tưởng</span
         >
       </div>
-      <div style="display: flex; flex-direction: column; align-items: center">
+      <div style="display: flex; flex-direction: column; align-items: center" (click)="handleCreate()">
         <img src="../../../../../assets/img/icon/idea-add.png" alt="idea-add" />
         <span style="color: #ff4d00; font-size: 12px">Tạo mới</span>
       </div>
     </div>
     <div class="status-border">
       <div class="status-info">
-        <div class="status-info-number">
+        <div class="status-info-number" style=" border-right: 1px solid #929292;">
           <div class="status-text1">{{ recordInfoDTO?.totalNumber }}</div>
           <div class="status-text2">
             {{ "IDEA_MANAGEMENT.LABEL.TOTAL_NUMBER" | translate }}
           </div>
         </div>
-        <div class="status-info-number">
+        <div class="status-info-number" style=" border-right: 1px solid #929292;">
           <div class="status-text1">{{ recordInfoDTO?.approveNumber }}</div>
           <div class="status-text2" style="color: #00820D;">
             {{ "IDEA_MANAGEMENT.LABEL.APPROVE_NUMBER" | translate }}
@@ -52,7 +52,7 @@
             {{ "IDEA_MANAGEMENT.LABEL.DECLINED_NUMBER" | translate }}
           </div>
         </div>
-        <div class="status-info-number">
+        <!-- <div class="status-info-number">
           <div class="status-text1">{{ recordInfoDTO?.approveAwaitNumber }}</div>
           <div class="status-text2">
             {{ "IDEA_MANAGEMENT.LABEL.APPROVEAWAIT_NUMBER" | translate }}
@@ -63,7 +63,7 @@
           <div class="status-text2">
             {{ "IDEA_MANAGEMENT.LABEL.CREATED_NUMBER" | translate }}
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
     <div style="display: flex; justify-content: space-evenly">

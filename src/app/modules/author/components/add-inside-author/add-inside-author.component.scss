@@ -1,13 +1,13 @@
 :root {
-  --top: 29% !important;; /* Đặt giá trị nền màu đỏ làm ví dụ */
+  --top: 29% !important; /* Đặt giá trị nền màu đỏ làm ví dụ */
 }
 .body {
   display: flex;
   padding: 5px 20px;
   flex-direction: column;
   align-items: flex-start;
-  gap: 10px;
-  margin-top: 120px;
+  gap: 16px;
+  // margin-top: 120px;
   margin-bottom: 60px;
   .info-box {
     display: flex;
@@ -19,7 +19,7 @@
       color: #000;
 
       //font-family: Inter;
-      font-size: 12px;
+      font-size: 14px;
       font-style: normal;
       font-weight: 400;
       line-height: 133%;
@@ -46,6 +46,7 @@
   bottom: 10px;
   padding: 0 20px;
   position: fixed;
+
   .bottom-btn {
     display: flex;
     align-items: center;
@@ -60,7 +61,7 @@
       color: #fff;
       text-align: center;
       //font-family: Inter;
-      font-size: 12px;
+      font-size: 14px;
       font-style: normal;
       font-weight: 700;
       line-height: 133%;
@@ -81,7 +82,10 @@
     width: 100%;
   }
 }
-.ng-select{
+.info-box:last-child {
+  margin-bottom: 11px;
+}
+.ng-select {
   width: 100%;
 }
 // ::ng-deep .ng-select {
@@ -89,10 +93,9 @@
 //   position: relative !important;
 // }
 
-
 // ::ng-deep .ng-dropdown-panel {
 //   top: 29% !important;
 // }
 ::ng-deep ng-dropdown-panel.custom-class-aia {
-  top: 29% !important;
+  z-index: 999999;
 }
