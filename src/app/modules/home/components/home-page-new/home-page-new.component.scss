@@ -1,9 +1,9 @@
-.title{
+.title {
   display: flex;
   padding: 0px 20px;
   align-items: flex-start;
   gap: 10px;
-  .title-name{
+  .title-name {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -20,14 +20,14 @@
     line-height: 20px; /* 125% */
   }
 }
-.header{
+.header {
   display: flex;
   padding-left: 0px;
   justify-content: space-between;
   align-items: center;
   border-bottom: 0.5px solid black;
   margin-bottom: 13px;
-  .header-text{
+  .header-text {
     flex: 1 0 0;
     //style
     color: var(--text-black, #000);
@@ -38,7 +38,7 @@
     font-weight: 400;
     line-height: normal;
   }
-  .header-avatar{
+  .header-avatar {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -56,4 +56,59 @@
 
 .app-nav-menu {
   height: 100px; /* Điều chỉnh chiều cao tùy ý */
+}
+
+.header-title {
+  margin-top: 12px;
+  padding: 0 16px;
+}
+
+.home-container {
+  background-image: url("../../../../../assets/img/icon/bg-img.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.header-title-text {
+  color: rgba(0, 0, 0, 0.6);
+
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+}
+
+.header-title-hightlight {
+  display: flex;
+  flex-wrap: wrap;
+  color: #000;
+  font-family: Inter;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 120%; /* 48px */
+  height: 104px;
+  margin: 8px 0;
+  align-self: stretch;
+}
+
+.sub-title-number {
+  color: #000;
+  font-weight: 700;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  line-height: 120%;
+}
+
+.sub-title-line{
+  width: 1px;
+  margin: 0px 16px;
+  height: 18px;
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.home-body {
+  margin-bottom: 112px;
 }

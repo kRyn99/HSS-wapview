@@ -905,6 +905,8 @@
   },
   "HOME": {
     "TITLE": "Hệ thống quản lý sáng kiến ý tưởng",
+    "LABEL": "Hệ thống quản lý",
+
     "WELCOME": "Xin chào, ",
     "APPROVED_CONTRIVANCE": "Sáng kiến được công nhận",
     "APPROVED_IDEA": "Ý tưởng được công nhận",

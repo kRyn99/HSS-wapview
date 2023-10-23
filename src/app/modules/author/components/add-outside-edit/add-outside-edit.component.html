@@ -27,6 +27,7 @@
     style="position: absolute; left: 16px;"
     src="../../../../../assets/img/icon/icon-back-2.png"
     alt="img"
+    (click)="goBack()"
   />
   <span style="font-size: 16px; font-weight: 500;">
     Thêm tác giả Ngoài tập đoàn
@@ -38,7 +39,7 @@
     <ng-select
     class="custom-class-aoe"
       [items]="listContributorOut"
-      bindLabel="fullName"
+      bindLabel="displayName"
       [placeholder]="'MANAGE_CATEGORY.PLACEHOLDER.FULL_NAME' | translate"
       [(ngModel)]="selectedFullName"
       (change)="onSelectedStaffCodeChange($event)"

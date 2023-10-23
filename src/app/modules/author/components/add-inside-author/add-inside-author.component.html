@@ -26,6 +26,7 @@
     style="position: absolute; left: 16px;"
     src="../../../../../assets/img/icon/icon-back-2.png"
     alt="img"
+    (click)="goBack()"
   />
   <span style="font-size: 16px; font-weight: 500;">
     Thêm tác giả Trong tập đoàn
@@ -40,8 +41,8 @@
     </div>
     <ng-select
       class="custom-class-aia"
-      [items]="listStaff"
-      bindLabel="fullName"
+      [items]="listStaff2"
+      bindLabel="displayName"
       placeholder="{{
         'IDEA_MANAGEMENT.PLACEHOLDER.ENTER_STAFF_CODE' | translate
       }}"

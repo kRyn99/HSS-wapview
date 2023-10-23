@@ -64,6 +64,21 @@ export class EditOutsideAuthorComponent implements OnInit {
 
     this.apiListContributorOut();
   }
+  goBack(){
+    this.DataService.showBg = false;
+    this.DataService.showAddInsideAuthor = false;
+    this.DataService.showEditInsideAuthor = false;
+    this.DataService.showAddOutsideAuthor = false;
+    this.DataService.showEditOutsideAuthor = false;
+    this.DataService.showDuplicateIdea = false;
+    this.DataService.showAddInsideEdit = false;
+    this.DataService.showEditInsideEdit = false;
+    this.DataService.showAddOutsideEdit = false;
+    this.DataService.showEditOutsideEdit = false;
+    if (!this.DataService.showBg) {
+      document.body.style.overflow = "auto";
+    }
+  }
   lang = localStorage.getItem("lang");
   listContributorOut: [];
   apiListContributorOut() {
@@ -81,7 +96,9 @@ export class EditOutsideAuthorComponent implements OnInit {
     };
     return this.http.post<any>(url, requestBody, { headers }).subscribe(
       (response) => {
-        this.listContributorOut = response.data;
+        // this.listContributorOut = response.data;
+        this.listContributorOut = response.data.map((item) => { item.displayName = `${item.fullName} - ${item.phoneNumber}`; return { ...item } });
+
         console.log(this.listContributorOut);
       },
       (error) => {

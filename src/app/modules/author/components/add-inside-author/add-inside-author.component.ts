@@ -21,7 +21,7 @@ import { ContrivanceService } from "@app/shared/service/contrivance.service";
   styleUrls: ["./add-inside-author.component.scss"],
 })
 
-export class AddInsideAuthorComponent implements OnInit  {
+export class AddInsideAuthorComponent implements OnInit {
   public selectedStaffCodeSubject = new BehaviorSubject<any>(null);
   setSelectedStaffCode(code: any) {
     this.selectedStaffCodeSubject.next(code);
@@ -35,7 +35,7 @@ export class AddInsideAuthorComponent implements OnInit  {
   selectedStaffCode: any;
   token = JSON.parse(localStorage.getItem("tokenInLocalStorage"));
   constructor(
-  
+
     private http: HttpClient,
     private config: NgSelectConfig,
     public DataService: DataService,
@@ -43,15 +43,15 @@ export class AddInsideAuthorComponent implements OnInit  {
     private modalService: NgbModal,
     private translateService: TranslateService,
     public contrivanceService: ContrivanceService,
-    private route: ActivatedRoute,private renderer: Renderer2, private el: ElementRef
+    private route: ActivatedRoute, private renderer: Renderer2, private el: ElementRef
   ) {
     this.config.notFoundText = this.translateService.instant(`STAFF_CODE_NOT_EXIST`);
     this.config.appendTo = "body";
     this.config.bindValue = "value";
-  
+
   }
 
-  eClickSelect(){
+  eClickSelect() {
     debugger
     const dropdownPanelElement = this.el.nativeElement.querySelector('.ng-dropdown-panel');
     this.renderer.addClass(dropdownPanelElement, 'your-custom-class');
@@ -70,7 +70,25 @@ export class AddInsideAuthorComponent implements OnInit  {
       }
     })
   }
+  goBack(){
+    this.DataService.showBg = false;
+    this.DataService.showAddInsideAuthor = false;
+    this.DataService.showEditInsideAuthor = false;
+    this.DataService.showAddOutsideAuthor = false;
+    this.DataService.showEditOutsideAuthor = false;
+    this.DataService.showDuplicateIdea = false;
+    this.DataService.showAddInsideEdit = false;
+    this.DataService.showEditInsideEdit = false;
+    this.DataService.showAddOutsideEdit = false;
+    this.DataService.showEditOutsideEdit = false;
+    if (!this.DataService.showBg) {
+      document.body.style.overflow = "auto";
+    }
+  }
+
+
   listStaff: [];
+  listStaff2: [];
   lang = localStorage.getItem('lang');
   getListStaff() {
     const url = `${environment.API_HOST_NAME}/api/get-list-staff`;
@@ -88,7 +106,7 @@ export class AddInsideAuthorComponent implements OnInit  {
     return this.http.post<any>(url, requestBody, { headers }).subscribe(
       (response) => {
         this.listStaff = response.data.listStaffDTO;
-        
+        this.listStaff2 = response.data.listStaffDTO.map((item) => { item.displayName = `${item.staffCode} - ${item.fullName}`; return { ...item } });
         console.log(this.listStaff);
       },
       (error) => {
@@ -142,15 +160,15 @@ export class AddInsideAuthorComponent implements OnInit  {
   }
   checkEmail = false;
   emailChange() {
-  
+
     this.DataService.email.next(this.email)
-  
+
     this.selectedStaffCodeSubject.value.email = this.email;
     if (!this.isValidEmail(this.email)) {
-      this.checkEmail=true;
-    }else{
+      this.checkEmail = true;
+    } else {
 
-      this.checkEmail=false;
+      this.checkEmail = false;
     }
   }
 
@@ -205,7 +223,7 @@ export class AddInsideAuthorComponent implements OnInit  {
     ) {
       this.percentageTouched = true;
     }
-   
+
   }
 
   @Output() handleAddInsideAuthorPopup = new EventEmitter<void>();
@@ -262,24 +280,24 @@ export class AddInsideAuthorComponent implements OnInit  {
     //   this.validateTemplate()
     //   return false;
     // } else {
-      // if (!this.isValidEmail(this.email)) {
-      //   const modalRef = this.modalService.open(MessagePopupComponent, {
-      //     size: 'sm',
-      //     backdrop: 'static',
-      //     keyboard: false,
-      //     centered: true,
-      //   });
-      //   modalRef.componentInstance.type = 'fail';
-      //   modalRef.componentInstance.title = this.translateService.instant(
-      //     `ADD-INSIDE-IDEA.VALIDATE.ERROR`
-      //   );
-      //   modalRef.componentInstance.message = this.translateService.instant(
-      //     `ADD-INSIDE-IDEA.VALIDATE.EMAIL_FORM`
-      //   );
-      //   modalRef.componentInstance.closeIcon = false;
-      //   this.checkEmail=true;
-      //   return false;
-      // }
+    // if (!this.isValidEmail(this.email)) {
+    //   const modalRef = this.modalService.open(MessagePopupComponent, {
+    //     size: 'sm',
+    //     backdrop: 'static',
+    //     keyboard: false,
+    //     centered: true,
+    //   });
+    //   modalRef.componentInstance.type = 'fail';
+    //   modalRef.componentInstance.title = this.translateService.instant(
+    //     `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+    //   );
+    //   modalRef.componentInstance.message = this.translateService.instant(
+    //     `ADD-INSIDE-IDEA.VALIDATE.EMAIL_FORM`
+    //   );
+    //   modalRef.componentInstance.closeIcon = false;
+    //   this.checkEmail=true;
+    //   return false;
+    // }
     // }
     // if (
     //   this.birthday === undefined ||
@@ -319,7 +337,7 @@ export class AddInsideAuthorComponent implements OnInit  {
   }
 
   backRoute = null;
- 
+
   // addNew() {
 
   //   if (this.validate()) {
@@ -354,15 +372,15 @@ export class AddInsideAuthorComponent implements OnInit  {
   //   }
   // }
   @Output() handleAddInsideAuthor = new EventEmitter<void>();
-  addNew(){
-    if (this.validate()){
+  addNew() {
+    if (this.validate()) {
       this.handleAddInsideAuthor.emit();
-      this.DataService.showBg=false;
-      this.DataService.showAddInsideAuthor=false;
+      this.DataService.showBg = false;
+      this.DataService.showAddInsideAuthor = false;
       document.body.style.overflow = "auto";
       this.getLstContributorDTO();
     }
-  
- 
+
+
   }
 }

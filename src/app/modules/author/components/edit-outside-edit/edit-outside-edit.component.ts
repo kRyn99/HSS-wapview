@@ -50,19 +50,34 @@ export class EditOutsideEditComponent implements OnInit {
         //     }
 
         // })
-        if(this.DataService.phoneEditOutsideAuthor){
+        if (this.DataService.phoneEditOutsideAuthor) {
             this.contributorDTO = {
-              ...this.DataService.lstContributorDTOServiceOutEdit.value.find(
-                (item) => (item.phoneNumber == this.DataService.phoneEditOutsideAuthor && item.email == this.DataService.emailEditOutsideAuthor)
-              ),
+                ...this.DataService.lstContributorDTOServiceOutEdit.value.find(
+                    (item) => (item.phoneNumber == this.DataService.phoneEditOutsideAuthor && item.email == this.DataService.emailEditOutsideAuthor)
+                ),
             };
-          }
+        }
         this.oldNumber = this.contributorDTO.phoneNumber;
         this.oldEmail = this.contributorDTO.email;
 
 
         this.apiListContributorOut()
     }
+    goBack(){
+        this.DataService.showBg = false;
+        this.DataService.showAddInsideAuthor = false;
+        this.DataService.showEditInsideAuthor = false;
+        this.DataService.showAddOutsideAuthor = false;
+        this.DataService.showEditOutsideAuthor = false;
+        this.DataService.showDuplicateIdea = false;
+        this.DataService.showAddInsideEdit = false;
+        this.DataService.showEditInsideEdit = false;
+        this.DataService.showAddOutsideEdit = false;
+        this.DataService.showEditOutsideEdit = false;
+        if (!this.DataService.showBg) {
+          document.body.style.overflow = "auto";
+        }
+      }
     listContributorOut: []
     lang = localStorage.getItem('lang');
     apiListContributorOut() {
@@ -80,8 +95,8 @@ export class EditOutsideEditComponent implements OnInit {
         };
         return this.http.post<any>(url, requestBody, { headers }).subscribe(
             (response) => {
-                this.listContributorOut = response.data;
-                console.log(this.listContributorOut);
+                this.listContributorOut = response.data.map((item) => { item.displayName = `${item.fullName} - ${item.phoneNumber}`; return { ...item } });
+
 
             },
             (error) => {
@@ -278,7 +293,7 @@ export class EditOutsideEditComponent implements OnInit {
 
     @Output() handleEditOutsideEditPopup = new EventEmitter<void>();
     @Output() handleEditOutsideEdit = new EventEmitter<void>();
-    editNew(){
+    editNew() {
         if (this.validate()) {
             if (this.backRoute == "contrivance") {
                 for (let i = 0; i < this.contrivanceService.lstContributorDTOServiceOut.value.length; i++) {
@@ -305,8 +320,8 @@ export class EditOutsideEditComponent implements OnInit {
 
                 }
                 this.handleEditOutsideEdit.emit();
-                this.DataService.showBg=false;
-                this.DataService.showEditOutsideEdit=false;
+                this.DataService.showBg = false;
+                this.DataService.showEditOutsideEdit = false;
                 document.body.style.overflow = "auto";
             }
         }

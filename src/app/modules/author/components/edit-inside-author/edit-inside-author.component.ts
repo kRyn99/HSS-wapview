@@ -78,6 +78,21 @@ export class EditInsideAuthorComponent implements OnInit {
     this.staffId = this.DataService.idEditInsideAuthor
     this.getListStaff();
   }
+  goBack(){
+    this.DataService.showBg = false;
+    this.DataService.showAddInsideAuthor = false;
+    this.DataService.showEditInsideAuthor = false;
+    this.DataService.showAddOutsideAuthor = false;
+    this.DataService.showEditOutsideAuthor = false;
+    this.DataService.showDuplicateIdea = false;
+    this.DataService.showAddInsideEdit = false;
+    this.DataService.showEditInsideEdit = false;
+    this.DataService.showAddOutsideEdit = false;
+    this.DataService.showEditOutsideEdit = false;
+    if (!this.DataService.showBg) {
+      document.body.style.overflow = "auto";
+    }
+  }
   getListStaff() {
     const url = `${environment.API_HOST_NAME}/api/get-list-staff`;
     const headers = new HttpHeaders({
@@ -93,7 +108,9 @@ export class EditInsideAuthorComponent implements OnInit {
     };
     return this.http.post<any>(url, requestBody, { headers }).subscribe(
       (response) => {
-        this.listStaff = response.data.listStaffDTO;
+        // this.listStaff = response.data.listStaffDTO;
+        this.listStaff = response.data.listStaffDTO.map((item) => { item.displayName = `${item.staffCode} - ${item.fullName}`; return { ...item } });
+
         console.log(this.listStaff);
       },
       (error) => {

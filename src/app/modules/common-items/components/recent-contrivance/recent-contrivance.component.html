@@ -1,35 +1,48 @@
 <div class="slideshow">
-    <div class="slideshow-header">
-        <div class="sh-text1">{{'HOME.APPROVED_CONTRIVANCE' | translate}}</div>
-        <div class="sh-text2">{{'HOME.WITHIN' | translate}}</div>
+  <div class="slideshow-header">
+    <div class="sh-text1">
+      <img src="assets/img/icon/good-idea.png" />{{
+        "HOME.APPROVED_CONTRIVANCE" | translate
+      }}
+      <span><div class="progessbar"></div></span>
     </div>
-    <swiper
-            [slidesPerView]="2"
-            [spaceBetween]="30"
-            [navigation]="true"
-            [pagination]="{ clickable: true }"
-            [centeredSlides]="true"
-            [rewind]="true"
-            [initialSlide]="1"
+
+    <div class="sh-text2">{{ "HOME.WITHIN" | translate }}</div>
+  </div>
+  <swiper
+    [config]="swiperConfig"
+    [pagination]="{
+      type: 'progressbar'
+    }"
+    [navigation]="true"
+  >
+    <ng-template
+      swiperSlide
+      *ngFor="let item of listContrivance; let i = index"
     >
-        <ng-template swiperSlide *ngFor="let item of listContrivance ; let i = index">
-            <div class="user-card" (click)="viewDetail(item.contrivanceId)">
-            <img class="bg-white" src="assets/img/icon/image 1.svg">
-                <div class="line-text">{{'HOME.CONTRIVANCE_NAME' | translate}}
-                    <span>{{item.contrivanceName | truncate:50}}</span>
-                </div>
-                <div class="line-text2">{{'HOME.PERCENT_DUP' |translate}}
-                    <span *ngIf="item.effectiveValue"><b>{{item.effectiveValue}}{{' KIP'}}</b></span>
-                    <span *ngIf="!item.effectiveValue"><b>{{'CONTRIVANCE.DETAIL.CANNOT_CALCULATED' | translate}}</b></span>
-                </div>
-                <div class="user-info">
-                    <img class="bg-white" src="assets/img/icon/avatar%20image.png">
-                    <div class="info-box">
-                        <div class="info-text">{{item.staffName}}</div>
-                        <div class="info-text">{{item.staffCode}}</div>
-                    </div>
-                </div>
-            </div>
-        </ng-template>
-    </swiper>
+      <div class="user-card" (click)="viewDetail(item.contrivanceId)">
+        <div class="line-text-contrivance">
+          "{{ item.contrivanceName | truncate : 50 }}""
+        </div>
+        <div class="line-text2">
+          {{ "HOME.PERCENT_DUP" | translate }}
+          <span *ngIf="item.effectiveValue"
+            >{{ item.effectiveValue }}{{ " KIP" }}</span
+          >
+          <span *ngIf="!item.effectiveValue">{{
+            "CONTRIVANCE.DETAIL.CANNOT_CALCULATED" | translate
+          }}</span>
+        </div>
+        <hr class="line-card" />
+        <div class="user-info">
+          <img class="img-staff" src="assets/img/icon/avatar%20image.png" />
+          <div class="info-box">
+            <div class="info-text-name">{{ item.staffName }}</div>
+            <div class="info-text-code">{{ item.staffCode }}</div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    <div class="swiper-pagination"></div>
+  </swiper>
 </div>

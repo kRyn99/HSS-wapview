@@ -27,6 +27,7 @@
     style="position: absolute; left: 16px;"
     src="../../../../../assets/img/icon/icon-back-2.png"
     alt="img"
+    (click)="goBack()"
   />
   <span style="font-size: 16px; font-weight: 500;">
     Sửa tác giả Trong tập đoàn
@@ -38,7 +39,7 @@
     <ng-select
     class="custom-class-eia"
       [items]="listStaff"
-      bindLabel="staffCode"
+      bindLabel="displayName"
       [placeholder]="contributorDTO?.staffCode"
       [(ngModel)]="contributorDTO"
       (change)="onSelectedStaffCodeChange($event)"

@@ -14,7 +14,19 @@ SwiperCore.use([Keyboard, Pagination, Navigation, Virtual, Autoplay]);
   encapsulation:ViewEncapsulation.None
 })
 export class RecentIdeaComponent {
-
+  swiperConfig: any = {
+    scrollbar: {
+      el: '.swiper-scrollbar', // Chọn phần tử chứa Scrollbar
+      hide: false, // Hiển thị Scrollbar
+    },
+    slidesPerView: 1.15,
+    spaceBetween: 8,
+    navigation: true,
+    hashNavigation: true,
+    pagination: { clickable: true },
+    centeredSlides: false,
+    initialSlide: 0
+  };
   constructor(
       private route: ActivatedRoute,
       private router: Router,

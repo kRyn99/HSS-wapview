@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  HostListener,
   OnInit,
   ViewChild,
 } from "@angular/core";
@@ -31,7 +32,10 @@ export class IdeaListComponent implements OnInit {
     public DataService: DataService,
     private contrivanceService: ContrivanceService,
     public homeService: HomepageService
-  ) {}
+  ) {
+    this.specialtyId = null;
+    this.statusId = null;
+  }
   token = JSON.parse(localStorage.getItem("tokenInLocalStorage"));
   isMoiNhatSelected: boolean = true;
   isLinhVucSelected: boolean = false;
@@ -41,6 +45,16 @@ export class IdeaListComponent implements OnInit {
     this.isMoiNhatSelected = tab === 'MoiNhat';
     this.isLinhVucSelected = tab === 'LinhVuc';
     this.isTrangThaiSelected = tab === 'TrangThai';
+
+    if (this.isLinhVucSelected = tab === 'LinhVuc') {
+
+    }
+  }
+  selectedSpecialty;
+  onSpecialtyClick(specialty: { name: string }) {
+    this.selectedSpecialty = specialty;
+    console.log(this.selectedSpecialty.name);
+
   }
   backToPage = "idea/list";
   get backRoute() {
@@ -49,6 +63,50 @@ export class IdeaListComponent implements OnInit {
   ngOnInit() {
     this.DataService.showBg = false;
     this.getListIdea();
+    this.getListSpecialty()
+    this.getListStatus()
+  }
+  listSpecialty: [];
+  getListSpecialty() {
+    const url = `${environment.API_HOST_NAME}/api/get-list-specialty`;
+    const headers = new HttpHeaders({
+      "Accept-Language": this.lang,
+      Authorization: `Bearer ` + this.token,
+    });
+    return this.http.get<any>(url, { headers }).subscribe(
+      (response) => {
+        this.listSpecialty = response.data;
+      },
+      (error) => {
+        console.error(error.description);
+      }
+    );
+  }
+  specialtyId;
+  changeSpecialty() {
+  this.getListIdea()
+
+  }
+  listStatus: [];
+  getListStatus() {
+    const url = `${environment.API_HOST_NAME}/api/get-list-approve-status`;
+    const headers = new HttpHeaders({
+      "Accept-Language": this.lang,
+      Authorization: `Bearer ` + this.token,
+    });
+    return this.http.get<any>(url, { headers }).subscribe(
+      (response) => {
+        this.listStatus = response.data;
+
+      },
+      (error) => {
+        console.error(error.description);
+      }
+    );
+  }
+  statusId;
+  changeStatus() {
+    this.getListIdea()
   }
   listIdea = [];
   backupListIdea = [];
@@ -65,6 +123,8 @@ export class IdeaListComponent implements OnInit {
       ideaDTO: {
         fromDate: null,
         toDate: null,
+        specialty: this.specialtyId,
+        approveStatus: this.statusId
       },
     };
     return this.http.post<any>(url, requestBody, { headers }).subscribe(
@@ -120,22 +180,22 @@ export class IdeaListComponent implements OnInit {
     this.homeService.isContrivanceChecked.next(false)
   } */
 
-  ngAfterViewInit() {
-    fromEvent(this.advanceSearch.nativeElement, "input")
-      .pipe(
-        debounceTime(500),
-        map((e: InputEvent) => (e.target as HTMLInputElement).value),
-        switchMap((value) =>
-          this.contrivanceService.callApiCommon("get-list-idea-advance", {
-            ideaDTO: {
-              input: value,
-            },
-          })
-        )
-      )
-      .subscribe((res) => {
-        this.listIdea = res.data.listIdea;
-        this.DataService.listIdeaService = this.listIdea;
-      });
-  }
+  // ngAfterViewInit() {
+  //   fromEvent(this.advanceSearch.nativeElement, "input")
+  //     .pipe(
+  //       debounceTime(500),
+  //       map((e: InputEvent) => (e.target as HTMLInputElement).value),
+  //       switchMap((value) =>
+  //         this.contrivanceService.callApiCommon("get-list-idea-advance", {
+  //           ideaDTO: {
+  //             input: value,
+  //           },
+  //         })
+  //       )
+  //     )
+  //     .subscribe((res) => {
+  //       this.listIdea = res.data.listIdea;
+  //       this.DataService.listIdeaService = this.listIdea;
+  //     });
+  // }
 }

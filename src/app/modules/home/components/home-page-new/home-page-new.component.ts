@@ -22,6 +22,10 @@ export class HomePageNewComponent implements OnInit{
   startIndex =0;
   listContrivance:any[]=[];
   subListContrivance:any[] = [];
+  backToPage = "contrivance-new/list-new";
+  get backRoute() {
+    return this.backToPage
+  }
   constructor(
       private route:ActivatedRoute,
       private router: Router,
