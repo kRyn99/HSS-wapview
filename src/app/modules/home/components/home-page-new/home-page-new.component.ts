@@ -22,7 +22,7 @@ export class HomePageNewComponent implements OnInit{
   startIndex =0;
   listContrivance:any[]=[];
   subListContrivance:any[] = [];
-  backToPage = "contrivance-new/list-new";
+  backToPage = "home";
   get backRoute() {
     return this.backToPage
   }
@@ -44,7 +44,10 @@ export class HomePageNewComponent implements OnInit{
               if (res.errorCode === '0') {
                 this.HomepageService.tokenAutoLogin = res.data.token
                 this.HomepageService.accountInfo = res.data.accountInfo
+                debugger
                 localStorage.setItem('tokenInLocalStorage', JSON.stringify(res.data.token));
+                localStorage.setItem('accountInfo', JSON.stringify(res.data.accountInfo));
+
                 this.getListIdea();
                 JSON.parse(localStorage.getItem(''));
                 // console.log(res.data.token)

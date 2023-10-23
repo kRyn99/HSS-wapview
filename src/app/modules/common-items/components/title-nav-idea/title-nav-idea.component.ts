@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HomepageService } from '@app/modules/home/shared/service/homepage.service';
 
@@ -8,7 +8,7 @@ import { HomepageService } from '@app/modules/home/shared/service/homepage.servi
   styleUrls: ['./title-nav-idea.component.scss']
 })
 
-export class TitleNavIdeaComponent {
+export class TitleNavIdeaComponent implements OnInit {
   @Input() shouldNavigateByUrl: boolean = false;
   @Input() title: string;
   @Input() backRoute: string;
@@ -37,10 +37,17 @@ export class TitleNavIdeaComponent {
   @Output() printEvent = new EventEmitter<any>();
   baseUrl: string = window.location.origin;
   hiddenMerchantUpoint = true;
-
+  isdn: string = '';
   constructor(private router: Router, public homeService: HomepageService) {
   }
 
+  ngOnInit(): void {
+
+    
+    if(JSON.parse(localStorage.getItem('accountInfo')) &&   JSON.parse(localStorage.getItem('accountInfo')).isdn){
+      this.isdn =  JSON.parse(localStorage.getItem('accountInfo')).isdn
+    }
+  }
   handleBack() {
     if(this.isBackHome){
     this.homeService.isIdeaChecked.next(false);

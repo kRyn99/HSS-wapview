@@ -32,7 +32,7 @@ import { EditInsideEditComponent } from "../author/components/edit-inside-edit/e
 import { AddInsideEditComponent } from "../author/components/add-inside-edit/add-inside-edit.component";
 import { AddOutsideEditComponent } from "../author/components/add-outside-edit/add-outside-edit.component";
 import { EditOutsideEditComponent } from "../author/components/edit-outside-edit/edit-outside-edit.component";
-
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 @NgModule({
   declarations: [
     EditOutsideEditComponent,
@@ -75,6 +75,7 @@ import { EditOutsideEditComponent } from "../author/components/edit-outside-edit
     MatFormFieldModule,
     NgbModalModule,
     NgbModule,
+    InfiniteScrollModule
   ],
   providers: [DatePipe],
 })
