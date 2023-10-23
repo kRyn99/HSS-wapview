@@ -21,7 +21,7 @@
 <div class="home-container">
  <div class="home-body">
   <div class="header-title">
-    <p class="header-title-text">{{ " HOME.LABEL" | translate }}</p>
+    <p class="header-title-text">{{ "HOME.LABEL" | translate }}</p>
     <div class="header-title-hightlight">
       <div>{{ "CONTRIVANCE_MAMAGEMENT.TITLE.CONTRIVANCE" | translate }} &</div>
       <div> {{ "IDEA_MANAGEMENT.LABEL.IDEA" | translate }}</div>
@@ -35,10 +35,10 @@
       <span class="header-title-text  ml-1"> {{ "IDEA_MANAGEMENT.LABEL.IDEA" | translate }}</span>
     </div>
   </div>
-  <app-recent-contrivance
-    [listContrivance]="listContrivance"
-  ></app-recent-contrivance>
-  <app-recent-idea [listIdea]="listIdea"></app-recent-idea>
+  <app-recent-contrivance-idea
+    [list]="listContrivance" [type]="'contrivance'"
+  ></app-recent-contrivance-idea>
+  <app-recent-contrivance-idea [list]="listIdea"  [type]="'idea'"></app-recent-contrivance-idea>
  </div>
   <app-nav-menu></app-nav-menu>
 </div>
