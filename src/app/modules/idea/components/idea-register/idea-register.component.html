@@ -2,30 +2,29 @@
   [title]="'IDEA_MANAGEMENT.TITLE.IDEA_REGISTRATION' | translate"
   backRoute="idea/list"
 ></app-title-nav>
-
 <div class="nation-brand">
   <div class="nation">
     <div class="nation-text align-self-stretch">
-      {{ "IDEA_MANAGEMENT.LABEL.TEXT_HEADER" | translate }}
+      {{ 'IDEA_MANAGEMENT.LABEL.TEXT_HEADER' | translate }}
     </div>
     <div class="nation-text">
-      {{ "IDEA_MANAGEMENT.LABEL.SUB_TEXT_HEADER" | translate }}
+      {{ 'IDEA_MANAGEMENT.LABEL.SUB_TEXT_HEADER' | translate }}
     </div>
   </div>
-  <div class="line" style="width: 40%"></div>
+  <div class="line" style="width: 40%;"></div>
   <div class="form">
     <div class="form-name">
-      {{ "IDEA_MANAGEMENT.LABEL.TEXT_FORM_HEADER" | translate }}
+      {{ 'IDEA_MANAGEMENT.LABEL.TEXT_FORM_HEADER' | translate }}
     </div>
     <div class="form-for">
-      {{ "IDEA_MANAGEMENT.LABEL.SUB_TEXT_FORM_HEADER" | translate }}
+      {{ 'IDEA_MANAGEMENT.LABEL.SUB_TEXT_FORM_HEADER' | translate }}
     </div>
   </div>
 </div>
 <div class="line"></div>
 <div class="idea-form">
   <div class="header-text">
-    1. {{ "IDEA_MANAGEMENT.LABEL.IDEA" | translate }}
+    1. {{ 'IDEA_MANAGEMENT.LABEL.IDEA' | translate }}
   </div>
   <div class="input-form">
     <div class="input-name">{{"ADD-INSIDE-IDEA.LANGUAGE.SELECTED_LANGUAGE" | translate }}(<span
@@ -45,10 +44,9 @@
 
   <div class="input-form">
     <div class="input-name">
-      {{ "IDEA_MANAGEMENT.LABEL.IDEA_NAME" | translate }} (<span
-        style="color: red"
-        >*</span
-      >)
+      {{ 'IDEA_MANAGEMENT.LABEL.IDEA_NAME' | translate }} (
+      <span style="color: red;">*</span>
+      )
     </div>
     <input
       class="input-field"
@@ -59,86 +57,87 @@
       [required]="isInputTouched"
     />
     <div class="form-text text-danger" *ngIf="isInputTouched && !inputValue">
-      {{ "ADD-INSIDE-IDEA.VALIDATE.IDEA-NAME" | translate }}
+      {{ 'ADD-INSIDE-IDEA.VALIDATE.IDEA-NAME' | translate }}
     </div>
   </div>
-  <div class="input-form">
-    <div class="input-name">
-      {{ "IDEA_MANAGEMENT.LABEL.DATE_APPLY_FROM" | translate }} (<span
-        style="color: red"
-        >*</span
-      >)
-    </div>
-    <div class="date">
-      <input
-        readonly
-        type="text"
-        name="Date"
-        [bsConfig]="bsConfig"
-        class="date-text"
-        style="background-color: white; border: white"
-        #dprn="bsDatepicker"
-        #vDate
-        bsDatepicker
-        autocomplete="off"
-        [(ngModel)]="selectedStartDate"
-        (ngModelChange)="startDateChange()"
-        [required]="isStartDateTouched"
-      />
+  <div style="display: flex; justify-content: space-between; width: 100%;">
+    <div class="input-form" style="width: 49%;">
+      <div class="input-name">
+        {{ 'IDEA_MANAGEMENT.LABEL.DATE_APPLY_FROM' | translate }} (
+        <span style="color: red;">*</span>
+        )
+      </div>
+      <div class="date">
+        <input
+          readonly
+          type="text"
+          name="Date"
+          [bsConfig]="bsConfig"
+          class="date-text"
+          style="background-color: white; border: white;"
+          #dprn="bsDatepicker"
+          #vDate
+          bsDatepicker
+          autocomplete="off"
+          [(ngModel)]="selectedStartDate"
+          (ngModelChange)="startDateChange()"
+          [required]="isStartDateTouched"
+        />
 
-      <img src="assets/img/icon/calendar.svg" style="padding: 10px" />
+        <img src="assets/img/icon/icon-date.png" />
+      </div>
+      <div
+        class="form-text text-danger"
+        *ngIf="isStartDateTouched && !selectedStartDate"
+      >
+        {{ 'ADD-INSIDE-IDEA.VALIDATE.EMPTY_START_DATE' | translate }}
+      </div>
+      <div
+        class="form-text text-danger"
+        *ngIf="isStartDateTouched && checkStartDate"
+      >
+        {{ 'ADD-INSIDE-IDEA.VALIDATE.START_DAY' | translate }}
+      </div>
+      <div class="form-text text-danger" *ngIf="isStartDateTouched && checkNow">
+        {{ 'ADD-INSIDE-IDEA.VALIDATE.APPLY_START_DAY' | translate }}
+      </div>
     </div>
-    <div
-      class="form-text text-danger"
-      *ngIf="isStartDateTouched && !selectedStartDate"
-    >
-      {{ "ADD-INSIDE-IDEA.VALIDATE.EMPTY_START_DATE" | translate }}
-    </div>
-    <div
-      class="form-text text-danger"
-      *ngIf="isStartDateTouched && checkStartDate"
-    >
-      {{ "ADD-INSIDE-IDEA.VALIDATE.START_DAY" | translate }}
-    </div>
-    <div class="form-text text-danger" *ngIf="isStartDateTouched && checkNow">
-      {{ "ADD-INSIDE-IDEA.VALIDATE.APPLY_START_DAY" | translate }}
-    </div>
-  </div>
 
-  <div class="input-form">
-    <div class="input-name">
-      {{ "IDEA_MANAGEMENT.LABEL.DATE_APPLY_TO" | translate }}
-    </div>
-    <label class="date">
-      <input
-        readonly
-        type="text"
-        name="Date"
-        [bsConfig]="bsConfig"
-        class="date-text"
-        style="background-color: white; border: white"
-        #dprn="bsDatepicker"
-        #vDate
-        bsDatepicker
-        autocomplete="off"
-        [(ngModel)]="selectedEndDate"
-        (ngModelChange)="endDateChange()"
-        [required]="DataService.isEndDateTouched"
-      />
-      <img src="assets/img/icon/calendar.svg" style="padding: 10px" />
-    </label>
-    <!-- <div class="form-text text-danger" *ngIf="isEndDateTouched && !selectedEndDate">{{ "ADD-INSIDE-IDEA.VALIDATE.EMPTY_END_DATE" | translate }}</div> -->
-    <div
-      class="form-text text-danger"
-      *ngIf="DataService.isEndDateTouched && checkStartDate"
-    >
-      {{ "ADD-INSIDE-IDEA.VALIDATE.START_DAY" | translate }}
-    </div>
-    <div
-      class="form-text text-danger"
-      *ngIf="DataService.isEndDateTouched && checkNow2"
-    >
-      {{ "ADD-INSIDE-IDEA.VALIDATE.APPLY_END_DAY" | translate }}
+    <div class="input-form" style="width: 49%;">
+      <div class="input-name">
+        {{ 'IDEA_MANAGEMENT.LABEL.DATE_APPLY_TO' | translate }}
+      </div>
+      <label class="date">
+        <input
+          readonly
+          type="text"
+          name="Date"
+          [bsConfig]="bsConfig"
+          class="date-text"
+          style="background-color: white; border: white;"
+          #dprn="bsDatepicker"
+          #vDate
+          bsDatepicker
+          autocomplete="off"
+          [(ngModel)]="selectedEndDate"
+          (ngModelChange)="endDateChange()"
+          [required]="DataService.isEndDateTouched"
+        />
+        <img src="assets/img/icon/icon-date.png" />
+      </label>
+      <!-- <div class="form-text text-danger" *ngIf="isEndDateTouched && !selectedEndDate">{{ "ADD-INSIDE-IDEA.VALIDATE.EMPTY_END_DATE" | translate }}</div> -->
+      <div
+        class="form-text text-danger"
+        *ngIf="DataService.isEndDateTouched && checkStartDate"
+      >
+        {{ 'ADD-INSIDE-IDEA.VALIDATE.START_DAY' | translate }}
+      </div>
+      <div
+        class="form-text text-danger"
+        *ngIf="DataService.isEndDateTouched && checkNow2"
+      >
+        {{ 'ADD-INSIDE-IDEA.VALIDATE.APPLY_END_DAY' | translate }}
+      </div>
     </div>
   </div>
   <!-- <div class="input-form">
@@ -192,55 +191,60 @@
   </div> -->
   <div class="input-form">
     <div class="input-name">
-      {{ "IDEA_MANAGEMENT.LABEL.UNIT_APPLY" | translate }} (<span
-        style="color: red"
-        >*</span
-      >)
+      {{ 'IDEA_MANAGEMENT.LABEL.UNIT_APPLY' | translate }} (
+      <span style="color: red;">*</span>
+      )
     </div>
     <ng-select
-    style="width: 100%;"
-    [items]="listUnit"
-    [multiple]="true"
-    bindLabel="unitName"
-    groupBy="selectedAllGroup"      
-    [selectableGroup]="true"
-    [selectableGroupAsModel]="false"
-    [closeOnSelect]="false"
-    bindValue="unitId"
-    [(ngModel)]="selectedUnit"
-    (change)="onNgSelectChange($event)"
-  
-  >
-    <ng-template
-      ng-optgroup-tmp
-      let-item="item"
-      let-item$="item$"
-      let-index="index"
+      style="width: 100%;"
+      [items]="listUnit"
+      [multiple]="true"
+      bindLabel="unitName"
+      groupBy="selectedAllGroup"
+      [selectableGroup]="true"
+      [selectableGroupAsModel]="false"
+      [closeOnSelect]="false"
+      bindValue="unitId"
+      [(ngModel)]="selectedUnit"
+      (change)="onNgSelectChange($event)"
+      [placeholder]="'Chọn đơn vị'"
     >
-      <input id="item-{{ index }}" type="checkbox" [ngModel]="item$.selected" />
-      Select All
-    </ng-template>
-  
-    <ng-template ng-option-tmp let-item="item" let-item$="item$">
-      <input id="item-{{ index }}" type="checkbox" [ngModel]="item$.selected" />
-      {{ item.unitName }}
-    </ng-template>
-  </ng-select>
-  <div
+      <ng-template
+        ng-optgroup-tmp
+        let-item="item"
+        let-item$="item$"
+        let-index="index"
+      >
+        <input
+          id="item-{{ index }}"
+          type="checkbox"
+          [ngModel]="item$.selected"
+        />
+        Select All
+      </ng-template>
+
+      <ng-template ng-option-tmp let-item="item" let-item$="item$">
+        <input
+          id="item-{{ index }}"
+          type="checkbox"
+          [ngModel]="item$.selected"
+        />
+        {{ item.unitName }}
+      </ng-template>
+    </ng-select>
+    <div
       class="form-text text-danger"
       *ngIf="unitFieldTouched && !selectedUnitValue?.length"
     >
-      {{ "ADD-INSIDE-IDEA.VALIDATE.UNIT" | translate }}
+      {{ 'ADD-INSIDE-IDEA.VALIDATE.UNIT' | translate }}
     </div>
   </div>
 
-
   <div class="input-form">
     <div class="input-name">
-      {{ "IDEA_MANAGEMENT.LABEL.SPECIALTY" | translate }} (<span
-        style="color: red"
-        >*</span
-      >)
+      {{ 'IDEA_MANAGEMENT.LABEL.SPECIALTY' | translate }} (
+      <span style="color: red;">*</span>
+      )
     </div>
     <select
       class="input-field"
@@ -249,7 +253,7 @@
       (focus)="specialtyTouched = true"
     >
       <option [ngValue]="null">
-        {{ "IDEA_MANAGEMENT.PLACEHOLDER.SELECT_SPECIALTY" | translate }}
+        {{ 'IDEA_MANAGEMENT.PLACEHOLDER.SELECT_SPECIALTY' | translate }}
       </option>
       <ng-container *ngFor="let item of listSpecialty">
         <option [value]="item.value">{{ item.name }}</option>
@@ -259,21 +263,20 @@
       class="form-text text-danger"
       *ngIf="specialtyTouched && !selectedSpecialtyValue"
     >
-      {{ "ADD-INSIDE-IDEA.VALIDATE.SPECIALTY" | translate }}
+      {{ 'ADD-INSIDE-IDEA.VALIDATE.SPECIALTY' | translate }}
     </div>
   </div>
 </div>
-<div class="line"></div>
+<!-- <div class="line"></div> -->
 <div class="idea-form">
   <div class="header-text">
-    2. {{ "IDEA_MANAGEMENT.LABEL.AUTHOR" | translate }}
+    2. {{ 'IDEA_MANAGEMENT.LABEL.AUTHOR' | translate }}
   </div>
   <div class="input-form">
     <div class="input-name">
-      {{ "IDEA_MANAGEMENT.LABEL.IN_GROUP" | translate }} (<span
-        style="color: red"
-        >*</span
-      >)
+      {{ 'IDEA_MANAGEMENT.LABEL.IN_GROUP' | translate }} (
+      <span style="color: red;">*</span>
+      )
     </div>
     <table
       mat-table
@@ -286,9 +289,9 @@
           mat-header-cell
           *matHeaderCellDef
           aria-label="row actions"
-          style="width: 10%"
+          style="width: 10%;"
         ></th>
-        <td mat-cell *matCellDef="let element" style="text-align: center">
+        <td mat-cell *matCellDef="let element" style="text-align: center;">
           <i
             *ngIf="expandedElement !== element"
             class="fa fa-chevron-right"
@@ -312,9 +315,9 @@
           mat-header-cell
           *matHeaderCellDef
           aria-label="row actions"
-          style="width: 10%"
+          style="width: 10%;"
         ></th>
-        <td mat-cell *matCellDef="let element" style="text-align: center">
+        <td mat-cell *matCellDef="let element" style="text-align: center;">
           <i class="fa fa-user"></i>
         </td>
       </ng-container>
@@ -326,7 +329,7 @@
         <th mat-header-cell *matHeaderCellDef class="th-text">
           {{ column | translate }}
         </th>
-        <td mat-cell *matCellDef="let element" style="text-align: center">
+        <td mat-cell *matCellDef="let element" style="text-align: center;">
           {{ element[column] }}
         </td>
       </ng-container>
@@ -345,22 +348,27 @@
             "
           >
             <div class="example-element-description">
-              <b>{{ "IDEA_MANAGEMENT.LABEL.TELEPHONE" | translate }}:</b>
-              {{ element.phoneNumber }}<br />
-              <b>{{ "IDEA_MANAGEMENT.LABEL.EMAIL" | translate }}:</b>
-              {{ element.email }}<br />
-              <b>{{ "IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH" | translate }}:</b>
+              <b>{{ 'IDEA_MANAGEMENT.LABEL.TELEPHONE' | translate }}:</b>
+              {{ element.phoneNumber }}
+              <br />
+              <b>{{ 'IDEA_MANAGEMENT.LABEL.EMAIL' | translate }}:</b>
+              {{ element.email }}
+              <br />
+              <b>{{ 'IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH' | translate }}:</b>
               <ng-container>
                 {{
                   isTypeOfString(element.birthday)
                     ? element.birthday
-                    : (element.birthday | date : "dd/MM/yyyy")
-                }} </ng-container
-              ><br />
-              <b>{{ "IDEA_MANAGEMENT.LABEL.WORK_PLACE" | translate }}:</b>
-              {{ element.jobAddress }}<br />
-              <b>{{ "IDEA_MANAGEMENT.LABEL.OFFICE" | translate }}:</b>
-              {{ element.jobPosition }}<br />
+                    : (element.birthday | date: 'dd/MM/yyyy')
+                }}
+              </ng-container>
+              <br />
+              <b>{{ 'IDEA_MANAGEMENT.LABEL.WORK_PLACE' | translate }}:</b>
+              {{ element.jobAddress }}
+              <br />
+              <b>{{ 'IDEA_MANAGEMENT.LABEL.OFFICE' | translate }}:</b>
+              {{ element.jobPosition }}
+              <br />
               <!-- <b>{{ "IDEA_MANAGEMENT.LABEL.QUALIFICATION" | translate }}:</b>
               {{ element.professionalQualification }}<br /> -->
             </div>
@@ -389,7 +397,7 @@
       <tr
         mat-header-row
         *matHeaderRowDef="columnsToDisplayWithExpand"
-        style="background-color: rgba(9, 107, 222, 0.5)"
+        style="background-color: #ff4d00; height: 36px;"
       ></tr>
       <tr
         mat-row
@@ -397,6 +405,7 @@
         class="example-element-row"
         [class.example-expanded-row]="expandedElement === element"
         (click)="expandedElement = expandedElement === element ? null : element"
+        style="height: 36px;"
       ></tr>
       <tr
         mat-row
@@ -409,12 +418,12 @@
       class="btn btn-success btn-idea-action mt-2"
     >
       <img src="assets/img/icon/plus.svg" />
-      {{ "ACTION.ADD" | translate }}
+      {{ 'ACTION.ADD' | translate }}
     </button>
   </div>
   <div class="input-form">
     <div class="input-name">
-      {{ "IDEA_MANAGEMENT.LABEL.OUT_GROUP" | translate }}
+      {{ 'IDEA_MANAGEMENT.LABEL.OUT_GROUP' | translate }}
     </div>
     <table
       mat-table
@@ -427,9 +436,9 @@
           mat-header-cell
           *matHeaderCellDef
           aria-label="row actions"
-          style="width: 10%"
+          style="width: 10%;"
         ></th>
-        <td mat-cell *matCellDef="let element" style="text-align: center">
+        <td mat-cell *matCellDef="let element" style="text-align: center;">
           <i
             *ngIf="expandedElement !== element"
             class="fa fa-chevron-right"
@@ -453,9 +462,9 @@
           mat-header-cell
           *matHeaderCellDef
           aria-label="row actions"
-          style="width: 10%"
+          style="width: 10%;"
         ></th>
-        <td mat-cell *matCellDef="let element" style="text-align: center">
+        <td mat-cell *matCellDef="let element" style="text-align: center;">
           <i class="fa fa-user"></i>
         </td>
       </ng-container>
@@ -467,7 +476,7 @@
         <th mat-header-cell *matHeaderCellDef class="th-text">
           {{ column | translate }}
         </th>
-        <td mat-cell *matCellDef="let element" style="text-align: center">
+        <td mat-cell *matCellDef="let element" style="text-align: center;">
           {{ element[column] }}
         </td>
       </ng-container>
@@ -486,22 +495,26 @@
             "
           >
             <div class="example-element-description">
-              <b>{{ "IDEA_MANAGEMENT.LABEL.TELEPHONE" | translate }}:</b>
-              {{ element.phoneNumber }}<br />
-              <b *ngIf="element.email"
-                >{{ "IDEA_MANAGEMENT.LABEL.EMAIL" | translate }}:</b
-              >
-              {{ element.email }}<br />
+              <b>{{ 'IDEA_MANAGEMENT.LABEL.TELEPHONE' | translate }}:</b>
+              {{ element.phoneNumber }}
+              <br />
+              <b *ngIf="element.email">
+                {{ 'IDEA_MANAGEMENT.LABEL.EMAIL' | translate }}:
+              </b>
+              {{ element.email }}
+              <br />
               <!-- <b>{{ "IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH" | translate }}:</b>
               {{ element.birthday }}<br /> -->
-              <b *ngIf="element.jobAddress"
-                >{{ "IDEA_MANAGEMENT.LABEL.WORK_PLACE" | translate }}:</b
-              >
-              {{ element.jobAddress }}<br />
-              <b *ngIf="element.jobPosition"
-                >{{ "IDEA_MANAGEMENT.LABEL.OFFICE" | translate }}:</b
-              >
-              {{ element.jobPosition }}<br />
+              <b *ngIf="element.jobAddress">
+                {{ 'IDEA_MANAGEMENT.LABEL.WORK_PLACE' | translate }}:
+              </b>
+              {{ element.jobAddress }}
+              <br />
+              <b *ngIf="element.jobPosition">
+                {{ 'IDEA_MANAGEMENT.LABEL.OFFICE' | translate }}:
+              </b>
+              {{ element.jobPosition }}
+              <br />
             </div>
             <div class="example-element-description row">
               <div class="col-6">
@@ -532,7 +545,7 @@
       <tr
         mat-header-row
         *matHeaderRowDef="columnsToDisplayWithExpand2"
-        style="background-color: rgba(9, 107, 222, 0.5)"
+        style="background-color: #00820d; height: 36px;"
       ></tr>
       <tr
         mat-row
@@ -540,6 +553,7 @@
         class="example-element-row"
         [class.example-expanded-row]="expandedElement === element"
         (click)="expandedElement = expandedElement === element ? null : element"
+        style="height: 36px;"
       ></tr>
       <tr
         mat-row
@@ -552,25 +566,25 @@
       class="btn btn-success btn-idea-action mt-2"
     >
       <img src="assets/img/icon/plus.svg" />
-      {{ "ACTION.ADD" | translate }}
+      {{ 'ACTION.ADD' | translate }}
     </button>
   </div>
 </div>
-<div class="line"></div>
+
+<!-- <div class="line"></div> -->
 <div class="idea-form">
   <div class="header-text">
-    3. {{ "IDEA_MANAGEMENT.LABEL.IDEA_DESCRIPTION" | translate }}
+    3. {{ 'IDEA_MANAGEMENT.LABEL.IDEA_DESCRIPTION' | translate }}
   </div>
   <div class="input-form">
     <div class="input-name">
-      3.1 {{ "IDEA_MANAGEMENT.LABEL.BEFORE_APPLY_STATUS" | translate }} (<span
-        style="color: red"
-        >*</span
-      >)
+      3.1 {{ 'IDEA_MANAGEMENT.LABEL.BEFORE_APPLY_STATUS' | translate }} (
+      <span style="color: red;">*</span>
+      )
     </div>
     <textarea
       class="input-field"
-      style="height: 60px; padding-top: 5px"
+      style="height: 60px; padding-top: 5px;"
       rows="4"
       cols="50"
       [placeholder]="
@@ -584,19 +598,18 @@
       class="form-text text-danger"
       *ngIf="isBeforeApplyStatusTouched && !beforeApplyStatus"
     >
-      {{ "ADD-INSIDE-IDEA.VALIDATE.BEFORE_APPLY_STATUS" | translate }}
+      {{ 'ADD-INSIDE-IDEA.VALIDATE.BEFORE_APPLY_STATUS' | translate }}
     </div>
   </div>
   <div class="input-form">
     <div class="input-name">
-      3.2 {{ "IDEA_MANAGEMENT.LABEL.IDEA_CONTENT" | translate }} (<span
-        style="color: red"
-        >*</span
-      >)
+      3.2 {{ 'IDEA_MANAGEMENT.LABEL.IDEA_CONTENT' | translate }} (
+      <span style="color: red;">*</span>
+      )
     </div>
     <textarea
       class="input-field"
-      style="height: 60px; padding-top: 5px"
+      style="height: 60px; padding-top: 5px;"
       rows="4"
       cols="50"
       [placeholder]="
@@ -607,19 +620,18 @@
       [required]="isContentTouched"
     ></textarea>
     <div class="form-text text-danger" *ngIf="isContentTouched && !content">
-      {{ "ADD-INSIDE-IDEA.VALIDATE.CONTENT" | translate }}
+      {{ 'ADD-INSIDE-IDEA.VALIDATE.CONTENT' | translate }}
     </div>
   </div>
   <div class="input-form">
     <div class="input-name">
-      3.3 {{ "IDEA_MANAGEMENT.LABEL.APPLY_RANGE" | translate }} (<span
-        style="color: red"
-        >*</span
-      >)
+      3.3 {{ 'IDEA_MANAGEMENT.LABEL.APPLY_RANGE' | translate }} (
+      <span style="color: red;">*</span>
+      )
     </div>
     <textarea
       class="input-field"
-      style="height: 60px; padding-top: 5px"
+      style="height: 60px; padding-top: 5px;"
       rows="4"
       cols="50"
       [placeholder]="
@@ -633,19 +645,18 @@
       class="form-text text-danger"
       *ngIf="isApplyRangeTouched && !applyRange"
     >
-      {{ "ADD-INSIDE-IDEA.VALIDATE.APPLY_RANGE" | translate }}
+      {{ 'ADD-INSIDE-IDEA.VALIDATE.APPLY_RANGE' | translate }}
     </div>
   </div>
   <div class="input-form">
     <div class="input-name">
-      3.4 {{ "IDEA_MANAGEMENT.LABEL.EFFECTIVENESS" | translate }} (<span
-        style="color: red"
-        >*</span
-      >)
+      3.4 {{ 'IDEA_MANAGEMENT.LABEL.EFFECTIVENESS' | translate }} (
+      <span style="color: red;">*</span>
+      )
     </div>
     <textarea
       class="input-field"
-      style="height: 60px; padding-top: 5px"
+      style="height: 60px; padding-top: 5px;"
       rows="4"
       cols="50"
       [placeholder]="
@@ -659,16 +670,16 @@
       class="form-text text-danger"
       *ngIf="isEffectivenesTouched && !effectiveness"
     >
-      {{ "ADD-INSIDE-IDEA.VALIDATE.EFFECTIVENESS" | translate }}
+      {{ 'ADD-INSIDE-IDEA.VALIDATE.EFFECTIVENESS' | translate }}
     </div>
   </div>
   <div class="input-form">
     <div class="input-name">
-      3.5 {{ "IDEA_MANAGEMENT.LABEL.NEXT_STEP" | translate }}
+      3.5 {{ 'IDEA_MANAGEMENT.LABEL.NEXT_STEP' | translate }}
     </div>
     <textarea
       class="input-field"
-      style="height: 60px; padding-top: 5px"
+      style="height: 60px; padding-top: 5px;"
       rows="4"
       cols="50"
       [placeholder]="'IDEA_MANAGEMENT.PLACEHOLDER.ENTER_NEXT_STEP' | translate"
@@ -679,11 +690,11 @@
   </div>
   <div class="input-form">
     <div class="input-name">
-      3.6 {{ "IDEA_MANAGEMENT.LABEL.NOTE" | translate }}
+      3.6 {{ 'IDEA_MANAGEMENT.LABEL.NOTE' | translate }}
     </div>
     <textarea
       class="input-field"
-      style="height: 60px; padding-top: 5px"
+      style="height: 60px; padding-top: 5px;"
       rows="4"
       cols="50"
       [placeholder]="'IDEA_MANAGEMENT.PLACEHOLDER.ENTER_NOTE' | translate"
@@ -692,14 +703,15 @@
     ></textarea>
   </div>
 </div>
-<div class="line"></div>
-<div class="idea-form">
+
+<!-- <div class="line"></div> -->
+<div class="idea-form" style="gap: 8px;">
   <div class="header-text">
-    4. {{ "IDEA_MANAGEMENT.LABEL.DOCUMENTS" | translate }}
+    4. {{ 'IDEA_MANAGEMENT.LABEL.DOCUMENTS' | translate }}
   </div>
   <div class="file text-center">
     <div class="file-text">
-      <p style="text-align: center" class="font-weight-bolder fs-075">
+      <p style="text-align: center;" class="font-weight-bolder fs-075">
         {{ DataService.file.value.name }}
       </p>
     </div>
@@ -707,29 +719,33 @@
       class="upload-file"
       (click)="selectAvatar.value = ''; selectAvatar.click()"
     >
-      <img src="assets/img/icon/add file.svg" alt="ic_camera" />
+      <img
+        style="width: 20px;"
+        src="assets/img/icon/add file.svg"
+        alt="ic_camera"
+      />
       <div class="upload-label">
-        {{ "IDEA_MANAGEMENT.BUTTON.CHOOSE_FILE" | translate }}
+        {{ 'IDEA_MANAGEMENT.BUTTON.CHOOSE_FILE' | translate }}
       </div>
     </div>
     <input
       type="file"
       (change)="onSelectFile($event)"
-      style="display: none"
+      style="display: none;"
       #selectAvatar
     />
     <span class="fs-075">
-      {{ "IDEA_MANAGEMENT.LABEL.FILE_TYPE" | translate }}:
+      {{ 'IDEA_MANAGEMENT.LABEL.FILE_TYPE' | translate }}:
       <b class="fs-075">
         {{
-          " .txt, .doc, .docx, .rar, .zip, .xls, .xlsx, .pdf, .jpg, .gif, .png, .ppt, .pptx."
+          ' .txt, .doc, .docx, .rar, .zip, .xls, .xlsx, .pdf, .jpg, .gif, .png, .ppt, .pptx.'
             | translate
         }}
       </b>
     </span>
     <span class="fs-075">
-      {{ "IDEA_MANAGEMENT.LABEL.MAX_STORAGE" | translate }}:
-      <b class="fs-075">{{ "25 MB" | translate }}</b>
+      {{ 'IDEA_MANAGEMENT.LABEL.MAX_STORAGE' | translate }}:
+      <b class="fs-075">{{ '25 MB' | translate }}</b>
     </span>
   </div>
 </div>
@@ -737,7 +753,38 @@
   <div class="btn1" (click)="duplicationCheck()">
     <img src="assets/img/icon/task check.svg" />
     <div class="btn1-text">
-      {{ "IDEA_MANAGEMENT.BUTTON.DUPLICATION_CHECK" | translate }}
+      {{ 'IDEA_MANAGEMENT.BUTTON.DUPLICATION_CHECK' | translate }}
     </div>
   </div>
+</div>
+<!-- <button (click)="showDiv()">Hiển thị Div</button> -->
+
+<div *ngIf="this.DataService.showAddInsideAuthor" class="slide-up-div">
+  <app-add-inside-author
+    (handleAddInsideAuthor)="handleAddInsideAuthor()"
+    (handleAddInsideAuthorPopup)="handleAddInsideAuthorPopup()"
+  ></app-add-inside-author>
+</div>
+<div *ngIf="this.DataService.showEditInsideAuthor" class="slide-up-div">
+  <app-edit-inside-author
+  (handleEditInsideAuthor)="handleEditInsideAuthor()"
+  (handleEditInsideAuthorPopup)="handleEditInsideAuthorPopup()"
+  ></app-edit-inside-author>
+</div>
+<div *ngIf="this.DataService.showAddOutsideAuthor" class="slide-up-div">
+  <app-add-outside-author
+  (handleAddOutsideAuthor)="handleAddOutsideAuthor()"
+  (handleAddOutsideAuthorPopup)="handleAddOutsideAuthorPopup()"
+  ></app-add-outside-author>
+</div>
+<div *ngIf="this.DataService.showEditOutsideAuthor" class="slide-up-div">
+  <app-edit-outside-author
+  (handleEditOutsideAuthor)="handleEditOutsideAuthor()"
+  (handleEditOutsideAuthorPopup)="handleEditOutsideAuthorPopup()"
+  ></app-edit-outside-author>
+</div>
+<div *ngIf="this.DataService.showDuplicateIdea" class="slide-up-div-duplicate">
+  <app-check-duplicate-idea
+
+  ></app-check-duplicate-idea>
 </div>

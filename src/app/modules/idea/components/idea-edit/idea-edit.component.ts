@@ -79,7 +79,7 @@ export class IdeaEditComponent implements OnInit {
     public DataService: DataService,
     private cdRef: ChangeDetectorRef,
     private notificationService: NotificationService,
-    public toastrService: ToastrService,
+    public toastrService: ToastrService
   ) {
     this.bsConfig = {
       dateInputFormat: "DD/MM/YYYY",
@@ -106,7 +106,7 @@ export class IdeaEditComponent implements OnInit {
   ideaNameValue;
   applyStartTime: Date;
   applyEndTime: Date = null;
-  specialty:number;
+  specialty: number;
   beforeApplyStatus;
   content;
   applyRange;
@@ -120,11 +120,10 @@ export class IdeaEditComponent implements OnInit {
   applyStartTimeString;
   applyEndTimeString;
   lang = localStorage.getItem("lang");
-  selectedLanguage: string = '';
+  selectedLanguage: string = "";
   onLanguageChange() {
     this.DataService.selectedLanguage.next(this.selectedLanguage);
     console.log(this.DataService.selectedLanguage.value);
-
   }
   getIdeaDetail() {
     const url = `${environment.API_HOST_NAME}/api/get-idea-detail`;
@@ -195,7 +194,6 @@ export class IdeaEditComponent implements OnInit {
               response.data.applyEndTime.split("/").reverse().join("/")
             );
           }
-
         }
 
         if (this.DataService.selectedStartDate.value) {
@@ -252,14 +250,13 @@ export class IdeaEditComponent implements OnInit {
             this.selectedUnit = value;
           });
         } else {
-          const unit=[]
+          const unit = [];
           for (let i = 0; i < response.data.listUnitDTO.length; i++) {
             unit.push(response.data.listUnitDTO[i].unitId);
           }
-          this.selectedUnit=[...unit]
+          this.selectedUnit = [...unit];
           // this.selectedUnit = response.data.listUnitDTO.unitId;
           console.log(this.selectedUnit);
-          
         }
         if (this.DataService.selectedSpecialtyValueEdit.value) {
           this.specialty = this.DataService.selectedSpecialtyValueEdit.value;
@@ -328,16 +325,15 @@ export class IdeaEditComponent implements OnInit {
   }
   selectedUnit;
   onNgSelectChange(item) {
-    this.unitFieldTouched=true;
-    this.selectedUnitValue = [...item]
+    this.unitFieldTouched = true;
+    this.selectedUnitValue = [...item];
     this.DataService.selectedUnit.next(this.selectedUnit);
     this.DataService.selectedUnitValueEdit.next(this.selectedUnitValue);
-   
   }
   selectAllForDropdownItems(items: any[]) {
-    let allSelect = items => {
-      items.forEach(element => {
-        element['selectedAllGroup'] = 'selectedAllGroup';
+    let allSelect = (items) => {
+      items.forEach((element) => {
+        element["selectedAllGroup"] = "selectedAllGroup";
       });
     };
 
@@ -393,34 +389,59 @@ export class IdeaEditComponent implements OnInit {
   lstContributorDTO: any[] = [];
   listUnitDTO: any[] = [];
 
+  // AddInsideAuthor() {
+  //   this.router.navigate(["author/add-inside-edit"], {
+  //     queryParams: { for: "idea" },
+  //   });
+  //   window.scrollTo(0, 0);
+  // }
   AddInsideAuthor() {
-    this.router.navigate(["author/add-inside-edit"], {
-      queryParams: { for: "idea" },
-    });
-    window.scrollTo(0, 0);
+    this.DataService.showAddInsideEdit = true;
+    this.DataService.showBg = true;
+    if (this.DataService.showBg && this.DataService.showAddInsideEdit) {
+      document.body.style.overflow = "hidden";
+    }
   }
   AddOutsideAuthor() {
-    this.router.navigate(["author/add-outside-edit"], {
-      queryParams: { for: "idea" },
-    });
-    window.scrollTo(0, 0);
+    this.DataService.showAddOutsideEdit = true;
+    this.DataService.showBg = true;
+    if (this.DataService.showBg && this.DataService.showAddOutsideEdit) {
+      document.body.style.overflow = "hidden";
+    }
+    // this.router.navigate(["author/add-outside-edit"], {
+    //   queryParams: { for: "idea" },
+    // });
+    // window.scrollTo(0, 0);
   }
   EditInsideAuthor(id: number) {
-    this.DataService.backFromEdit = true;
-    this.router.navigate(["author/edit-inside-edit"], {
-      queryParams: { id: id, for: "idea" },
-    });
-    window.scrollTo(0, 0);
+    this.DataService.showEditInsideEdit = true;
+    this.DataService.showBg = true;
+    this.DataService.idEditInsideAuthor = id;
+    if (this.DataService.showBg && this.DataService.showEditInsideEdit) {
+      document.body.style.overflow = "hidden";
+    }
+    // this.DataService.backFromEdit = true;
+    // this.router.navigate(["author/edit-inside-edit"], {
+    //   queryParams: { id: id, for: "idea" },
+    // });
+    // window.scrollTo(0, 0);
 
     // localStorage.setItem('ideaIdInLocalStorage', JSON.stringify(id));
     // this.router.navigate(["author/edit-inside"]);
   }
   EditOutsideAuthor(phoneNumber: any, email: any) {
-    this.DataService.backFromEdit = true;
-    this.router.navigate(["author/edit-outside-edit"], {
-      queryParams: { phoneNumber: phoneNumber, email: email, for: "idea" },
-    });
-    window.scrollTo(0, 0);
+    this.DataService.showEditOutsideEdit = true;
+    this.DataService.showBg = true;
+    this.DataService.phoneEditOutsideAuthor = phoneNumber;
+    this.DataService.emailEditOutsideAuthor = email;
+    if (this.DataService.showBg && this.DataService.showEditOutsideEdit) {
+      document.body.style.overflow = "hidden";
+    }
+    // this.DataService.backFromEdit = true;
+    // this.router.navigate(["author/edit-outside-edit"], {
+    //   queryParams: { phoneNumber: phoneNumber, email: email, for: "idea" },
+    // });
+    // window.scrollTo(0, 0);
   }
   deleteInsideAuthor(id: any) {
     this.DataService.lstContributorDTOServiceEdit.value.forEach(
@@ -487,9 +508,9 @@ export class IdeaEditComponent implements OnInit {
 
       this.DataService.file.next(file);
       this.DataService.file.subscribe((value) => {
-        this.documentDTO = value
-      })
-      
+        this.documentDTO = value;
+      });
+
       const formData: FormData = new FormData();
       formData.append("listDocument", file);
       const url = `${environment.API_HOST_NAME}/api/upload-document`;
@@ -570,7 +591,8 @@ export class IdeaEditComponent implements OnInit {
     }
     if (
       this.applyStartTime > this.applyEndTime &&
-      (this.applyEndTime !== null && this.applyEndTime !== undefined)
+      this.applyEndTime !== null &&
+      this.applyEndTime !== undefined
     ) {
       const modalRef = this.modalService.open(MessagePopupComponent, {
         size: "sm",
@@ -589,8 +611,12 @@ export class IdeaEditComponent implements OnInit {
 
       return false;
     }
-    if (this.applyStartTime < now || this.applyEndTime < now &&
-      (this.applyEndTime !== null && this.applyEndTime !== undefined)) {
+    if (
+      this.applyStartTime < now ||
+      (this.applyEndTime < now &&
+        this.applyEndTime !== null &&
+        this.applyEndTime !== undefined)
+    ) {
       const modalRef = this.modalService.open(MessagePopupComponent, {
         size: "sm",
         backdrop: "static",
@@ -830,7 +856,11 @@ export class IdeaEditComponent implements OnInit {
   selectStartDate() {
     let now = new Date();
     now.setHours(0, 0, 0, 0);
-    if ((this.applyStartTime > this.applyEndTime) && (this.applyEndTime !== null && this.applyEndTime !== undefined)) {
+    if (
+      this.applyStartTime > this.applyEndTime &&
+      this.applyEndTime !== null &&
+      this.applyEndTime !== undefined
+    ) {
       this.checkStartDate = true;
     } else {
       this.checkStartDate = false;
@@ -863,7 +893,11 @@ export class IdeaEditComponent implements OnInit {
       }
       // this.getIdeaDTO()
     } else {
-      if ((this.applyStartTime > this.applyEndTime) && (this.applyEndTime !== null && this.applyEndTime !== undefined)) {
+      if (
+        this.applyStartTime > this.applyEndTime &&
+        this.applyEndTime !== null &&
+        this.applyEndTime !== undefined
+      ) {
         this.checkStartDate = true;
       } else {
         this.checkStartDate = false;
@@ -968,16 +1002,22 @@ export class IdeaEditComponent implements OnInit {
       modalRefSuccess.componentInstance.title = this.translateService.instant(
         `ADD-INSIDE-IDEA.CONFIRM.CONFIRM`
       );
-      if (this.selectedLanguage == 'VI') {
-        modalRefSuccess.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.ENSURE_VI`);
-      } else if (this.selectedLanguage === 'LA') {
-        modalRefSuccess.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.ENSURE_LA`);
-      } else if (this.selectedLanguage === 'EN') {
-        modalRefSuccess.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.ENSURE_EN`);
+      if (this.selectedLanguage == "VI") {
+        modalRefSuccess.componentInstance.message =
+          this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.ENSURE_VI`);
+      } else if (this.selectedLanguage === "LA") {
+        modalRefSuccess.componentInstance.message =
+          this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.ENSURE_LA`);
+      } else if (this.selectedLanguage === "EN") {
+        modalRefSuccess.componentInstance.message =
+          this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.ENSURE_EN`);
       } else {
-        modalRefSuccess.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.INVALID_LANGUAGE`);
+        modalRefSuccess.componentInstance.message =
+          this.translateService.instant(
+            `ADD-INSIDE-IDEA.LANGUAGE.INVALID_LANGUAGE`
+          );
       }
-  
+
       modalRefSuccess.componentInstance.closeIcon = false;
       modalRefSuccess.componentInstance.next.subscribe((result: any) => {
         if (result === true) {
@@ -986,7 +1026,11 @@ export class IdeaEditComponent implements OnInit {
               if (response.errorCode == 0) {
                 this.DataService.ideaDTOEdit.next(this.ideaDTO);
                 this.DataService.isFromAdd = false;
-                this.router.navigate(["idea/check-duplicate-idea"]);
+                this.DataService.showDuplicateIdea = true;
+                this.DataService.showBg = true;
+                if (this.DataService.showBg && this.DataService.showDuplicateIdea) {
+                  document.body.style.overflow = "hidden";
+                }
               } else {
                 const modalRef = this.modalService.open(MessagePopupComponent, {
                   size: "sm",
@@ -995,9 +1039,10 @@ export class IdeaEditComponent implements OnInit {
                   centered: true,
                 });
                 modalRef.componentInstance.type = "fail";
-                modalRef.componentInstance.title = this.translateService.instant(
-                  `ADD-INSIDE-IDEA.VALIDATE.ERROR`
-                );
+                modalRef.componentInstance.title =
+                  this.translateService.instant(
+                    `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+                  );
                 modalRef.componentInstance.message =
                   modalRef.componentInstance.message = response.description;
                 modalRef.componentInstance.closeIcon = false;
@@ -1007,9 +1052,132 @@ export class IdeaEditComponent implements OnInit {
               console.error(error.data);
             }
           );
+        } else {
         }
-        else{}});
-   
+      });
     }
+  }
+  handleAddInsideEdit() {
+    this.dataSource = new MatTableDataSource(
+      this.DataService.lstContributorDTOServiceEdit.value
+    );
+    this.dataSource2 = new MatTableDataSource(
+      this.DataService.lstContributorDTOServiceOutEdit.value
+    );
+  }
+  handleAddInsideEditPopup() {
+    this.DataService.showBg = false;
+    this.DataService.showAddInsideEdit = false;
+    if (!this.DataService.showBg && !this.DataService.showAddInsideEdit) {
+      document.body.style.overflow = "auto";
+    }
+    const modalRef = this.modalService.open(MessagePopupComponent, {
+      size: "sm",
+      backdrop: "static",
+      keyboard: false,
+      centered: true,
+    });
+    modalRef.componentInstance.type = "fail";
+    modalRef.componentInstance.title = this.translateService.instant(
+      `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+    );
+    modalRef.componentInstance.message = this.translateService.instant(
+      `ADD-INSIDE-IDEA.VALIDATE.EXIST`
+    );
+    modalRef.componentInstance.closeIcon = false;
+    return false;
+  }
+  handleEditInsideEdit() {
+    this.DataService.idEditInsideAuthor = null;
+    this.dataSource = new MatTableDataSource(
+      this.DataService.lstContributorDTOServiceEdit.value
+    );
+    this.dataSource2 = new MatTableDataSource(
+      this.DataService.lstContributorDTOServiceOutEdit.value
+    );
+  }
+  handleEditInsideEditPopup() {
+    this.DataService.showBg = false;
+    this.DataService.showEditInsideEdit = false;
+    if (!this.DataService.showBg && !this.DataService.showEditInsideEdit) {
+      document.body.style.overflow = "auto";
+    }
+    const modalRef = this.modalService.open(MessagePopupComponent, {
+      size: "sm",
+      backdrop: "static",
+      keyboard: false,
+      centered: true,
+    });
+    modalRef.componentInstance.type = "fail";
+    modalRef.componentInstance.title = this.translateService.instant(
+      `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+    );
+    modalRef.componentInstance.message = this.translateService.instant(
+      `ADD-INSIDE-IDEA.VALIDATE.CONTRIBUTOR`
+    );
+    modalRef.componentInstance.closeIcon = false;
+    return false;
+  }
+  handleAddOutsideEdit() {
+    this.dataSource = new MatTableDataSource(
+      this.DataService.lstContributorDTOServiceEdit.value
+    );
+    this.dataSource2 = new MatTableDataSource(
+      this.DataService.lstContributorDTOServiceOutEdit.value
+    );
+  }
+  handleAddOutsideEditPopup() {
+    this.DataService.showBg = false;
+    this.DataService.showAddOutsideEdit = false;
+    if (!this.DataService.showBg && !this.DataService.showAddOutsideEdit) {
+      document.body.style.overflow = "auto";
+    }
+
+    const modalRef = this.modalService.open(MessagePopupComponent, {
+      size: "sm",
+      backdrop: "static",
+      keyboard: false,
+      centered: true,
+    });
+    modalRef.componentInstance.type = "fail";
+    modalRef.componentInstance.title = this.translateService.instant(
+      `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+    );
+    modalRef.componentInstance.message = this.translateService.instant(
+      `ADD-INSIDE-IDEA.VALIDATE.EXIST`
+    );
+    modalRef.componentInstance.closeIcon = false;
+    return false;
+  }
+  handleEditOutsideEdit() {
+    this.DataService.idEditInsideAuthor = null;
+    this.dataSource = new MatTableDataSource(
+      this.DataService.lstContributorDTOServiceEdit.value
+    );
+    this.dataSource2 = new MatTableDataSource(
+      this.DataService.lstContributorDTOServiceOutEdit.value
+    );
+  }
+  handleEditOutsideEditPopup() {
+    this.DataService.showBg = false;
+    this.DataService.showEditOutsideEdit = false;
+    if (!this.DataService.showBg && !this.DataService.showEditOutsideEdit) {
+      document.body.style.overflow = "auto";
+    }
+    const modalRef = this.modalService.open(MessagePopupComponent, {
+      size: "sm",
+      backdrop: "static",
+      keyboard: false,
+      centered: true,
+    });
+    modalRef.componentInstance.type = "fail";
+    modalRef.componentInstance.title = this.translateService.instant(
+      `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+    );
+    modalRef.componentInstance.message = this.translateService.instant(
+      `ADD-INSIDE-IDEA.VALIDATE.EXIST`
+    );
+    modalRef.componentInstance.closeIcon = false;
+    return false;
   }
 }

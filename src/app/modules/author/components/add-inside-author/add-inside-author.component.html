@@ -1,153 +1,223 @@
-<app-title-nav
+<!-- <app-title-nav
   [title]="'ADD_AUTHOR_IN_GROUP' | translate"
   [backRoute]="backRoute + '/register'"
-></app-title-nav>
+></app-title-nav> -->
+<div
+  style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px 0px;
+  "
+>
+  <img src="../../../../../assets/img/icon/Line.png" alt="line" />
+</div>
+<nav
+  style="
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding: 12px 0px;
+  "
+>
+  <img
+    width="24px"
+    style="position: absolute; left: 16px;"
+    src="../../../../../assets/img/icon/icon-back-2.png"
+    alt="img"
+  />
+  <span style="font-size: 16px; font-weight: 500;">
+    Thêm tác giả Trong tập đoàn
+  </span>
+</nav>
 <div class="body">
   <div class="info-box">
-    <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.STAFF_CODE" | translate }}(<span style="color: red">*</span>)</div>
+    <div class="info-title">
+      {{ 'IDEA_MANAGEMENT.LABEL.STAFF_CODE' | translate }}(
+      <span style="color: red;">*</span>
+      )
+    </div>
     <ng-select
-    class="custom-class-aia"
+      class="custom-class-aia"
       [items]="listStaff"
-      bindLabel="staffCode"
-      placeholder="{{ 'IDEA_MANAGEMENT.PLACEHOLDER.ENTER_STAFF_CODE' | translate }}"
+      bindLabel="displayName"
+      placeholder="{{
+        'IDEA_MANAGEMENT.PLACEHOLDER.ENTER_STAFF_CODE' | translate
+      }}"
       [(ngModel)]="selectedStaffCode"
       (change)="onSelectedStaffCodeChange($event)"
       [required]="isInputTouched"
     ></ng-select>
-    <div class="form-text text-danger" *ngIf="isInputTouched && !selectedStaffCodeSubject.value">{{ "ADD-INSIDE-IDEA.VALIDATE.STAFF-CODE" | translate }}</div>
-    <div class="info-box">
-      <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.FULL_NAME" | translate }}(<span style="color: red">*</span>)</div>
-      <input
-        class="info-input"
-        [placeholder]="
-          (selectedStaffCodeSubject | async)?.fullName || 'MANAGE_CATEGORY.PLACEHOLDER.FULL_NAME' | translate
-        "
-        style="background-color: #f3f3f3"
-        [readonly]="!isEdit"
-      />
+    <div
+      class="form-text text-danger"
+      *ngIf="isInputTouched && !selectedStaffCodeSubject.value"
+    >
+      {{ 'ADD-INSIDE-IDEA.VALIDATE.STAFF-CODE' | translate }}
     </div>
-    <div class="info-box">
-      <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.CONTRIBUTE_PERCENT" | translate }}(<span
-        style="color: red"
-        >*</span
-      >)</div>
-      <input
-        NumbersOnly
-        type="text"
-        class="info-input"
-        [placeholder]="'percentage' | translate"
-        [(ngModel)]="percentageValue"
-        (ngModelChange)="percentageValueChange($event)"
-        maxlength="3"
-        [required]="percentageTouched"
-      />
-      <div class="form-text text-danger" *ngIf="percentageTouched && !percentageValue">{{ "ADD-INSIDE-IDEA.VALIDATE.PERCENT" | translate }}</div>
-    </div>
-    <div class="info-box">
-      <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.PHONE" | translate }}(<span
-        style="color: red"
-        >*</span
-      >)</div>
-      <input
-        type="text"
-        class="info-input"
-        [placeholder]="
-          (selectedStaffCodeSubject | async)?.phoneNumber ||
-          'MANAGE_CATEGORY.PLACEHOLDER.PHONE_NUMBER' | translate
-        "
-        [(ngModel)]="phoneNumber"
-        
-        (input)="phoneNumberChange()"
-        NumbersOnly
-        maxlength="12"
-        [required]="isInputTouched"
-      />
-      <div class="form-text text-danger" *ngIf="isInputTouched && !(selectedStaffCodeSubject | async)?.phoneNumber">{{ "ADD-INSIDE-IDEA.VALIDATE.PHONE" | translate }}</div>
-    </div>
-    <div class="info-box">
-      <div class="info-title">{{ "CONTRIVANCE_MAMAGEMENT.LABEL.EMAIL" | translate }}(<span
-        style="color: red"
-        >*</span
-      >)</div>
-      <input
-        type="text"
-        class="info-input"
-        [placeholder]=" (selectedStaffCodeSubject | async)?.email ||
-        'MANAGE_CATEGORY.PLACEHOLDER.EMAIL' | translate"
-        [(ngModel)]="email"
-        (input)="emailChange()"
-        [required]="isInputTouched"
-      />
-      <div class="form-text text-danger" *ngIf="isInputTouched && !(selectedStaffCodeSubject | async)?.email">{{ "ADD-INSIDE-IDEA.VALIDATE.EMAIL" | translate }}</div>
-      <div class="form-text text-danger" *ngIf="checkEmail && (selectedStaffCodeSubject | async)?.email">{{ "ADD-INSIDE-IDEA.VALIDATE.EMAIL_FORM" | translate }}</div>
-    </div>
-    <div class="info-box">
-      <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH" | translate }}(<span
-        style="color: red"
-        >*</span
-      >)</div>
-      <label style="background-color: #f3f3f3" class="date">
-        <input
-       
-          [placeholder]=" (selectedStaffCodeSubject | async)?.birthday ||
-          'IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH' | translate"
-          type="text"
-          name="Date"
-          [bsConfig]="bsConfig"
-          class="date-text"
-          style="background-color: #f3f3f3 "
-          #dprn="bsDatepicker"
-          #vDate
-          bsDatepicker
-          autocomplete="off"
-          [(ngModel)]="birthday"
-          (ngModelChange)="birthdayChange()"
-          [disabled]="!isEdit"
-          [required]="isInputTouched"
-        />
-        <img src="assets/img/icon/calendar.svg" style="padding: 10px" />
-      </label>
-      <!-- <div class="form-text text-danger" *ngIf="isInputTouched && !(selectedStaffCodeSubject | async)?.birthday">{{ "ADD-INSIDE-IDEA.VALIDATE.BIRTHDAY" | translate }}</div> -->
-    </div>
-    <div class="info-box">
-      <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.WORK_PLACE" | translate }}(<span style="color: red">*</span>)</div>
-      <input
-        class="info-input"
-        [placeholder]="
-          (selectedStaffCodeSubject | async)?.jobAddress || 'MANAGE_CATEGORY.PLACEHOLDER.WORK_PLACE' | translate
-        "
-        style="background-color: #f3f3f3"
-        [readonly]="!isEdit"
-      />
-    </div>
-    <div class="info-box">
-      <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.OFFICE" | translate }}(<span style="color: red">*</span>)</div>
-      <input
-        class="info-input"
-        [placeholder]="
-          (selectedStaffCodeSubject | async)?.jobPosition || 'MANAGE_CATEGORY.PLACEHOLDER.POSITION' | translate
-        "
-        style="background-color: #f3f3f3"
-        [readonly]="!isEdit"
-      />
-    </div>
-    <!-- <div class="info-box">
-      <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.QUALIFICATION" | translate }}(<span style="color: red">*</span>)</div>
-      <input
-        class="info-input"
-        [placeholder]="
-          (selectedStaffCodeSubject | async)?.professionalQualification ||
-          'MANAGE_CATEGORY.PLACEHOLDER.QUALIFICATION' | translate
-        "
-        style="background-color: #f3f3f3"
-        [readonly]="!isEdit"
-      />
-    </div> -->
   </div>
+  <div class="info-box">
+    <div class="info-title">
+      {{ 'IDEA_MANAGEMENT.LABEL.FULL_NAME' | translate }}(
+      <span style="color: red;">*</span>
+      )
+    </div>
+    <input
+      class="info-input"
+      [placeholder]="
+        (selectedStaffCodeSubject | async)?.fullName ||
+          'MANAGE_CATEGORY.PLACEHOLDER.FULL_NAME' | translate
+      "
+      style="background-color: #f3f3f3;"
+      [readonly]="!isEdit"
+    />
+  </div>
+  <div class="info-box">
+    <div class="info-title">
+      {{ 'IDEA_MANAGEMENT.LABEL.CONTRIBUTE_PERCENT' | translate }}(
+      <span style="color: red;">*</span>
+      )
+    </div>
+    <input
+      NumbersOnly
+      type="text"
+      class="info-input"
+      [placeholder]="'percentage' | translate"
+      [(ngModel)]="percentageValue"
+      (ngModelChange)="percentageValueChange($event)"
+      maxlength="3"
+      [required]="percentageTouched"
+    />
+    <div
+      class="form-text text-danger"
+      *ngIf="percentageTouched && !percentageValue"
+    >
+      {{ 'ADD-INSIDE-IDEA.VALIDATE.PERCENT' | translate }}
+    </div>
+  </div>
+  <div class="info-box">
+    <div class="info-title">
+      {{ 'IDEA_MANAGEMENT.LABEL.PHONE' | translate }}(
+      <span style="color: red;">*</span>
+      )
+    </div>
+    <input
+      type="text"
+      class="info-input"
+      [placeholder]="
+        (selectedStaffCodeSubject | async)?.phoneNumber ||
+          'MANAGE_CATEGORY.PLACEHOLDER.PHONE_NUMBER' | translate
+      "
+      [(ngModel)]="phoneNumber"
+      (input)="phoneNumberChange()"
+      NumbersOnly
+      maxlength="12"
+      [required]="isInputTouched"
+    />
+    <div
+      class="form-text text-danger"
+      *ngIf="isInputTouched && !(selectedStaffCodeSubject | async)?.phoneNumber"
+    >
+      {{ 'ADD-INSIDE-IDEA.VALIDATE.PHONE' | translate }}
+    </div>
+  </div>
+  <!-- <div class="info-box">
+    <div class="info-title">
+      {{ 'CONTRIVANCE_MAMAGEMENT.LABEL.EMAIL' | translate }}(
+      <span style="color: red;">*</span>
+      )
+    </div>
+    <input
+      type="text"
+      class="info-input"
+      [placeholder]="
+        (selectedStaffCodeSubject | async)?.email ||
+          'MANAGE_CATEGORY.PLACEHOLDER.EMAIL' | translate
+      "
+      [(ngModel)]="email"
+      (input)="emailChange()"
+      [required]="isInputTouched"
+    />
+    <div
+      class="form-text text-danger"
+      *ngIf="isInputTouched && !(selectedStaffCodeSubject | async)?.email"
+    >
+      {{ 'ADD-INSIDE-IDEA.VALIDATE.EMAIL' | translate }}
+    </div>
+    <div
+      class="form-text text-danger"
+      *ngIf="checkEmail && (selectedStaffCodeSubject | async)?.email"
+    >
+      {{ 'ADD-INSIDE-IDEA.VALIDATE.EMAIL_FORM' | translate }}
+    </div>
+  </div> -->
+  <!-- <div class="info-box">
+    <div class="info-title">
+      {{ 'IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH' | translate }}(
+      <span style="color: red;">*</span>
+      )
+    </div>
+    <label style="background-color: #f3f3f3;" class="date">
+      <input
+        [placeholder]="
+          (selectedStaffCodeSubject | async)?.birthday ||
+            'IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH' | translate
+        "
+        type="text"
+        name="Date"
+        [bsConfig]="bsConfig"
+        class="date-text"
+        style="background-color: #f3f3f3;"
+        #dprn="bsDatepicker"
+        #vDate
+        bsDatepicker
+        autocomplete="off"
+        [(ngModel)]="birthday"
+        (ngModelChange)="birthdayChange()"
+        [disabled]="!isEdit"
+        [required]="isInputTouched"
+      />
+      <img src="assets/img/icon/calendar.svg" style="padding: 10px;" />
+    </label>
+  </div> -->
+  <!-- <div class="info-box">
+    <div class="info-title">
+      {{ 'IDEA_MANAGEMENT.LABEL.WORK_PLACE' | translate }}(
+      <span style="color: red;">*</span>
+      )
+    </div>
+    <input
+      class="info-input"
+      [placeholder]="
+        (selectedStaffCodeSubject | async)?.jobAddress ||
+          'MANAGE_CATEGORY.PLACEHOLDER.WORK_PLACE' | translate
+      "
+      style="background-color: #f3f3f3;"
+      [readonly]="!isEdit"
+    />
+  </div> -->
+  <!-- <div class="info-box">
+    <div class="info-title">
+      {{ 'IDEA_MANAGEMENT.LABEL.OFFICE' | translate }}(
+      <span style="color: red;">*</span>
+      )
+    </div>
+    <input
+      class="info-input"
+      [placeholder]="
+        (selectedStaffCodeSubject | async)?.jobPosition ||
+          'MANAGE_CATEGORY.PLACEHOLDER.POSITION' | translate
+      "
+      style="background-color: #f3f3f3;"
+      [readonly]="!isEdit"
+    />
+  </div>
+</div> -->
 </div>
 <div class="bottom-box">
   <div (click)="addNew()" class="bottom-btn">
-    <img src="assets/img/icon/plus.svg" />
-    <div class="btn-text">{{ "BUTTON.ADD_NEW" | translate }}</div>
+    <div class="btn-text">{{ 'Xác nhận' | translate }}</div>
   </div>
 </div>
+
+<ng-content></ng-content>

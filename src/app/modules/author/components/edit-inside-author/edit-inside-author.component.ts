@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
@@ -65,6 +65,17 @@ export class EditInsideAuthorComponent implements OnInit {
         this.staffId = params.id
       }
     });
+
+    //////
+    if(this.DataService.idEditInsideAuthor){
+      this.contributorDTO =
+      {
+        ...this.DataService.lstContributorDTOService.value.find(
+          (item) => item.staffId == this.DataService.idEditInsideAuthor
+        )
+      };
+    }
+    this.staffId = this.DataService.idEditInsideAuthor
     this.getListStaff();
   }
   getListStaff() {
@@ -129,20 +140,20 @@ export class EditInsideAuthorComponent implements OnInit {
       this.contributorDTO.staffCode === '' ||
       this.contributorDTO.staffCode.trim() === ''
     ) {
-      const modalRef = this.modalService.open(MessagePopupComponent, {
-        size: 'sm',
-        backdrop: 'static',
-        keyboard: false,
-        centered: true,
-      });
-      modalRef.componentInstance.type = 'fail';
-      modalRef.componentInstance.title = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.ERROR`
-      );
-      modalRef.componentInstance.message = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.STAFF-CODE`
-      );
-      modalRef.componentInstance.closeIcon = false;
+      // const modalRef = this.modalService.open(MessagePopupComponent, {
+      //   size: 'sm',
+      //   backdrop: 'static',
+      //   keyboard: false,
+      //   centered: true,
+      // });
+      // modalRef.componentInstance.type = 'fail';
+      // modalRef.componentInstance.title = this.translateService.instant(
+      //   `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+      // );
+      // modalRef.componentInstance.message = this.translateService.instant(
+      //   `ADD-INSIDE-IDEA.VALIDATE.STAFF-CODE`
+      // );
+      // modalRef.componentInstance.closeIcon = false;
       return false;
     }
     if (
@@ -150,20 +161,20 @@ export class EditInsideAuthorComponent implements OnInit {
       this.contributorDTO.percentage === null ||
       this.contributorDTO.percentage === ''
     ) {
-      const modalRef = this.modalService.open(MessagePopupComponent, {
-        size: 'sm',
-        backdrop: 'static',
-        keyboard: false,
-        centered: true,
-      });
-      modalRef.componentInstance.type = 'fail';
-      modalRef.componentInstance.title = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.ERROR`
-      );
-      modalRef.componentInstance.message = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.PERCENT`
-      );
-      modalRef.componentInstance.closeIcon = false;
+      // const modalRef = this.modalService.open(MessagePopupComponent, {
+      //   size: 'sm',
+      //   backdrop: 'static',
+      //   keyboard: false,
+      //   centered: true,
+      // });
+      // modalRef.componentInstance.type = 'fail';
+      // modalRef.componentInstance.title = this.translateService.instant(
+      //   `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+      // );
+      // modalRef.componentInstance.message = this.translateService.instant(
+      //   `ADD-INSIDE-IDEA.VALIDATE.PERCENT`
+      // );
+      // modalRef.componentInstance.closeIcon = false;
       return false;
     }
     if (
@@ -172,20 +183,20 @@ export class EditInsideAuthorComponent implements OnInit {
       this.contributorDTO.fullName === '' ||
       this.contributorDTO.fullName.trim() === ''
     ) {
-      const modalRef = this.modalService.open(MessagePopupComponent, {
-        size: 'sm',
-        backdrop: 'static',
-        keyboard: false,
-        centered: true,
-      });
-      modalRef.componentInstance.type = 'fail';
-      modalRef.componentInstance.title = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.ERROR`
-      );
-      modalRef.componentInstance.message = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.NAME`
-      );
-      modalRef.componentInstance.closeIcon = false;
+      // const modalRef = this.modalService.open(MessagePopupComponent, {
+      //   size: 'sm',
+      //   backdrop: 'static',
+      //   keyboard: false,
+      //   centered: true,
+      // });
+      // modalRef.componentInstance.type = 'fail';
+      // modalRef.componentInstance.title = this.translateService.instant(
+      //   `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+      // );
+      // modalRef.componentInstance.message = this.translateService.instant(
+      //   `ADD-INSIDE-IDEA.VALIDATE.NAME`
+      // );
+      // modalRef.componentInstance.closeIcon = false;
       return false;
     }
     if (
@@ -194,84 +205,84 @@ export class EditInsideAuthorComponent implements OnInit {
       this.contributorDTO.phoneNumber === '' ||
       this.contributorDTO.phoneNumber.trim() === ''
     ) {
-      const modalRef = this.modalService.open(MessagePopupComponent, {
-        size: 'sm',
-        backdrop: 'static',
-        keyboard: false,
-        centered: true,
-      });
-      modalRef.componentInstance.type = 'fail';
-      modalRef.componentInstance.title = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.ERROR`
-      );
-      modalRef.componentInstance.message = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.PHONE`
-      );
-      modalRef.componentInstance.closeIcon = false;
+      // const modalRef = this.modalService.open(MessagePopupComponent, {
+      //   size: 'sm',
+      //   backdrop: 'static',
+      //   keyboard: false,
+      //   centered: true,
+      // });
+      // modalRef.componentInstance.type = 'fail';
+      // modalRef.componentInstance.title = this.translateService.instant(
+      //   `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+      // );
+      // modalRef.componentInstance.message = this.translateService.instant(
+      //   `ADD-INSIDE-IDEA.VALIDATE.PHONE`
+      // );
+      // modalRef.componentInstance.closeIcon = false;
       return false;
     }
-    if (
-      this.contributorDTO.email === undefined ||
-      this.contributorDTO.email === null ||
-      this.contributorDTO.email === '' ||
-      this.contributorDTO.email.trim() === ''
-    ) {
-      const modalRef = this.modalService.open(MessagePopupComponent, {
-        size: 'sm',
-        backdrop: 'static',
-        keyboard: false,
-        centered: true,
-      });
-      modalRef.componentInstance.type = 'fail';
-      modalRef.componentInstance.title = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.ERROR`
-      );
-      modalRef.componentInstance.message = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.EMAIL`
-      );
-      modalRef.componentInstance.closeIcon = false;
-      this.checkEmail = true;
-      return false;
-    } else {
-      if (!this.isValidEmail(this.contributorDTO.email)) {
-        const modalRef = this.modalService.open(MessagePopupComponent, {
-          size: 'sm',
-          backdrop: 'static',
-          keyboard: false,
-          centered: true,
-        });
-        modalRef.componentInstance.type = 'fail';
-        modalRef.componentInstance.title = this.translateService.instant(
-          `ADD-INSIDE-IDEA.VALIDATE.ERROR`
-        );
-        modalRef.componentInstance.message = this.translateService.instant(
-          `ADD-INSIDE-IDEA.VALIDATE.EMAIL_FORM`
-        );
-        modalRef.componentInstance.closeIcon = false;
-        return false;
-      }
-    }
-    if (
-      this.contributorDTO.birthday === undefined ||
-      this.contributorDTO.birthday === null ||
-      this.contributorDTO.birthday === ''
-    ) {
-      const modalRef = this.modalService.open(MessagePopupComponent, {
-        size: 'sm',
-        backdrop: 'static',
-        keyboard: false,
-        centered: true,
-      });
-      modalRef.componentInstance.type = 'fail';
-      modalRef.componentInstance.title = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.ERROR`
-      );
-      modalRef.componentInstance.message = this.translateService.instant(
-        `ADD-INSIDE-IDEA.VALIDATE.BIRTHDAY`
-      );
-      modalRef.componentInstance.closeIcon = false;
-      return false;
-    }
+    // if (
+    //   this.contributorDTO.email === undefined ||
+    //   this.contributorDTO.email === null ||
+    //   this.contributorDTO.email === '' ||
+    //   this.contributorDTO.email.trim() === ''
+    // ) {
+    //   const modalRef = this.modalService.open(MessagePopupComponent, {
+    //     size: 'sm',
+    //     backdrop: 'static',
+    //     keyboard: false,
+    //     centered: true,
+    //   });
+    //   modalRef.componentInstance.type = 'fail';
+    //   modalRef.componentInstance.title = this.translateService.instant(
+    //     `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+    //   );
+    //   modalRef.componentInstance.message = this.translateService.instant(
+    //     `ADD-INSIDE-IDEA.VALIDATE.EMAIL`
+    //   );
+    //   modalRef.componentInstance.closeIcon = false;
+    //   this.checkEmail = true;
+    //   return false;
+    // } else {
+    //   if (!this.isValidEmail(this.contributorDTO.email)) {
+    //     const modalRef = this.modalService.open(MessagePopupComponent, {
+    //       size: 'sm',
+    //       backdrop: 'static',
+    //       keyboard: false,
+    //       centered: true,
+    //     });
+    //     modalRef.componentInstance.type = 'fail';
+    //     modalRef.componentInstance.title = this.translateService.instant(
+    //       `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+    //     );
+    //     modalRef.componentInstance.message = this.translateService.instant(
+    //       `ADD-INSIDE-IDEA.VALIDATE.EMAIL_FORM`
+    //     );
+    //     modalRef.componentInstance.closeIcon = false;
+    //     return false;
+    //   }
+    // }
+    // if (
+    //   this.contributorDTO.birthday === undefined ||
+    //   this.contributorDTO.birthday === null ||
+    //   this.contributorDTO.birthday === ''
+    // ) {
+    //   const modalRef = this.modalService.open(MessagePopupComponent, {
+    //     size: 'sm',
+    //     backdrop: 'static',
+    //     keyboard: false,
+    //     centered: true,
+    //   });
+    //   modalRef.componentInstance.type = 'fail';
+    //   modalRef.componentInstance.title = this.translateService.instant(
+    //     `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+    //   );
+    //   modalRef.componentInstance.message = this.translateService.instant(
+    //     `ADD-INSIDE-IDEA.VALIDATE.BIRTHDAY`
+    //   );
+    //   modalRef.componentInstance.closeIcon = false;
+    //   return false;
+    // }
 
     let hasDuplicate = false;
     let lstContributorDTO = [];
@@ -292,20 +303,7 @@ export class EditInsideAuthorComponent implements OnInit {
         return item.staffId == this.contributorDTO.staffId
       })
       if (listDuplicate.length > 1) {
-        const modalRef = this.modalService.open(MessagePopupComponent, {
-          size: "sm",
-          backdrop: "static",
-          keyboard: false,
-          centered: true,
-        });
-        modalRef.componentInstance.type = "fail";
-        modalRef.componentInstance.title = this.translateService.instant(
-          `ADD-INSIDE-IDEA.VALIDATE.ERROR`
-        );
-        modalRef.componentInstance.message = this.translateService.instant(
-          `ADD-INSIDE-IDEA.VALIDATE.EXIST`
-        );
-        modalRef.componentInstance.closeIcon = false;
+        this.handleEditInsideAuthorPopup.emit();
         hasDuplicate = true;
         return;
       }
@@ -318,6 +316,7 @@ export class EditInsideAuthorComponent implements OnInit {
    
     return true;
   }
+  @Output() handleEditInsideAuthorPopup = new EventEmitter<void>();
   isValidEmail(email: string): boolean {
     // Biểu thức chính quy để kiểm tra định dạng email
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -345,6 +344,34 @@ export class EditInsideAuthorComponent implements OnInit {
           }
         }
         this.router.navigate(['idea/register']);
+      }
+    }
+  }
+  @Output() handleEditInsideAuthor = new EventEmitter<void>();
+  editNew() {
+    if (this.validate()) {
+      if (this.backRoute == 'contrivance') {
+        for (let i = 0; i < this.contrivanceService.lstContributorDTOService.value.length; i++) {
+          if (
+            this.contrivanceService.lstContributorDTOService.value[i].staffId == this.contributorDTO.staffId
+          ) {
+            this.contrivanceService.lstContributorDTOService.value[i] = this.contributorDTO;
+          }
+        }
+        this.router.navigate(['contrivance/register']);
+      } else {
+        for (let i = 0; i < this.DataService.lstContributorDTOService.value.length; i++) {
+          if (
+            this.DataService.lstContributorDTOService.value[i].staffId == this.staffId
+          ) {
+            this.DataService.lstContributorDTOService.value[i] = this.contributorDTO;
+          }
+        }
+        
+        this.handleEditInsideAuthor.emit();
+        this.DataService.showBg=false;
+        this.DataService.showEditInsideAuthor=false;
+        document.body.style.overflow = "auto";
       }
     }
   }

@@ -1,8 +1,37 @@
-<app-title-nav
+<!-- <app-title-nav
   [title]="'ADD_AUTHOR_OUTSIDE_GROUP' | translate"
   [backRoute]="backRoute + '/register'"
 >
-</app-title-nav>
+</app-title-nav> -->
+<div
+  style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px 0px;
+  "
+>
+  <img src="../../../../../assets/img/icon/Line.png" alt="line" />
+</div>
+<nav
+  style="
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding: 12px 0px;
+  "
+>
+  <img
+    width="24px"
+    style="position: absolute; left: 16px;"
+    src="../../../../../assets/img/icon/icon-back-2.png"
+    alt="img"
+  />
+  <span style="font-size: 16px; font-weight: 500;">
+    Thêm tác giả Ngoài tập đoàn
+  </span>
+</nav>
 <div class="body">
   <div class="info-box">
     <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.FULL_NAME" | translate }}(<span style="color:red">*</span>)</div>
@@ -20,7 +49,7 @@
     <div class="form-text text-danger" *ngIf="isInputTouched && !selectedStaffCodeSubject.value">{{ "ADD-INSIDE-IDEA.VALIDATE.NAME" | translate }}</div>
   </div>
 
-  <div class="info-box">
+  <!-- <div class="info-box">
     <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.WORK_PLACE" | translate }}</div>
     <input
       class="info-input"
@@ -31,8 +60,8 @@
       (input)="changeJobAddress()"
       
     />
-  </div>
-  <div class="info-box">
+  </div> -->
+  <!-- <div class="info-box">
     <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.OFFICE" | translate }}</div>
     <input
       class="info-input"
@@ -43,7 +72,7 @@
       (input)="changeJobPosition()"
     
     />
-  </div>
+  </div> -->
   <div class="info-box">
     <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.PHONE" | translate }}(<span style="color:red">*</span>)</div>
     <input
@@ -106,8 +135,8 @@
   </div>
 </div>
 <div class="bottom-box">
-  <div (click)="addNew()" class="bottom-btn">
-    <img src="assets/img/icon/plus.svg" />
+  <div (click)="add()" class="bottom-btn">
+    <!-- <img src="assets/img/icon/plus.svg" /> -->
     <div class="btn-text">{{ "BUTTON.ADD_NEW" | translate }}</div>
   </div>
 </div>
