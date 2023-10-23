@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, HostListener, OnInit } from "@angular/core";
 import { BsDatepickerConfig, BsLocaleService } from "ngx-bootstrap/datepicker";
 import { MessagePopupComponent } from "@app/modules/common-items/components/message-popup/message-popup.component";
 import { TranslateService } from "@ngx-translate/core";
@@ -85,7 +85,7 @@ export class IdeaRegisterComponent implements OnInit {
     public DataService: DataService,
     private datePipe: DatePipe,
     private notificationService: NotificationService,
-    public toastrService: ToastrService,
+    public toastrService: ToastrService
   ) {
     this.selectedLanguage = null;
     this.bsConfig = {
@@ -103,8 +103,8 @@ export class IdeaRegisterComponent implements OnInit {
   isTypeOfString(element) {
     return typeof element == "string";
   }
-  ngOnInit() {
 
+  ngOnInit() {
     this.getListUnit();
     this.dataSource = new MatTableDataSource(
       this.DataService.lstContributorDTOService.value
@@ -116,18 +116,15 @@ export class IdeaRegisterComponent implements OnInit {
     this.inputValue = this.DataService.ideaName2.value;
     this.selectedLanguage = this.DataService.selectedLanguage.value;
 
-
     // this.selectedUnitValue = this.DataService.selectedUnitValue.value;
     this.DataService.selectedUnitValue.subscribe((value) => {
       this.selectedUnitValue = value;
     });
     this.DataService.selectedUnit.subscribe((value) => {
       this.selectedUnit = value;
-      
     });
 
     console.log(this.DataService.lstContributorDTOServiceOut.value);
-
 
     // this.selectedUnitValue = this.DataService.selectedUnitValue$.value;
     this.selectedSpecialtyValue = this.DataService.selectedSpecialtyValue.value;
@@ -151,13 +148,12 @@ export class IdeaRegisterComponent implements OnInit {
     // this.inputValue = ''
     this.getListSpecialty();
   }
-  selectedLanguage: string = '';
+  selectedLanguage: string = "";
   isLangTouched = false;
   onLanguageChange() {
     this.isLangTouched = true;
     this.DataService.selectedLanguage.next(this.selectedLanguage);
     console.log(this.DataService.selectedLanguage.value);
-
   }
   toggleDropdown() {
     this.DataService.showDropdown = !this.DataService.showDropdown;
@@ -204,7 +200,7 @@ export class IdeaRegisterComponent implements OnInit {
 
   listUnit: [];
   unitFieldTouched: boolean = false;
-  selectedUnit;;
+  selectedUnit;
   getListUnit() {
     const url = `${environment.API_HOST_NAME}/api/get-list-unit`;
     const headers = new HttpHeaders({
@@ -243,17 +239,17 @@ export class IdeaRegisterComponent implements OnInit {
     );
   }
   selectAllForDropdownItems(items: any[]) {
-    let allSelect = items => {
-      items.forEach(element => {
-        element['selectedAllGroup'] = 'selectedAllGroup';
+    let allSelect = (items) => {
+      items.forEach((element) => {
+        element["selectedAllGroup"] = "selectedAllGroup";
       });
     };
 
     allSelect(items);
   }
   onNgSelectChange(item) {
-    this.unitFieldTouched=true;
-    this.selectedUnitValue = [...item]
+    this.unitFieldTouched = true;
+    this.selectedUnitValue = [...item];
     this.DataService.selectedUnit.next(this.selectedUnit);
     this.DataService.selectedUnitValue.next(this.selectedUnitValue);
   }
@@ -333,7 +329,6 @@ export class IdeaRegisterComponent implements OnInit {
     this.DataService.selectedStartDate.next(this.selectedStartDate);
   }
   endDateChange() {
-
     let now = new Date();
     now.setHours(0, 0, 0, 0);
     if (this.selectedStartDate === null || this.selectedEndDate === undefined) {
@@ -363,7 +358,6 @@ export class IdeaRegisterComponent implements OnInit {
       }
       this.DataService.selectedEndDate.next(this.selectedEndDate);
     }
-
   }
   isBeforeApplyStatusTouched = false;
   beforeApplyStatusChange() {
@@ -387,7 +381,6 @@ export class IdeaRegisterComponent implements OnInit {
   }
 
   nextStepChange() {
-
     this.DataService.nextStep.next(this.nextStep);
   }
 
@@ -454,32 +447,44 @@ export class IdeaRegisterComponent implements OnInit {
   }
 
   AddInsideAuthor() {
-
-    this.router.navigate(["author/add-inside"], {
-      queryParams: { for: "idea" },
-    });
-    window.scrollTo(0, 0);
+    this.DataService.showAddInsideAuthor = true;
+    this.DataService.showBg = true;
+    if (this.DataService.showBg && this.DataService.showAddInsideAuthor) {
+      document.body.style.overflow = "hidden";
+    }
   }
   AddOutsideAuthor() {
-    this.router.navigate(["author/add-outside"], {
-      queryParams: { for: "idea" },
-    });
-    window.scrollTo(0, 0);
+    this.DataService.showAddOutsideAuthor = true;
+    this.DataService.showBg = true;
+    if (this.DataService.showBg && this.DataService.showAddOutsideAuthor) {
+      document.body.style.overflow = "hidden";
+    }
   }
 
   EditInsideAuthor(id: number) {
-    this.router.navigate(["author/edit-inside"], {
-      queryParams: { id: id, for: "idea" },
-    });
-    // localStorage.setItem('ideaIdInLocalStorage', JSON.stringify(id));
-    // this.router.navigate(["author/edit-inside"]);
-    window.scrollTo(0, 0);
+    this.DataService.showEditInsideAuthor = true;
+    this.DataService.showBg = true;
+    this.DataService.idEditInsideAuthor = id;
+    if (this.DataService.showBg && this.DataService.showEditInsideAuthor) {
+      document.body.style.overflow = "hidden";
+    }
+    // this.router.navigate(["author/edit-inside"], {
+    //   queryParams: { id: id, for: "idea" },
+    // });
+    // window.scrollTo(0, 0);
   }
   EditOutsideAuthor(phoneNumber: any, email: any) {
-    this.router.navigate(["author/edit-outside"], {
-      queryParams: { phoneNumber: phoneNumber, email: email, for: "idea" },
-    });
-    window.scrollTo(0, 0);
+    this.DataService.showEditOutsideAuthor = true;
+    this.DataService.showBg = true;
+    this.DataService.phoneEditOutsideAuthor = phoneNumber;
+    this.DataService.emailEditOutsideAuthor = email;
+    if (this.DataService.showBg && this.DataService.showEditOutsideAuthor) {
+      document.body.style.overflow = "hidden";
+    }
+    // this.router.navigate(["author/edit-outside"], {
+    //   queryParams: { phoneNumber: phoneNumber, email: email, for: "idea" },
+    // });
+    // window.scrollTo(0, 0);
   }
   deleteInsideAuthor(id: any) {
     this.DataService.lstContributorDTOService.value.forEach((item, index) => {
@@ -537,7 +542,7 @@ export class IdeaRegisterComponent implements OnInit {
     }
     if (
       this.selectedUnitValue === undefined ||
-      this.selectedUnitValue === null||
+      this.selectedUnitValue === null ||
       this.selectedUnitValue.length === 0
     ) {
       this.unitFieldTouched = true;
@@ -577,7 +582,6 @@ export class IdeaRegisterComponent implements OnInit {
     ) {
       this.isEffectivenesTouched = true;
     }
-
   }
   validate() {
     let now = new Date();
@@ -629,7 +633,8 @@ export class IdeaRegisterComponent implements OnInit {
       return false;
     }
     if (
-      (this.selectedEndDate !== null && this.selectedEndDate !== undefined) &&
+      this.selectedEndDate !== null &&
+      this.selectedEndDate !== undefined &&
       this.selectedStartDate > this.selectedEndDate
     ) {
       const modalRef = this.modalService.open(MessagePopupComponent, {
@@ -650,7 +655,11 @@ export class IdeaRegisterComponent implements OnInit {
       this.validateTemplate();
       return false;
     }
-    if ((this.selectedStartDate < now || this.selectedEndDate < now) && (this.selectedEndDate !== null && this.selectedEndDate !== undefined)) {
+    if (
+      (this.selectedStartDate < now || this.selectedEndDate < now) &&
+      this.selectedEndDate !== null &&
+      this.selectedEndDate !== undefined
+    ) {
       const modalRef = this.modalService.open(MessagePopupComponent, {
         size: "sm",
         backdrop: "static",
@@ -836,7 +845,6 @@ export class IdeaRegisterComponent implements OnInit {
       return false;
     }
 
-
     // if (this.DataService.file.value.url == "") {
     //   const modalRef = this.modalService.open(MessagePopupComponent, {
     //     size: "sm",
@@ -884,7 +892,6 @@ export class IdeaRegisterComponent implements OnInit {
         Authorization: `Bearer ` + this.token,
       });
 
-
       const requestBody = {
         ideaDTO: this.ideaDTO,
         lstContributorDTO:
@@ -900,7 +907,6 @@ export class IdeaRegisterComponent implements OnInit {
         (response) => {
           if (response.errorCode == 0) {
             this.router.navigate(["/idea"]);
-
           } else {
             const modalRef = this.modalService.open(MessagePopupComponent, {
               size: "sm",
@@ -992,7 +998,6 @@ export class IdeaRegisterComponent implements OnInit {
 
       this.getIdeaDTO();
       const requestBody = {
-
         ideaDTO: { ...this.ideaDTO },
         lstContributorDTO:
           this.DataService.lstContributorDTOServiceOut.value.concat(
@@ -1014,14 +1019,20 @@ export class IdeaRegisterComponent implements OnInit {
       modalRefSuccess.componentInstance.title = this.translateService.instant(
         `ADD-INSIDE-IDEA.CONFIRM.CONFIRM`
       );
-      if (this.selectedLanguage == 'VI') {
-        modalRefSuccess.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.ENSURE_VI`);
-      } else if (this.selectedLanguage === 'LA') {
-        modalRefSuccess.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.ENSURE_LA`);
-      } else if (this.selectedLanguage === 'EN') {
-        modalRefSuccess.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.ENSURE_EN`);
+      if (this.selectedLanguage == "VI") {
+        modalRefSuccess.componentInstance.message =
+          this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.ENSURE_VI`);
+      } else if (this.selectedLanguage === "LA") {
+        modalRefSuccess.componentInstance.message =
+          this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.ENSURE_LA`);
+      } else if (this.selectedLanguage === "EN") {
+        modalRefSuccess.componentInstance.message =
+          this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.ENSURE_EN`);
       } else {
-        modalRefSuccess.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.INVALID_LANGUAGE`);
+        modalRefSuccess.componentInstance.message =
+          this.translateService.instant(
+            `ADD-INSIDE-IDEA.LANGUAGE.INVALID_LANGUAGE`
+          );
       }
 
       modalRefSuccess.componentInstance.closeIcon = false;
@@ -1032,7 +1043,12 @@ export class IdeaRegisterComponent implements OnInit {
               if (response.errorCode == 0) {
                 this.DataService.ideaDTO.next(this.ideaDTO);
                 this.DataService.isFromAdd = true;
-                this.router.navigate(["idea/check-duplicate-idea"]);
+                // this.router.navigate(["idea/check-duplicate-idea"]);
+                this.DataService.showDuplicateIdea = true;
+                this.DataService.showBg = true;
+                if (this.DataService.showBg && this.DataService.showDuplicateIdea) {
+                  document.body.style.overflow = "hidden";
+                }
               } else {
                 const modalRef = this.modalService.open(MessagePopupComponent, {
                   size: "sm",
@@ -1041,9 +1057,10 @@ export class IdeaRegisterComponent implements OnInit {
                   centered: true,
                 });
                 modalRef.componentInstance.type = "fail";
-                modalRef.componentInstance.title = this.translateService.instant(
-                  `ADD-INSIDE-IDEA.VALIDATE.ERROR`
-                );
+                modalRef.componentInstance.title =
+                  this.translateService.instant(
+                    `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+                  );
                 modalRef.componentInstance.message =
                   modalRef.componentInstance.message = response.description;
                 modalRef.componentInstance.closeIcon = false;
@@ -1057,5 +1074,128 @@ export class IdeaRegisterComponent implements OnInit {
         }
       });
     }
+  }
+  handleAddInsideAuthor() {
+    this.dataSource = new MatTableDataSource(
+      this.DataService.lstContributorDTOService.value
+    );
+    this.dataSource2 = new MatTableDataSource(
+      this.DataService.lstContributorDTOServiceOut.value
+    );
+  }
+  handleAddInsideAuthorPopup() {
+    this.DataService.showBg = false;
+    this.DataService.showAddInsideAuthor = false;
+    if (!this.DataService.showBg && !this.DataService.showAddInsideAuthor) {
+      document.body.style.overflow = "auto";
+    }
+    const modalRef = this.modalService.open(MessagePopupComponent, {
+      size: "sm",
+      backdrop: "static",
+      keyboard: false,
+      centered: true,
+    });
+    modalRef.componentInstance.type = "fail";
+    modalRef.componentInstance.title = this.translateService.instant(
+      `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+    );
+    modalRef.componentInstance.message = this.translateService.instant(
+      `ADD-INSIDE-IDEA.VALIDATE.CONTRIBUTOR`
+    );
+    modalRef.componentInstance.closeIcon = false;
+    return false;
+  }
+  handleEditInsideAuthor() {
+    this.DataService.idEditInsideAuthor = null;
+    this.dataSource = new MatTableDataSource(
+      this.DataService.lstContributorDTOService.value
+    );
+    this.dataSource2 = new MatTableDataSource(
+      this.DataService.lstContributorDTOServiceOut.value
+    );
+  }
+  handleEditInsideAuthorPopup() {
+    this.DataService.showBg = false;
+    this.DataService.showEditInsideAuthor = false;
+    if (!this.DataService.showBg && !this.DataService.showEditInsideAuthor) {
+      document.body.style.overflow = "auto";
+    }
+    const modalRef = this.modalService.open(MessagePopupComponent, {
+      size: "sm",
+      backdrop: "static",
+      keyboard: false,
+      centered: true,
+    });
+    modalRef.componentInstance.type = "fail";
+    modalRef.componentInstance.title = this.translateService.instant(
+      `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+    );
+    modalRef.componentInstance.message = this.translateService.instant(
+      `ADD-INSIDE-IDEA.VALIDATE.CONTRIBUTOR`
+    );
+    modalRef.componentInstance.closeIcon = false;
+    return false;
+  }
+  handleAddOutsideAuthor() {
+    this.dataSource = new MatTableDataSource(
+      this.DataService.lstContributorDTOService.value
+    );
+    this.dataSource2 = new MatTableDataSource(
+      this.DataService.lstContributorDTOServiceOut.value
+    );
+  }
+  handleAddOutsideAuthorPopup() {
+    this.DataService.showBg = false;
+    this.DataService.showAddOutsideAuthor = false;
+    if (!this.DataService.showBg && !this.DataService.showAddOutsideAuthor) {
+      document.body.style.overflow = "auto";
+    }
+
+    const modalRef = this.modalService.open(MessagePopupComponent, {
+      size: "sm",
+      backdrop: "static",
+      keyboard: false,
+      centered: true,
+    });
+    modalRef.componentInstance.type = "fail";
+    modalRef.componentInstance.title = this.translateService.instant(
+      `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+    );
+    modalRef.componentInstance.message = this.translateService.instant(
+      `ADD-INSIDE-IDEA.VALIDATE.EXIST`
+    );
+    modalRef.componentInstance.closeIcon = false;
+    return false;
+  }
+  handleEditOutsideAuthor() {
+    this.DataService.idEditInsideAuthor = null;
+    this.dataSource = new MatTableDataSource(
+      this.DataService.lstContributorDTOService.value
+    );
+    this.dataSource2 = new MatTableDataSource(
+      this.DataService.lstContributorDTOServiceOut.value
+    );
+  }
+  handleEditOutsideAuthorPopup() {
+    this.DataService.showBg = false;
+    this.DataService.showEditOutsideAuthor = false;
+    if (!this.DataService.showBg && !this.DataService.showEditOutsideAuthor) {
+      document.body.style.overflow = "auto";
+    }
+    const modalRef = this.modalService.open(MessagePopupComponent, {
+      size: "sm",
+      backdrop: "static",
+      keyboard: false,
+      centered: true,
+    });
+    modalRef.componentInstance.type = "fail";
+    modalRef.componentInstance.title = this.translateService.instant(
+      `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+    );
+    modalRef.componentInstance.message = this.translateService.instant(
+      `ADD-INSIDE-IDEA.VALIDATE.EXIST`
+    );
+    modalRef.componentInstance.closeIcon = false;
+    return false;
   }
 }

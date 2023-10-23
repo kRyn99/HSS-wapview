@@ -33,7 +33,21 @@ export class IdeaListComponent implements OnInit {
     public homeService: HomepageService
   ) {}
   token = JSON.parse(localStorage.getItem("tokenInLocalStorage"));
+  isMoiNhatSelected: boolean = true;
+  isLinhVucSelected: boolean = false;
+  isTrangThaiSelected: boolean = false;
+
+  selectTab(tab: string) {
+    this.isMoiNhatSelected = tab === 'MoiNhat';
+    this.isLinhVucSelected = tab === 'LinhVuc';
+    this.isTrangThaiSelected = tab === 'TrangThai';
+  }
+  backToPage = "idea/list";
+  get backRoute() {
+    return this.backToPage
+  }
   ngOnInit() {
+    this.DataService.showBg = false;
     this.getListIdea();
   }
   listIdea = [];
@@ -100,7 +114,7 @@ export class IdeaListComponent implements OnInit {
 
     this.router.navigate(["idea/register"]);
   }
-/* 
+  /* 
   handleBack() {
     this.homeService.isIdeaChecked.next(false);
     this.homeService.isContrivanceChecked.next(false)

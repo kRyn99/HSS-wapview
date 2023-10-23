@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 import { environment } from "@env/environment";
@@ -215,11 +215,11 @@ export class AddOutsideAuthorComponent implements OnInit {
     if (
       !this.selectedStaffCodeSubject.value
     ) {
-      const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
-      modalRef.componentInstance.type = 'fail';
-      modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
-      modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.NAME`);
-      modalRef.componentInstance.closeIcon = false;
+      // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
+      // modalRef.componentInstance.type = 'fail';
+      // modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
+      // modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.NAME`);
+      // modalRef.componentInstance.closeIcon = false;
       this.validateTemplate()
       return false;
     }
@@ -228,11 +228,12 @@ export class AddOutsideAuthorComponent implements OnInit {
       this.selectedPercentage === null ||
       this.selectedPercentage === ''
     ) {
-      const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
-      modalRef.componentInstance.type = 'fail';
-      modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
-      modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.PERCENT`);
-      modalRef.componentInstance.closeIcon = false;
+      // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
+      // modalRef.componentInstance.type = 'fail';
+      // modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
+      // modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.PERCENT`);
+      // modalRef.componentInstance.closeIcon = false;
+      this.percentageTouched = true;
       return false;
     }
     if (
@@ -240,20 +241,20 @@ export class AddOutsideAuthorComponent implements OnInit {
       this.selectedPhoneNumber === null ||
       this.selectedPhoneNumber === ''
     ) {
-      const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
-      modalRef.componentInstance.type = 'fail';
-      modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
-      modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.PHONE`);
-      modalRef.componentInstance.closeIcon = false;
+      // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
+      // modalRef.componentInstance.type = 'fail';
+      // modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
+      // modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.PHONE`);
+      // modalRef.componentInstance.closeIcon = false;
       return false;
     }
     if ((!isValidEmail(this.selectedEmail)) && this.selectedEmail
     ) {
-      const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
-      modalRef.componentInstance.type = 'fail';
-      modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
-      modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.EMAIL_FORM`);
-      modalRef.componentInstance.closeIcon = false;
+      // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
+      // modalRef.componentInstance.type = 'fail';
+      // modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
+      // modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.EMAIL_FORM`);
+      // modalRef.componentInstance.closeIcon = false;
       this.checkEmail = true;
       return false;
     };
@@ -278,11 +279,12 @@ export class AddOutsideAuthorComponent implements OnInit {
     }
     lstContributorDTO.forEach(item => {
       if (item.phoneNumber == this.selectedStaffCodeSubject.value?.phoneNumber || item.email == this.selectedStaffCodeSubject.value?.email) {
-        const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
-        modalRef.componentInstance.type = 'fail';
-        modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
-        modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.EXIST`);
-        modalRef.componentInstance.closeIcon = false;
+        // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
+        // modalRef.componentInstance.type = 'fail';
+        // modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
+        // modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.EXIST`);
+        // modalRef.componentInstance.closeIcon = false;
+        this.handleAddOutsideAuthorPopup.emit();
         hasDuplicate = true;
         return;
       }
@@ -326,5 +328,17 @@ export class AddOutsideAuthorComponent implements OnInit {
       });
 
     }
+  }
+  @Output() handleAddOutsideAuthorPopup = new EventEmitter<void>();
+  @Output() handleAddOutsideAuthor = new EventEmitter<void>();
+  add(){
+    if (this.validate()){
+      this.handleAddOutsideAuthor.emit();
+      this.DataService.showBg=false;
+      this.DataService.showAddOutsideAuthor=false;
+      document.body.style.overflow = "auto";
+      this.getListContributorOut();
+    }
+  
   }
 }

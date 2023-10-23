@@ -1,8 +1,37 @@
-<app-title-nav
+<!-- <app-title-nav
   [title]="'ADD_AUTHOR_IN_GROUP' | translate"
   [backRoute]="backRoute + '/edit'"
   
-></app-title-nav>
+></app-title-nav> -->
+<div
+  style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px 0px;
+  "
+>
+  <img src="../../../../../assets/img/icon/Line.png" alt="line" />
+</div>
+<nav
+  style="
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding: 12px 0px;
+  "
+>
+  <img
+    width="24px"
+    style="position: absolute; left: 16px;"
+    src="../../../../../assets/img/icon/icon-back-2.png"
+    alt="img"
+  />
+  <span style="font-size: 16px; font-weight: 500;">
+    Thêm tác giả Trong tập đoàn
+  </span>
+</nav>
 <div class="body">
   <div class="info-box">
     <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.STAFF_CODE" | translate }}(<span style="color: red">*</span>)</div>
@@ -67,7 +96,7 @@
       <div class="form-text text-danger" *ngIf="isInputTouched && !(selectedStaffCodeSubject | async)?.phoneNumber">{{ "ADD-INSIDE-IDEA.VALIDATE.PHONE" | translate }}</div>
 
     </div>
-    <div class="info-box">
+    <!-- <div class="info-box">
       <div class="info-title">{{ "CONTRIVANCE_MAMAGEMENT.LABEL.EMAIL" | translate }}</div>
       <input
         type="text"
@@ -80,8 +109,8 @@
       />
       <div class="form-text text-danger" *ngIf="isInputTouched && !(selectedStaffCodeSubject | async)?.email">{{ "ADD-INSIDE-IDEA.VALIDATE.EMAIL" | translate }}</div>
       <div class="form-text text-danger" *ngIf="checkEmail && (selectedStaffCodeSubject | async)?.email">{{ "ADD-INSIDE-IDEA.VALIDATE.EMAIL_FORM" | translate }}</div>
-    </div>
-    <div class="info-box">
+    </div> -->
+    <!-- <div class="info-box">
       <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH" | translate }}(<span
         style="color: red"
         >*</span
@@ -106,9 +135,8 @@
         />
         <img src="assets/img/icon/calendar.svg" style="padding: 10px" />
       </label>
-      <!-- <div class="form-text text-danger" *ngIf="isInputTouched && !(selectedStaffCodeSubject | async)?.birthday">{{ "ADD-INSIDE-IDEA.VALIDATE.BIRTHDAY" | translate }}</div> -->
-    </div>
-    <div class="info-box">
+    </div> -->
+    <!-- <div class="info-box">
       <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.WORK_PLACE" | translate }}</div>
       <input
         class="info-input"
@@ -118,8 +146,8 @@
         style="background-color: #f3f3f3"
         [readonly]="!isEdit"
       />
-    </div>
-    <div class="info-box">
+    </div> -->
+    <!-- <div class="info-box">
       <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.OFFICE" | translate }}</div>
       <input
         class="info-input"
@@ -129,7 +157,7 @@
         style="background-color: #f3f3f3"
         [readonly]="!isEdit"
       />
-    </div>
+    </div> -->
     <!-- <div class="info-box">
       <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.QUALIFICATION" | translate }}</div>
       <input
@@ -145,8 +173,8 @@
   </div>
 </div>
 <div class="bottom-box">
-  <div (click)="addNew()" class="bottom-btn">
-    <img src="assets/img/icon/plus.svg" />
+  <div (click)="add()" class="bottom-btn">
+    <!-- <img src="assets/img/icon/plus.svg" /> -->
     <div class="btn-text">{{ "BUTTON.ADD_NEW" | translate }}</div>
   </div>
 </div>

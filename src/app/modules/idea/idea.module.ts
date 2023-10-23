@@ -22,11 +22,27 @@ import { CheckDuplicateComponentIdea } from "./components/check-duplicate/check-
 import { CRUDTableModule } from "../../shared/crud-table/crud-table.module";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { NgbModalModule, NgbModule } from "@ng-bootstrap/ng-bootstrap";
-import { DatePipe } from '@angular/common';
-import { NgSelectModule } from '@ng-select/ng-select';
+import { DatePipe } from "@angular/common";
+import { NgSelectModule } from "@ng-select/ng-select";
+import { AddInsideAuthorComponent } from "../author/components/add-inside-author/add-inside-author.component";
+import { EditInsideAuthorComponent } from "../author/components/edit-inside-author/edit-inside-author.component";
+import { AddOutsideAuthorComponent } from "../author/components/add-outside-author/add-outside-author.component";
+import { EditOutsideAuthorComponent } from "../author/components/edit-outside-author/edit-outside-author.component";
+import { EditInsideEditComponent } from "../author/components/edit-inside-edit/edit-inside-edit.component";
+import { AddInsideEditComponent } from "../author/components/add-inside-edit/add-inside-edit.component";
+import { AddOutsideEditComponent } from "../author/components/add-outside-edit/add-outside-edit.component";
+import { EditOutsideEditComponent } from "../author/components/edit-outside-edit/edit-outside-edit.component";
 
 @NgModule({
   declarations: [
+    EditOutsideEditComponent,
+    AddOutsideEditComponent,
+    AddInsideEditComponent,
+    EditInsideEditComponent,
+    EditOutsideAuthorComponent,
+    AddOutsideAuthorComponent,
+    EditInsideAuthorComponent,
+    AddInsideAuthorComponent,
     IdeaComponent,
     IdeaListComponent,
     IdeaDetailComponent,
@@ -58,11 +74,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     CRUDTableModule,
     MatFormFieldModule,
     NgbModalModule,
-    NgbModule
+    NgbModule,
   ],
-  providers: [
-    DatePipe,
-
-  ],
+  providers: [DatePipe],
 })
 export class IdeaModule {}

@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { AfterViewInit, Component, ElementRef, OnInit, Renderer2 } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, Renderer2 } from "@angular/core";
 import { environment } from "@env/environment";
 import { NgSelectConfig } from "@ng-select/ng-select";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -62,7 +62,7 @@ export class AddInsideAuthorComponent implements OnInit  {
   };
   minMode: BsDatepickerViewMode = "day";
   ngOnInit() {
-
+    this.DataService.percentage.next(null)
     this.getListStaff();
     this.route.queryParams.subscribe((params) => {
       if (params && params.for) {
@@ -88,6 +88,7 @@ export class AddInsideAuthorComponent implements OnInit  {
     return this.http.post<any>(url, requestBody, { headers }).subscribe(
       (response) => {
         this.listStaff = response.data.listStaffDTO;
+        
         console.log(this.listStaff);
       },
       (error) => {
@@ -162,7 +163,6 @@ export class AddInsideAuthorComponent implements OnInit  {
   }
 
   getLstContributorDTO() {
-
     let contributorDTO = null;
     contributorDTO =
     {
@@ -208,17 +208,18 @@ export class AddInsideAuthorComponent implements OnInit  {
    
   }
 
+  @Output() handleAddInsideAuthorPopup = new EventEmitter<void>();
   validate() {
 
     let hasDuplicate = false;
     if (
       !this.selectedStaffCodeSubject.value
     ) {
-      const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
-      modalRef.componentInstance.type = 'fail';
-      modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
-      modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.STAFF-CODE`);
-      modalRef.componentInstance.closeIcon = false;
+      // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
+      // modalRef.componentInstance.type = 'fail';
+      // modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
+      // modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.STAFF-CODE`);
+      // modalRef.componentInstance.closeIcon = false;
       this.validateTemplate()
       return false;
     }
@@ -227,11 +228,11 @@ export class AddInsideAuthorComponent implements OnInit  {
       this.percentageValue === null ||
       this.percentageValue === ''
     ) {
-      const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
-      modalRef.componentInstance.type = 'fail';
-      modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
-      modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.PERCENT`);
-      modalRef.componentInstance.closeIcon = false;
+      // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
+      // modalRef.componentInstance.type = 'fail';
+      // modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
+      // modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.PERCENT`);
+      // modalRef.componentInstance.closeIcon = false;
       this.validateTemplate()
       return false;
     }
@@ -240,46 +241,46 @@ export class AddInsideAuthorComponent implements OnInit  {
       this.phoneNumber === null ||
       this.phoneNumber === ''
     ) {
-      const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
-      modalRef.componentInstance.type = 'fail';
-      modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
-      modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.PHONE`);
-      modalRef.componentInstance.closeIcon = false;
+      // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
+      // modalRef.componentInstance.type = 'fail';
+      // modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
+      // modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.PHONE`);
+      // modalRef.componentInstance.closeIcon = false;
       this.validateTemplate()
       return false;
     }
-    if (
-      this.email === undefined ||
-      this.email === null ||
-      this.email === ''
-    ) {
-      const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
-      modalRef.componentInstance.type = 'fail';
-      modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
-      modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.EMAIL`);
-      modalRef.componentInstance.closeIcon = false;
-      this.validateTemplate()
-      return false;
-    } else {
-      if (!this.isValidEmail(this.email)) {
-        const modalRef = this.modalService.open(MessagePopupComponent, {
-          size: 'sm',
-          backdrop: 'static',
-          keyboard: false,
-          centered: true,
-        });
-        modalRef.componentInstance.type = 'fail';
-        modalRef.componentInstance.title = this.translateService.instant(
-          `ADD-INSIDE-IDEA.VALIDATE.ERROR`
-        );
-        modalRef.componentInstance.message = this.translateService.instant(
-          `ADD-INSIDE-IDEA.VALIDATE.EMAIL_FORM`
-        );
-        modalRef.componentInstance.closeIcon = false;
-        this.checkEmail=true;
-        return false;
-      }
-    }
+    // if (
+    //   this.email === undefined ||
+    //   this.email === null ||
+    //   this.email === ''
+    // ) {
+    //   // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
+    //   // modalRef.componentInstance.type = 'fail';
+    //   // modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
+    //   // modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.EMAIL`);
+    //   // modalRef.componentInstance.closeIcon = false;
+    //   this.validateTemplate()
+    //   return false;
+    // } else {
+      // if (!this.isValidEmail(this.email)) {
+      //   const modalRef = this.modalService.open(MessagePopupComponent, {
+      //     size: 'sm',
+      //     backdrop: 'static',
+      //     keyboard: false,
+      //     centered: true,
+      //   });
+      //   modalRef.componentInstance.type = 'fail';
+      //   modalRef.componentInstance.title = this.translateService.instant(
+      //     `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+      //   );
+      //   modalRef.componentInstance.message = this.translateService.instant(
+      //     `ADD-INSIDE-IDEA.VALIDATE.EMAIL_FORM`
+      //   );
+      //   modalRef.componentInstance.closeIcon = false;
+      //   this.checkEmail=true;
+      //   return false;
+      // }
+    // }
     // if (
     //   this.birthday === undefined ||
     //   this.birthday === null
@@ -301,11 +302,12 @@ export class AddInsideAuthorComponent implements OnInit  {
     }
     lstContributorDTO.forEach(item => {
       if (item.staffId == this.selectedStaffCodeSubject.value?.id) {
-        const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
-        modalRef.componentInstance.type = 'fail';
-        modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
-        modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.CONTRIBUTOR`);
-        modalRef.componentInstance.closeIcon = false;
+        // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
+        // modalRef.componentInstance.type = 'fail';
+        // modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
+        // modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.CONTRIBUTOR`);
+        // modalRef.componentInstance.closeIcon = false;
+        this.handleAddInsideAuthorPopup.emit();
         hasDuplicate = true;
         return;
       }
@@ -317,38 +319,50 @@ export class AddInsideAuthorComponent implements OnInit  {
   }
 
   backRoute = null;
-  addNew() {
+ 
+  // addNew() {
 
-    if (this.validate()) {
-      const modalRefSuccess = this.modalService.open(MessagePopupComponent, {
-        size: 'sm',
-        backdrop: 'static',
-        keyboard: false,
-        centered: true,
-      });
+  //   if (this.validate()) {
+  //     const modalRefSuccess = this.modalService.open(MessagePopupComponent, {
+  //       size: 'sm',
+  //       backdrop: 'static',
+  //       keyboard: false,
+  //       centered: true,
+  //     });
 
-      modalRefSuccess.componentInstance.type = 'confirm';
-      modalRefSuccess.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.CONFIRM.CONFIRM`);
-      modalRefSuccess.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.CONFIRM.CONFIRM-ADD`);
-      modalRefSuccess.componentInstance.closeIcon = false;
+  //     modalRefSuccess.componentInstance.type = 'confirm';
+  //     modalRefSuccess.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.CONFIRM.CONFIRM`);
+  //     modalRefSuccess.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.CONFIRM.CONFIRM-ADD`);
+  //     modalRefSuccess.componentInstance.closeIcon = false;
 
-      // Xử lý khi modal được đóng
-      modalRefSuccess.componentInstance.next.subscribe((result: any) => {
-        // Người dùng đã đồng ý cập nhật, thực hiện tác vụ cập nhật tại đây
-        if (result === true) {
-          this.getLstContributorDTO();
-          if (this.backRoute == "contrivance") {
-            this.router.navigate(["contrivance/register"]);
-          } else {
-            this.router.navigate(["idea/register"]);
-          }
-        } else {
-          // Người dùng không đồng ý cập nhật
-          // Thực hiện các tác vụ khác nếu cần
-        }
-      });
+  //     // Xử lý khi modal được đóng
+  //     modalRefSuccess.componentInstance.next.subscribe((result: any) => {
+  //       // Người dùng đã đồng ý cập nhật, thực hiện tác vụ cập nhật tại đây
+  //       if (result === true) {
+  //         this.getLstContributorDTO();
+  //         if (this.backRoute == "contrivance") {
+  //           this.router.navigate(["contrivance/register"]);
+  //         } else {
+  //           this.router.navigate(["idea/register"]);
+  //         }
+  //       } else {
+  //         // Người dùng không đồng ý cập nhật
+  //         // Thực hiện các tác vụ khác nếu cần
+  //       }
+  //     });
 
+  //   }
+  // }
+  @Output() handleAddInsideAuthor = new EventEmitter<void>();
+  addNew(){
+    if (this.validate()){
+      this.handleAddInsideAuthor.emit();
+      this.DataService.showBg=false;
+      this.DataService.showAddInsideAuthor=false;
+      document.body.style.overflow = "auto";
+      this.getLstContributorDTO();
     }
+  
+ 
   }
-
 }

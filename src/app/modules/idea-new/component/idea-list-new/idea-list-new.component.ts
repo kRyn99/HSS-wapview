@@ -77,4 +77,25 @@ export class IdeaListNewComponent implements OnInit {
       }
     );
   }
+  handleCreate() {
+    const reset = null;
+    this.DataService.ideaName2.next(reset);
+    this.DataService.selectedLanguage.next(reset);
+    this.DataService.selectedUnit.next(reset);
+    this.DataService.selectedUnitValue.next(reset);
+    this.DataService.selectedSpecialtyValue.next(reset);
+    this.DataService.selectedStartDate.next(reset);
+    this.DataService.selectedEndDate.next(new Date());
+    this.DataService.beforeApplyStatus.next(reset);
+    this.DataService.content.next(reset);
+    this.DataService.applyRange.next(reset);
+    this.DataService.effectiveness.next(reset);
+    this.DataService.nextStep.next(reset);
+    this.DataService.note.next(reset);
+    this.DataService.lstContributorDTOService.next([]);
+    this.DataService.lstContributorDTOServiceOut.next([]);
+    this.DataService.file.next({ url: "", name: "" });
+
+    this.router.navigate(["idea/register"]);
+  }
 }
