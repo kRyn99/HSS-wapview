@@ -110,19 +110,21 @@
 // new
 
 .footer {
+  height: 112px;
   display: flex;
   justify-content: center;
-}
-
-.footer__container {
-  width: 192px;
-  height: 112px;
-  flex-shrink: 0;
+  align-items: center;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #fff 100%);
 }
 
+.footer__container {
+
+  flex-shrink: 0;
+
+}
+
 .footer__container__item {
-  margin-top: 25px;
+  padding-top: 25px;
   display: inline-flex;
   padding: 4px;
   flex-direction: column;

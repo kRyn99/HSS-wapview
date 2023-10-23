@@ -1,4 +1,4 @@
-<div class="title">
+<!-- <div class="title">
   <img src="assets/img/icon/image 1.svg" />
   <div class="title-name">{{ "HOME.TITLE" | translate }}</div>
 </div>
@@ -10,9 +10,35 @@
   <div class="header-avatar">
     <img src="assets/img/icon/220-vietnam 1.svg" />
   </div>
-</div>
-<app-recent-contrivance
-  [listContrivance]="listContrivance"
-></app-recent-contrivance>
+</div> -->
+<app-title-nav-idea
+  style="padding: 12px 16px"
+  [title]="'IDEA_MANAGEMENT.TITLE.LIST_IDEA' | translate"
+  [backRoute]="backRoute"
+  isBackHome="true"
+  createRoute="this"
+></app-title-nav-idea>
+<div class="home-container">
+ <div class="home-body">
+  <div class="header-title">
+    <p class="header-title-text">{{ " HOME.LABEL" | translate }}</p>
+    <div class="header-title-hightlight">
+      <div>{{ "CONTRIVANCE_MAMAGEMENT.TITLE.CONTRIVANCE" | translate }} &</div>
+      <div> {{ "IDEA_MANAGEMENT.LABEL.IDEA" | translate }}</div>
+    </div>
+    <div class="d-flex">
+      <span class="sub-title-number">{{listContrivance?.length}}+</span>
+      <span class="header-title-text ml-1"> {{ "CONTRIVANCE_MAMAGEMENT.TITLE.CONTRIVANCE" | translate }}</span>
+      <hr class="sub-title-line"
+      />
+      <span class="sub-title-number">{{listIdea?.length}}+</span>
+      <span class="header-title-text  ml-1"> {{ "IDEA_MANAGEMENT.LABEL.IDEA" | translate }}</span>
+    </div>
+  </div>
+  <app-recent-contrivance
+    [listContrivance]="listContrivance"
+  ></app-recent-contrivance>
   <app-recent-idea [listIdea]="listIdea"></app-recent-idea>
+ </div>
   <app-nav-menu></app-nav-menu>
+</div>

@@ -904,6 +904,7 @@
     }
   },
   "HOME":{
+    "LABEL": "Management system",
     "TITLE": "Initiative and Idea management System",
     "WELCOME": "Hello,",
     "APPROVED_CONTRIVANCE": "Recognized Initiative",

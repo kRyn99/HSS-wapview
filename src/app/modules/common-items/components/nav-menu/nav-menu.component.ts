@@ -19,20 +19,20 @@ export class NavMenuComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
   ngOnInit(): void {
-    // const currentUrl = this.router.routerState.snapshot.url;
-    // if (currentUrl.includes("idea")) {
-    //   this.homeService.isIdeaChecked.next(true);
-    //   this.homeService.isContrivanceChecked.next(false);
-    //   this.homeService.isHomeChecked.next(false);
-    // } else if (currentUrl.includes("contrivance")) {
-    //   this.homeService.isIdeaChecked.next(false);
-    //   this.homeService.isContrivanceChecked.next(true);
-    //   this.homeService.isHomeChecked.next(false);
-    // }else if(currentUrl.includes("home")){
-    //   this.homeService.isIdeaChecked.next(false);
-    //   this.homeService.isContrivanceChecked.next(false);
-    //   this.homeService.isHomeChecked.next(true);
-    // }
+    const currentUrl = this.router.routerState.snapshot.url;
+    if (currentUrl.includes("idea")) {
+      this.homeService.isIdeaChecked.next(true);
+      this.homeService.isContrivanceChecked.next(false);
+      this.homeService.isHomeChecked.next(false);
+    } else if (currentUrl.includes("contrivance")) {
+      this.homeService.isIdeaChecked.next(false);
+      this.homeService.isContrivanceChecked.next(true);
+      this.homeService.isHomeChecked.next(false);
+    }else if(currentUrl.includes("home")){
+      this.homeService.isIdeaChecked.next(false);
+      this.homeService.isContrivanceChecked.next(false);
+      this.homeService.isHomeChecked.next(true);
+    }
   }
 
   ideaRoute() {
