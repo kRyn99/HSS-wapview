@@ -299,9 +299,8 @@ tr.example-element-row:not(.example-expanded-row):active {
 }
 
 .example-element-description {
-  // display: flex;
-  // flex-direction: column;
-  padding: 7px;
+  font-size: 12px;
+  padding: 12px 10px;
 }
 
 .example-element-description-attribution {
@@ -377,7 +376,8 @@ tr.example-element-row:not(.example-expanded-row):active {
   z-index: 999999;
   overflow-y: auto;
 }
-::ng-deep .ng-select.ng-select-multiple
+::ng-deep
+  .ng-select.ng-select-multiple
   .ng-select-container
   .ng-value-container
   .ng-placeholder {
@@ -385,4 +385,25 @@ tr.example-element-row:not(.example-expanded-row):active {
   padding-bottom: 5px;
   padding-left: 9px;
   color: black;
+}
+.th-text:last-child {
+  border-top-right-radius: 8px;
+}
+table {
+  border-collapse: unset;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+}
+
+.example-element-description {
+  border: 1px solid #c8ced3;
+  border-top: none;
+}
+
+::ng-deep .table-bordered thead td {
+  border-bottom-width: 0px !important;
+}
+
+::ng-deep .table-bordered th {
+  border-width: 0px !important;
 }

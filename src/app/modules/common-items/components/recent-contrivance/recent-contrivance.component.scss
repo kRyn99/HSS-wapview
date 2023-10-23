@@ -13,13 +13,15 @@ img{
 .swiper-wrapper {
   transition-duration: 0ms;
     transform: translate3d(10px, 0px, 0px);
+    padding: 10px 0px;
 }
 .swiper-slide {
+  box-shadow:2px 4px 2px 2px rgba(0, 0, 0, 0.1) ;
   display: flex;
   flex-direction: column;
   justify-content:space-between;
   transition:all linear;
-  transform: scale(0.9);
+  transform: scale(0.98);
   gap: 10px;
   border-radius: 20px;
   padding: 20px;
@@ -165,3 +167,13 @@ line-height: 120%; /* 14.4px */
   height: 6px;
   display: inline-block;
 }
+
+.line-text-idea{
+  color: #FF4D00;
+ font-family: Inter;
+ font-size: 16px;
+ font-style: normal;
+ font-weight: 500;
+ align-self: stretch;
+ line-height: 120%; /* 19.2px */
+ }

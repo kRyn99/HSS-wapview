@@ -56,8 +56,9 @@ export class IdeaListComponent implements OnInit {
     console.log(this.selectedSpecialty.name);
 
   }
-  backToPage = "idea/list";
+  backToPage = "home";
   get backRoute() {
+    // alert('ok')
     return this.backToPage
   }
   ngOnInit() {

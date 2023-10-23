@@ -1,8 +1,11 @@
 <div class="slideshow">
   <div class="slideshow-header">
     <div class="sh-text1">
-      <img src="assets/img/icon/good-idea.png" />{{
-        "HOME.APPROVED_CONTRIVANCE" | translate
+      <img [src]="imgURL" />{{
+        (type == "contrivance"
+          ? "HOME.APPROVED_CONTRIVANCE"
+          : "HOME.APPROVED_IDEA"
+        ) | translate
       }}
       <span><div class="progessbar"></div></span>
     </div>
@@ -16,15 +19,17 @@
     }"
     [navigation]="true"
   >
-    <ng-template
-      swiperSlide
-      *ngFor="let item of listContrivance; let i = index"
-    >
-      <div class="user-card" (click)="viewDetail(item.contrivanceId)">
-        <div class="line-text-contrivance">
-          "{{ item.contrivanceName | truncate : 50 }}""
+    <ng-template swiperSlide *ngFor="let item of list; let i = index">
+      <div
+        class="user-card"
+        (click)="
+          viewDetail(type == 'contrivance' ? item.contrivanceId : item.ideaId)
+        "
+      >
+        <div [ngClass]=" type == 'contrivance' ? 'line-text-contrivance' : 'line-text-idea' ">
+          "{{(type == 'contrivance' ? item.contrivanceName : item.ideaName ) | truncate : 50 }}""
         </div>
-        <div class="line-text2">
+        <div class="line-text2" *ngIf="type == 'contrivance'">
           {{ "HOME.PERCENT_DUP" | translate }}
           <span *ngIf="item.effectiveValue"
             >{{ item.effectiveValue }}{{ " KIP" }}</span
@@ -43,6 +48,5 @@
         </div>
       </div>
     </ng-template>
-    <div class="swiper-pagination"></div>
   </swiper>
 </div>

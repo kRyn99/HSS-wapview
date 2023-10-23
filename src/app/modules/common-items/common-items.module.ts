@@ -47,8 +47,7 @@ import { FooterNavNoFixComponent } from './components/footer-nav-no-fix/footer-n
 import {ConfirmPaymentPopupComponent} from '@app/modules/common-items/components/confirm-payment-popup/confirm-payment-popup.component';
 import {ConfirmModalComponent} from '@app/modules/common-items/components/confirm-modal/confirm-modal.component';
 import {NavMenuComponent} from '@app/modules/common-items/components/nav-menu/nav-menu.component';
-import { RecentIdeaComponent } from './components/recent-idea/recent-idea.component';
-import { RecentContrivanceComponent } from './components/recent-contrivance/recent-contrivance.component';
+import { RecentContrivanceIdeaComponent } from './components/recent-contrivance/recent-contrivance.component';
 import { StatusColorComponent } from './components/status-color/status-color.component';
 import {SwiperModule} from "swiper/angular";
 import { SharedDisplayHtmlModule } from '@app/shared/shared-display-html/shared-display-html.module';
@@ -93,8 +92,7 @@ import { TitleNavIdeaComponent } from './components/title-nav-idea/title-nav-ide
     BroadcastCardComponent,
     ConfirmModalComponent,
     NavMenuComponent,
-    RecentIdeaComponent,
-    RecentContrivanceComponent,
+    RecentContrivanceIdeaComponent,
     StatusColorComponent,
     TitleNavIdeaComponent
   ],
@@ -155,7 +153,7 @@ import { TitleNavIdeaComponent } from './components/title-nav-idea/title-nav-ide
     BannerComponent,
     ArticleCardComponent, BroadcastCardComponent,
     ConfirmPaymentPopupComponent,
-    NavMenuComponent, RecentIdeaComponent, RecentContrivanceComponent,StatusColorComponent
+    NavMenuComponent, RecentContrivanceIdeaComponent,StatusColorComponent
   ],
   bootstrap: [],
   providers: [
