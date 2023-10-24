@@ -60,7 +60,10 @@ export class EditOutsideEditComponent implements OnInit {
         this.oldNumber = this.contributorDTO.phoneNumber;
         this.oldEmail = this.contributorDTO.email;
 
-
+        if(!this.contributorDTO.displayName){
+            this.contributorDTO.displayName=this.contributorDTO.fullName
+        }
+        
         this.apiListContributorOut()
     }
     goBack(){
@@ -104,8 +107,10 @@ export class EditOutsideEditComponent implements OnInit {
             },
         );
     }
+    fullName;
     onSelectedStaffCodeChange(value: any) {
         this.contributorDTO = value;
+        this.fullName=this.contributorDTO.displayName;
 
 
         console.log(value);
@@ -135,7 +140,9 @@ export class EditOutsideEditComponent implements OnInit {
             this.contributorDTO.jobPosition = newValue;
         }
     }
+    phone;
     updatePhoneNumber(newValue: string) {
+        this.phone=newValue;
         if (this.contributorDTO) {
             this.contributorDTO.phoneNumber = newValue;
         }
@@ -171,10 +178,10 @@ export class EditOutsideEditComponent implements OnInit {
             return false;
         }
         if (
-            this.contributorDTO.fullName === undefined ||
-            this.contributorDTO.fullName === null ||
-            this.contributorDTO.fullName === '' ||
-            this.contributorDTO.fullName.trim() === ''
+            this.contributorDTO.displayName === undefined ||
+            this.contributorDTO.displayName === null ||
+            this.contributorDTO.displayName === '' ||
+            this.contributorDTO.displayName.trim() === ''
         ) {
             // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
             // modalRef.componentInstance.type = 'fail';
@@ -312,8 +319,23 @@ export class EditOutsideEditComponent implements OnInit {
                 for (let i = 0; i < this.DataService.lstContributorDTOServiceOutEdit.value.length; i++) {
                     if (
                         (this.oldEmail == this.DataService.lstContributorDTOServiceOutEdit.value[i].email) && this.oldNumber == this.DataService.lstContributorDTOServiceOutEdit.value[i].phoneNumber
-                    ) {
-                        this.DataService.lstContributorDTOServiceOutEdit.value[i] = this.contributorDTO
+                    ) { 
+                        if(this.fullName && this.oldNumber){
+                            if(this.fullName.includes("-")){
+                              let temp = this.fullName.split ("-");
+                              this.fullName = temp[0]
+                        
+                            }
+                            this.contributorDTO.displayName = `${this.fullName} - ${this.phone? this.phone : this.contributorDTO.phoneNumber}`
+                            this.contributorDTO.fullName = this.fullName
+                            
+                           }
+
+
+                        this.DataService.lstContributorDTOServiceOutEdit.value[i] = {
+                            fullName: this.fullName,
+                            ... this.contributorDTO
+                          }
                         break;
                     }
 

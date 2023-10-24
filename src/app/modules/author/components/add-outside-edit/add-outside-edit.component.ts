@@ -75,13 +75,15 @@ export class AddOutsideEditComponent implements OnInit {
   getListContributorOut() {
     let contributorDTO = null;
     contributorDTO = {
-      fullName: this.selectedStaffCodeSubject.value?.fullName,
+      fullName: this.selectedStaffCodeSubject.value?.fullName ? this.selectedStaffCodeSubject.value?.fullName  : this.selectedFullName.displayName,
       percentage: this.DataService.percentageOut.value,
       phoneNumber: this.selectedPhoneNumber,
       email: this.selectedEmail,
       jobPosition: this.selectedJobPosition,
       jobAddress: this.selectedJobAddress,
       professionalQualification: this.selectedProfessionalQualification,
+      displayName:this.selectedStaffCodeSubject.value?.fullName ? `${this.selectedStaffCodeSubject.value?.fullName } - ${this.selectedPhoneNumber}` : `${this.selectedFullName.displayName} - ${this.selectedPhoneNumber}`
+
     };
     if (this.backRoute == "contrivance") {
       this.contrivanceService.lstContributorDTOServiceOut.value.push(

@@ -52,19 +52,21 @@ export class EditOutsideAuthorComponent implements OnInit {
       }
 
     });
-    if(this.DataService.phoneEditOutsideAuthor){
+    if (this.DataService.phoneEditOutsideAuthor) {
       this.contributorDTO = {
         ...this.DataService.lstContributorDTOServiceOut.value.find(
           (item) => (item.phoneNumber == this.DataService.phoneEditOutsideAuthor && item.email == this.DataService.emailEditOutsideAuthor)
         ),
       };
     }
+    console.log(this.contributorDTO);
+
     this.oldNumber = this.contributorDTO.phoneNumber;
     this.oldEmail = this.contributorDTO.email;
 
     this.apiListContributorOut();
   }
-  goBack(){
+  goBack() {
     this.DataService.showBg = false;
     this.DataService.showAddInsideAuthor = false;
     this.DataService.showEditInsideAuthor = false;
@@ -106,9 +108,10 @@ export class EditOutsideAuthorComponent implements OnInit {
       }
     );
   }
+  fullName;
   onSelectedStaffCodeChange(value: any) {
     this.contributorDTO = value;
-
+    this.fullName=this.contributorDTO.displayName;
     console.log(value);
   }
   percentageValueChange(newValue: string) {
@@ -136,7 +139,10 @@ export class EditOutsideAuthorComponent implements OnInit {
       this.contributorDTO.jobPosition = newValue;
     }
   }
+  phone;
   updatePhoneNumber(newValue: string) {
+    console.log(newValue);
+    this.phone=newValue;
     if (this.contributorDTO) {
       this.contributorDTO.phoneNumber = newValue;
     }
@@ -180,10 +186,11 @@ export class EditOutsideAuthorComponent implements OnInit {
       return false;
     }
     if (
-      this.contributorDTO.fullName === undefined ||
-      this.contributorDTO.fullName === null ||
-      this.contributorDTO.fullName === "" ||
-      this.contributorDTO.fullName.trim() === ""
+      this.contributorDTO.displayName === undefined ||
+      this.contributorDTO.displayName === null ||
+      this.contributorDTO.displayName === "" ||
+      this.contributorDTO.displayName.trim() === "" 
+  
     ) {
       // const modalRef = this.modalService.open(MessagePopupComponent, {
       //   size: "sm",
@@ -261,35 +268,35 @@ export class EditOutsideAuthorComponent implements OnInit {
       }
       if (this.contributorDTO.email !== '') {
         let listDuplicate = lstContributorDTO.filter(item => {
-            return item.email == this.contributorDTO.email;
+          return item.email == this.contributorDTO.email;
         });
 
         if (listDuplicate.length > 1) {
-            // const modalRef = this.modalService.open(MessagePopupComponent, {
-            //     size: "sm",
-            //     backdrop: "static",
-            //     keyboard: false,
-            //     centered: true,
-            // });
-            // modalRef.componentInstance.type = "fail";
-            // modalRef.componentInstance.title = this.translateService.instant(
-            //     `ADD-INSIDE-IDEA.VALIDATE.ERROR`
-            // );
-            // modalRef.componentInstance.message = this.translateService.instant(
-            //     `ADD-INSIDE-IDEA.VALIDATE.EXIST`
-            // );
-            // modalRef.componentInstance.closeIcon = false;
-            this.handleEditOutsideAuthorPopup.emit()
-            hasDuplicate = true;
-            return;
+          // const modalRef = this.modalService.open(MessagePopupComponent, {
+          //     size: "sm",
+          //     backdrop: "static",
+          //     keyboard: false,
+          //     centered: true,
+          // });
+          // modalRef.componentInstance.type = "fail";
+          // modalRef.componentInstance.title = this.translateService.instant(
+          //     `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+          // );
+          // modalRef.componentInstance.message = this.translateService.instant(
+          //     `ADD-INSIDE-IDEA.VALIDATE.EXIST`
+          // );
+          // modalRef.componentInstance.closeIcon = false;
+          this.handleEditOutsideAuthorPopup.emit()
+          hasDuplicate = true;
+          return;
         }
-    }
+      }
 
-    let phoneDuplicate = lstContributorDTO.filter(item => {
+      let phoneDuplicate = lstContributorDTO.filter(item => {
         return item.phoneNumber == this.contributorDTO.phoneNumber;
-    });
+      });
 
-    if (phoneDuplicate.length > 1) {
+      if (phoneDuplicate.length > 1) {
         // const modalRef = this.modalService.open(MessagePopupComponent, {
         //     size: "sm",
         //     backdrop: "static",
@@ -307,8 +314,8 @@ export class EditOutsideAuthorComponent implements OnInit {
         this.handleEditOutsideAuthorPopup.emit()
         hasDuplicate = true;
         return;
+      }
     }
-}
 
     if (hasDuplicate) {
       return false;
@@ -352,7 +359,7 @@ export class EditOutsideAuthorComponent implements OnInit {
   }
   @Output() handleEditOutsideAuthorPopup = new EventEmitter<void>();
   @Output() handleEditOutsideAuthor = new EventEmitter<void>();
-  editNew(){
+  editNew() {
     if (this.validate()) {
       if (this.backRoute == "contrivance") {
         if (this.backRoute == "contrivance") {
@@ -368,14 +375,30 @@ export class EditOutsideAuthorComponent implements OnInit {
       } else {
         for (let i = 0; i < this.DataService.lstContributorDTOServiceOut.value.length; i++) {
           if (this.oldEmail == this.DataService.lstContributorDTOServiceOut.value[i].email && this.oldNumber == this.DataService.lstContributorDTOServiceOut.value[i].phoneNumber) {
-            this.DataService.lstContributorDTOServiceOut.value[i] = this.contributorDTO
+           if(this.fullName && this.oldNumber){
+            if(this.fullName.includes("-")){
+              let temp = this.fullName.split ("-");
+              this.fullName = temp[0]
+        
+            }
+            this.contributorDTO.displayName = `${this.fullName} - ${this.phone? this.phone : this.contributorDTO.phoneNumber}`
+            this.contributorDTO.fullName = this.fullName
+            
+           }
+            this.DataService.lstContributorDTOServiceOut.value[i] = {
+              fullName: this.fullName,
+              ... this.contributorDTO
+            }
+           console.log(this.contributorDTO);
+           
+            
             break;
           }
 
         }
         this.handleEditOutsideAuthor.emit();
-        this.DataService.showBg=false;
-        this.DataService.showEditOutsideAuthor=false;
+        this.DataService.showBg = false;
+        this.DataService.showEditOutsideAuthor = false;
         document.body.style.overflow = "auto";
       }
     }

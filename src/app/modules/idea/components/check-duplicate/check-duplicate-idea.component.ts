@@ -225,6 +225,15 @@ export class CheckDuplicateComponentIdea implements OnInit {
   }
 
   registerEdit() {
+    const newList = [];
+    for (let i = 0; i < this.DataService.lstContributorDTOServiceOutEdit.value.length; i++) {
+      const newItem = { ...this.DataService.lstContributorDTOServiceOutEdit.value[i] };
+      delete newItem.displayName;
+      newList.push(newItem);   
+    }
+    console.log(newList);
+    console.log(this.DataService.lstContributorDTOServiceOutEdit.value);
+    
     const url = `${environment.API_HOST_NAME}/api/update-idea`;
 
     const headers = new HttpHeaders({
@@ -237,7 +246,7 @@ export class CheckDuplicateComponentIdea implements OnInit {
     const requestBody = {
       ideaDTO: { ...this.DataService.ideaDTOEdit.value },
       lstContributorDTO:
-        this.DataService.lstContributorDTOServiceOutEdit.value.concat(
+        newList.concat(
           this.DataService.lstContributorDTOServiceEdit.value
         ),
       documentDTO: {

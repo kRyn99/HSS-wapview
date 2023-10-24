@@ -1175,6 +1175,8 @@ export class IdeaRegisterComponent implements OnInit {
     this.dataSource2 = new MatTableDataSource(
       this.DataService.lstContributorDTOServiceOut.value
     );
+    console.log(this.DataService.lstContributorDTOServiceOut.value);
+    
   }
   handleEditOutsideAuthorPopup() {
     this.DataService.showBg = false;
