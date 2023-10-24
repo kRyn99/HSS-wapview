@@ -40,7 +40,7 @@
     class="custom-class-eoa"
       [items]="listContributorOut"
       bindLabel="displayName"
-      [placeholder]="contributorDTO?.fullName"
+      [placeholder]="contributorDTO?.displayName"
       [(ngModel)]="contributorDTO"
       [addTag]="true"
       [addTagText]="'Chọn tên tác giả'"
@@ -48,7 +48,7 @@
       [addTag]="true"
       [addTagText]="'CHOOSE_AUTHOR_NAME' | translate"
     ></ng-select>
-    <div class="form-text text-danger" *ngIf="!contributorDTO?.fullName">{{ "ADD-INSIDE-IDEA.VALIDATE.NAME" | translate }}</div>
+    <div class="form-text text-danger" *ngIf="!contributorDTO?.displayName">{{ "ADD-INSIDE-IDEA.VALIDATE.NAME" | translate }}</div>
   </div>
   <!-- <div class="info-box">
     <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.WORK_PLACE" | translate }}</div>

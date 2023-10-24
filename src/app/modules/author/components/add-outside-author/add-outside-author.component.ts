@@ -77,7 +77,7 @@ export class AddOutsideAuthorComponent implements OnInit {
     let contributorDTO = null;
     contributorDTO =
     {
-      fullName: this.selectedStaffCodeSubject.value?.fullName,
+      fullName: this.selectedStaffCodeSubject.value?.fullName ? this.selectedStaffCodeSubject.value?.fullName : this.selectedFullName.displayName,
       percentage: this.DataService.percentageOut.value,
       phoneNumber: this.selectedPhoneNumber,
       email: this.selectedEmail,
@@ -85,7 +85,9 @@ export class AddOutsideAuthorComponent implements OnInit {
       jobAddress: this.selectedJobAddress,
       professionalQualification:
         this.selectedProfessionalQualification,
-      contributorId: this.selectedStaffCodeSubject.value?.contributorId
+      contributorId: this.selectedStaffCodeSubject.value?.contributorId,
+      // displayName:`${this.selectedFullName.displayName} - ${this.selectedPhoneNumber}`
+    displayName:this.selectedStaffCodeSubject.value?.fullName ? `${this.selectedStaffCodeSubject.value?.fullName } - ${this.selectedPhoneNumber}` : `${this.selectedFullName.displayName} - ${this.selectedPhoneNumber}`
     }
     if (this.backRoute == "contrivance") {
       this.contrivanceService.lstContributorDTOServiceOut.value.push(contributorDTO);
@@ -132,6 +134,9 @@ export class AddOutsideAuthorComponent implements OnInit {
     this.selectedJobPosition = this.selectedStaffCodeSubject.value?.jobPosition;
     this.selectedJobAddress = this.selectedStaffCodeSubject.value?.jobAddress;
     this.selectedProfessionalQualification = this.selectedStaffCodeSubject.value?.professionalQualification
+  
+    this.selectedFullName=value;
+    console.log(this.selectedFullName);
     console.log(value);
   }
   percentageValueChange(newValue: string) {

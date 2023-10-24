@@ -122,8 +122,8 @@ export class IdeaListComponent implements OnInit {
       ideaDTO: {
         fromDate: null,
         toDate: null,
-        specialty: this.specialtyId,
-        approveStatus: this.statusId,
+        specialty: Number(this.specialtyId),
+        approveStatus: Number(this.statusId)
       },
       pageIndex: this.currentPage,
       pageSize: 10,

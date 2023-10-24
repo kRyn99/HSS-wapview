@@ -987,10 +987,11 @@ export class IdeaEditComponent implements OnInit {
           this.DataService.lstContributorDTOServiceOutEdit.value.concat(
             this.DataService.lstContributorDTOServiceEdit.value
           ),
-        documentDTO: {
-          url: this.documentDTO.url,
-          name: this.documentDTO.name,
-        },
+          documentDTO: {
+            url: this.documentDTO && this.documentDTO.url ? this.documentDTO.url : "",
+            name: this.documentDTO && this.documentDTO.name ? this.documentDTO.name :"",
+          },
+          
       };
       const modalRefSuccess = this.modalService.open(MessagePopupComponent, {
         size: "sm",
