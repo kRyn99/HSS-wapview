@@ -11,7 +11,7 @@ import { MatTableDataSource } from "@angular/material/table";
 import { NotificationService } from "@app/shared/service/notification.service";
 import * as moment from 'moment';
 import { MessagePopupComponent } from '@app/modules/common-items/components/message-popup/message-popup.component';
-
+import { DataService } from "../../../../shared/service/data.service";
 @Component({
   selector: "app-check-duplicate",
   templateUrl: "./check-duplicate.component.html",
@@ -53,6 +53,7 @@ export class CheckDuplicateComponent implements OnInit {
     private modalService: NgbModal,
     private translateService: TranslateService,
     private notificationService: NotificationService,
+    public DataService: DataService,
   ) {
   }
 
@@ -168,7 +169,9 @@ export class CheckDuplicateComponent implements OnInit {
           (response) => {
             if (response.errorCode == 0) {
               this.notificationService.notify("success", response.description);
-              this.router.navigate(["contrivance"]);
+              this.DataService.showBg = false;
+              this.DataService.showDuplicateIdea = false;
+              this.router.navigate(["contrivance/list"]);
             } else {
               this.notificationService.notify("fail", response.description);
             }

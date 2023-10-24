@@ -89,7 +89,7 @@ export class AddOutsideAuthorComponent implements OnInit {
       // displayName:`${this.selectedFullName.displayName} - ${this.selectedPhoneNumber}`
     displayName:this.selectedStaffCodeSubject.value?.fullName ? `${this.selectedStaffCodeSubject.value?.fullName } - ${this.selectedPhoneNumber}` : `${this.selectedFullName.displayName} - ${this.selectedPhoneNumber}`
     }
-    if (this.backRoute == "contrivance") {
+    if (this.DataService.routerContrivance) {
       this.contrivanceService.lstContributorDTOServiceOut.value.push(contributorDTO);
     } else {
       this.DataService.lstContributorDTOServiceOut.value.push(contributorDTO);
@@ -294,13 +294,13 @@ export class AddOutsideAuthorComponent implements OnInit {
     //   return false;
     // }
     let lstContributorDTO = [];
-    if (this.backRoute == "contrivance") {
+    if (this.DataService.routerContrivance) {
       lstContributorDTO = this.contrivanceService.lstContributorDTOServiceOut.value;
     } else {
       lstContributorDTO = this.DataService.lstContributorDTOServiceOut.value;
     }
     lstContributorDTO.forEach(item => {
-      if (item.phoneNumber == this.selectedStaffCodeSubject.value?.phoneNumber || item.email == this.selectedStaffCodeSubject.value?.email) {
+      if (item.phoneNumber == this.selectedStaffCodeSubject.value?.phoneNumber || (this.selectedStaffCodeSubject.value?.email && item.email == this.selectedStaffCodeSubject.value?.email)) {
         // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
         // modalRef.componentInstance.type = 'fail';
         // modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);

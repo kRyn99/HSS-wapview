@@ -33,8 +33,19 @@ import { CheckDuplicateComponent } from './components/check-duplicate/check-dupl
 import { CRUDTableModule } from '@app/shared/crud-table';
 import { DatePipe } from '@angular/common';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { IdeaModule } from '../idea/idea.module';
+import { AuthorModule } from '../author/author.module';
+import { EditOutsideEditComponent } from '../author/components/edit-outside-edit/edit-outside-edit.component';
+import { AddOutsideEditComponent } from '../author/components/add-outside-edit/add-outside-edit.component';
+import { AddInsideEditComponent } from '../author/components/add-inside-edit/add-inside-edit.component';
+import { EditInsideEditComponent } from '../author/components/edit-inside-edit/edit-inside-edit.component';
+import { EditOutsideAuthorComponent } from '../author/components/edit-outside-author/edit-outside-author.component';
+import { AddOutsideAuthorComponent } from '../author/components/add-outside-author/add-outside-author.component';
+import { EditInsideAuthorComponent } from '../author/components/edit-inside-author/edit-inside-author.component';
+import { AddInsideAuthorComponent } from '../author/components/add-inside-author/add-inside-author.component';
 @NgModule({
     imports: [
+        AuthorModule,
         NgSelectModule,
         CommonModule,
         CommonItemsModule,

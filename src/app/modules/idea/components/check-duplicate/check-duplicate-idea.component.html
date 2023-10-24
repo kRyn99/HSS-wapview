@@ -3,37 +3,37 @@
   [backRoute]="isFromAdd ? 'idea/register' : 'idea/edit'"
 ></app-title-nav> -->
 <div class="back-ground">
-<div
-  style="
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding: 10px 0px;
-  "
->
-  <img src="../../../../../assets/img/icon/Line.png" alt="line" />
-</div>
-<nav
-  style="
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    padding: 12px 0px;
-  "
->
-  <img
-    width="24px"
-    style="position: absolute; left: 16px;"
-    src="../../../../../assets/img/icon/icon-back-2.png"
-    alt="img"
-  />
-  <span style="font-size: 16px; font-weight: 500;">
-    Danh sách trùng lặp
-  </span>
-</nav>
-<div class="body">
-  <!-- <div class="d-flex justify-content-center" style="width: 100%;">
+  <div
+    style="
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding: 10px 0px;
+    "
+  >
+    <img src="../../../../../assets/img/icon/Line.png" alt="line" />
+  </div>
+  <nav
+    style="
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      padding: 12px 0px;
+    "
+  >
+    <img
+      width="24px"
+      style="position: absolute; left: 16px;"
+      src="../../../../../assets/img/icon/icon-back-2.png"
+      alt="img"
+    />
+    <span style="font-size: 16px; font-weight: 500;">
+      Danh sách trùng lặp
+    </span>
+  </nav>
+  <div class="body">
+    <!-- <div class="d-flex justify-content-center" style="width: 100%;">
     <select class="mr-3" (change)="changeNumberOfRecord($event)">
       <option *ngFor="let record of records" [ngValue]="record">
         {{ record.value }}
@@ -48,90 +48,101 @@
       (pageChange)="pageChange($event)"
     ></ng-pagination>
   </div> -->
-  <div class="idea">
-    <div
-      class="idea-box"
-      *ngIf="listIdea && (listIdea | async).length > 0; else noRecord"
-    >
+    <div class="idea">
       <div
-      style="width: 100%;background-color: #ffffff;border-radius: 16px;box-shadow: 0px 2px 80px 0px rgba(0, 0, 0, 0.10);padding: 20px 20px 12px 20px;margin-top: 12px;"
-        class="idea-flexbox"
-        *ngFor="let item of listIdea | async; let i = index"
+        class="idea-box"
+        *ngIf="listIdea && (listIdea | async).length > 0; else noRecord"
       >
-        <div class="idea-line1 mb-1">
-          <p class="idea-line1-text1">{{ item?.ideaName }}</p>
-          <p class="idea-line1-text2">
-            {{ item?.createDatetime.slice(0, 11) }}
-          </p>
-        </div>
-        <div class="idea-line2 mb-1">
-          <p class="idea-line2-text">
-            {{ 'CONTRIVANCE_MAMAGEMENT.LABEL.DUPICATE_RATE' | translate }}:
-            {{ item?.percentDup }}
-          </p>
-        </div>
-        <div class="idea-line2 mb-1">
-          <p class="idea-line2-text">
-            {{ 'CONTRIVANCE_MAMAGEMENT.LABEL.FIELD' | translate }}:
-            {{ item?.specialtyName }}
-          </p>
-        </div>
-        <div class="idea-line3">
-          <p class="idea-line3-text1">
-            {{ 'CONTRIVANCE_MAMAGEMENT.LABEL.AUTHOR' | translate }}:
-            {{ item?.fullName }}
-          </p>
-          <div class="idea-line3-textbox">
-            <span
-              statusColor
-              [statusColor]="item?.approveStatus"
-              class="idea-line3-text2"
-            >
-              {{ item?.approveStatusName }}
-            </span>
+        <div
+          style="
+            width: 100%;
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0px 2px 80px 0px rgba(0, 0, 0, 0.1);
+            padding: 20px 20px 12px 20px;
+            margin-top: 12px;
+          "
+          class="idea-flexbox"
+          *ngFor="let item of listIdea | async; let i = index"
+        >
+          <div class="idea-line1 mb-1">
+            <p class="idea-line1-text1">{{ item?.ideaName }}</p>
+            <p class="idea-line1-text2">
+              {{ item?.createDatetime.slice(0, 11) }}
+            </p>
           </div>
-        </div>
-        <div class="line"></div>
-        <div class="idea-line2 line-collapse mb-1">
-          <p
-            class="idea-line2-text"
-            id="collapseDescription"
-            [ngbCollapse]="item.isCollapsed"
-          >
-            {{ 'CONTRIVANCE_MAMAGEMENT.LABEL.DESCRIPTION' | translate }}:
-            <br />
-            {{ item?.content }}
-          </p>
-          <div
-            class="see-more"
-            (click)="item.isCollapsed = !item.isCollapsed"
-            [attr.aria-expanded]="!item.isCollapsed"
-            aria-controls="collapseDescription"
-          >
-            {{ (item.isCollapsed ? 'SEE_MORE' : 'SEE_LESS') | translate }}
+          <div class="idea-line2 mb-1">
+            <p class="idea-line2-text">
+              {{ 'CONTRIVANCE_MAMAGEMENT.LABEL.DUPICATE_RATE' | translate }}:
+              {{ item?.percentDup }}
+            </p>
+          </div>
+          <div class="idea-line2 mb-1">
+            <p class="idea-line2-text">
+              {{ 'CONTRIVANCE_MAMAGEMENT.LABEL.FIELD' | translate }}:
+              {{ item?.specialtyName }}
+            </p>
+          </div>
+          <div class="idea-line3">
+            <p class="idea-line3-text1">
+              {{ 'CONTRIVANCE_MAMAGEMENT.LABEL.AUTHOR' | translate }}:
+              {{ item?.fullName }}
+            </p>
+            <div class="idea-line3-textbox">
+              <span
+                statusColor
+                [statusColor]="item?.approveStatus"
+                class="idea-line3-text2"
+              >
+                {{ item?.approveStatusName }}
+              </span>
+            </div>
+          </div>
+          <div class="line"></div>
+          <div class="idea-line2 line-collapse mb-1">
+            <p
+              class="idea-line2-text"
+              id="collapseDescription"
+              [ngbCollapse]="item.isCollapsed"
+            >
+              {{ 'CONTRIVANCE_MAMAGEMENT.LABEL.DESCRIPTION' | translate }}:
+              <br />
+              {{ item?.content }}
+            </p>
+            <div
+              class="see-more"
+              (click)="item.isCollapsed = !item.isCollapsed"
+              [attr.aria-expanded]="!item.isCollapsed"
+              aria-controls="collapseDescription"
+            >
+              {{ (item.isCollapsed ? 'SEE_MORE' : 'SEE_LESS') | translate }}
+            </div>
           </div>
         </div>
       </div>
+      <ng-template #noRecord>
+        <span class="text-center">
+          {{ 'VALIDATION.NO_RECORD_VALID' | translate }}
+        </span>
+      </ng-template>
     </div>
-    <ng-template #noRecord>
-      <span class="text-center">
-        {{ 'VALIDATION.NO_RECORD_VALID' | translate }}
-      </span>
-    </ng-template>
   </div>
-</div>
-<div class="bottom-box">
-  <div (click)="register()" class="bottom-btn" *ngIf="isFromAdd">
-    <img src="assets/img/icon/plus.svg" />
-    <div class="btn-text">{{ 'IDEA_MANAGEMENT.BUTTON.SAVE' | translate }}</div>
+  <div class="bottom-box">
+    <div (click)="register()" class="bottom-btn" *ngIf="isFromAdd">
+      <img src="assets/img/icon/plus.svg" />
+      <div class="btn-text">
+        {{ 'IDEA_MANAGEMENT.BUTTON.SAVE' | translate }}
+      </div>
+    </div>
   </div>
-</div>
 
-<!-- Nút "Save" cho trang chỉnh sửa -->
-<div class="bottom-box">
-  <div (click)="registerEdit()" class="bottom-btn" *ngIf="!isFromAdd">
-    <img src="assets/img/icon/plus.svg" />
-    <div class="btn-text">{{ 'IDEA_MANAGEMENT.BUTTON.SAVE' | translate }}</div>
+  <!-- Nút "Save" cho trang chỉnh sửa -->
+  <div class="bottom-box">
+    <div (click)="registerEdit()" class="bottom-btn" *ngIf="!isFromAdd">
+      <img src="assets/img/icon/plus.svg" />
+      <div class="btn-text">
+        {{ 'IDEA_MANAGEMENT.BUTTON.SAVE' | translate }}
+      </div>
+    </div>
   </div>
-</div>
 </div>

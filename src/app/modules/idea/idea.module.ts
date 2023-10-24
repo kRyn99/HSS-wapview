@@ -33,16 +33,10 @@ import { AddInsideEditComponent } from "../author/components/add-inside-edit/add
 import { AddOutsideEditComponent } from "../author/components/add-outside-edit/add-outside-edit.component";
 import { EditOutsideEditComponent } from "../author/components/edit-outside-edit/edit-outside-edit.component";
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
+import { AuthorModule } from "../author/author.module";
 @NgModule({
   declarations: [
-    EditOutsideEditComponent,
-    AddOutsideEditComponent,
-    AddInsideEditComponent,
-    EditInsideEditComponent,
-    EditOutsideAuthorComponent,
-    AddOutsideAuthorComponent,
-    EditInsideAuthorComponent,
-    AddInsideAuthorComponent,
+    
     IdeaComponent,
     IdeaListComponent,
     IdeaDetailComponent,
@@ -51,6 +45,7 @@ import {InfiniteScrollModule} from 'ngx-infinite-scroll';
     CheckDuplicateComponentIdea,
   ],
   imports: [
+    AuthorModule,
     NgSelectModule,
     CommonModule,
     CommonItemsModule,
