@@ -40,13 +40,18 @@ export class TitleNavIdeaComponent implements OnInit {
   isdn: string = '';
   constructor(private router: Router, public homeService: HomepageService) {
   }
-
+  lang :string = 'la';
   ngOnInit(): void {
 
-    
-    if(JSON.parse(localStorage.getItem('accountInfo')) &&   JSON.parse(localStorage.getItem('accountInfo')).isdn){
-      this.isdn =  JSON.parse(localStorage.getItem('accountInfo')).isdn
-    }
+    this.homeService.accountInfo.subscribe((res) => {    
+      if(res && res.isdn){
+        this.isdn = res.isdn;
+      }else {
+        this.isdn =  JSON.parse(localStorage.getItem('accountInfo')) ? JSON.parse(localStorage.getItem('accountInfo')).isdn : ''
+      }
+
+      this.lang = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'la';
+    })
   }
   handleBack() {
     if(this.isBackHome){

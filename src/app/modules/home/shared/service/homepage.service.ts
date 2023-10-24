@@ -7,8 +7,8 @@ import {BehaviorSubject} from 'rxjs';
     providedIn: 'root'
 })
 export class HomepageService{
-    accountInfo:any = {};
-    tokenAutoLogin = new BehaviorSubject<any>([])
+    accountInfo= new BehaviorSubject<any>(null)
+    tokenAutoLogin = new BehaviorSubject<any>(null)
     isIdeaChecked= new BehaviorSubject<boolean>(false);
     isContrivanceChecked= new BehaviorSubject<boolean>(false);
     isHomeChecked= new BehaviorSubject<boolean>(true);

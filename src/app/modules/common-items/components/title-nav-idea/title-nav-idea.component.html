@@ -1,14 +1,17 @@
-<div class="container">
-    <nav [class.justify-content-center]="!backRoute" style="z-index: 1000;padding:12px 0px;margin-bottom: 12px;">
+<div class="nav-header">
+    <nav [class.justify-content-center]="!backRoute" style="z-index: 1000;padding:12px 0px">
         <div style="display: flex;justify-content: space-between;">
          <div>
-             <span *ngIf="backRoute" style="width: 24px;height: 24px;display: flex; justify-content: center; align-items: center;"
+             <span *ngIf="backRoute" class="icon-back"
                (click)="handleBack()"
          ><img src="../../../../../assets/img/icon/icon-back.png" alt="icon-back"></span>
          </div>
          <div>
-             <span style="font-size: 14px;">{{isdn}}</span>
-             <img style="margin-left: 8px;" src="../../../../../assets/img/icon/icon-header-vn.png" alt="icon-back">
+             <span class="phone-text">{{isdn}}</span>
+             <img *ngIf="lang == 'vi'" class="icon-lang" src="../../../../../assets/img/icon/icon-header-vn.png" alt="icon-back">
+             <img *ngIf="lang == 'la'" class="icon-lang" src="../../../../../assets/img/icon/icon-header-la.png" alt="icon-back">
+            
+             <img *ngIf="lang == 'en'" class="icon-lang" src="../../../../../assets/img/icon/icon-header-en.png" alt="icon-back">
          </div>
         </div>
          <div *ngIf="merchantModel" class="merchant-name">
