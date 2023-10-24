@@ -2,7 +2,6 @@ import { DetailInformationComponent } from './components/detail-information/deta
 import { NgModule } from '@angular/core';
 import { HomeComponent } from './home.component';
 import { RouterModule, Routes } from '@angular/router';
-import { HomePageComponent } from './components/home-page/home-page.component';
 import {HomePageNewComponent} from "@app/modules/home/components/home-page-new/home-page-new.component";
 
 const routes: Routes = [
@@ -18,13 +17,6 @@ const routes: Routes = [
 				redirectTo: 'homepage',
 				pathMatch: 'full'
 			},
-			// {
-			// 	path: 'dashboard',
-			// 	data: {
-			// 		title: 'HomePage'
-			// 	},
-			// 	component: HomePageComponent
-			// },
 			{
 				path: 'more',
 				data: {

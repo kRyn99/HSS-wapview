@@ -25,7 +25,7 @@ export class IdeaListComponent implements OnInit {
   contrivanceDTO: ContrivanceDTO;
   @ViewChild("advanceSearch") advanceSearch: ElementRef;
   searchAdvance: string = "";
-
+  currentPage = 1;
   constructor(
     private router: Router,
     private http: HttpClient,
@@ -42,30 +42,28 @@ export class IdeaListComponent implements OnInit {
   isTrangThaiSelected: boolean = false;
 
   selectTab(tab: string) {
-    this.isMoiNhatSelected = tab === 'MoiNhat';
-    this.isLinhVucSelected = tab === 'LinhVuc';
-    this.isTrangThaiSelected = tab === 'TrangThai';
+    this.isMoiNhatSelected = tab === "MoiNhat";
+    this.isLinhVucSelected = tab === "LinhVuc";
+    this.isTrangThaiSelected = tab === "TrangThai";
 
-    if (this.isLinhVucSelected = tab === 'LinhVuc') {
-
+    if ((this.isLinhVucSelected = tab === "LinhVuc")) {
     }
   }
   selectedSpecialty;
   onSpecialtyClick(specialty: { name: string }) {
     this.selectedSpecialty = specialty;
     console.log(this.selectedSpecialty.name);
-
   }
   backToPage = "home";
   get backRoute() {
     // alert('ok')
-    return this.backToPage
+    return this.backToPage;
   }
   ngOnInit() {
     this.DataService.showBg = false;
     this.getListIdea();
-    this.getListSpecialty()
-    this.getListStatus()
+    this.getListSpecialty();
+    this.getListStatus();
   }
   listSpecialty: [];
   getListSpecialty() {
@@ -85,8 +83,8 @@ export class IdeaListComponent implements OnInit {
   }
   specialtyId;
   changeSpecialty() {
-  this.getListIdea()
-
+    this.currentPage = 1;
+    this.getListIdea();
   }
   listStatus: [];
   getListStatus() {
@@ -98,7 +96,6 @@ export class IdeaListComponent implements OnInit {
     return this.http.get<any>(url, { headers }).subscribe(
       (response) => {
         this.listStatus = response.data;
-
       },
       (error) => {
         console.error(error.description);
@@ -107,7 +104,8 @@ export class IdeaListComponent implements OnInit {
   }
   statusId;
   changeStatus() {
-    this.getListIdea()
+    this.currentPage = 1;
+    this.getListIdea();
   }
   listIdea = [];
   backupListIdea = [];
@@ -127,12 +125,21 @@ export class IdeaListComponent implements OnInit {
         specialty: Number(this.specialtyId),
         approveStatus: Number(this.statusId)
       },
+      pageIndex: this.currentPage,
+      pageSize: 10,
     };
     return this.http.post<any>(url, requestBody, { headers }).subscribe(
       (response) => {
-        this.listIdea = response.data.listIdea;
-        this.DataService.listIdeaService = this.listIdea;
-        this.backupListIdea = [...this.listIdea];
+        if(this.listIdea.length == 0 ){
+          this.listIdea = response.data.listIdea;
+          this.DataService.listIdeaService = this.listIdea;
+        }else {
+          let tempArray = [...this.listIdea];
+          tempArray = tempArray.concat(response.data.listIdea);
+          this.listIdea = (tempArray);
+          this.DataService.listIdeaService =  this.listIdea
+        }
+     
         this.recordInfoDTO = response.data.recordInfoDTO;
         console.log(this.recordInfoDTO);
       },
@@ -174,6 +181,11 @@ export class IdeaListComponent implements OnInit {
     this.DataService.file.next({ url: "", name: "" });
 
     this.router.navigate(["idea/register"]);
+  }
+
+  onScroll(): void {
+    this.currentPage += 1;
+    this.getListIdea();
   }
   /* 
   handleBack() {

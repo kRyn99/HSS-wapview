@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
 import { CommonItemsModule } from '../common-items/common-items.module';
-import { HomePageComponent } from './components/home-page/home-page.component';
 import { HomeRoutingModule } from './home-routing.module';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {HttpLoaderFactory} from '@app/app.module';
@@ -31,7 +30,6 @@ import { HomePageNewComponent } from './components/home-page-new/home-page-new.c
   ],
   declarations: [
     HomeComponent,
-    HomePageComponent,
     DetailInformationComponent,
     HomePageNewComponent
   ]

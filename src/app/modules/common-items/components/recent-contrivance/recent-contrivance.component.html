@@ -27,7 +27,7 @@
         "
       >
         <div [ngClass]=" type == 'contrivance' ? 'line-text-contrivance' : 'line-text-idea' ">
-          "{{(type == 'contrivance' ? item.contrivanceName : item.ideaName ) | truncate : 50 }}""
+          "{{(type == 'contrivance' ? item.contrivanceName : item.ideaName ) | truncate : 50 }}"
         </div>
         <div class="line-text2" *ngIf="type == 'contrivance'">
           {{ "HOME.PERCENT_DUP" | translate }}
