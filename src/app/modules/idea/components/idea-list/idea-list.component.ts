@@ -59,8 +59,11 @@ export class IdeaListComponent implements OnInit {
     // alert('ok')
     return this.backToPage;
   }
+  isdn;
   ngOnInit() {
     this.DataService.showBg = false;
+    this.isdn = JSON.parse(localStorage.getItem('accountInfo')) ? JSON.parse(localStorage.getItem('accountInfo')).isdn : ''
+
     this.getListIdea();
     this.getListSpecialty();
     this.getListStatus();
@@ -118,12 +121,14 @@ export class IdeaListComponent implements OnInit {
       Authorization: `Bearer ` + this.token,
     });
     const requestBody = {
-      userName: "hss_admin",
+      userName: this.isdn,
       ideaDTO: {
         fromDate: null,
         toDate: null,
-        specialty: Number(this.specialtyId),
-        approveStatus: Number(this.statusId)
+        // specialty: '' ? null : Number(this.specialtyId),
+        // approveStatus: '' ? null : Number(this.statusId)
+        specialty:this.specialtyId ?  Number(this.specialtyId) : null,
+        approveStatus: this.statusId ?  Number(this.statusId) :null
       },
       pageIndex: this.currentPage,
       pageSize: 10,
