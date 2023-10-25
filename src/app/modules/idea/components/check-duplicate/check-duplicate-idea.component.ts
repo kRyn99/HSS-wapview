@@ -255,9 +255,7 @@ export class CheckDuplicateComponentIdea implements OnInit {
       "Accept-Language": this.lang,
       Authorization: `Bearer ` + this.token,
     });
-    const currentFileValue = this.DataService.file.getValue();
-    const fileName = currentFileValue?.name;
-    const fileUrl = currentFileValue?.url;
+
     const requestBody = {
       ideaDTO: { ...this.DataService.ideaDTOEdit.value },
       lstContributorDTO:
@@ -265,8 +263,8 @@ export class CheckDuplicateComponentIdea implements OnInit {
           this.DataService.lstContributorDTOServiceEdit.value
         ),
       documentDTO: {
-        url: this.DataService.documentDTO.value.url,
-        name: this.DataService.documentDTO.value.name,
+        url: this.DataService.documentDTO.value?.url,
+        name: this.DataService.documentDTO.value?.name,
       },
     };
     const modalRefSuccess = this.modalService.open(MessagePopupComponent, {

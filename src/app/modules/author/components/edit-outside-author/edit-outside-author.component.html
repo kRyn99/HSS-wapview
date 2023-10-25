@@ -30,7 +30,7 @@
     (click)="goBack()"
   />
   <span style="font-size: 16px; font-weight: 500;">
-    Sửa tác giả Ngoài tập đoàn
+    {{ 'IDEA_NEW.EDIT_OUTSIDE' | translate }}
   </span>
 </nav>
 <div class="body">
@@ -49,6 +49,7 @@
       [addTagText]="'CHOOSE_AUTHOR_NAME' | translate"
     ></ng-select>
     <div class="form-text text-danger" *ngIf="!contributorDTO?.displayName">{{ "ADD-INSIDE-IDEA.VALIDATE.NAME" | translate }}</div>
+    
   </div>
   <!-- <div class="info-box">
     <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.WORK_PLACE" | translate }}</div>
@@ -78,7 +79,7 @@
       NumbersOnly
       maxlength="15"
     />
-    <div class="form-text text-danger" *ngIf="checkPhoneFormat">{{"so dien thoai sai dinh dang" | translate}}</div>
+    <div class="form-text text-danger" *ngIf="checkPhoneFormat">{{"IDEA_NEW.PHONE_ERROR" | translate}}</div>
     <div class="form-text text-danger" *ngIf="!contributorDTO?.phoneNumber">{{ "ADD-INSIDE-IDEA.VALIDATE.PHONE" | translate }}</div>
   </div>
   <div class="info-box">

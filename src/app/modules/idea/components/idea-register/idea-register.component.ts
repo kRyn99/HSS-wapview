@@ -52,6 +52,7 @@ export class IdeaRegisterComponent implements OnInit {
   showDropdown = false;
   // selectedStaffCode$ = this.getSelectedStaffCodeSubject();
   bsConfig: Partial<BsDatepickerConfig>;
+  bsFromConfig:Partial<BsDatepickerConfig>;
   dataSource: any;
   columnsToDisplay = ["staffCode", "fullName", "percentage"];
   columnsToDisplayWithExpand = ["expand", ...this.columnsToDisplay];
@@ -89,6 +90,10 @@ export class IdeaRegisterComponent implements OnInit {
   ) {
     this.selectedLanguage = null;
     this.bsConfig = {
+      dateInputFormat: "DD/MM/YYYY", // Định dạng ngày/tháng/năm
+    };
+    this.bsFromConfig = {
+      containerClass: 'theme-dark-blue',
       dateInputFormat: "DD/MM/YYYY", // Định dạng ngày/tháng/năm
     };
 

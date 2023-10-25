@@ -129,9 +129,13 @@ export class AddInsideAuthorComponent implements OnInit {
     this.setSelectedStaffCode(value);
     this.isInputTouched = true;
     this.phoneNumber = this.selectedStaffCodeSubject.value?.phoneNumber;
-    this.email = this.selectedStaffCodeSubject.value.email;
+    this.email = this.selectedStaffCodeSubject.value?.email;
 
-    this.birthday = this.selectedStaffCodeSubject.value.birthday;
+  
+    this.checkValidatePhone(this.phoneNumber);
+    if(this.checkPhoneFormat) {
+      return;
+    }
   }
   percentageValue: string;
   phoneNumber: string;
@@ -155,8 +159,20 @@ export class AddInsideAuthorComponent implements OnInit {
       this.DataService.percentage.next(this.percentageValue);
     }
   }
-
+  checkPhoneFormat=false;
+  checkValidatePhone(phoneNumber: string) {
+    const phoneNumberRegex = /^\d{8,15}$/;
+    if (phoneNumberRegex.test(phoneNumber)) {
+     this.checkPhoneFormat = false;
+    } else {
+      this.checkPhoneFormat = true;
+    }
+  }
   phoneNumberChange() {
+    this.checkValidatePhone(this.phoneNumber);
+    if(this.checkPhoneFormat) {
+      return;
+    }
     this.selectedStaffCodeSubject.value.phoneNumber = this.phoneNumber;
     this.phoneNumber = this.phoneNumber.replace(/\D/g, "");
     if (this.phoneNumber.length > 12) {
@@ -266,6 +282,9 @@ export class AddInsideAuthorComponent implements OnInit {
       // modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.PHONE`);
       // modalRef.componentInstance.closeIcon = false;
       this.validateTemplate();
+      return false;
+    }
+    if(this.checkPhoneFormat){
       return false;
     }
     // if (

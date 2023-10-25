@@ -947,5 +947,24 @@
   "EDIT_AUTHOR_IN_GROUP":"Edit author in group",
   "EDIT_AUTHOR_OUTSIDE_GROUP":"Edit author outside group",
   "CHOOSE_AUTHOR_NAME": "Choose name",
-  "STAFF_CODE_NOT_EXIST": "Staff code not exist"
+  "STAFF_CODE_NOT_EXIST": "Staff code not exist",
+  "IDEA_NEW": {
+    "NEWEST": "Latest",
+    "FIELD": "Field",
+    "STATUS": "Status",
+    "IDEA": "Idea",
+    "CREATE": "Create new",
+    "PICK_UINIT": "Pick unit",
+    "LIST_DUPLICATE": "List of duplicates",
+    "CONTRIVANCE": "Initiative",
+    "IDEA_NUMBER": "Based on number ideas",
+    "UNIT": "Unit",
+    "ADD_INSIDE_AUTHOR": "Add Author In Consortium",
+    "PHONE_ERROR": "Phone number is in wrong format",
+    "CONFIRM": "Confirm",
+    "ADD_OUTSIDE_AUTHOR": "Add author Outside the group",
+    "EDIT_INSIDE": "Edit author In corporation",
+    "EDIT_OUTSIDE": "Edit author Outside the group"
+ 
+  }
 }

@@ -407,24 +407,36 @@ table {
 ::ng-deep .table-bordered th {
   border-width: 0px !important;
 }
-@media (max-width: 768px) {
-  ::ng-deep bs-datepicker-container,
-  ::ng-deep bs-daterangepicker-container {
-    position: fixed !important;
-    left: 50% !important;
-    top: 50% !important;
-    transform: translate(-50%, -50%) !important;
-    z-index: 100000 !important;
-  }
+// @media (max-width: 768px) {
+//   ::ng-deep bs-datepicker-container,
+//   ::ng-deep bs-daterangepicker-container {
+//     position: fixed !important;
+//     left: 50% !important;
+//     top: 50% !important;
+//     transform: translate(-50%, -50%) !important;
+//     z-index: 100000 !important;
+//   }
 
-  .bs-datepicker {
-    &-multiple {
-      display: flex;
+//   .bs-datepicker {
+//     &-multiple {
+//       display: flex;
 
-      & + & {
-        margin-top: 10px;
-        margin-left: 0;
-      }
-    }
-  }
+//       & + & {
+//         margin-top: 10px;
+//         margin-left: 0;
+//       }
+//     }
+//   }
+// }
+::ng-deep .theme-green{
+  left: 20%;
+}
+::ng-deep .theme-dark-blue{
+  right:20%;
+}
+::ng-deep .theme-dark-blue .bs-datepicker-head {
+  background-color: #fb741c;
+}
+::ng-deep .theme-dark-blue .bs-datepicker-body table td span.selected {
+  background-color: #fb741c;
 }

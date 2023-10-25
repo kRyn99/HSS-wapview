@@ -30,7 +30,7 @@
     (click)="goBack()"
   />
   <span style="font-size: 16px; font-weight: 500;">
-    Thêm tác giả Trong tập đoàn
+    {{ 'IDEA_NEW.ADD_INSIDE_AUTHOR' | translate }}
   </span>
 </nav>
 <div class="body">
@@ -95,6 +95,7 @@
         [required]="isInputTouched"
       />
       <div class="form-text text-danger" *ngIf="isInputTouched && !(selectedStaffCodeSubject | async)?.phoneNumber">{{ "ADD-INSIDE-IDEA.VALIDATE.PHONE" | translate }}</div>
+      <div class="form-text text-danger" *ngIf="checkPhoneFormat">{{'IDEA_NEW.PHONE_ERROR' | translate}}</div>
 
     </div>
     <!-- <div class="info-box">

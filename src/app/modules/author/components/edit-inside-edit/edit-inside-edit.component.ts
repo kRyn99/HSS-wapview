@@ -78,6 +78,21 @@ export class EditInsideEditComponent implements OnInit {
     
     this.getListStaff();
   }
+  checkPhoneFormat=false;
+  checkValidatePhone(phoneNumber: string) {
+    const phoneNumberRegex = /^\d{8,15}$/;
+    if (phoneNumberRegex.test(phoneNumber)) {
+     this.checkPhoneFormat = false;
+    } else {
+      this.checkPhoneFormat = true;
+    }
+  }
+  changePhone(){
+    this.checkValidatePhone(this.contributorDTO.phoneNumber);
+    if(this.checkPhoneFormat) {
+      return;
+    }
+  }
   goBack(){
     this.DataService.showBg = false;
     this.DataService.showAddInsideAuthor = false;
@@ -121,13 +136,15 @@ export class EditInsideEditComponent implements OnInit {
       }
     );
   }
+
   onSelectedStaffCodeChange(value: any) {
     this.contributorDTO = value;
     this.contributorDTO.staffId = value.id;
     this.contributorDTO.birthDay = this.contributorDTO.birthday;
-    // this.contributorDTO.staffId=this.DataService.lstContributorDTOServiceEdit.value.staffId;
-    console.log(value);
-    console.log(this.contributorDTO.staffId);
+    this.checkValidatePhone(this.contributorDTO.phoneNumber);
+    if(this.checkPhoneFormat) {
+      return;
+    }
   }
   bsConfig = {
     dateInputFormat: "DD/MM/YYYY",
@@ -209,6 +226,9 @@ export class EditInsideEditComponent implements OnInit {
       // modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
       // modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.PHONE`);
       // modalRef.componentInstance.closeIcon = false;
+      return false;
+    }
+    if(this.checkPhoneFormat){
       return false;
     }
     if (

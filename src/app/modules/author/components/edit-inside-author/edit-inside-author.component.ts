@@ -82,6 +82,21 @@ export class EditInsideAuthorComponent implements OnInit {
     this.staffId = this.DataService.idEditInsideAuthor;
     this.getListStaff();
   }
+  checkPhoneFormat=false;
+  checkValidatePhone(phoneNumber: string) {
+    const phoneNumberRegex = /^\d{8,15}$/;
+    if (phoneNumberRegex.test(phoneNumber)) {
+     this.checkPhoneFormat = false;
+    } else {
+      this.checkPhoneFormat = true;
+    }
+  }
+  changePhone(){
+    this.checkValidatePhone(this.contributorDTO.phoneNumber);
+    if(this.checkPhoneFormat) {
+      return;
+    }
+  }
   goBack() {
     this.DataService.showBg = false;
     this.DataService.showAddInsideAuthor = false;
@@ -128,9 +143,10 @@ export class EditInsideAuthorComponent implements OnInit {
   onSelectedStaffCodeChange(value: any) {
     this.contributorDTO = value;
     this.contributorDTO.staffId = value.id;
-
-    console.log(value);
-    console.log(this.contributorDTO.staffId);
+    this.checkValidatePhone(this.contributorDTO.phoneNumber);
+    if(this.checkPhoneFormat) {
+      return;
+    }
   }
   percentageValueChange(newValue: string) {
     const parsedValue = parseInt(newValue, 10);
@@ -241,6 +257,9 @@ export class EditInsideAuthorComponent implements OnInit {
       //   `ADD-INSIDE-IDEA.VALIDATE.PHONE`
       // );
       // modalRef.componentInstance.closeIcon = false;
+      return false;
+    }
+    if(this.checkPhoneFormat){
       return false;
     }
     // if (

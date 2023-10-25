@@ -129,7 +129,10 @@ export class EditOutsideAuthorComponent implements OnInit {
   onSelectedStaffCodeChange(value: any) {
     this.contributorDTO = value;
     this.fullName = this.contributorDTO.displayName;
-    console.log(value);
+    this.checkValidatePhone(this.contributorDTO?.phoneNumber);
+    if(this.checkPhoneFormat){
+      return;
+    }
   }
   percentageValueChange(newValue: string) {
     const parsedValue = parseInt(newValue, 10);
@@ -257,7 +260,9 @@ export class EditOutsideAuthorComponent implements OnInit {
       // modalRef.componentInstance.closeIcon = false;
       return false;
     }
-
+    if(this.checkPhoneFormat){
+      return false;
+    }
     if (
       !this.isValidEmail(this.contributorDTO.email) &&
       this.contributorDTO.email

@@ -115,9 +115,10 @@ export class EditOutsideEditComponent implements OnInit {
     onSelectedStaffCodeChange(value: any) {
         this.contributorDTO = value;
         this.fullName=this.contributorDTO.displayName;
-
-
-        console.log(value);
+        this.checkValidatePhone(this.contributorDTO?.phoneNumber);
+        if(this.checkPhoneFormat){
+          return;
+        }
     }
     percentageValueChange(newValue: string) {
         const parsedValue = parseInt(newValue, 10);
@@ -217,6 +218,9 @@ export class EditOutsideEditComponent implements OnInit {
             // modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
             // modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.PHONE`);
             // modalRef.componentInstance.closeIcon = false;
+            return false;
+        }
+        if(this.checkPhoneFormat){
             return false;
         }
 

@@ -115,13 +115,19 @@ export class AddInsideEditComponent implements OnInit {
     this.email = this.selectedStaffCodeSubject.value.email;
 
     this.birthday = this.selectedStaffCodeSubject.value.birthday;
+    this.checkValidatePhone(this.phoneNumber);
+    if(this.checkPhoneFormat) {
+      return;
+    }
   }
+  
   percentageValue: string;
   phoneNumber: string;
   email: string;
   birthday: string;
   percentageTouched = false;
   percentageValueChange(newValue: string) {
+   
     this.percentageTouched = true;
     const parsedValue = parseInt(newValue, 10);
     if (!isNaN(parsedValue)) {
@@ -138,8 +144,20 @@ export class AddInsideEditComponent implements OnInit {
       this.DataService.percentage.next(this.percentageValue);
     }
   }
-
+  checkPhoneFormat=false;
+  checkValidatePhone(phoneNumber: string) {
+    const phoneNumberRegex = /^\d{8,15}$/;
+    if (phoneNumberRegex.test(phoneNumber)) {
+     this.checkPhoneFormat = false;
+    } else {
+      this.checkPhoneFormat = true;
+    }
+  }
   phoneNumberChange() {
+    this.checkValidatePhone(this.phoneNumber);
+    if(this.checkPhoneFormat) {
+      return;
+    } 
     this.selectedStaffCodeSubject.value.phoneNumber = this.phoneNumber;
     this.phoneNumber = this.phoneNumber.replace(/\D/g, "");
     if (this.phoneNumber.length > 12) {

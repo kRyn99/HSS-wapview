@@ -52,6 +52,7 @@ interface IdeaDetail {
 })
 export class IdeaEditComponent implements OnInit {
   bsConfig: Partial<BsDatepickerConfig>;
+  bsFromConfig:Partial<BsDatepickerConfig>;
   dataSource: any;
   dataSource2: any;
   columnsToDisplay = ["staffCode", "fullName", "percentage"];
@@ -83,6 +84,10 @@ export class IdeaEditComponent implements OnInit {
   ) {
     this.bsConfig = {
       dateInputFormat: "DD/MM/YYYY",
+    };
+    this.bsFromConfig = {
+      containerClass: 'theme-dark-blue',
+      dateInputFormat: "DD/MM/YYYY", // Định dạng ngày/tháng/năm
     };
   }
   ideaId = JSON.parse(localStorage.getItem("ideaIdInLocalStorage"));
@@ -990,8 +995,8 @@ export class IdeaEditComponent implements OnInit {
             this.DataService.lstContributorDTOServiceEdit.value
           ),
           documentDTO: {
-            url: this.DataService.documentDTO.value.url,
-            name: this.DataService.documentDTO.value.url,
+            url: this.DataService.documentDTO.value?.url,
+            name: this.DataService.documentDTO.value?.name,
           },
           
       };

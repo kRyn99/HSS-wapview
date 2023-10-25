@@ -388,3 +388,15 @@ table {
 ::ng-deep .table-bordered th {
   border-width: 0px !important;
 }
+::ng-deep .theme-green{
+  left: 20%;
+}
+::ng-deep .theme-dark-blue{
+  right:20%;
+}
+::ng-deep .theme-dark-blue .bs-datepicker-head {
+  background-color: #fb741c;
+}
+::ng-deep .theme-dark-blue .bs-datepicker-body table td span.selected {
+  background-color: #fb741c;
+}
