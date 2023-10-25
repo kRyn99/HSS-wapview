@@ -61,6 +61,7 @@ export class IdeaListComponent implements OnInit {
   }
   isdn;
   ngOnInit() {
+    document.body.style.overflow = "auto";
     this.DataService.showBg = false;
     this.isdn = JSON.parse(localStorage.getItem('accountInfo')) ? JSON.parse(localStorage.getItem('accountInfo')).isdn : ''
 
