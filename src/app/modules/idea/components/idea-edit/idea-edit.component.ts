@@ -140,7 +140,9 @@ export class IdeaEditComponent implements OnInit {
       (response) => {
         this.ideaDetail = response.data;
         this.listContributorDTO = response.data.listContributorDTO;
-        this.documentDTO = response.data.documentDTO;
+        this.DataService.documentDTO = response.data.documentDTO;
+        console.log(this.DataService.documentDTO.url);
+        
         // this.selectedSpecialtyValue = response.data.specialty;
         // this.selectedUnitValue = response.data.listUnitDTO;
         const listContributorIn = response.data.listContributorDTO.filter(
@@ -988,8 +990,8 @@ export class IdeaEditComponent implements OnInit {
             this.DataService.lstContributorDTOServiceEdit.value
           ),
           documentDTO: {
-            url: this.documentDTO && this.documentDTO.url ? this.documentDTO.url : "",
-            name: this.documentDTO && this.documentDTO.name ? this.documentDTO.name :"",
+            url: this.documentDTO?.url,
+            name: this.documentDTO?.name,
           },
           
       };

@@ -56,7 +56,21 @@ export class CheckDuplicateComponent implements OnInit {
     public DataService: DataService,
   ) {
   }
-
+  goBack(){
+    this.DataService.showBg = false;
+    this.DataService.showAddInsideAuthor = false;
+    this.DataService.showEditInsideAuthor = false;
+    this.DataService.showAddOutsideAuthor = false;
+    this.DataService.showEditOutsideAuthor = false;
+    this.DataService.showDuplicateIdea = false;
+    this.DataService.showAddInsideEdit = false;
+    this.DataService.showEditInsideEdit = false;
+    this.DataService.showAddOutsideEdit = false;
+    this.DataService.showEditOutsideEdit = false;
+    if (!this.DataService.showBg) {
+      document.body.style.overflow = "auto";
+    }
+  }
   ngOnInit() {
     if (this.contrivanceService.contrivancesDTO.value == null) {
       this.notificationService.notify("fail", "CONTRIVANCE_MAMAGEMENT.LABEL.ACTION_CORRUPTED");
