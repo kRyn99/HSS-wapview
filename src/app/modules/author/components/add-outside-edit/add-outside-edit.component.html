@@ -85,12 +85,13 @@
           | translate
       "
       [(ngModel)]="selectedPhoneNumber"
-      maxlength="12"
+      maxlength="15"
       NumbersOnly
       (input)="changePhone()"
       [required]="phoneTouched"
     />
     <div class="form-text text-danger" *ngIf="phoneTouched && !selectedPhoneNumber">{{ "ADD-INSIDE-IDEA.VALIDATE.PHONE" | translate }}</div>
+    <div class="form-text text-danger" *ngIf="checkPhoneFormat">{{"so dien thoai sai dinh dang" | translate}}</div>
   </div>
   <div class="info-box">
     <div class="info-title">{{ "CONTRIVANCE_MAMAGEMENT.LABEL.EMAIL" | translate }}</div>

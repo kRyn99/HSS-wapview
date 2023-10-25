@@ -76,8 +76,9 @@
       [ngModel]="contributorDTO?.phoneNumber"
       (ngModelChange)="updatePhoneNumber($event)"
       NumbersOnly
-      maxlength="12"
+      maxlength="15"
     />
+    <div class="form-text text-danger" *ngIf="checkPhoneFormat">{{"so dien thoai sai dinh dang" | translate}}</div>
     <div class="form-text text-danger" *ngIf="!contributorDTO?.phoneNumber">{{ "ADD-INSIDE-IDEA.VALIDATE.PHONE" | translate }}</div>
   </div>
   <div class="info-box">

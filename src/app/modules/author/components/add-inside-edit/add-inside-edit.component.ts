@@ -21,7 +21,7 @@ import { ContrivanceService } from "@app/shared/service/contrivance.service";
   styleUrls: ["./add-inside-edit.component.scss"],
 })
 export class AddInsideEditComponent implements OnInit {
-  public selectedStaffCodeSubject = new BehaviorSubject<any>(null);
+  public selectedStaffCodeSubject = new BehaviorSubject<any>({});
   setSelectedStaffCode(code: any) {
     this.selectedStaffCodeSubject.next(code);
     this.DataService.selectedStaffCodeSubject.next(code);

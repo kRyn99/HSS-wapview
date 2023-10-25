@@ -31,7 +31,7 @@ export class EditOutsideEditComponent implements OnInit {
         private translateService: TranslateService,
         public contrivanceService: ContrivanceService
     ) { }
-
+    checkPhoneFormat = false;
     oldNumber: number = 0;
     oldEmail: string = '';
     token = JSON.parse(localStorage.getItem("tokenInLocalStorage"));
@@ -145,7 +145,19 @@ export class EditOutsideEditComponent implements OnInit {
         }
     }
     phone;
+    checkValidatePhone(phoneNumber: string) {
+        const phoneNumberRegex = /^\d{8,15}$/;
+        if (phoneNumberRegex.test(phoneNumber)) {
+         this.checkPhoneFormat = false;
+        } else {
+          this.checkPhoneFormat = true;
+        }
+      }
     updatePhoneNumber(newValue: string) {
+        this.checkValidatePhone(newValue);
+        if(this.checkPhoneFormat){
+          return;
+        }
         this.phone=newValue;
         if (this.contributorDTO) {
             this.contributorDTO.phoneNumber = newValue;

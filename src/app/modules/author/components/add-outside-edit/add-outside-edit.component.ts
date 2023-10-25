@@ -22,7 +22,7 @@ import { ContrivanceService } from "@app/shared/service/contrivance.service";
   styleUrls: ["./add-outside-edit.component.scss"],
 })
 export class AddOutsideEditComponent implements OnInit {
-  public selectedStaffCodeSubject = new BehaviorSubject<any>(null);
+  public selectedStaffCodeSubject = new BehaviorSubject<any>({});
   setSelectedStaffCode(code: any) {
     this.selectedStaffCodeSubject.next(code);
     // this.DataService.selectedStaffCodeSubject.next(code);
@@ -38,6 +38,7 @@ export class AddOutsideEditComponent implements OnInit {
   selectedEmail;
   selectedProfessionalQualification;
   selectedPercentage;
+  checkPhoneFormat = false;
   constructor(
     private http: HttpClient,
     private config: NgSelectConfig,
@@ -56,7 +57,7 @@ export class AddOutsideEditComponent implements OnInit {
       }
     });
   }
-  goBack(){
+  goBack() {
     this.DataService.showBg = false;
     this.DataService.showAddInsideAuthor = false;
     this.DataService.showEditInsideAuthor = false;
@@ -75,15 +76,18 @@ export class AddOutsideEditComponent implements OnInit {
   getListContributorOut() {
     let contributorDTO = null;
     contributorDTO = {
-      fullName: this.selectedStaffCodeSubject.value?.fullName ? this.selectedStaffCodeSubject.value?.fullName  : this.selectedFullName.displayName,
+      fullName: this.selectedStaffCodeSubject.value?.fullName
+        ? this.selectedStaffCodeSubject.value?.fullName
+        : this.selectedFullName.displayName,
       percentage: this.DataService.percentageOut.value,
       phoneNumber: this.selectedPhoneNumber,
       email: this.selectedEmail,
       jobPosition: this.selectedJobPosition,
       jobAddress: this.selectedJobAddress,
       professionalQualification: this.selectedProfessionalQualification,
-      displayName:this.selectedStaffCodeSubject.value?.fullName ? `${this.selectedStaffCodeSubject.value?.fullName } - ${this.selectedPhoneNumber}` : `${this.selectedFullName.displayName} - ${this.selectedPhoneNumber}`
-
+      displayName: this.selectedStaffCodeSubject.value?.fullName
+        ? `${this.selectedStaffCodeSubject.value?.fullName} - ${this.selectedPhoneNumber}`
+        : `${this.selectedFullName.displayName} - ${this.selectedPhoneNumber}`,
     };
     if (this.DataService.routerContrivance) {
       this.contrivanceService.lstContributorDTOServiceOut.value.push(
@@ -115,7 +119,10 @@ export class AddOutsideEditComponent implements OnInit {
     return this.http.post<any>(url, requestBody, { headers }).subscribe(
       (response) => {
         // this.listContributorOut = response.data;
-        this.listContributorOut = response.data.map((item) => { item.displayName = `${item.fullName} - ${item.phoneNumber}`; return { ...item } });
+        this.listContributorOut = response.data.map((item) => {
+          item.displayName = `${item.fullName} - ${item.phoneNumber}`;
+          return { ...item };
+        });
 
         console.log(this.listContributorOut);
       },
@@ -161,7 +168,20 @@ export class AddOutsideEditComponent implements OnInit {
     this.selectedStaffCodeSubject.value.jobPosition = this.selectedJobPosition;
   }
   phoneTouched = false;
+
+  checkValidatePhone(phoneNumber: string) {
+    const phoneNumberRegex = /^\d{8,15}$/;
+    if (phoneNumberRegex.test(phoneNumber)) {
+     this.checkPhoneFormat = false;
+    } else {
+      this.checkPhoneFormat = true;
+    }
+  }
   changePhone() {
+    this.checkValidatePhone(this.selectedPhoneNumber);
+    if(this.checkPhoneFormat) {
+      return;
+    }
     this.selectedStaffCodeSubject.value.phoneNumber = this.selectedPhoneNumber;
     this.phoneTouched = true;
   }
@@ -346,10 +366,10 @@ export class AddOutsideEditComponent implements OnInit {
     }
   }
   add() {
-    if (this.validate()){
+    if (this.validate()) {
       this.handleAddOutsideEdit.emit();
-      this.DataService.showBg=false;
-      this.DataService.showAddOutsideEdit=false;
+      this.DataService.showBg = false;
+      this.DataService.showAddOutsideEdit = false;
       document.body.style.overflow = "auto";
       this.getListContributorOut();
     }

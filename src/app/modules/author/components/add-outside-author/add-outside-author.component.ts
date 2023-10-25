@@ -21,7 +21,7 @@ import { ContrivanceService } from '@app/shared/service/contrivance.service';
   styleUrls: ['./add-outside-author.component.scss']
 })
 export class AddOutsideAuthorComponent implements OnInit {
-  public selectedStaffCodeSubject = new BehaviorSubject<any>(null);
+  public selectedStaffCodeSubject = new BehaviorSubject<any>({});
   setSelectedStaffCode(code: any) {
     this.selectedStaffCodeSubject.next(code);
     // this.DataService.selectedStaffCodeSubject.next(code);
@@ -37,6 +37,7 @@ export class AddOutsideAuthorComponent implements OnInit {
   selectedEmail;
   selectedProfessionalQualification;
   selectedPercentage;
+  checkPhoneFormat = false;
   constructor(
     private http: HttpClient,
     private config: NgSelectConfig,
@@ -166,7 +167,19 @@ export class AddOutsideAuthorComponent implements OnInit {
 
   }
   phoneTouched = false;
+  checkValidatePhone(phoneNumber: string) {
+    const phoneNumberRegex = /^\d{8,15}$/;
+    if (phoneNumberRegex.test(phoneNumber)) {
+     this.checkPhoneFormat = false;
+    } else {
+      this.checkPhoneFormat = true;
+    }
+  }
   changePhone() {
+    this.checkValidatePhone(this.selectedPhoneNumber);
+    if(this.checkPhoneFormat) {
+      return;
+    }
     this.selectedStaffCodeSubject.value.phoneNumber = this.selectedPhoneNumber;
     this.phoneTouched = true;
   }

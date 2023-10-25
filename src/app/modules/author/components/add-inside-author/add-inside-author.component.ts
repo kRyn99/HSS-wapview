@@ -1,10 +1,18 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, Renderer2 } from "@angular/core";
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  OnInit,
+  Output,
+  Renderer2,
+} from "@angular/core";
 import { environment } from "@env/environment";
 import { NgSelectConfig } from "@ng-select/ng-select";
 import { ActivatedRoute, Router } from "@angular/router";
-import { TranslateService } from '@ngx-translate/core';
-import { MessagePopupComponent } from "../../../../modules/common-items/components/message-popup/message-popup.component"
+import { TranslateService } from "@ngx-translate/core";
+import { MessagePopupComponent } from "../../../../modules/common-items/components/message-popup/message-popup.component";
 
 import {
   BsDatepickerConfig,
@@ -20,13 +28,11 @@ import { ContrivanceService } from "@app/shared/service/contrivance.service";
   templateUrl: "./add-inside-author.component.html",
   styleUrls: ["./add-inside-author.component.scss"],
 })
-
 export class AddInsideAuthorComponent implements OnInit {
-  public selectedStaffCodeSubject = new BehaviorSubject<any>(null);
+  public selectedStaffCodeSubject = new BehaviorSubject<any>({});
   setSelectedStaffCode(code: any) {
     this.selectedStaffCodeSubject.next(code);
     this.DataService.selectedStaffCodeSubject.next(code);
-
   }
 
   getSelectedStaffCodeSubject() {
@@ -35,7 +41,6 @@ export class AddInsideAuthorComponent implements OnInit {
   selectedStaffCode: any;
   token = JSON.parse(localStorage.getItem("tokenInLocalStorage"));
   constructor(
-
     private http: HttpClient,
     private config: NgSelectConfig,
     public DataService: DataService,
@@ -43,18 +48,21 @@ export class AddInsideAuthorComponent implements OnInit {
     private modalService: NgbModal,
     private translateService: TranslateService,
     public contrivanceService: ContrivanceService,
-    private route: ActivatedRoute, private renderer: Renderer2, private el: ElementRef
+    private route: ActivatedRoute,
+    private renderer: Renderer2,
+    private el: ElementRef
   ) {
-    this.config.notFoundText = this.translateService.instant(`STAFF_CODE_NOT_EXIST`);
+    this.config.notFoundText =
+      this.translateService.instant(`STAFF_CODE_NOT_EXIST`);
     this.config.appendTo = "body";
     this.config.bindValue = "value";
-
   }
 
   eClickSelect() {
-    debugger
-    const dropdownPanelElement = this.el.nativeElement.querySelector('.ng-dropdown-panel');
-    this.renderer.addClass(dropdownPanelElement, 'your-custom-class');
+    debugger;
+    const dropdownPanelElement =
+      this.el.nativeElement.querySelector(".ng-dropdown-panel");
+    this.renderer.addClass(dropdownPanelElement, "your-custom-class");
   }
   // bsConfig: Partial<BsDatepickerConfig>;
   bsConfig = {
@@ -62,15 +70,15 @@ export class AddInsideAuthorComponent implements OnInit {
   };
   minMode: BsDatepickerViewMode = "day";
   ngOnInit() {
-    this.DataService.percentage.next(null)
+    this.DataService.percentage.next(null);
     this.getListStaff();
     this.route.queryParams.subscribe((params) => {
       if (params && params.for) {
         this.backRoute = params.for;
       }
-    })
+    });
   }
-  goBack(){
+  goBack() {
     this.DataService.showBg = false;
     this.DataService.showAddInsideAuthor = false;
     this.DataService.showEditInsideAuthor = false;
@@ -86,10 +94,9 @@ export class AddInsideAuthorComponent implements OnInit {
     }
   }
 
-
   listStaff: [];
   listStaff2: [];
-  lang = localStorage.getItem('lang');
+  lang = localStorage.getItem("lang");
   getListStaff() {
     const url = `${environment.API_HOST_NAME}/api/get-list-staff`;
     const headers = new HttpHeaders({
@@ -106,7 +113,10 @@ export class AddInsideAuthorComponent implements OnInit {
     return this.http.post<any>(url, requestBody, { headers }).subscribe(
       (response) => {
         this.listStaff = response.data.listStaffDTO;
-        this.listStaff2 = response.data.listStaffDTO.map((item) => { item.displayName = `${item.staffCode} - ${item.fullName}`; return { ...item } });
+        this.listStaff2 = response.data.listStaffDTO.map((item) => {
+          item.displayName = `${item.staffCode} - ${item.fullName}`;
+          return { ...item };
+        });
         console.log(this.listStaff);
       },
       (error) => {
@@ -121,9 +131,7 @@ export class AddInsideAuthorComponent implements OnInit {
     this.phoneNumber = this.selectedStaffCodeSubject.value?.phoneNumber;
     this.email = this.selectedStaffCodeSubject.value.email;
 
-    this.birthday = this.selectedStaffCodeSubject.value.birthday
-
-
+    this.birthday = this.selectedStaffCodeSubject.value.birthday;
   }
   percentageValue: string;
   phoneNumber: string;
@@ -134,19 +142,19 @@ export class AddInsideAuthorComponent implements OnInit {
     this.percentageTouched = true;
     const parsedValue = parseInt(newValue, 10);
     if (!isNaN(parsedValue)) {
-      if (parsedValue >= 1) { // Thay đổi điều kiện này để đảm bảo giá trị >= 1
+      if (parsedValue >= 1) {
+        // Thay đổi điều kiện này để đảm bảo giá trị >= 1
         if (parsedValue > 100) {
-          this.percentageValue = '100';
+          this.percentageValue = "100";
         } else {
           this.percentageValue = parsedValue.toString();
         }
       } else {
-        this.percentageValue = '1'; // Nếu giá trị nhỏ hơn 1, đặt thành 1
+        this.percentageValue = "1"; // Nếu giá trị nhỏ hơn 1, đặt thành 1
       }
       this.DataService.percentage.next(this.percentageValue);
     }
   }
-
 
   phoneNumberChange() {
     this.selectedStaffCodeSubject.value.phoneNumber = this.phoneNumber;
@@ -155,35 +163,31 @@ export class AddInsideAuthorComponent implements OnInit {
       this.phoneNumber = this.phoneNumber.slice(0, 12);
     }
     console.log(this.phoneNumber);
-    this.DataService.phoneNumber.next(this.phoneNumber)
-
+    this.DataService.phoneNumber.next(this.phoneNumber);
   }
   checkEmail = false;
   emailChange() {
-
-    this.DataService.email.next(this.email)
+    this.DataService.email.next(this.email);
 
     this.selectedStaffCodeSubject.value.email = this.email;
     if (!this.isValidEmail(this.email)) {
       this.checkEmail = true;
     } else {
-
       this.checkEmail = false;
     }
   }
 
   birthdayChange(): void {
-    this.selectedStaffCodeSubject.value.birthday = this.birthday
+    this.selectedStaffCodeSubject.value.birthday = this.birthday;
     console.log(this.birthday);
     // event.preventDefault();
 
-    this.DataService.birthday.next(this.birthday)
+    this.DataService.birthday.next(this.birthday);
   }
 
   getLstContributorDTO() {
     let contributorDTO = null;
-    contributorDTO =
-    {
+    contributorDTO = {
       staffId: this.selectedStaffCodeSubject.value?.id,
       percentage: this.DataService.percentage.value,
       birthday: this.selectedStaffCodeSubject.value?.birthday,
@@ -193,11 +197,12 @@ export class AddInsideAuthorComponent implements OnInit {
       email: this.selectedStaffCodeSubject.value?.email,
       jobPosition: this.selectedStaffCodeSubject.value?.jobPosition,
       jobAddress: this.selectedStaffCodeSubject.value?.jobAddress,
-
     };
 
     if (this.DataService.routerContrivance) {
-      this.contrivanceService.lstContributorDTOService.value.push(contributorDTO);
+      this.contrivanceService.lstContributorDTOService.value.push(
+        contributorDTO
+      );
     } else {
       this.DataService.lstContributorDTOService.value.push(contributorDTO);
     }
@@ -213,58 +218,54 @@ export class AddInsideAuthorComponent implements OnInit {
     return emailRegex.test(email);
   }
   validateTemplate() {
-    if (
-      !this.selectedStaffCodeSubject.value
-    ) { this.isInputTouched = true }
+    if (!this.selectedStaffCodeSubject.value) {
+      this.isInputTouched = true;
+    }
     if (
       this.percentageValue === undefined ||
       this.percentageValue === null ||
-      this.percentageValue === ''
+      this.percentageValue === ""
     ) {
       this.percentageTouched = true;
     }
-
   }
 
   @Output() handleAddInsideAuthorPopup = new EventEmitter<void>();
   validate() {
-
     let hasDuplicate = false;
-    if (
-      !this.selectedStaffCodeSubject.value
-    ) {
+    if (!this.selectedStaffCodeSubject.value) {
       // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
       // modalRef.componentInstance.type = 'fail';
       // modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
       // modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.STAFF-CODE`);
       // modalRef.componentInstance.closeIcon = false;
-      this.validateTemplate()
+      this.validateTemplate();
       return false;
     }
     if (
       this.percentageValue === undefined ||
       this.percentageValue === null ||
-      this.percentageValue === ''
+      this.percentageValue === ""
     ) {
       // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
       // modalRef.componentInstance.type = 'fail';
       // modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
       // modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.PERCENT`);
       // modalRef.componentInstance.closeIcon = false;
-      this.validateTemplate()
+      this.validateTemplate();
       return false;
     }
     if (
       this.phoneNumber === undefined ||
       this.phoneNumber === null ||
-      this.phoneNumber === ''
+      this.phoneNumber === ""
     ) {
       // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
       // modalRef.componentInstance.type = 'fail';
       // modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
       // modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.PHONE`);
       // modalRef.componentInstance.closeIcon = false;
-      this.validateTemplate()
+      this.validateTemplate();
       return false;
     }
     // if (
@@ -314,11 +315,12 @@ export class AddInsideAuthorComponent implements OnInit {
     // }
     let lstContributorDTO = [];
     if (this.DataService.routerContrivance) {
-      lstContributorDTO = this.contrivanceService.lstContributorDTOService.value;
+      lstContributorDTO =
+        this.contrivanceService.lstContributorDTOService.value;
     } else {
       lstContributorDTO = this.DataService.lstContributorDTOService.value;
     }
-    lstContributorDTO.forEach(item => {
+    lstContributorDTO.forEach((item) => {
       if (item.staffId == this.selectedStaffCodeSubject.value?.id) {
         // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
         // modalRef.componentInstance.type = 'fail';
@@ -329,7 +331,7 @@ export class AddInsideAuthorComponent implements OnInit {
         hasDuplicate = true;
         return;
       }
-    })
+    });
     if (hasDuplicate) {
       return false;
     }
@@ -380,7 +382,5 @@ export class AddInsideAuthorComponent implements OnInit {
       document.body.style.overflow = "auto";
       this.getLstContributorDTO();
     }
-
-
   }
 }

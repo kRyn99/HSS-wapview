@@ -115,7 +115,7 @@ export class DataService {
   // setItemSelection(itemId: number, selected: boolean): void {
   //   this.selectedItems.set(itemId, selected);
   // }
-  public selectedStaffCodeSubject = new BehaviorSubject<any>(null);
+  public selectedStaffCodeSubject = new BehaviorSubject<any>({});
   selectedUnits: any[] = [];
 
   addUnit(unit: any) {
