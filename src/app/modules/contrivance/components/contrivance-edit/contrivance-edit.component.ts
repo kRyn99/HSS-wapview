@@ -16,6 +16,7 @@ import { first } from 'rxjs/operators';
 import { MessagePopupComponent } from '@app/modules/common-items/components/message-popup/message-popup.component';
 import { TranslateService } from '@ngx-translate/core';
 import { DatePipe } from '@angular/common';
+import { DataService } from "../../../../shared/service/data.service";
 
 @Component({
   selector: 'app-contrivance-edit',
@@ -91,10 +92,12 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy {
     private translateService: TranslateService,
     public modalService: NgbModal,
     public formUtils: CommonFormUtils,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    public DataService: DataService,
   ) { }
 
   ngOnInit() {
+    this.DataService.routerContrivance=true;
     if (this.contrivanceService.contrivancesDTO.value == null) {
       this.notificationService.notify("fail", "CONTRIVANCE_MAMAGEMENT.LABEL.ACTION_CORRUPTED");
       this.router.navigate(["contrivance/list"]);
@@ -461,7 +464,12 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy {
             if (response.errorCode == 0) {
               this.contrivanceService.contrivancesDTO.next(this.contrivancesDTO);
               this.contrivanceService.isFromAdd = false;
-              this.router.navigate(["contrivance/check-duplicate"]);
+              this.DataService.showDuplicateIdea = true;
+                this.DataService.showBg = true;
+                if (this.DataService.showBg && this.DataService.showDuplicateIdea) {
+                  document.body.style.overflow = "hidden";
+                }
+              // this.router.navigate(["contrivance/check-duplicate"]);
             } else {
               this.notificationService.notify("fail", response.description);
               this.formUtils.form.markAllAsTouched();
@@ -526,34 +534,41 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy {
   AddInsideAuthor() {
     this.getContrivancesDTO();
     this.contrivanceService.contrivancesDTO.next(this.contrivancesDTO);
-    this.router.navigate(["author/add-inside-edit"], {
-      queryParams: { for: "contrivance" },
-    });
+    this.DataService.showAddInsideEdit = true;
+    this.DataService.showBg = true;
+    if (this.DataService.showBg && this.DataService.showAddInsideEdit) {
+      document.body.style.overflow = "hidden";
+    }
   }
   AddOutsideAuthor() {
     this.getContrivancesDTO();
     this.contrivanceService.contrivancesDTO.next(this.contrivancesDTO);
-    this.router.navigate(["author/add-outside-edit"], {
-      queryParams: { for: "contrivance" },
-    });
+    this.DataService.showAddOutsideEdit = true;
+    this.DataService.showBg = true;
+    if (this.DataService.showBg && this.DataService.showAddOutsideEdit) {
+      document.body.style.overflow = "hidden";
+    }
   }
   EditInsideAuthor(id: number) {
     this.getContrivancesDTO();
     this.contrivanceService.contrivancesDTO.next(this.contrivancesDTO);
-    this.router.navigate(["author/edit-inside-edit"], {
-      queryParams: { id: id, for: "contrivance" },
-    });
+    this.DataService.showEditInsideEdit = true;
+    this.DataService.showBg = true;
+    this.DataService.idEditInsideAuthor = id;
+    if (this.DataService.showBg && this.DataService.showEditInsideEdit) {
+      document.body.style.overflow = "hidden";
+    }
   }
   EditOutsideAuthor(phoneNumber: any, email: any) {
     this.getContrivancesDTO();
     this.contrivanceService.contrivancesDTO.next(this.contrivancesDTO);
-    this.router.navigate(["author/edit-outside-edit"], {
-      queryParams: {
-        phoneNumber: phoneNumber,
-        email: email,
-        for: "contrivance",
-      },
-    });
+    this.DataService.showEditOutsideEdit = true;
+    this.DataService.showBg = true;
+    this.DataService.phoneEditOutsideAuthor = phoneNumber;
+    this.DataService.emailEditOutsideAuthor = email;
+    if (this.DataService.showBg && this.DataService.showEditOutsideEdit) {
+      document.body.style.overflow = "hidden";
+    }
   }
   deleteInsideAuthor(id: any) {
     this.contrivanceService.lstContributorDTOService.value.forEach(
@@ -592,6 +607,130 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+    this.DataService.routerContrivance=false;
+  }
+  handleAddInsideEdit() {
+    this.dataSource = new MatTableDataSource(
+      this.contrivanceService.lstContributorDTOService.value
+    );
+    this.dataSource2 = new MatTableDataSource(
+      this.contrivanceService.lstContributorDTOServiceOut.value
+    );
+  }
+  handleAddInsideEditPopup() {
+    this.DataService.showBg = false;
+    this.DataService.showAddInsideEdit = false;
+    if (!this.DataService.showBg && !this.DataService.showAddInsideEdit) {
+      document.body.style.overflow = "auto";
+    }
+    const modalRef = this.modalService.open(MessagePopupComponent, {
+      size: "sm",
+      backdrop: "static",
+      keyboard: false,
+      centered: true,
+    });
+    modalRef.componentInstance.type = "fail";
+    modalRef.componentInstance.title = this.translateService.instant(
+      `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+    );
+    modalRef.componentInstance.message = this.translateService.instant(
+      `ADD-INSIDE-IDEA.VALIDATE.EXIST`
+    );
+    modalRef.componentInstance.closeIcon = false;
+    return false;
+  }
+  handleEditInsideEdit() {
+    this.DataService.idEditInsideAuthor = null;
+    this.dataSource = new MatTableDataSource(
+      this.contrivanceService.lstContributorDTOService.value
+    );
+    this.dataSource2 = new MatTableDataSource(
+      this.contrivanceService.lstContributorDTOServiceOut.value
+    );
+  }
+  handleEditInsideEditPopup() {
+    this.DataService.showBg = false;
+    this.DataService.showEditInsideEdit = false;
+    if (!this.DataService.showBg && !this.DataService.showEditInsideEdit) {
+      document.body.style.overflow = "auto";
+    }
+    const modalRef = this.modalService.open(MessagePopupComponent, {
+      size: "sm",
+      backdrop: "static",
+      keyboard: false,
+      centered: true,
+    });
+    modalRef.componentInstance.type = "fail";
+    modalRef.componentInstance.title = this.translateService.instant(
+      `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+    );
+    modalRef.componentInstance.message = this.translateService.instant(
+      `ADD-INSIDE-IDEA.VALIDATE.CONTRIBUTOR`
+    );
+    modalRef.componentInstance.closeIcon = false;
+    return false;
+  }
+  handleAddOutsideEdit() {
+    this.dataSource = new MatTableDataSource(
+      this.contrivanceService.lstContributorDTOService.value
+    );
+    this.dataSource2 = new MatTableDataSource(
+      this.contrivanceService.lstContributorDTOServiceOut.value
+    );
+  }
+  handleAddOutsideEditPopup() {
+    this.DataService.showBg = false;
+    this.DataService.showAddOutsideEdit = false;
+    if (!this.DataService.showBg && !this.DataService.showAddOutsideEdit) {
+      document.body.style.overflow = "auto";
+    }
+
+    const modalRef = this.modalService.open(MessagePopupComponent, {
+      size: "sm",
+      backdrop: "static",
+      keyboard: false,
+      centered: true,
+    });
+    modalRef.componentInstance.type = "fail";
+    modalRef.componentInstance.title = this.translateService.instant(
+      `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+    );
+    modalRef.componentInstance.message = this.translateService.instant(
+      `ADD-INSIDE-IDEA.VALIDATE.EXIST`
+    );
+    modalRef.componentInstance.closeIcon = false;
+    return false;
+  }
+  handleEditOutsideEdit() {
+    this.DataService.idEditInsideAuthor = null;
+    this.dataSource = new MatTableDataSource(
+      this.contrivanceService.lstContributorDTOService.value
+    );
+    this.dataSource2 = new MatTableDataSource(
+      this.contrivanceService.lstContributorDTOServiceOut.value
+    );
+  }
+  handleEditOutsideEditPopup() {
+    this.DataService.showBg = false;
+    this.DataService.showEditOutsideEdit = false;
+    if (!this.DataService.showBg && !this.DataService.showEditOutsideEdit) {
+      document.body.style.overflow = "auto";
+    }
+    const modalRef = this.modalService.open(MessagePopupComponent, {
+      size: "sm",
+      backdrop: "static",
+      keyboard: false,
+      centered: true,
+    });
+    modalRef.componentInstance.type = "fail";
+    modalRef.componentInstance.title = this.translateService.instant(
+      `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+    );
+    modalRef.componentInstance.message = this.translateService.instant(
+      `ADD-INSIDE-IDEA.VALIDATE.EXIST`
+    );
+    modalRef.componentInstance.closeIcon = false;
+    return false;
   }
 }
 

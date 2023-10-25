@@ -85,7 +85,7 @@ export class AddOutsideEditComponent implements OnInit {
       displayName:this.selectedStaffCodeSubject.value?.fullName ? `${this.selectedStaffCodeSubject.value?.fullName } - ${this.selectedPhoneNumber}` : `${this.selectedFullName.displayName} - ${this.selectedPhoneNumber}`
 
     };
-    if (this.backRoute == "contrivance") {
+    if (this.DataService.routerContrivance) {
       this.contrivanceService.lstContributorDTOServiceOut.value.push(
         contributorDTO
       );
@@ -281,7 +281,7 @@ export class AddOutsideEditComponent implements OnInit {
     //   return false;
     // }
     let lstContributorDTO = [];
-    if (this.backRoute == "contrivance") {
+    if (this.DataService.routerContrivance) {
       lstContributorDTO =
         this.contrivanceService.lstContributorDTOServiceOut.value;
     } else {

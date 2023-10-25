@@ -196,7 +196,7 @@ export class AddInsideAuthorComponent implements OnInit {
 
     };
 
-    if (this.backRoute == "contrivance") {
+    if (this.DataService.routerContrivance) {
       this.contrivanceService.lstContributorDTOService.value.push(contributorDTO);
     } else {
       this.DataService.lstContributorDTOService.value.push(contributorDTO);
@@ -313,7 +313,7 @@ export class AddInsideAuthorComponent implements OnInit {
     //   return false;
     // }
     let lstContributorDTO = [];
-    if (this.backRoute == "contrivance") {
+    if (this.DataService.routerContrivance) {
       lstContributorDTO = this.contrivanceService.lstContributorDTOService.value;
     } else {
       lstContributorDTO = this.DataService.lstContributorDTOService.value;

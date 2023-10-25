@@ -182,7 +182,7 @@ export class AddInsideEditComponent implements OnInit {
       jobAddress: this.selectedStaffCodeSubject.value?.jobAddress,
     };
 
-    if (this.backRoute == "contrivance") {
+    if (this.DataService.routerContrivance) {
       this.contrivanceService.lstContributorDTOService.value.push(
         contributorDTO
       );
@@ -310,7 +310,7 @@ export class AddInsideEditComponent implements OnInit {
     //   return false;
     // }
     let lstContributorDTO = [];
-    if (this.backRoute == "contrivance") {
+    if (this.DataService.routerContrivance) {
       lstContributorDTO =
         this.contrivanceService.lstContributorDTOService.value;
     } else {

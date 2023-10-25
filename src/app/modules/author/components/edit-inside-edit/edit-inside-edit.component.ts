@@ -58,7 +58,14 @@ export class EditInsideEditComponent implements OnInit {
     //   }
     //   this.staffId = params.id;
     // });
-    if (this.DataService.idEditInsideAuthor) {
+    if(this.DataService.routerContrivance){
+      this.contributorDTO = {
+        ...this.contrivanceService.lstContributorDTOService.value.find(
+          (item) => item.staffId == this.DataService.idEditInsideAuthor
+        ),
+      };
+    }
+    else {
       this.contributorDTO = {
         ...this.DataService.lstContributorDTOServiceEdit.value.find(
           (item) => item.staffId == this.DataService.idEditInsideAuthor
@@ -228,7 +235,7 @@ export class EditInsideEditComponent implements OnInit {
     }
     let hasDuplicate = false;
     let lstContributorDTO = [];
-    if (this.backRoute == "contrivance") {
+    if (this.DataService.routerContrivance) {
       lstContributorDTO = [
         ...this.contrivanceService.lstContributorDTOService.value,
       ];
@@ -306,7 +313,7 @@ export class EditInsideEditComponent implements OnInit {
   @Output() handleEditInsideEdit = new EventEmitter<void>();
   editNew() {
     if (this.validate()) {
-      if (this.backRoute == "contrivance") {
+      if (this.DataService.routerContrivance) {
         for (
           let i = 0;
           i < this.contrivanceService.lstContributorDTOService.value.length;
@@ -320,7 +327,10 @@ export class EditInsideEditComponent implements OnInit {
               this.contributorDTO;
           }
         }
-        this.router.navigate(["contrivance/edit"]);
+        this.handleEditInsideEdit.emit();
+        this.DataService.showBg = false;
+        this.DataService.showEditInsideEdit = false;
+        document.body.style.overflow = "auto";
       } else {
         for (
           let i = 0;
