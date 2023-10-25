@@ -15,13 +15,15 @@ import { ContrivanceDTO } from "../../common/contrivanceDTO";
 import { DataService } from "@app/shared/service/data.service";
 import { ContrivanceService } from "@app/shared/service/contrivance.service";
 import { fromEvent } from "rxjs/internal/observable/fromEvent";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { environment } from "@env/environment";
 
 @Component({
   selector: "app-contrivance-list",
   templateUrl: "./contrivance-list.component.html",
   styleUrls: ["./contrivance-list.component.scss"],
 })
-export class ContrivanceListComponent implements OnInit, AfterViewInit {
+export class ContrivanceListComponent implements OnInit {
   contrivanceDTO: ContrivanceDTO;
   public searchForm: FormGroup;
   listContrivance = new BehaviorSubject<ContrivanceDTO[]>([]);
@@ -35,64 +37,149 @@ export class ContrivanceListComponent implements OnInit, AfterViewInit {
   backupListContrivance = [];
   @ViewChild("advanceSearch") advanceSearch: ElementRef;
   apiDataService: any;
-
+  backToPage = "home";
+  get backRoute() {
+    // alert('ok')
+    return this.backToPage;
+  }
   constructor(
+    private http: HttpClient,
     private router: Router,
     public toastrService: ToastrService,
     private contrivanceService: ContrivanceService,
     public DataService: DataService
-  ) {}
-
+  ) {
+    this.specialtyId = null;
+    this.statusId = null;
+  }
+  token = JSON.parse(localStorage.getItem("tokenInLocalStorage"));
+  lang = localStorage.getItem("lang");
   ngOnInit(): void {
     this.contrivanceService.clearData();
     this.getListContrivance();
+    this.getListSpecialty();
+    this.getListStatus();
   }
+  onScroll(): void {
+    this.currentPage += 1;
+    this.getListContrivance();
+  }
+  isMoiNhatSelected: boolean = true;
+  isLinhVucSelected: boolean = false;
+  isTrangThaiSelected: boolean = false;
 
-  ngAfterViewInit() {
-    fromEvent(this.advanceSearch.nativeElement, "input")
-      .pipe(
-        debounceTime(500),
-        map((e: InputEvent) => (e.target as HTMLInputElement).value),
-        switchMap((value) =>
-          this.contrivanceService.callApiCommon(
-            "get-list-contrivance-advance",
-            {
-              contrivancesDTO: {
-                input: value
-              }
-            }
-          )
-        )
-      )
-      .subscribe((res) =>{
-        this.listContrivance.next(res.data?.listContrivancesDTO);
-        this.contrivanceDTO = res.data.recordInfoDTO;
-      }
-      );
+  selectTab(tab: string) {
+    this.isMoiNhatSelected = tab === "MoiNhat";
+    this.isLinhVucSelected = tab === "LinhVuc";
+    this.isTrangThaiSelected = tab === "TrangThai";
+
+    if ((this.isLinhVucSelected = tab === "LinhVuc")) {
+    }
   }
+  // ngAfterViewInit() {
+  //   fromEvent(this.advanceSearch.nativeElement, "input")
+  //     .pipe(
+  //       debounceTime(500),
+  //       map((e: InputEvent) => (e.target as HTMLInputElement).value),
+  //       switchMap((value) =>
+  //         this.contrivanceService.callApiCommon(
+  //           "get-list-contrivance-advance",
+  //           {
+  //             contrivancesDTO: {
+  //               input: value,
+  //             },
+  //           }
+  //         )
+  //       )
+  //     )
+  //     .subscribe((res) => {
+  //       this.listContrivance.next(res.data?.listContrivancesDTO);
+  //       this.contrivanceDTO = res.data.recordInfoDTO;
+  //     });
+  // }
 
   handleCreate() {
     this.contrivanceService.selectedUnit.next(null);
     this.router.navigate(["contrivance/register"]);
   }
-
+  listSpecialty: [];
+  getListSpecialty() {
+    const url = `${environment.API_HOST_NAME}/api/get-list-specialty`;
+    const headers = new HttpHeaders({
+      "Accept-Language": this.lang,
+      Authorization: `Bearer ` + this.token,
+    });
+    return this.http.get<any>(url, { headers }).subscribe(
+      (response) => {
+        this.listSpecialty = response.data;
+      },
+      (error) => {
+        console.error(error.description);
+      }
+    );
+  }
+  specialtyId;
+  changeSpecialty() {
+    this.currentPage = 1;
+    this.listContrivance.next([]);
+    this.getListContrivance();
+  }
+  listStatus: [];
+  getListStatus() {
+    const url = `${environment.API_HOST_NAME}/api/get-list-approve-status`;
+    const headers = new HttpHeaders({
+      "Accept-Language": this.lang,
+      Authorization: `Bearer ` + this.token,
+    });
+    return this.http.get<any>(url, { headers }).subscribe(
+      (response) => {
+        this.listStatus = response.data;
+      },
+      (error) => {
+        console.error(error.description);
+      }
+    );
+  }
+  statusId;
+  changeStatus() {
+    this.currentPage = 1;
+    this.listContrivance.next([]);
+    this.getListContrivance();
+  }
   getListContrivance() {
     let params = {
-      contrivancesDTO: {},
-      pageSize: this.pageSize,
-      pageIndex: this.currentPage + 1,
+      contrivancesDTO: {
+        fromDate: null,
+        toDate: null,
+        specialty: this.specialtyId ? Number(this.specialtyId) : null,
+        approveStatus: this.statusId ? Number(this.statusId) : null,
+      },
+      pageIndex: this.currentPage,
+      pageSize: 10,
     };
     this.contrivanceService
       .callApiCommon("get-list-contrivance", params)
       .pipe(first())
       .subscribe((res) => {
+        if(!res.data || res.data.length == 0){
+          this.listContrivance.next([]);
+      }
         if (res && res.errorCode === "0") {
           if (res.data && res.data.listContrivancesDTO) {
-            this.listContrivance.next(res.data?.listContrivancesDTO);
-            this.contrivanceDTO = res.data.recordInfoDTO;
+            // this.listContrivance.next(res.data?.listContrivancesDTO);
+            // this.contrivanceDTO = res.data.recordInfoDTO;
+            if(this.listContrivance.value.length == 0 ){
+              this.listContrivance.next(res.data?.listContrivancesDTO);
+              // this.DataService.listIdeaService = this.listIdea;
+            }else {
+              let tempArray = [...this.listContrivance.value];
+              tempArray = tempArray.concat(res.data.listContrivancesDTO);
+              this.listContrivance.next(tempArray);
+            }
           }
         } else {
           this.listContrivance.next([]);
+     
           this.toastrService.error(res.description);
         }
       });
@@ -153,6 +240,6 @@ export class ContrivanceListComponent implements OnInit, AfterViewInit {
     this.router.navigate(["contrivance/detail"], {
       queryParams: { id: id },
     });
-    localStorage.setItem('contrivanceIdInLocalStorage', JSON.stringify(id));
+    localStorage.setItem("contrivanceIdInLocalStorage", JSON.stringify(id));
   }
 }

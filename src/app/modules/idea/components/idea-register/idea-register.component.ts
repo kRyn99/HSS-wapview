@@ -1050,10 +1050,13 @@ export class IdeaRegisterComponent implements OnInit {
               if (response.errorCode == 0) {
                 this.DataService.ideaDTO.next(this.ideaDTO);
                 this.DataService.isFromAdd = true;
-                // this.router.navigate(["idea/check-duplicate-idea"]);
+             
                 this.DataService.showDuplicateIdea = true;
                 this.DataService.showBg = true;
-                if (this.DataService.showBg && this.DataService.showDuplicateIdea) {
+                if (
+                  this.DataService.showBg &&
+                  this.DataService.showDuplicateIdea
+                ) {
                   document.body.style.overflow = "hidden";
                 }
               } else {
@@ -1089,6 +1092,7 @@ export class IdeaRegisterComponent implements OnInit {
     this.dataSource2 = new MatTableDataSource(
       this.DataService.lstContributorDTOServiceOut.value
     );
+    console.log(this.dataSource);
   }
   handleAddInsideAuthorPopup() {
     this.DataService.showBg = false;
@@ -1183,7 +1187,6 @@ export class IdeaRegisterComponent implements OnInit {
       this.DataService.lstContributorDTOServiceOut.value
     );
     console.log(this.DataService.lstContributorDTOServiceOut.value);
-    
   }
   handleEditOutsideAuthorPopup() {
     this.DataService.showBg = false;

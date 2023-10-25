@@ -25,9 +25,9 @@ export class EditOutsideAuthorComponent implements OnInit {
     private router: Router,
     private modalService: NgbModal,
     private translateService: TranslateService
-  ) { }
+  ) {}
   oldNumber: number = 0;
-  oldEmail: string = '';
+  oldEmail;
   token = JSON.parse(localStorage.getItem("tokenInLocalStorage"));
   idContributorDTO: number;
   ngOnInit() {
@@ -39,29 +39,42 @@ export class EditOutsideAuthorComponent implements OnInit {
         if (this.backRoute == "contrivance") {
           this.contributorDTO = {
             ...this.contrivanceService.lstContributorDTOServiceOut.value.find(
-              (item) => (item.phoneNumber == Number(params.phoneNumber) && item.email == params.email)
+              (item) =>
+                item.phoneNumber == Number(params.phoneNumber) &&
+                item.email == params.email
             ),
           };
         } else {
           this.contributorDTO = {
             ...this.DataService.lstContributorDTOServiceOut.value.find(
-              (item) => (item.phoneNumber == Number(params.phoneNumber) && item.email == params.email)
+              (item) =>
+                item.phoneNumber == Number(params.phoneNumber) &&
+                item.email == params.email
             ),
           };
         }
       }
-
     });
-    if (this.DataService.phoneEditOutsideAuthor) {
+    if (this.DataService.routerContrivance) {
+      this.contributorDTO = {
+        ...this.contrivanceService.lstContributorDTOServiceOut.value.find(
+          (item) =>
+            item.phoneNumber == this.DataService.phoneEditOutsideAuthor &&
+            item.email == this.DataService.emailEditOutsideAuthor
+        ),
+      };
+    } else {
       this.contributorDTO = {
         ...this.DataService.lstContributorDTOServiceOut.value.find(
-          (item) => (item.phoneNumber == this.DataService.phoneEditOutsideAuthor && item.email == this.DataService.emailEditOutsideAuthor)
+          (item) =>
+            item.phoneNumber == this.DataService.phoneEditOutsideAuthor &&
+            item.email == this.DataService.emailEditOutsideAuthor
         ),
       };
     }
-    console.log(this.contributorDTO);
 
     this.oldNumber = this.contributorDTO.phoneNumber;
+
     this.oldEmail = this.contributorDTO.email;
 
     this.apiListContributorOut();
@@ -99,7 +112,10 @@ export class EditOutsideAuthorComponent implements OnInit {
     return this.http.post<any>(url, requestBody, { headers }).subscribe(
       (response) => {
         // this.listContributorOut = response.data;
-        this.listContributorOut = response.data.map((item) => { item.displayName = `${item.fullName} - ${item.phoneNumber}`; return { ...item } });
+        this.listContributorOut = response.data.map((item) => {
+          item.displayName = `${item.fullName} - ${item.phoneNumber}`;
+          return { ...item };
+        });
 
         console.log(this.listContributorOut);
       },
@@ -111,7 +127,7 @@ export class EditOutsideAuthorComponent implements OnInit {
   fullName;
   onSelectedStaffCodeChange(value: any) {
     this.contributorDTO = value;
-    this.fullName=this.contributorDTO.displayName;
+    this.fullName = this.contributorDTO.displayName;
     console.log(value);
   }
   percentageValueChange(newValue: string) {
@@ -142,7 +158,7 @@ export class EditOutsideAuthorComponent implements OnInit {
   phone;
   updatePhoneNumber(newValue: string) {
     console.log(newValue);
-    this.phone=newValue;
+    this.phone = newValue;
     if (this.contributorDTO) {
       this.contributorDTO.phoneNumber = newValue;
     }
@@ -189,8 +205,7 @@ export class EditOutsideAuthorComponent implements OnInit {
       this.contributorDTO.displayName === undefined ||
       this.contributorDTO.displayName === null ||
       this.contributorDTO.displayName === "" ||
-      this.contributorDTO.displayName.trim() === "" 
-  
+      this.contributorDTO.displayName.trim() === ""
     ) {
       // const modalRef = this.modalService.open(MessagePopupComponent, {
       //   size: "sm",
@@ -231,7 +246,10 @@ export class EditOutsideAuthorComponent implements OnInit {
       return false;
     }
 
-    if ((!this.isValidEmail(this.contributorDTO.email)) && this.contributorDTO.email) {
+    if (
+      !this.isValidEmail(this.contributorDTO.email) &&
+      this.contributorDTO.email
+    ) {
       // const modalRef = this.modalService.open(MessagePopupComponent, {
       //   size: "sm",
       //   backdrop: "static",
@@ -252,22 +270,27 @@ export class EditOutsideAuthorComponent implements OnInit {
 
     let hasDuplicate = false;
     let lstContributorDTO = [];
-    if (this.backRoute == "contrivance") {
-      lstContributorDTO =
-        [...this.contrivanceService.lstContributorDTOServiceOut.value];
+    if (this.DataService.routerContrivance) {
+      lstContributorDTO = [
+        ...this.contrivanceService.lstContributorDTOServiceOut.value,
+      ];
     } else {
-      lstContributorDTO = [...this.DataService.lstContributorDTOServiceOut.value];
+      lstContributorDTO = [
+        ...this.DataService.lstContributorDTOServiceOut.value,
+      ];
     }
     if (lstContributorDTO.length > 1) {
       for (let i = 0; i < lstContributorDTO.length; i++) {
-        if (this.oldEmail == lstContributorDTO[i].email && this.oldNumber == lstContributorDTO[i].phoneNumber) {
-          lstContributorDTO[i] = this.contributorDTO
+        if (
+          this.oldEmail == lstContributorDTO[i].email &&
+          this.oldNumber == lstContributorDTO[i].phoneNumber
+        ) {
+          lstContributorDTO[i] = this.contributorDTO;
           break;
         }
-
       }
-      if (this.contributorDTO.email !== '') {
-        let listDuplicate = lstContributorDTO.filter(item => {
+      if (this.contributorDTO.email && this.contributorDTO.email !== "") {
+        let listDuplicate = lstContributorDTO.filter((item) => {
           return item.email == this.contributorDTO.email;
         });
 
@@ -286,13 +309,13 @@ export class EditOutsideAuthorComponent implements OnInit {
           //     `ADD-INSIDE-IDEA.VALIDATE.EXIST`
           // );
           // modalRef.componentInstance.closeIcon = false;
-          this.handleEditOutsideAuthorPopup.emit()
+          this.handleEditOutsideAuthorPopup.emit();
           hasDuplicate = true;
           return;
         }
       }
 
-      let phoneDuplicate = lstContributorDTO.filter(item => {
+      let phoneDuplicate = lstContributorDTO.filter((item) => {
         return item.phoneNumber == this.contributorDTO.phoneNumber;
       });
 
@@ -311,7 +334,7 @@ export class EditOutsideAuthorComponent implements OnInit {
         //     `ADD-INSIDE-IDEA.VALIDATE.EXIST`
         // );
         // modalRef.componentInstance.closeIcon = false;
-        this.handleEditOutsideAuthorPopup.emit()
+        this.handleEditOutsideAuthorPopup.emit();
         hasDuplicate = true;
         return;
       }
@@ -332,26 +355,46 @@ export class EditOutsideAuthorComponent implements OnInit {
 
   backRoute = null;
   edit() {
-
     if (this.validate()) {
       if (this.backRoute == "contrivance") {
         if (this.backRoute == "contrivance") {
-          for (let i = 0; i < this.contrivanceService.lstContributorDTOServiceOut.value.length; i++) {
-            if (this.oldEmail == this.contrivanceService.lstContributorDTOServiceOut.value[i].email && this.oldNumber == this.contrivanceService.lstContributorDTOServiceOut.value[i].phoneNumber) {
-              this.contrivanceService.lstContributorDTOServiceOut.value[i] = this.contributorDTO
+          for (
+            let i = 0;
+            i <
+            this.contrivanceService.lstContributorDTOServiceOut.value.length;
+            i++
+          ) {
+            if (
+              this.oldEmail ==
+                this.contrivanceService.lstContributorDTOServiceOut.value[i]
+                  .email &&
+              this.oldNumber ==
+                this.contrivanceService.lstContributorDTOServiceOut.value[i]
+                  .phoneNumber
+            ) {
+              this.contrivanceService.lstContributorDTOServiceOut.value[i] =
+                this.contributorDTO;
               break;
             }
-
           }
         }
         this.router.navigate(["contrivance/register"]);
       } else {
-        for (let i = 0; i < this.DataService.lstContributorDTOServiceOut.value.length; i++) {
-          if (this.oldEmail == this.DataService.lstContributorDTOServiceOut.value[i].email && this.oldNumber == this.DataService.lstContributorDTOServiceOut.value[i].phoneNumber) {
-            this.DataService.lstContributorDTOServiceOut.value[i] = this.contributorDTO
+        for (
+          let i = 0;
+          i < this.DataService.lstContributorDTOServiceOut.value.length;
+          i++
+        ) {
+          if (
+            this.oldEmail ==
+              this.DataService.lstContributorDTOServiceOut.value[i].email &&
+            this.oldNumber ==
+              this.DataService.lstContributorDTOServiceOut.value[i].phoneNumber
+          ) {
+            this.DataService.lstContributorDTOServiceOut.value[i] =
+              this.contributorDTO;
             break;
           }
-
         }
         this.router.navigate(["idea/register"]);
       }
@@ -361,40 +404,76 @@ export class EditOutsideAuthorComponent implements OnInit {
   @Output() handleEditOutsideAuthor = new EventEmitter<void>();
   editNew() {
     if (this.validate()) {
-      if (this.backRoute == "contrivance") {
-        if (this.backRoute == "contrivance") {
-          for (let i = 0; i < this.contrivanceService.lstContributorDTOServiceOut.value.length; i++) {
-            if (this.oldEmail == this.contrivanceService.lstContributorDTOServiceOut.value[i].email && this.oldNumber == this.contrivanceService.lstContributorDTOServiceOut.value[i].phoneNumber) {
-              this.contrivanceService.lstContributorDTOServiceOut.value[i] = this.contributorDTO
+      if (this.DataService.routerContrivance) {
+        if (this.DataService.routerContrivance) {
+          for (
+            let i = 0;
+            i <
+            this.contrivanceService.lstContributorDTOServiceOut.value.length;
+            i++
+          ) {
+            if (
+              this.oldEmail ==
+                this.contrivanceService.lstContributorDTOServiceOut.value[i]
+                  .email &&
+              this.oldNumber ==
+                this.contrivanceService.lstContributorDTOServiceOut.value[i]
+                  .phoneNumber
+            ) {
+              // this.contrivanceService.lstContributorDTOServiceOut.value[i] = this.contributorDTO
+              if (this.fullName && this.oldNumber) {
+                if (this.fullName.includes("-")) {
+                  let temp = this.fullName.split("-");
+                  this.fullName = temp[0];
+                }
+                this.contributorDTO.displayName = `${this.fullName} - ${
+                  this.phone ? this.phone : this.contributorDTO.phoneNumber
+                }`;
+                this.contributorDTO.fullName = this.fullName;
+              }
+              this.contrivanceService.lstContributorDTOServiceOut.value[i] = {
+                fullName: this.fullName,
+                ...this.contributorDTO,
+              };
               break;
             }
-
           }
+          this.handleEditOutsideAuthor.emit();
+          this.DataService.showBg = false;
+          this.DataService.showEditOutsideAuthor = false;
+          document.body.style.overflow = "auto";
         }
-        this.router.navigate(["contrivance/register"]);
+        // this.router.navigate(["contrivance/register"]);
       } else {
-        for (let i = 0; i < this.DataService.lstContributorDTOServiceOut.value.length; i++) {
-          if (this.oldEmail == this.DataService.lstContributorDTOServiceOut.value[i].email && this.oldNumber == this.DataService.lstContributorDTOServiceOut.value[i].phoneNumber) {
-           if(this.fullName && this.oldNumber){
-            if(this.fullName.includes("-")){
-              let temp = this.fullName.split ("-");
-              this.fullName = temp[0]
-        
+        for (
+          let i = 0;
+          i < this.DataService.lstContributorDTOServiceOut.value.length;
+          i++
+        ) {
+          if (
+            this.oldEmail ==
+              this.DataService.lstContributorDTOServiceOut.value[i].email &&
+            this.oldNumber ==
+              this.DataService.lstContributorDTOServiceOut.value[i].phoneNumber
+          ) {
+            if (this.fullName && this.oldNumber) {
+              if (this.fullName.includes("-")) {
+                let temp = this.fullName.split("-");
+                this.fullName = temp[0];
+              }
+              this.contributorDTO.displayName = `${this.fullName} - ${
+                this.phone ? this.phone : this.contributorDTO.phoneNumber
+              }`;
+              this.contributorDTO.fullName = this.fullName;
             }
-            this.contributorDTO.displayName = `${this.fullName} - ${this.phone? this.phone : this.contributorDTO.phoneNumber}`
-            this.contributorDTO.fullName = this.fullName
-            
-           }
             this.DataService.lstContributorDTOServiceOut.value[i] = {
               fullName: this.fullName,
-              ... this.contributorDTO
-            }
-           console.log(this.contributorDTO);
-           
-            
+              ...this.contributorDTO,
+            };
+            console.log(this.contributorDTO);
+
             break;
           }
-
         }
         this.handleEditOutsideAuthor.emit();
         this.DataService.showBg = false;

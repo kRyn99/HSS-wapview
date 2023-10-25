@@ -1,108 +1,238 @@
-<app-title-nav
-  [title]="'CONTRIVANCE_MAMAGEMENT.TITLE.LIST_CONTRIVANCE' | translate"
-  backRoute="home/homepage"
-  isBackHome="true"
-  createRoute="this"
-  (create)="handleCreate()"
->
-</app-title-nav>
-
-<div class="status">
-  <div class="status-border">
-    <div class="status-info">
-      <div class="status-info-number">
-        <div class="status-text1">
-          {{ contrivanceDTO ? contrivanceDTO.totalNumber : 0 }}
-        </div>
-        <div class="status-text2">{{ "CONTRIVANCE_MAMAGEMENT.LABEL.TOTAL_NUMBER" | translate }}</div>
-      </div>
-      <div class="status-info-number">
-        <div class="status-text1">
-          {{ contrivanceDTO ? contrivanceDTO.approveNumber : 0 }}
-        </div>
-        <div class="status-text2">{{ "CONTRIVANCE_MAMAGEMENT.LABEL.APPROVE_NUMBER" | translate }}</div>
-      </div>
-      <div class="status-info-number">
-        <div class="status-text1">
-          {{ contrivanceDTO ? contrivanceDTO.declinedNumber : 0 }}
-        </div>
-        <div class="status-text2">{{ "CONTRIVANCE_MAMAGEMENT.LABEL.DECLINED_NUMBER" | translate }}</div>
-      </div>
-      <div class="status-info-number">
-        <div class="status-text1">
-          {{ contrivanceDTO ? contrivanceDTO.approveAwaitNumber : 0 }}
-        </div>
-        <div class="status-text2">{{ "CONTRIVANCE_MAMAGEMENT.LABEL.APPROVEAWAIT_NUMBER" | translate }}</div>
-      </div>
-      <div class="status-info-number" style="border-right: #ffffff">
-        <div class="status-text1">
-          {{ contrivanceDTO ? contrivanceDTO.createdNumber : 0 }}
-        </div>
-        <div class="status-text2">{{ "CONTRIVANCE_MAMAGEMENT.LABEL.CREATED_NUMBER" | translate }}</div>
-      </div>
-    </div>
-  </div>
-</div>
-<label class="sort">
-  <input
-    class="sort-input"
-    [placeholder]="
-      'CONTRIVANCE_MAMAGEMENT.PLACEHOLDER.SORT_CONTRIVANCE' | translate
-    "
-    [(ngModel)]="searchAdvance"
-    #advanceSearch 
-    type="text"
-  />
-</label>
-<div class="idea">
-  <div
-    class="idea-box"
-    *ngIf="
-      listContrivance && (listContrivance | async).length > 0;
-      else noRecord
-    "
-  >
+<div class="back-ground">
+  <app-title-nav-idea
+    [title]="'IDEA_MANAGEMENT.TITLE.LIST_IDEA' | translate"
+    [backRoute]="backRoute"
+    isBackHome="true"
+    createRoute="this"
+  ></app-title-nav-idea>
+  <div>
     <div
-      class="idea-flexbox"
-      *ngFor="let item of listContrivance | async; let i = index"
-      (click)="viewDetail(item.contrivanceId);"
+      class="container"
+      infinite-scroll
+      [infiniteScrollDistance]="1"
+      [infiniteScrollThrottle]="500"
+      (scrolled)="onScroll()"
     >
-      <div class="idea-line1 mb-1">
-        <p class="idea-line1-text1">{{ item.contrivanceName }}</p>
-        <p class="idea-line1-text2">{{ item.createDatetime.slice(0, 11) }}</p>
+      <div
+        class="list-idea"
+        style="
+          width: 100%;
+          height: auto;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 8px;
+        "
+      >
+        <div class="list-idea-text" style="display: flex">
+          <!-- <span style="color: rgba(0, 0, 0, 0.6); font-size: 16px"
+            >Danh sách</span
+          > -->
+          <span style="color: #000000; font-size: 40px; font-weight: bold">
+            Sáng kiến
+          </span>
+        </div>
+        <div
+          style="display: flex; flex-direction: column; align-items: center"
+          (click)="handleCreate()"
+        >
+          <img
+            src="../../../../../assets/img/icon/idea-add.png"
+            alt="idea-add"
+          />
+          <span style="color: #ff4d00; font-size: 12px">Tạo mới</span>
+        </div>
       </div>
-      <div class="idea-line2 mb-1">
-        <p class="idea-line2-text">
-          {{ "CONTRIVANCE_MAMAGEMENT.LABEL.BASED_ON_IDEAS" | translate }}:
-          {{ item.ideaName }}
-        </p>
+      <div class="status-border">
+        <div class="status-info">
+          <div
+            class="status-info-number"
+            style="border-right: 1px solid #929292"
+          >
+            <div class="status-text1">
+              {{ contrivanceDTO ? contrivanceDTO.totalNumber : 0 }}
+            </div>
+            <div class="status-text2">
+              {{ "IDEA_MANAGEMENT.LABEL.TOTAL_NUMBER" | translate }}
+            </div>
+          </div>
+          <div
+            class="status-info-number"
+            style="border-right: 1px solid #929292"
+          >
+            <div class="status-text1">
+              {{ contrivanceDTO ? contrivanceDTO.approveNumber : 0 }}
+            </div>
+            <div class="status-text2" style="color: #00820d">
+              {{ "IDEA_MANAGEMENT.LABEL.APPROVE_NUMBER" | translate }}
+            </div>
+          </div>
+          <div class="status-info-number">
+            <div class="status-text1">
+              {{ contrivanceDTO ? contrivanceDTO.declinedNumber : 0 }}
+            </div>
+            <div class="status-text2" style="color: #da251d">
+              {{ "IDEA_MANAGEMENT.LABEL.DECLINED_NUMBER" | translate }}
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="idea-line2 mb-1">
-        <p class="idea-line2-text">
-          {{ "CONTRIVANCE_MAMAGEMENT.LABEL.UNIT" | translate }}:
-          {{ item.unitNames }}
-        </p>
-      </div>
-      <div class="idea-line3">
-        <p class="idea-line3-text1">
-          {{ "CONTRIVANCE_MAMAGEMENT.LABEL.FIELD" | translate }}:
-          {{ item.specialtyName }}
-        </p>
-        <div class="idea-line3-textbox">
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          height: 24px;
+          justify-content: center;
+        "
+      >
+        <div
+          (click)="selectTab('MoiNhat')"
+          [ngClass]="{ selectedTab: isMoiNhatSelected }"
+          style="
+            min-width: 114px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          "
+        >
+          <span style="font-size: 14px">Mới nhất</span>
+        </div>
+        <div
+          (click)="selectTab('LinhVuc')"
+          [ngClass]="{ selectedTab: isLinhVucSelected }"
+          style="
+            min-width: 114px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          "
+        >
           <span
-            statusColor [statusColor]="item?.approveStatus"
-              class="idea-line3-text2"
+            style="font-size: 14px; background-color: transparent; width: 100%"
+          >
+            <select
+              [ngClass]="{ selectedTab: isLinhVucSelected }"
+              style="
+                background-color: transparent;
+                border: none;
+                text-align: center;
+                padding: 0px;
+              "
+              class="form-control"
+              id="exampleFormControlSelect1"
+              [(ngModel)]="specialtyId"
+              (change)="changeSpecialty()"
             >
-              {{ item?.approveStatusName }}
+              <option [value]="null">Lĩnh vực</option>
+              <option
+                *ngFor="let specialty of listSpecialty"
+                [value]="specialty.value"
+              >
+                {{ specialty.name }}
+              </option>
+            </select>
+          </span>
+        </div>
+        <div
+          (click)="selectTab('TrangThai')"
+          [ngClass]="{ selectedTab: isTrangThaiSelected }"
+          style="
+            min-width: 114px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          "
+        >
+          <span
+            style="font-size: 14px; background-color: transparent; width: 100%"
+          >
+            <select
+              [ngClass]="{ selectedTab: isTrangThaiSelected }"
+              style="
+                background-color: transparent;
+                border: none;
+                text-align: center;
+                padding: 0px;
+              "
+              class="form-control"
+              id="exampleFormControlSelect1"
+              [(ngModel)]="statusId"
+              (change)="changeStatus()"
+            >
+              <option [value]="null">Trạng thái</option>
+              <option *ngFor="let item of listStatus" [value]="item.value">
+                {{ item.name }}
+              </option>
+            </select>
+          </span>
+        </div>
+      </div>
+      <div
+        *ngIf="listContrivance && (listContrivance | async).length > 0"
+        class="list-all-idea"
+      >
+        <div
+          *ngFor="let item of listContrivance | async; let i = index"
+          style="
+            width: 100%;
+                background-color: #ffffff;
+                border-radius: 16px;
+                box-shadow: 0px 2px 80px 0px rgba(0, 0, 0, 0.1);
+                padding: 20px 20px 12px 20px;
+                margin-top: 12px;
+          "
+        >
+          <div
+            style="
+              border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+              margin-bottom: 12px;
+            "
+          >
+            <div style="margin-bottom: 12px">
+              <span style="font-size: 14px; color: #00820d">
+                {{ item.contrivanceName }}
+              </span>
+            </div>
+            <div style="margin-bottom: 12px">
+              <span style="font-size: 14px; color: rgba(0, 0, 0, 0.6)">
+                Dựa trên ý tưởng số
+              </span>
+              <span style="font-size: 14px; font-weight: bold">
+                : {{ item.ideaName }}
+              </span>
+            </div>
+            <div style="margin-bottom: 12px">
+              <span style="font-size: 14px; color: rgba(0, 0, 0, 0.6)">
+                Đơn vị
+              </span>
+              <span style="font-size: 14px; font-weight: bold">
+                : {{ item.unitNames | truncate : 30 }}
+              </span>
+            </div>
+            <div style="margin-bottom: 12px">
+              <span style="font-size: 14px; color: rgba(0, 0, 0, 0.6)">
+                Lĩnh vực
+              </span>
+              <span style="font-size: 14px; font-weight: bold">
+                : {{ item.specialtyName }}
+              </span>
+            </div>
+          </div>
+          <div style="display: flex; justify-content: space-between">
+            <span style="font-size: 12px; color: rgba(0, 0, 0, 0.6)">
+              {{ item.createDatetime.slice(0, 11) }}
             </span>
+            <span
+              statusColor
+              [statusColor]="item?.approveStatus"
+              style="font-size: 14px; font-weight: bold"
+            >
+              {{ item.approveStatusName }}
+            </span>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <ng-template #noRecord>
-    <span class="text-center">
-      {{ "VALIDATION.NO_RECORD_VALID" | translate }}
-    </span>
-  </ng-template>
+  <app-nav-menu></app-nav-menu>
 </div>
-<app-nav-menu></app-nav-menu>

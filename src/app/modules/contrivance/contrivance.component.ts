@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DataService } from "../../shared/service/data.service";
 
 @Component({
   selector: 'app-contrivance',
@@ -6,5 +7,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./contrivance.component.scss']
 })
 export class ContrivanceComponent {
-
+  constructor(public DataService: DataService) {}
+  closeOverlay() {
+    this.DataService.showBg = false;
+    this.DataService.showAddInsideAuthor = false;
+    this.DataService.showEditInsideAuthor = false;
+    this.DataService.showAddOutsideAuthor = false;
+    this.DataService.showEditOutsideAuthor = false;
+    this.DataService.showDuplicateIdea = false;
+    this.DataService.showAddInsideEdit = false;
+    this.DataService.showEditInsideEdit = false;
+    this.DataService.showAddOutsideEdit = false;
+    this.DataService.showEditOutsideEdit = false;
+    if (!this.DataService.showBg) {
+      document.body.style.overflow = "auto";
+    }
+  }
 }

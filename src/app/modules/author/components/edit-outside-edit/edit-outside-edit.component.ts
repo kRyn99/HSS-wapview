@@ -50,7 +50,11 @@ export class EditOutsideEditComponent implements OnInit {
         //     }
 
         // })
-        if (this.DataService.phoneEditOutsideAuthor) {
+        if(this.DataService.routerContrivance){
+            this.contributorDTO = { ...this.contrivanceService.lstContributorDTOServiceOut.value.find((item) => (item.phoneNumber == this.DataService.phoneEditOutsideAuthor && item.email == this.DataService.emailEditOutsideAuthor)) }
+
+        }
+       else{
             this.contributorDTO = {
                 ...this.DataService.lstContributorDTOServiceOutEdit.value.find(
                     (item) => (item.phoneNumber == this.DataService.phoneEditOutsideAuthor && item.email == this.DataService.emailEditOutsideAuthor)
@@ -214,7 +218,7 @@ export class EditOutsideEditComponent implements OnInit {
         }
         let hasDuplicate = false;
         let lstContributorDTO = [];
-        if (this.backRoute == "contrivance") {
+        if (this.DataService.routerContrivance) {
             lstContributorDTO = [...this.contrivanceService.lstContributorDTOServiceOut.value];
         } else {
             lstContributorDTO = [...this.DataService.lstContributorDTOServiceOutEdit.value];
@@ -228,7 +232,7 @@ export class EditOutsideEditComponent implements OnInit {
                 }
             }
 
-            if (this.contributorDTO.email !== '') {
+            if (this.contributorDTO.email && this.contributorDTO.email !== '') {
                 let listDuplicate = lstContributorDTO.filter(item => {
                     return item.email == this.contributorDTO.email;
                 });
@@ -302,19 +306,39 @@ export class EditOutsideEditComponent implements OnInit {
     @Output() handleEditOutsideEdit = new EventEmitter<void>();
     editNew() {
         if (this.validate()) {
-            if (this.backRoute == "contrivance") {
+            if (this.DataService.routerContrivance) {
                 for (let i = 0; i < this.contrivanceService.lstContributorDTOServiceOut.value.length; i++) {
                     if (
                         this.oldEmail == this.contrivanceService.lstContributorDTOServiceOut.value[i].email && this.oldNumber == this.contrivanceService.lstContributorDTOServiceOut.value[i].phoneNumber
                     ) {
-                        this.contrivanceService.lstContributorDTOServiceOut.value[i] = this.contributorDTO;
+                        // this.contrivanceService.lstContributorDTOServiceOut.value[i] = this.contributorDTO;
+                        if(this.fullName && this.oldNumber){
+                            if(this.fullName.includes("-")){
+                              let temp = this.fullName.split ("-");
+                              this.fullName = temp[0]
+                        
+                            }
+                            this.contributorDTO.displayName = `${this.fullName} - ${this.phone? this.phone : this.contributorDTO.phoneNumber}`
+                            this.contributorDTO.fullName = this.fullName
+                            
+                           }
+
+
+                        this.contrivanceService.lstContributorDTOServiceOut.value[i] = {
+                            fullName: this.fullName,
+                            ... this.contributorDTO
+                          }
                         break;
                     }
-
-                    //   this.contrivanceService.lstContributorDTOServiceOut.value[i] = this.contributorDTO;
+                 
+               
 
                 }
-                this.router.navigate(["contrivance/edit"]);
+                this.handleEditOutsideEdit.emit();
+                this.DataService.showBg = false;
+                this.DataService.showEditOutsideEdit = false;
+                document.body.style.overflow = "auto";
+                // this.router.navigate(["contrivance/edit"]);
             } else {
                 for (let i = 0; i < this.DataService.lstContributorDTOServiceOutEdit.value.length; i++) {
                     if (

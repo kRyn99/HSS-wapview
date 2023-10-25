@@ -1,24 +1,23 @@
 <app-title-nav
   [title]="'CONTRIVANCE_MAMAGEMENT.TITLE.REGISTER_CONTRIVANCE' | translate"
   backRoute="contrivance/list"
->
-</app-title-nav>
+></app-title-nav>
 <div class="nation-brand">
   <div class="nation">
     <div class="nation-text align-self-stretch">
-      {{ "CONTRIVANCE_MAMAGEMENT.LABEL.TEXT_HEADER" | translate }}
+      {{ 'CONTRIVANCE_MAMAGEMENT.LABEL.TEXT_HEADER' | translate }}
     </div>
     <div class="nation-text">
-      {{ "CONTRIVANCE_MAMAGEMENT.LABEL.SUB_TEXT_HEADER" | translate }}
+      {{ 'CONTRIVANCE_MAMAGEMENT.LABEL.SUB_TEXT_HEADER' | translate }}
     </div>
   </div>
-  <div class="line" style="width: 40%"></div>
+  <div class="line" style="width: 40%;"></div>
   <div class="form">
     <div class="form-name">
-      {{ "CONTRIVANCE_MAMAGEMENT.LABEL.TEXT_FORM_HEADER" | translate }}
+      {{ 'CONTRIVANCE_MAMAGEMENT.LABEL.TEXT_FORM_HEADER' | translate }}
     </div>
     <div class="form-for">
-      {{ "CONTRIVANCE_MAMAGEMENT.LABEL.SUB_TEXT_FORM_HEADER" | translate }}
+      {{ 'CONTRIVANCE_MAMAGEMENT.LABEL.SUB_TEXT_FORM_HEADER' | translate }}
     </div>
   </div>
 </div>
@@ -26,27 +25,26 @@
 <form action="#" class="form form-label-right" [formGroup]="formUtils.form">
   <div class="idea-form">
     <div class="header-text">
-      1. {{ "CONTRIVANCE_MAMAGEMENT.TITLE.CONTRIVANCE" | translate }}
+      1. {{ 'CONTRIVANCE_MAMAGEMENT.TITLE.CONTRIVANCE' | translate }}
     </div>
     <div class="input-form">
       <div class="input-name">
-        {{ "ADD-INSIDE-IDEA.LANGUAGE.SELECTED_LANGUAGE" | translate }} (<span
-          class="required-mark"
-          >*</span
-        >)
+        {{ 'ADD-INSIDE-IDEA.LANGUAGE.SELECTED_LANGUAGE' | translate }} (
+        <span class="required-mark">*</span>
+        )
       </div>
       <select class="input-field" formControlName="language">
         <option [ngValue]="null">
-          {{ "ADD-INSIDE-IDEA.LANGUAGE.SELECTED_LANGUAGE" | translate }}
+          {{ 'ADD-INSIDE-IDEA.LANGUAGE.SELECTED_LANGUAGE' | translate }}
         </option>
         <option value="vi">
-          {{ "ADD-INSIDE-IDEA.LANGUAGE.VI" | translate }}
+          {{ 'ADD-INSIDE-IDEA.LANGUAGE.VI' | translate }}
         </option>
         <option value="la">
-          {{ "ADD-INSIDE-IDEA.LANGUAGE.LA" | translate }}
+          {{ 'ADD-INSIDE-IDEA.LANGUAGE.LA' | translate }}
         </option>
         <option value="en">
-          {{ "ADD-INSIDE-IDEA.LANGUAGE.EN" | translate }}
+          {{ 'ADD-INSIDE-IDEA.LANGUAGE.EN' | translate }}
         </option>
       </select>
       <small
@@ -54,20 +52,19 @@
         *ngIf="formUtils.controlHasError('required', 'language')"
       >
         {{
-          "VALIDATION.REQUIRED"
+          'VALIDATION.REQUIRED'
             | translate
               : {
-                  name: "CONTRIVANCE_MAMAGEMENT.LABEL.LANG" | translate
+                  name: 'CONTRIVANCE_MAMAGEMENT.LABEL.LANG' | translate
                 }
         }}
       </small>
     </div>
     <div class="input-form">
       <div class="input-name">
-        {{ "CONTRIVANCE_MAMAGEMENT.LABEL.CONTRIVANCE_NAME" | translate }} (<span
-          class="required-mark"
-          >*</span
-        >)
+        {{ 'CONTRIVANCE_MAMAGEMENT.LABEL.CONTRIVANCE_NAME' | translate }} (
+        <span class="required-mark">*</span>
+        )
       </div>
       <input
         class="input-field"
@@ -82,117 +79,116 @@
         *ngIf="formUtils.controlHasError('required', 'contrivanceName')"
       >
         {{
-          "VALIDATION.REQUIRED"
+          'VALIDATION.REQUIRED'
             | translate
               : {
                   name:
-                    "CONTRIVANCE_MAMAGEMENT.LABEL.CONTRIVANCE_NAME" | translate
+                    'CONTRIVANCE_MAMAGEMENT.LABEL.CONTRIVANCE_NAME' | translate
                 }
         }}
       </small>
     </div>
-   <div style="display: flex; justify-content: space-between; width: 100%;">
-    <div class="input-form" style="width: 49%;">
-      <div class="input-name">
-        {{ "IDEA_MANAGEMENT.LABEL.DATE_APPLY_FROM" | translate }} (<span
-          class="required-mark"
-          >*</span
-        >)
+    <div style="display: flex; justify-content: space-between; width: 100%;">
+      <div class="input-form" style="width: 49%;">
+        <div class="input-name">
+          {{ 'IDEA_MANAGEMENT.LABEL.DATE_APPLY_FROM' | translate }} (
+          <span class="required-mark">*</span>
+          )
+        </div>
+        <div class="date">
+          <input
+            [placeholder]="'dd/mm/yyyy'"
+            type="text"
+            name="Date"
+            [bsConfig]="bsConfig"
+            class="date-text"
+            style="background-color: white; border: white;"
+            #dprn="bsDatepicker"
+            #vDate
+            bsDatepicker
+            autocomplete="off"
+            formControlName="applyStartTime"
+            [ngModel]="startDateModel"
+            (ngModelChange)="
+              formUtils.isControlInvalidDateRange(
+                'start',
+                'applyStartTime',
+                'applyEndTime',
+                'Date',
+                'before'
+              )
+            "
+          />
+          <img src="assets/img/icon/icon-date.png" />
+        </div>
+        <small
+          class="form-text text-danger"
+          *ngIf="formUtils.controlHasError('required', 'applyStartTime')"
+        >
+          {{
+            'VALIDATION.REQUIRED'
+              | translate
+                : {
+                    name: 'IDEA_MANAGEMENT.LABEL.DATE_APPLY_FROM' | translate
+                  }
+          }}
+        </small>
+        <small
+          class="form-text text-danger"
+          *ngIf="formUtils.controlHasError('invalid', 'applyStartTime')"
+        >
+          {{ 'VALIDATION.INVALID_FIELD' | translate }}
+        </small>
+        <small
+          class="form-text text-danger"
+          *ngIf="formUtils.controlHasError('before', 'applyStartTime')"
+        >
+          {{
+            'VALIDATION.BEFORE_CURRENT_DATE'
+              | translate
+                : {
+                    name: 'IDEA_MANAGEMENT.LABEL.DATE_APPLY_FROM' | translate
+                  }
+          }}
+        </small>
+        <small
+          class="form-text text-danger"
+          *ngIf="formUtils.controlHasError('startEnd', 'applyStartTime')"
+        >
+          {{ 'VALIDATION.FROM_DATE_BEFORE_TO_DATE' | translate }}
+        </small>
       </div>
-      <div class="date">
-        <input
-          [placeholder]="'dd/mm/yyyy'"
-          type="text"
-          name="Date"
-          [bsConfig]="bsConfig"
-          class="date-text"
-          style="background-color: white; border: white"
-          #dprn="bsDatepicker"
-          #vDate
-          bsDatepicker
-          autocomplete="off"
-          formControlName="applyStartTime"
-          [ngModel]="startDateModel"
-          (ngModelChange)="
-            formUtils.isControlInvalidDateRange(
-              'start',
-              'applyStartTime',
-              'applyEndTime',
-              'Date',
-              'before'
-            )
-          "
-        />
-        <img src="assets/img/icon/icon-date.png"/>
-      </div>
-      <small
-        class="form-text text-danger"
-        *ngIf="formUtils.controlHasError('required', 'applyStartTime')"
-      >
-        {{
-          "VALIDATION.REQUIRED"
-            | translate
-              : {
-                  name: "IDEA_MANAGEMENT.LABEL.DATE_APPLY_FROM" | translate
-                }
-        }}
-      </small>
-      <small
-        class="form-text text-danger"
-        *ngIf="formUtils.controlHasError('invalid', 'applyStartTime')"
-      >
-        {{ "VALIDATION.INVALID_FIELD" | translate }}
-      </small>
-      <small
-        class="form-text text-danger"
-        *ngIf="formUtils.controlHasError('before', 'applyStartTime')"
-      >
-        {{
-          "VALIDATION.BEFORE_CURRENT_DATE"
-            | translate
-              : {
-                  name: "IDEA_MANAGEMENT.LABEL.DATE_APPLY_FROM" | translate
-                }
-        }}
-      </small>
-      <small
-        class="form-text text-danger"
-        *ngIf="formUtils.controlHasError('startEnd', 'applyStartTime')"
-      >
-        {{ "VALIDATION.FROM_DATE_BEFORE_TO_DATE" | translate }}
-      </small>
-    </div>
-    <div class="input-form" style="width: 49%;">
-      <div class="input-name">
-        {{ "IDEA_MANAGEMENT.LABEL.DATE_APPLY_TO" | translate }}
-      </div>
-      <div class="date">
-        <input
-          [placeholder]="'dd/mm/yyyy'"
-          type="text"
-          name="Date"
-          [bsConfig]="bsConfig"
-          class="date-text"
-          style="background-color: white; border: white"
-          #dprn="bsDatepicker"
-          #vDate
-          bsDatepicker
-          autocomplete="off"
-          formControlName="applyEndTime"
-          [ngModel]="endDateModel"
-          (ngModelChange)="
-            formUtils.isControlInvalidDateRange(
-              'end',
-              'applyStartTime',
-              'applyEndTime',
-              'Date',
-              'before'
-            )
-          "
-        />
-        <img src="assets/img/icon/icon-date.png"/>
-      </div>
-      <!-- <small
+      <div class="input-form" style="width: 49%;">
+        <div class="input-name">
+          {{ 'IDEA_MANAGEMENT.LABEL.DATE_APPLY_TO' | translate }}
+        </div>
+        <div class="date">
+          <input
+            [placeholder]="'dd/mm/yyyy'"
+            type="text"
+            name="Date"
+            [bsConfig]="bsConfig"
+            class="date-text"
+            style="background-color: white; border: white;"
+            #dprn="bsDatepicker"
+            #vDate
+            bsDatepicker
+            autocomplete="off"
+            formControlName="applyEndTime"
+            [ngModel]="endDateModel"
+            (ngModelChange)="
+              formUtils.isControlInvalidDateRange(
+                'end',
+                'applyStartTime',
+                'applyEndTime',
+                'Date',
+                'before'
+              )
+            "
+          />
+          <img src="assets/img/icon/icon-date.png" />
+        </div>
+        <!-- <small
         class="form-text text-danger"
         *ngIf="formUtils.controlHasError('required', 'applyEndTime')"
       >
@@ -204,93 +200,98 @@
                 }
         }}
       </small> -->
-      <small
-        class="form-text text-danger"
-        *ngIf="formUtils.controlHasError('invalid', 'applyEndTime')"
-      >
-        {{ "VALIDATION.INVALID_FIELD" | translate }}
-      </small>
-      <small
-        class="form-text text-danger"
-        *ngIf="formUtils.controlHasError('before', 'applyEndTime')"
-      >
-        {{
-          "VALIDATION.BEFORE_CURRENT_DATE"
-            | translate
-              : {
-                  name: "IDEA_MANAGEMENT.LABEL.DATE_APPLY_TO" | translate
-                }
-        }}
-      </small>
-      <small
-        class="form-text text-danger"
-        *ngIf="formUtils.controlHasError('startEnd', 'applyEndTime')"
-      >
-        {{ "VALIDATION.FROM_DATE_BEFORE_TO_DATE" | translate }}
-      </small>
+        <small
+          class="form-text text-danger"
+          *ngIf="formUtils.controlHasError('invalid', 'applyEndTime')"
+        >
+          {{ 'VALIDATION.INVALID_FIELD' | translate }}
+        </small>
+        <small
+          class="form-text text-danger"
+          *ngIf="formUtils.controlHasError('before', 'applyEndTime')"
+        >
+          {{
+            'VALIDATION.BEFORE_CURRENT_DATE'
+              | translate
+                : {
+                    name: 'IDEA_MANAGEMENT.LABEL.DATE_APPLY_TO' | translate
+                  }
+          }}
+        </small>
+        <small
+          class="form-text text-danger"
+          *ngIf="formUtils.controlHasError('startEnd', 'applyEndTime')"
+        >
+          {{ 'VALIDATION.FROM_DATE_BEFORE_TO_DATE' | translate }}
+        </small>
+      </div>
     </div>
-   </div>
-   
+
     <div class="input-form">
       <div class="input-name">
-        {{ "IDEA_MANAGEMENT.LABEL.UNIT_APPLY" | translate }} (<span
-          style="color: red"
-          >*</span
-        >)
+        {{ 'IDEA_MANAGEMENT.LABEL.UNIT_APPLY' | translate }} (
+        <span style="color: red;">*</span>
+        )
       </div>
       <ng-select
-      style="width: 100%;"
-      [items]="listUnit"
-      [multiple]="true"
-      bindLabel="unitName"
-      groupBy="selectedAllGroup"      
-      [selectableGroup]="true"
-      [selectableGroupAsModel]="false"
-      [closeOnSelect]="false"
-      bindValue="unitId"
-      formControlName="listUnitDTO"
-      (change)="onNgSelectChange($event)"
-      [placeholder]="'Chọn đơn vị'"
-    >
-      <ng-template
-        ng-optgroup-tmp
-        let-item="item"
-        let-item$="item$"
-        let-index="index"
+        style="width: 100%;"
+        [items]="listUnit"
+        [multiple]="true"
+        bindLabel="unitName"
+        groupBy="selectedAllGroup"
+        [selectableGroup]="true"
+        [selectableGroupAsModel]="false"
+        [closeOnSelect]="false"
+        bindValue="unitId"
+        formControlName="listUnitDTO"
+        (change)="onNgSelectChange($event)"
+        [placeholder]="'Chọn đơn vị'"
       >
-        <input id="item-{{ index }}" type="checkbox" [checked]="item$.selected" />
-        Select All
-      </ng-template>
-    
-      <ng-template ng-option-tmp let-item="item" let-item$="item$">
-        <input id="item-{{ index }}" type="checkbox" [checked]="item$.selected" />
-        {{ item.unitName }}
-      </ng-template>
-    </ng-select>
-    <small
+        <ng-template
+          ng-optgroup-tmp
+          let-item="item"
+          let-item$="item$"
+          let-index="index"
+        >
+          <input
+            id="item-{{ index }}"
+            type="checkbox"
+            [checked]="item$.selected"
+          />
+          Select All
+        </ng-template>
+
+        <ng-template ng-option-tmp let-item="item" let-item$="item$">
+          <input
+            id="item-{{ index }}"
+            type="checkbox"
+            [checked]="item$.selected"
+          />
+          {{ item.unitName }}
+        </ng-template>
+      </ng-select>
+      <small
         class="form-text text-danger"
         *ngIf="formUtils.controlHasError('required', 'listUnitDTO')"
       >
         {{
-          "VALIDATION.REQUIRED"
+          'VALIDATION.REQUIRED'
             | translate
               : {
-                  name: "MANAGE_REQ.LABEL.UNIT_APPLY" | translate
+                  name: 'MANAGE_REQ.LABEL.UNIT_APPLY' | translate
                 }
         }}
       </small>
-   
     </div>
     <div class="input-form">
       <div class="input-name">
-        {{ "CONTRIVANCE_MAMAGEMENT.LABEL.FIELD" | translate }} (<span
-          class="required-mark"
-          >*</span
-        >)
+        {{ 'CONTRIVANCE_MAMAGEMENT.LABEL.FIELD' | translate }} (
+        <span class="required-mark">*</span>
+        )
       </div>
       <select class="input-field" formControlName="specialty">
         <option [ngValue]="null">
-          {{ "IDEA_MANAGEMENT.PLACEHOLDER.SELECT_SPECIALTY" | translate }}
+          {{ 'IDEA_MANAGEMENT.PLACEHOLDER.SELECT_SPECIALTY' | translate }}
         </option>
         <ng-container *ngFor="let item of listSpecialty">
           <option [value]="item.value">{{ item.name }}</option>
@@ -301,25 +302,25 @@
         *ngIf="formUtils.controlHasError('required', 'specialty')"
       >
         {{
-          "VALIDATION.REQUIRED"
+          'VALIDATION.REQUIRED'
             | translate
               : {
-                  name: "CONTRIVANCE_MAMAGEMENT.LABEL.FIELD" | translate
+                  name: 'CONTRIVANCE_MAMAGEMENT.LABEL.FIELD' | translate
                 }
         }}
       </small>
     </div>
     <div class="input-form">
       <div class="input-name">
-        {{ "CONTRIVANCE_MAMAGEMENT.LABEL.BASED_ON_IDEAS" | translate }}
+        {{ 'CONTRIVANCE_MAMAGEMENT.LABEL.BASED_ON_IDEAS' | translate }}
       </div>
       <select class="input-field" formControlName="ideaId">
         <option [ngValue]="null">
-          {{ "CONTRIVANCE_MAMAGEMENT.PLACEHOLDER.SELECT_IDEA" | translate }}
+          {{ 'CONTRIVANCE_MAMAGEMENT.PLACEHOLDER.SELECT_IDEA' | translate }}
         </option>
         <ng-container *ngFor="let item of listIdea">
           <option [value]="item.ideaId">
-            {{ item.ideaName | truncate : 50 }}
+            {{ item.ideaName | truncate: 50 }}
           </option>
         </ng-container>
       </select>
@@ -341,14 +342,13 @@
   <!-- <div class="line"></div> -->
   <div class="idea-form">
     <div class="header-text">
-      2. {{ "CONTRIVANCE_MAMAGEMENT.LABEL.AUTHOR" | translate }}
+      2. {{ 'CONTRIVANCE_MAMAGEMENT.LABEL.AUTHOR' | translate }}
     </div>
     <div class="input-form">
       <div class="input-name">
-        {{ "IDEA_MANAGEMENT.LABEL.IN_GROUP" | translate }} (<span
-          class="required-mark"
-          >*</span
-        >)
+        {{ 'IDEA_MANAGEMENT.LABEL.IN_GROUP' | translate }} (
+        <span class="required-mark">*</span>
+        )
       </div>
       <table
         mat-table
@@ -361,9 +361,17 @@
             mat-header-cell
             *matHeaderCellDef
             aria-label="row actions"
-            style="width: 10%;border-top-left-radius: 8px; border-bottom-width:0px;"
+            style="
+              width: 10%;
+              border-top-left-radius: 8px;
+              border-bottom-width: 0px;
+            "
           ></th>
-          <td mat-cell *matCellDef="let element" style="text-align: center;font-size: 12px;">
+          <td
+            mat-cell
+            *matCellDef="let element"
+            style="text-align: center; font-size: 12px;"
+          >
             <i
               *ngIf="expandedElement !== element"
               class="fa fa-chevron-right"
@@ -387,9 +395,9 @@
             mat-header-cell
             *matHeaderCellDef
             aria-label="row actions"
-            style="width: 10%"
+            style="width: 10%;"
           ></th>
-          <td mat-cell *matCellDef="let element" style="text-align: center">
+          <td mat-cell *matCellDef="let element" style="text-align: center;">
             <i class="fa fa-user"></i>
           </td>
         </ng-container>
@@ -399,11 +407,13 @@
         >
           <th mat-header-cell *matHeaderCellDef class="th-text">
             {{ column | translate }}
-            <span *ngIf="requiredColumnInGroup.includes(column)">
-              </span
-            >
+            <span *ngIf="requiredColumnInGroup.includes(column)"></span>
           </th>
-          <td mat-cell *matCellDef="let element" style="text-align: center;font-size: 12px;height: 36px;">
+          <td
+            mat-cell
+            *matCellDef="let element"
+            style="text-align: center; font-size: 12px; height: 36px;"
+          >
             {{ element[column] }}
           </td>
         </ng-container>
@@ -417,7 +427,7 @@
             style="padding: 0px;"
           >
             <div
-            style="flex-direction: column;"
+              style="flex-direction: column;"
               class="example-element-detail"
               [@detailExpand]="
                 element == expandedElement ? 'expanded' : 'collapsed'
@@ -436,12 +446,35 @@
                 {{ element.jobPosition }}<br />
               </div> -->
               <div class="example-element-description">
-                <p style="margin-bottom: 8px;font-weight: 300;" ><b style="font-weight: bold;">{{'IDEA_MANAGEMENT.LABEL.TELEPHONE' | translate}}:</b> {{ element.phoneNumber }}<br></p>
-                <p style="margin-bottom: 8px;font-weight: 300;" ><b style="font-weight: bold;">{{'IDEA_MANAGEMENT.LABEL.EMAIL' | translate}}:</b> {{ element.email }}<br></p>
-                <p style="margin-bottom: 8px;font-weight: 300;" ><b style="font-weight: bold;">{{'IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH' | translate}}:</b> {{ element.birthDay }}<br></p>
-                <p style="margin-bottom: 8px;font-weight: 300;" ><b style="font-weight: bold;">{{'IDEA_MANAGEMENT.LABEL.WORK_PLACE' | translate}}:</b> {{ element.jobAddress }}<br></p>
-                <p style="margin-bottom: 0px;font-weight: 300;" ><b style="font-weight: bold;">{{'IDEA_MANAGEMENT.LABEL.OFFICE' | translate}}:</b> {{ element.jobPosition }}<br></p>
-                </div>
+                <p style="margin-bottom: 8px; font-weight: 300;">
+                  <b style="font-weight: bold;">
+                    {{ 'IDEA_MANAGEMENT.LABEL.TELEPHONE' | translate }}:
+                  </b>
+                  {{ element.phoneNumber }}
+                  <br />
+                </p>
+                <p style="margin-bottom: 8px; font-weight: 300;">
+                  <b style="font-weight: bold;">
+                    {{ 'IDEA_MANAGEMENT.LABEL.EMAIL' | translate }}:
+                  </b>
+                  {{ element.email }}
+                  <br />
+                </p>
+                <p style="margin-bottom: 8px; font-weight: 300;">
+                  <b style="font-weight: bold;">
+                    {{ 'IDEA_MANAGEMENT.LABEL.WORK_PLACE' | translate }}:
+                  </b>
+                  {{ element.jobAddress }}
+                  <br />
+                </p>
+                <p style="margin-bottom: 0px; font-weight: 300;">
+                  <b style="font-weight: bold;">
+                    {{ 'IDEA_MANAGEMENT.LABEL.OFFICE' | translate }}:
+                  </b>
+                  {{ element.jobPosition }}
+                  <br />
+                </p>
+              </div>
               <div class="example-element-description row">
                 <div class="col-6">
                   <button
@@ -490,12 +523,12 @@
         (click)="AddInsideAuthor()"
       >
         <img src="assets/img/icon/plus.svg" />
-        {{ "ACTION.ADD" | translate }}
+        {{ 'ACTION.ADD' | translate }}
       </button>
     </div>
     <div class="input-form">
       <div class="input-name">
-        {{ "IDEA_MANAGEMENT.LABEL.OUT_GROUP" | translate }}
+        {{ 'IDEA_MANAGEMENT.LABEL.OUT_GROUP' | translate }}
       </div>
       <table
         mat-table
@@ -508,9 +541,17 @@
             mat-header-cell
             *matHeaderCellDef
             aria-label="row actions"
-            style="width: 10%;border-top-left-radius: 8px; border-bottom-width:0px;"
+            style="
+              width: 10%;
+              border-top-left-radius: 8px;
+              border-bottom-width: 0px;
+            "
           ></th>
-          <td mat-cell *matCellDef="let element" style="text-align: center">
+          <td
+            mat-cell
+            *matCellDef="let element"
+            style="text-align: center; font-size: 12px;"
+          >
             <i
               *ngIf="expandedElement !== element"
               class="fa fa-chevron-right"
@@ -534,9 +575,9 @@
             mat-header-cell
             *matHeaderCellDef
             aria-label="row actions"
-            style="width: 10%"
+            style="width: 10%;"
           ></th>
-          <td mat-cell *matCellDef="let element" style="text-align: center">
+          <td mat-cell *matCellDef="let element" style="text-align: center;">
             <i class="fa fa-user"></i>
           </td>
         </ng-container>
@@ -546,11 +587,13 @@
         >
           <th mat-header-cell *matHeaderCellDef class="th-text">
             {{ column | translate }}
-            <span *ngIf="requiredColumnOutGroup.includes(column)">
-             </span
-            >
+            <span *ngIf="requiredColumnOutGroup.includes(column)"></span>
           </th>
-          <td mat-cell *matCellDef="let element" style="text-align: center;font-size: 12px;">
+          <td
+            mat-cell
+            *matCellDef="let element"
+            style="text-align: center; font-size: 12px;"
+          >
             {{ element[column] }}
           </td>
         </ng-container>
@@ -564,7 +607,7 @@
             style="padding: 0px;"
           >
             <div
-            style="flex-direction: column;"
+              style="flex-direction: column;"
               class="example-element-detail"
               [@detailExpand]="
                 element == expandedElement ? 'expanded' : 'collapsed'
@@ -587,11 +630,43 @@
                 {{ element.jobPosition }}<br />
               </div> -->
               <div class="example-element-description">
-                <p style="margin-bottom: 8px;font-weight: 300;" ><b style="font-weight: bold;">{{'IDEA_MANAGEMENT.LABEL.TELEPHONE' | translate}}:</b> {{ element.phoneNumber }}<br></p>
-                <p  *ngIf="element.email" style="margin-bottom: 8px;font-weight: 300;" ><b style="font-weight: bold;">{{'IDEA_MANAGEMENT.LABEL.EMAIL' | translate}}:</b> {{ element.email }}<br></p>
-                <p *ngIf="element.jobAddress" style="margin-bottom: 8px;font-weight: 300;" ><b style="font-weight: bold;">{{'IDEA_MANAGEMENT.LABEL.WORK_PLACE' | translate}}:</b> {{ element.jobAddress }}<br></p>
-                <p *ngIf="element.jobPosition" style="margin-bottom: 0px;font-weight: 300;" ><b style="font-weight: bold;">{{'IDEA_MANAGEMENT.LABEL.OFFICE' | translate}}:</b> {{ element.jobPosition }}<br></p>
-             
+                <p style="margin-bottom: 8px; font-weight: 300;">
+                  <b style="font-weight: bold;">
+                    {{ 'IDEA_MANAGEMENT.LABEL.TELEPHONE' | translate }}:
+                  </b>
+                  {{ element.phoneNumber }}
+                  <br />
+                </p>
+                <p
+                  *ngIf="element.email"
+                  style="margin-bottom: 8px; font-weight: 300;"
+                >
+                  <b style="font-weight: bold;">
+                    {{ 'IDEA_MANAGEMENT.LABEL.EMAIL' | translate }}:
+                  </b>
+                  {{ element.email }}
+                  <br />
+                </p>
+                <p
+                  *ngIf="element.jobAddress"
+                  style="margin-bottom: 8px; font-weight: 300;"
+                >
+                  <b style="font-weight: bold;">
+                    {{ 'IDEA_MANAGEMENT.LABEL.WORK_PLACE' | translate }}:
+                  </b>
+                  {{ element.jobAddress }}
+                  <br />
+                </p>
+                <p
+                  *ngIf="element.jobPosition"
+                  style="margin-bottom: 0px; font-weight: 300;"
+                >
+                  <b style="font-weight: bold;">
+                    {{ 'IDEA_MANAGEMENT.LABEL.OFFICE' | translate }}:
+                  </b>
+                  {{ element.jobPosition }}
+                  <br />
+                </p>
               </div>
               <div class="example-element-description row">
                 <div class="col-6">
@@ -645,26 +720,25 @@
         (click)="AddOutsideAuthor()"
       >
         <img src="assets/img/icon/plus.svg" />
-        {{ "ACTION.ADD" | translate }}
+        {{ 'ACTION.ADD' | translate }}
       </button>
     </div>
   </div>
   <!-- <div class="line"></div> -->
   <div class="idea-form">
     <div class="header-text">
-      3. {{ "CONTRIVANCE_MAMAGEMENT.LABEL.SOLUTION_DES" | translate }}
+      3. {{ 'CONTRIVANCE_MAMAGEMENT.LABEL.SOLUTION_DES' | translate }}
     </div>
     <div class="input-form">
       <div class="input-name">
         3.1
-        {{ "CONTRIVANCE_MAMAGEMENT.LABEL.CURRENT_STATUS" | translate }} (<span
-          class="required-mark"
-          >*</span
-        >)
+        {{ 'CONTRIVANCE_MAMAGEMENT.LABEL.CURRENT_STATUS' | translate }} (
+        <span class="required-mark">*</span>
+        )
       </div>
       <textarea
         class="input-field"
-        style="height: 60px; padding-top: 5px"
+        style="height: 60px; padding-top: 5px;"
         rows="4"
         cols="50"
         placeholder="{{
@@ -677,25 +751,24 @@
         *ngIf="formUtils.controlHasError('required', 'currentStatus')"
       >
         {{
-          "VALIDATION.REQUIRED"
+          'VALIDATION.REQUIRED'
             | translate
               : {
                   name:
-                    "CONTRIVANCE_MAMAGEMENT.LABEL.CURRENT_STATUS" | translate
+                    'CONTRIVANCE_MAMAGEMENT.LABEL.CURRENT_STATUS' | translate
                 }
         }}
       </small>
     </div>
     <div class="input-form">
       <div class="input-name">
-        3.2 {{ "CONTRIVANCE_MAMAGEMENT.LABEL.CONTENT" | translate }} (<span
-          class="required-mark"
-          >*</span
-        >)
+        3.2 {{ 'CONTRIVANCE_MAMAGEMENT.LABEL.CONTENT' | translate }} (
+        <span class="required-mark">*</span>
+        )
       </div>
       <textarea
         class="input-field"
-        style="height: 60px; padding-top: 5px"
+        style="height: 60px; padding-top: 5px;"
         rows="4"
         cols="50"
         placeholder="{{
@@ -708,10 +781,10 @@
         *ngIf="formUtils.controlHasError('required', 'content')"
       >
         {{
-          "VALIDATION.REQUIRED"
+          'VALIDATION.REQUIRED'
             | translate
               : {
-                  name: "CONTRIVANCE_MAMAGEMENT.LABEL.CONTENT" | translate
+                  name: 'CONTRIVANCE_MAMAGEMENT.LABEL.CONTENT' | translate
                 }
         }}
       </small>
@@ -719,14 +792,13 @@
     <div class="input-form">
       <div class="input-name">
         3.3
-        {{ "CONTRIVANCE_MAMAGEMENT.LABEL.APPLICABILITY" | translate }} (<span
-          class="required-mark"
-          >*</span
-        >)
+        {{ 'CONTRIVANCE_MAMAGEMENT.LABEL.APPLICABILITY' | translate }} (
+        <span class="required-mark">*</span>
+        )
       </div>
       <textarea
         class="input-field"
-        style="height: 60px; padding-top: 5px"
+        style="height: 60px; padding-top: 5px;"
         rows="4"
         cols="50"
         placeholder="{{
@@ -739,10 +811,10 @@
         *ngIf="formUtils.controlHasError('required', 'applianceCondition')"
       >
         {{
-          "VALIDATION.REQUIRED"
+          'VALIDATION.REQUIRED'
             | translate
               : {
-                  name: "CONTRIVANCE_MAMAGEMENT.LABEL.APPLICABILITY" | translate
+                  name: 'CONTRIVANCE_MAMAGEMENT.LABEL.APPLICABILITY' | translate
                 }
         }}
       </small>
@@ -750,14 +822,13 @@
     <div class="input-form">
       <div class="input-name">
         3.4
-        {{ "CONTRIVANCE_MAMAGEMENT.LABEL.CREATIVE_POINT" | translate }} (<span
-          class="required-mark"
-          >*</span
-        >)
+        {{ 'CONTRIVANCE_MAMAGEMENT.LABEL.CREATIVE_POINT' | translate }} (
+        <span class="required-mark">*</span>
+        )
       </div>
       <textarea
         class="input-field"
-        style="height: 60px; padding-top: 5px"
+        style="height: 60px; padding-top: 5px;"
         rows="4"
         cols="50"
         placeholder="{{
@@ -770,11 +841,11 @@
         *ngIf="formUtils.controlHasError('required', 'creativePoint')"
       >
         {{
-          "VALIDATION.REQUIRED"
+          'VALIDATION.REQUIRED'
             | translate
               : {
                   name:
-                    "CONTRIVANCE_MAMAGEMENT.LABEL.CREATIVE_POINT" | translate
+                    'CONTRIVANCE_MAMAGEMENT.LABEL.CREATIVE_POINT' | translate
                 }
         }}
       </small>
@@ -782,14 +853,13 @@
     <div class="input-form">
       <div class="input-name">
         3.5
-        {{ "CONTRIVANCE_MAMAGEMENT.LABEL.EFFECTIVENESS" | translate }} (<span
-          class="required-mark"
-          >*</span
-        >)
+        {{ 'CONTRIVANCE_MAMAGEMENT.LABEL.EFFECTIVENESS' | translate }} (
+        <span class="required-mark">*</span>
+        )
       </div>
       <textarea
         class="input-field"
-        style="height: 60px; padding-top: 5px"
+        style="height: 60px; padding-top: 5px;"
         rows="4"
         cols="50"
         placeholder="{{
@@ -802,10 +872,10 @@
         *ngIf="formUtils.controlHasError('required', 'effectiveness')"
       >
         {{
-          "VALIDATION.REQUIRED"
+          'VALIDATION.REQUIRED'
             | translate
               : {
-                  name: "CONTRIVANCE_MAMAGEMENT.LABEL.EFFECTIVENESS" | translate
+                  name: 'CONTRIVANCE_MAMAGEMENT.LABEL.EFFECTIVENESS' | translate
                 }
         }}
       </small>
@@ -813,26 +883,22 @@
     <div class="input-form">
       <div class="input-name">
         3.6
-        {{ "CONTRIVANCE_MAMAGEMENT.LABEL.BENEFICIAL_VALUE" | translate }} (<span
-          class="required-mark"
-          >*</span
-        >)
+        {{ 'CONTRIVANCE_MAMAGEMENT.LABEL.BENEFICIAL_VALUE' | translate }} (
+        <span class="required-mark">*</span>
+        )
       </div>
-      <label
-        ><input
+      <label>
+        <input
           type="checkbox"
           formControlName="checkBonus"
           (change)="changeCheckBonus($event.target.checked)"
         />
-        {{
-          "CONTRIVANCE_MAMAGEMENT.LABEL.NOT_BENEFICIAL_VALUE" | translate
-        }}</label
-      >
+        {{ 'CONTRIVANCE_MAMAGEMENT.LABEL.NOT_BENEFICIAL_VALUE' | translate }}
+      </label>
       <div class="input-name">
-        {{ "CONTRIVANCE_MAMAGEMENT.LABEL.EFFECTIVE_VALUE" | translate }} (<span
-          class="required-mark"
-          >*</span
-        >)
+        {{ 'CONTRIVANCE_MAMAGEMENT.LABEL.EFFECTIVE_VALUE' | translate }} (
+        <span class="required-mark">*</span>
+        )
       </div>
       <input
         type="text"
@@ -854,19 +920,18 @@
         *ngIf="formUtils.controlHasError('required', 'effectiveValue')"
       >
         {{
-          "VALIDATION.REQUIRED"
+          'VALIDATION.REQUIRED'
             | translate
               : {
                   name:
-                    "CONTRIVANCE_MAMAGEMENT.LABEL.EFFECTIVE_VALUE" | translate
+                    'CONTRIVANCE_MAMAGEMENT.LABEL.EFFECTIVE_VALUE' | translate
                 }
         }}
       </small>
       <div class="input-name">
-        {{ "CONTRIVANCE_MAMAGEMENT.LABEL.BONUS" | translate }} (<span
-          class="required-mark"
-          >*</span
-        >)
+        {{ 'CONTRIVANCE_MAMAGEMENT.LABEL.BONUS' | translate }} (
+        <span class="required-mark">*</span>
+        )
       </div>
       <input
         type="text"
@@ -888,10 +953,10 @@
         *ngIf="formUtils.controlHasError('required', 'bonus')"
       >
         {{
-          "VALIDATION.REQUIRED"
+          'VALIDATION.REQUIRED'
             | translate
               : {
-                  name: "CONTRIVANCE_MAMAGEMENT.LABEL.BONUS" | translate
+                  name: 'CONTRIVANCE_MAMAGEMENT.LABEL.BONUS' | translate
                 }
         }}
       </small>
@@ -900,7 +965,7 @@
   <!-- <div class="line"></div> -->
   <div class="idea-form">
     <div class="header-text">
-      4. {{ "IDEA_MANAGEMENT.LABEL.FILE_DOCCUMENT" | translate }}
+      4. {{ 'IDEA_MANAGEMENT.LABEL.FILE_DOCCUMENT' | translate }}
     </div>
     <div class="file text-center">
       <div class="file-text fs-075">{{ fileInfo?.name }}</div>
@@ -910,26 +975,28 @@
       >
         <img src="assets/img/icon/add file.svg" alt="ic_camera" />
         <div class="upload-label">
-          {{ "COMMON_BUTTON.CHOOSE_FILE" | translate }}
+          {{ 'COMMON_BUTTON.CHOOSE_FILE' | translate }}
         </div>
       </div>
       <input
         type="file"
         (change)="onSelectFile($event)"
-        style="display: none"
+        style="display: none;"
         #selectFile
       />
-      <span class="fs-075"
-        >{{ "IDEA_MANAGEMENT.LABEL.FILE_TYPE" | translate }}:
-        <b class="fs-075">{{
-          " .txt, .doc, .docx, .rar, .zip, .xls, .xlsx, .pdf, .jpg, .gif, .png, .ppt, .pptx."
-            | translate
-        }}</b>
+      <span class="fs-075">
+        {{ 'IDEA_MANAGEMENT.LABEL.FILE_TYPE' | translate }}:
+        <b class="fs-075">
+          {{
+            ' .txt, .doc, .docx, .rar, .zip, .xls, .xlsx, .pdf, .jpg, .gif, .png, .ppt, .pptx.'
+              | translate
+          }}
+        </b>
       </span>
-      <span class="fs-075"
-        >{{ "IDEA_MANAGEMENT.LABEL.MAX_STORAGE" | translate }}:
-        <b class="fs-075">{{ "25 MB" | translate }}</b></span
-      >
+      <span class="fs-075">
+        {{ 'IDEA_MANAGEMENT.LABEL.MAX_STORAGE' | translate }}:
+        <b class="fs-075">{{ '25 MB' | translate }}</b>
+      </span>
     </div>
   </div>
 </form>
@@ -937,7 +1004,34 @@
   <div class="btn1" (click)="duplicationCheck()">
     <img src="assets/img/icon/task check.svg" />
     <div class="btn1-text">
-      {{ "IDEA_MANAGEMENT.BUTTON.DUPLICATION_CHECK" | translate }}
+      {{ 'IDEA_MANAGEMENT.BUTTON.DUPLICATION_CHECK' | translate }}
     </div>
   </div>
+</div>
+<div *ngIf="this.DataService.showAddInsideAuthor" class="slide-up-div">
+  <app-add-inside-author
+    (handleAddInsideAuthor)="handleAddInsideAuthor()"
+    (handleAddInsideAuthorPopup)="handleAddInsideAuthorPopup()"
+  ></app-add-inside-author>
+</div>
+<div *ngIf="this.DataService.showEditInsideAuthor" class="slide-up-div">
+  <app-edit-inside-author
+    (handleEditInsideAuthor)="handleEditInsideAuthor()"
+    (handleEditInsideAuthorPopup)="handleEditInsideAuthorPopup()"
+  ></app-edit-inside-author>
+</div>
+<div *ngIf="this.DataService.showAddOutsideAuthor" class="slide-up-div">
+  <app-add-outside-author
+    (handleAddOutsideAuthor)="handleAddOutsideAuthor()"
+    (handleAddOutsideAuthorPopup)="handleAddOutsideAuthorPopup()"
+  ></app-add-outside-author>
+</div>
+<div *ngIf="this.DataService.showEditOutsideAuthor" class="slide-up-div">
+  <app-edit-outside-author
+    (handleEditOutsideAuthor)="handleEditOutsideAuthor()"
+    (handleEditOutsideAuthorPopup)="handleEditOutsideAuthorPopup()"
+  ></app-edit-outside-author>
+</div>
+<div *ngIf="this.DataService.showDuplicateIdea" class="slide-up-div-duplicate">
+  <app-check-duplicate></app-check-duplicate>
 </div>

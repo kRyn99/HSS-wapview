@@ -28,7 +28,7 @@ import * as moment from "moment";
 import { MatTableDataSource } from "@angular/material/table";
 import { TranslateService } from "@ngx-translate/core";
 import { MessagePopupComponent } from "@app/modules/common-items/components/message-popup/message-popup.component";
-
+import { DataService } from "../../../../shared/service/data.service";
 
 @Component({
   selector: "app-contrivance-register",
@@ -53,15 +53,9 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
     displayMonths: 1,
   };
   columnsToDisplay = ["staffCode", "fullName", "percentage"];
-  columnsToDisplayWithExpand = [
-    "expand",
-    ...this.columnsToDisplay
-  ];
+  columnsToDisplayWithExpand = ["expand", ...this.columnsToDisplay];
   columnsToDisplay2 = ["fullName", "percentage"];
-  columnsToDisplayWithExpand2 = [
-    "expand",
-    ...this.columnsToDisplay2
-  ];
+  columnsToDisplayWithExpand2 = ["expand", ...this.columnsToDisplay2];
   columnName = {
     staffCode: "CONTRIVANCE_MAMAGEMENT.LABEL.STAFF_CODE_SHORT_LABEL",
     staffName: "CONTRIVANCE_MAMAGEMENT.LABEL.STAFF_NAME_SHORT_LABEL",
@@ -99,6 +93,7 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
   contrivancesDTO: any;
 
   constructor(
+    public DataService: DataService,
     private router: Router,
     private notificationService: NotificationService,
     public contrivanceService: ContrivanceService,
@@ -108,10 +103,11 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private cdRef: ChangeDetectorRef,
     public formUtils: CommonFormUtils,
-    private translateService: TranslateService,
-  ) { }
+    private translateService: TranslateService
+  ) {}
 
   ngOnInit() {
+    this.DataService.routerContrivance = true;
     const slu = this.getListUnit();
     this.subscriptions.push(slu);
     const sls = this.getListSpecialty();
@@ -162,9 +158,9 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
       );
   }
   selectAllForDropdownItems(items: any[]) {
-    let allSelect = items => {
-      items.forEach(element => {
-        element['selectedAllGroup'] = 'selectedAllGroup';
+    let allSelect = (items) => {
+      items.forEach((element) => {
+        element["selectedAllGroup"] = "selectedAllGroup";
       });
     };
 
@@ -201,20 +197,25 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
   }
 
   loadAddForm() {
-
     if (this.contrivanceService.contrivancesDTO.value) {
       console.log(this.contrivanceService.selectedUnit.value);
-      
+
       let contrivancesDTO = this.contrivanceService.contrivancesDTO.value;
       this.startDateModel = contrivancesDTO.applyStartTime;
       this.endDateModel = contrivancesDTO.applyEndTime;
       this.formUtils.setForm(
         this.fb.group({
           language: [contrivancesDTO.language, Validators.required],
-          contrivanceName: [contrivancesDTO.contrivanceName, Validators.required],
+          contrivanceName: [
+            contrivancesDTO.contrivanceName,
+            Validators.required,
+          ],
           currentStatus: [contrivancesDTO.currentStatus, Validators.required],
           content: [contrivancesDTO.content, Validators.required],
-          applianceCondition: [contrivancesDTO.applianceCondition, Validators.required],
+          applianceCondition: [
+            contrivancesDTO.applianceCondition,
+            Validators.required,
+          ],
           applyStartTime: [contrivancesDTO.applyStartTime, Validators.required],
           applyEndTime: [contrivancesDTO.applyEndTime],
           effectiveness: [contrivancesDTO.effectiveness, Validators.required],
@@ -224,7 +225,10 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
           checkBonus: [contrivancesDTO.checkBonus],
           effectiveValue: [contrivancesDTO.effectiveValue, Validators.required],
           bonus: [contrivancesDTO.bonus, Validators.required],
-          listUnitDTO: [this.contrivanceService.selectedUnit.value, Validators.required],
+          listUnitDTO: [
+            this.contrivanceService.selectedUnit.value,
+            Validators.required,
+          ],
         })
       );
     } else {
@@ -377,7 +381,7 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
       effectiveValue: this.formUtils.control("effectiveValue").value,
       bonus: this.formUtils.control("bonus").value,
       // listUnitDTO: this.formUtils.control("listUnitDTO").value,
-      listUnitDTO: [...updatedListUnitDTO]
+      listUnitDTO: [...updatedListUnitDTO],
     };
     this.contrivanceService.file.next(this.fileInfo);
   }
@@ -398,13 +402,19 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
         name: fileName,
       },
     };
-    requestBody.contrivancesDTO.checkBonus = requestBody.contrivancesDTO.checkBonus ? 0 : 1;
+    requestBody.contrivancesDTO.checkBonus = requestBody.contrivancesDTO
+      .checkBonus
+      ? 0
+      : 1;
     if (this.contrivancesDTO.applyStartTime) {
-      requestBody.contrivancesDTO.applyStartTime = moment(requestBody.contrivancesDTO.applyStartTime).format("DD/MM/YYYY");
+      requestBody.contrivancesDTO.applyStartTime = moment(
+        requestBody.contrivancesDTO.applyStartTime
+      ).format("DD/MM/YYYY");
     }
     if (this.contrivancesDTO.applyEndTime) {
-      requestBody.contrivancesDTO.applyEndTime = moment(requestBody.contrivancesDTO.applyEndTime).format("DD/MM/YYYY");
-
+      requestBody.contrivancesDTO.applyEndTime = moment(
+        requestBody.contrivancesDTO.applyEndTime
+      ).format("DD/MM/YYYY");
     }
     const modalRefSuccess = this.modalService.open(MessagePopupComponent, {
       size: "sm",
@@ -417,49 +427,68 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
       `ADD-INSIDE-IDEA.CONFIRM.CONFIRM`
     );
 
-    if (this.contrivancesDTO.language == 'vi') {
-      modalRefSuccess.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.ENSURE_VI_CON`);
-    } else if (this.contrivancesDTO.language === 'la') {
-      modalRefSuccess.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.ENSURE_LA_CON`);
-    } else if (this.contrivancesDTO.language === 'en') {
-      modalRefSuccess.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.ENSURE_EN_CON`);
+    if (this.contrivancesDTO.language == "vi") {
+      modalRefSuccess.componentInstance.message = this.translateService.instant(
+        `ADD-INSIDE-IDEA.LANGUAGE.ENSURE_VI_CON`
+      );
+    } else if (this.contrivancesDTO.language === "la") {
+      modalRefSuccess.componentInstance.message = this.translateService.instant(
+        `ADD-INSIDE-IDEA.LANGUAGE.ENSURE_LA_CON`
+      );
+    } else if (this.contrivancesDTO.language === "en") {
+      modalRefSuccess.componentInstance.message = this.translateService.instant(
+        `ADD-INSIDE-IDEA.LANGUAGE.ENSURE_EN_CON`
+      );
     } else {
-      modalRefSuccess.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.LANGUAGE.INVALID_LANGUAGE`);
+      modalRefSuccess.componentInstance.message = this.translateService.instant(
+        `ADD-INSIDE-IDEA.LANGUAGE.INVALID_LANGUAGE`
+      );
     }
 
     modalRefSuccess.componentInstance.closeIcon = false;
     modalRefSuccess.componentInstance.next.subscribe((result: any) => {
       if (result === true) {
-        const validate = this.contrivanceService.callApiCommon("validate-before-create-contrivance-cms", requestBody).subscribe(
-          (response) => {
-            if (response.errorCode == 0) {
-              this.contrivanceService.contrivancesDTO.next(this.contrivancesDTO);
-              this.contrivanceService.isFromAdd = true;
-              this.router.navigate(["contrivance/check-duplicate"]);
-            } else {
-              this.notificationService.notify("fail", response.description);
-              this.formUtils.form.markAllAsTouched();
+        const validate = this.contrivanceService
+          .callApiCommon("validate-before-create-contrivance-cms", requestBody)
+          .subscribe(
+            (response) => {
+              if (response.errorCode == 0) {
+                this.contrivanceService.contrivancesDTO.next(
+                  this.contrivancesDTO
+                );
+                this.contrivanceService.isFromAdd = true;
+                 
+                this.DataService.showDuplicateIdea = true;
+                this.DataService.showBg = true;
+                if (
+                  this.DataService.showBg &&
+                  this.DataService.showDuplicateIdea
+                ) {
+                  document.body.style.overflow = "hidden";
+                }
+              } else {
+                this.notificationService.notify("fail", response.description);
+                this.formUtils.form.markAllAsTouched();
+              }
+            },
+            (error) => {
+              this.notificationService.notify("fail", "COMMON.ERROR_SERVICE");
             }
-          },
-          (error) => {
-            this.notificationService.notify("fail", "COMMON.ERROR_SERVICE");
-          }
-        );
+          );
         this.subscriptions.push(validate);
-      }
-      else {
+      } else {
       }
     });
-
-  } s
+  }
+  s;
   selectedUnit;
   onNgSelectChange(item) {
-    this.selectedUnitValue = [...item]
-    const unit = []
+    this.selectedUnitValue = [...item];
+    const unit = [];
     for (let i = 0; i < this.selectedUnitValue.length; i++) {
       unit.push(this.selectedUnitValue[i].unitId);
     }
-    this.selectedUnit = [...unit]
+    this.selectedUnit = [...unit];
     this.contrivanceService.selectedUnit.next(this.selectedUnit);
     this.formUtils.control("listUnitDTO").setValue(this.selectedUnit);
     this.contrivanceService.selectedUnitValue.next(this.selectedUnitValue);
@@ -469,37 +498,56 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
     console.log(this.contrivancesDTO);
 
     this.contrivanceService.contrivancesDTO.next(this.contrivancesDTO);
-    this.router.navigate(["author/add-inside"], {
-      queryParams: { for: "contrivance" },
-    });
-    window.scrollTo(0, 0);
+    this.DataService.showAddInsideAuthor = true;
+    this.DataService.showBg = true;
+    if (this.DataService.showBg && this.DataService.showAddInsideAuthor) {
+      document.body.style.overflow = "hidden";
+    }
+    // this.router.navigate(["author/add-inside"], {
+    //   queryParams: { for: "contrivance" },
+    // });
+    // window.scrollTo(0, 0);
   }
   AddOutsideAuthor() {
     this.getContrivancesDTO();
     this.contrivanceService.contrivancesDTO.next(this.contrivancesDTO);
-    this.router.navigate(["author/add-outside"], {
-      queryParams: { for: "contrivance" },
-    });
-    window.scrollTo(0, 0);
+    this.DataService.showAddOutsideAuthor = true;
+    this.DataService.showBg = true;
+    if (this.DataService.showBg && this.DataService.showAddOutsideAuthor) {
+      document.body.style.overflow = "hidden";
+    }
   }
   EditInsideAuthor(id: number) {
     this.getContrivancesDTO();
     this.contrivanceService.contrivancesDTO.next(this.contrivancesDTO);
-    this.router.navigate(["author/edit-inside"], {
-      queryParams: { id: id, for: "contrivance" },
-    });
-    window.scrollTo(0, 0);
+    this.DataService.showEditInsideAuthor = true;
+    this.DataService.showBg = true;
+    this.DataService.idEditInsideAuthor = id;
+    if (this.DataService.showBg && this.DataService.showEditInsideAuthor) {
+      document.body.style.overflow = "hidden";
+    }
+    // this.router.navigate(["author/edit-inside"], {
+    //   queryParams: { id: id, for: "contrivance" },
+    // });
+    // window.scrollTo(0, 0);
   }
   EditOutsideAuthor(phoneNumber: any, email: any) {
     this.getContrivancesDTO();
     this.contrivanceService.contrivancesDTO.next(this.contrivancesDTO);
-    this.router.navigate(["author/edit-outside"], {
-      queryParams: {
-        phoneNumber: phoneNumber,
-        email: email,
-        for: "contrivance",
-      },
-    });
+    this.DataService.showEditOutsideAuthor = true;
+    this.DataService.showBg = true;
+    this.DataService.phoneEditOutsideAuthor = phoneNumber;
+    this.DataService.emailEditOutsideAuthor = email;
+    if (this.DataService.showBg && this.DataService.showEditOutsideAuthor) {
+      document.body.style.overflow = "hidden";
+    }
+    // this.router.navigate(["author/edit-outside"], {
+    //   queryParams: {
+    //     phoneNumber: phoneNumber,
+    //     email: email,
+    //     for: "contrivance",
+    //   },
+    // });
     window.scrollTo(0, 0);
   }
   deleteInsideAuthor(id: any) {
@@ -538,6 +586,131 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
   // }
 
   ngOnDestroy(): void {
+    this.DataService.routerContrivance = false;
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
+  handleAddInsideAuthor() {
+    this.dataSource = new MatTableDataSource(
+      this.contrivanceService.lstContributorDTOService.value
+    );
+    this.dataSource2 = new MatTableDataSource(
+      this.contrivanceService.lstContributorDTOServiceOut.value
+    );
+   
+  }
+  handleAddInsideAuthorPopup() {
+    this.DataService.showBg = false;
+    this.DataService.showAddInsideAuthor = false;
+    if (!this.DataService.showBg && !this.DataService.showAddInsideAuthor) {
+      document.body.style.overflow = "auto";
+    }
+    const modalRef = this.modalService.open(MessagePopupComponent, {
+      size: "sm",
+      backdrop: "static",
+      keyboard: false,
+      centered: true,
+    });
+    modalRef.componentInstance.type = "fail";
+    modalRef.componentInstance.title = this.translateService.instant(
+      `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+    );
+    modalRef.componentInstance.message = this.translateService.instant(
+      `ADD-INSIDE-IDEA.VALIDATE.CONTRIBUTOR`
+    );
+    modalRef.componentInstance.closeIcon = false;
+    return false;
+  }
+  handleEditInsideAuthor() {
+    this.DataService.idEditInsideAuthor = null;
+    this.dataSource = new MatTableDataSource(
+      this.contrivanceService.lstContributorDTOService.value
+    );
+    this.dataSource2 = new MatTableDataSource(
+      this.contrivanceService.lstContributorDTOServiceOut.value
+    );
+  }
+  handleEditInsideAuthorPopup() {
+    this.DataService.showBg = false;
+    this.DataService.showEditInsideAuthor = false;
+    if (!this.DataService.showBg && !this.DataService.showEditInsideAuthor) {
+      document.body.style.overflow = "auto";
+    }
+    const modalRef = this.modalService.open(MessagePopupComponent, {
+      size: "sm",
+      backdrop: "static",
+      keyboard: false,
+      centered: true,
+    });
+    modalRef.componentInstance.type = "fail";
+    modalRef.componentInstance.title = this.translateService.instant(
+      `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+    );
+    modalRef.componentInstance.message = this.translateService.instant(
+      `ADD-INSIDE-IDEA.VALIDATE.CONTRIBUTOR`
+    );
+    modalRef.componentInstance.closeIcon = false;
+    return false;
+  }
+  handleAddOutsideAuthor() {
+    this.dataSource = new MatTableDataSource(
+      this.contrivanceService.lstContributorDTOService.value
+    );
+    this.dataSource2 = new MatTableDataSource(
+      this.contrivanceService.lstContributorDTOServiceOut.value
+    );
+  }
+  handleAddOutsideAuthorPopup() {
+    this.DataService.showBg = false;
+    this.DataService.showAddOutsideAuthor = false;
+    if (!this.DataService.showBg && !this.DataService.showAddOutsideAuthor) {
+      document.body.style.overflow = "auto";
+    }
+
+    const modalRef = this.modalService.open(MessagePopupComponent, {
+      size: "sm",
+      backdrop: "static",
+      keyboard: false,
+      centered: true,
+    });
+    modalRef.componentInstance.type = "fail";
+    modalRef.componentInstance.title = this.translateService.instant(
+      `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+    );
+    modalRef.componentInstance.message = this.translateService.instant(
+      `ADD-INSIDE-IDEA.VALIDATE.EXIST`
+    );
+    modalRef.componentInstance.closeIcon = false;
+    return false;
+  }
+  handleEditOutsideAuthor() {
+    this.DataService.idEditInsideAuthor = null;
+    this.dataSource = new MatTableDataSource(
+      this.contrivanceService.lstContributorDTOService.value
+    );
+    this.dataSource2 = new MatTableDataSource(
+      this.contrivanceService.lstContributorDTOServiceOut.value
+    );
+  }
+  handleEditOutsideAuthorPopup() {
+    this.DataService.showBg = false;
+    this.DataService.showEditOutsideAuthor = false;
+    if (!this.DataService.showBg && !this.DataService.showEditOutsideAuthor) {
+      document.body.style.overflow = "auto";
+    }
+    const modalRef = this.modalService.open(MessagePopupComponent, {
+      size: "sm",
+      backdrop: "static",
+      keyboard: false,
+      centered: true,
+    });
+    modalRef.componentInstance.type = "fail";
+    modalRef.componentInstance.title = this.translateService.instant(
+      `ADD-INSIDE-IDEA.VALIDATE.ERROR`
+    );
+    modalRef.componentInstance.message = this.translateService.instant(
+      `ADD-INSIDE-IDEA.VALIDATE.EXIST`
+    );
+    modalRef.componentInstance.closeIcon = false;
+    return false;
   }
 }

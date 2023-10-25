@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class DataService {
+  routerContrivance:boolean=false;
   showDuplicateIdea:boolean=false;
   showAddInsideAuthor:boolean=false;
   showEditInsideAuthor:boolean=false;

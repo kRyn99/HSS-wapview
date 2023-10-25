@@ -33,8 +33,13 @@ import { CheckDuplicateComponent } from './components/check-duplicate/check-dupl
 import { CRUDTableModule } from '@app/shared/crud-table';
 import { DatePipe } from '@angular/common';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { IdeaModule } from '../idea/idea.module';
+import { AuthorModule } from '../author/author.module';
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 @NgModule({
     imports: [
+        InfiniteScrollModule,
+        AuthorModule,
         NgSelectModule,
         CommonModule,
         CommonItemsModule,
