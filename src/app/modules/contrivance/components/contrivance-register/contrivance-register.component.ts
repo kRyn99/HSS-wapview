@@ -13,7 +13,7 @@ import {
   transition,
   trigger,
 } from "@angular/animations";
-import { BsDatepickerConfig } from "ngx-bootstrap/datepicker";
+import { BsDatepickerConfig, BsDatepickerDirective } from "ngx-bootstrap/datepicker";
 import { PeriodicElement } from "@app/modules/idea/PeriodicElement";
 import { ActivatedRoute, Router } from "@angular/router";
 import { NgbActiveModal, NgbDate, NgbModal } from "@ng-bootstrap/ng-bootstrap";
@@ -357,6 +357,13 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
     // } else {
     this.validateBeforeCheckDuplicate();
     // }
+  }
+  toggleDatePicker(datepickerInput: BsDatepickerDirective) {
+    if (datepickerInput.isOpen) {
+      datepickerInput.hide();
+    } else {
+      datepickerInput.show();
+    }
   }
   listUnitDTO: any[] = [];
   getContrivancesDTO() {

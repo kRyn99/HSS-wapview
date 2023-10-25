@@ -3,62 +3,64 @@
   [backRoute]="backRoute"
   [createRouteEdit]="canEdit ? 'edit' : null"
   (create)="goToEdit()"
->
-</app-title-nav>
+></app-title-nav>
 <div class="nation-brand">
   <div class="nation">
     <div class="nation-text align-self-stretch">
-      {{ "IDEA_MANAGEMENT.LABEL.TEXT_HEADER" | translate }}
+      {{ 'IDEA_MANAGEMENT.LABEL.TEXT_HEADER' | translate }}
     </div>
     <div class="nation-text">
-      {{ "IDEA_MANAGEMENT.LABEL.SUB_TEXT_HEADER" | translate }}
+      {{ 'IDEA_MANAGEMENT.LABEL.SUB_TEXT_HEADER' | translate }}
     </div>
   </div>
-  <div class="line" style="width: 40%"></div>
+  <div class="line" style="width: 40%;"></div>
   <div class="form">
     <div class="form-name">
-      {{ "IDEA_MANAGEMENT.LABEL.TEXT_FORM_HEADER" | translate }}
+      {{ 'IDEA_MANAGEMENT.LABEL.TEXT_FORM_HEADER' | translate }}
     </div>
     <div class="form-for">
-      {{ "IDEA_MANAGEMENT.LABEL.SUB_TEXT_FORM_HEADER" | translate }}
+      {{ 'IDEA_MANAGEMENT.LABEL.SUB_TEXT_FORM_HEADER' | translate }}
     </div>
   </div>
 </div>
 <div class="line"></div>
 <div class="info-panel">
   <div class="info-text">
-    <span
-      >{{'IDEA_MANAGEMENT.LABEL.IDEA_NAME' | translate}}:
+    <span>
+      {{ 'IDEA_MANAGEMENT.LABEL.IDEA_NAME' | translate }}:
       <b>{{ ideaDetail?.ideaName }}</b>
     </span>
   </div>
   <div class="info-text">
-    <span
-      >{{ "IDEA_MANAGEMENT.LABEL.APPLY_TIME" | translate }}:
+    <span>
+      {{ 'IDEA_MANAGEMENT.LABEL.APPLY_TIME' | translate }}:
       <b>{{ ideaDetail?.applyStartTime }} - {{ ideaDetail?.applyEndTime }}</b>
     </span>
   </div>
   <div class="info-text">
-    <span
-      >{{ "IDEA_MANAGEMENT.LABEL.UNIT_APPLY" | translate }}:
+    <span>
+      {{ 'IDEA_MANAGEMENT.LABEL.UNIT_APPLY' | translate }}:
       <b style="word-break: break-word;">{{ ideaDetail?.unitNames }}</b>
     </span>
   </div>
   <div class="info-text">
-    <span
-      >{{ "IDEA_MANAGEMENT.LABEL.SPECIALTY" | translate }}:
+    <span>
+      {{ 'IDEA_MANAGEMENT.LABEL.SPECIALTY' | translate }}:
       <b>{{ ideaDetail?.specialtyName }}</b>
     </span>
   </div>
   <div class="info-text">
-    <span>{{ "IDEA_MANAGEMENT.LABEL.STATUS" | translate }}:</span>
+    <span>{{ 'IDEA_MANAGEMENT.LABEL.STATUS' | translate }}:</span>
     <div class="info-status">
-      <app-status-color *ngIf="ideaDetail" [status]="ideaDetail.approveStatus"></app-status-color>
+      <app-status-color
+        *ngIf="ideaDetail"
+        [status]="ideaDetail.approveStatus"
+      ></app-status-color>
     </div>
   </div>
 </div>
 <div class="table-box">
-  <span>{{ "IDEA-DETAIL.AUTHOR_WITHIN" | translate }}</span>
+  <span>{{ 'IDEA-DETAIL.AUTHOR_WITHIN' | translate }}</span>
   <table
     mat-table
     [dataSource]="dataSource"
@@ -70,9 +72,17 @@
         mat-header-cell
         *matHeaderCellDef
         aria-label="row actions"
-        style="width: 10%;border-top-left-radius: 8px; border-bottom-width:0px;"
+        style="
+          width: 10%;
+          border-top-left-radius: 8px;
+          border-bottom-width: 0px;
+        "
       ></th>
-      <td mat-cell *matCellDef="let element" style="text-align: center;font-size: 12px;">
+      <td
+        mat-cell
+        *matCellDef="let element"
+        style="text-align: center; font-size: 12px;"
+      >
         <i
           *ngIf="expandedElement !== element"
           class="fa fa-chevron-right"
@@ -96,9 +106,9 @@
         mat-header-cell
         *matHeaderCellDef
         aria-label="row actions"
-        style="width: 10%"
+        style="width: 10%;"
       ></th>
-      <td mat-cell *matCellDef="let element" style="text-align: center">
+      <td mat-cell *matCellDef="let element" style="text-align: center;">
         <i class="fa fa-user"></i>
       </td>
     </ng-container>
@@ -109,7 +119,11 @@
       <th mat-header-cell *matHeaderCellDef class="th-text">
         {{ column | translate }}
       </th>
-      <td mat-cell *matCellDef="let element" style="text-align: center;font-size: 12px;height: 36px;">
+      <td
+        mat-cell
+        *matCellDef="let element"
+        style="text-align: center; font-size: 12px; height: 36px;"
+      >
         {{ element[column] }}
       </td>
     </ng-container>
@@ -123,18 +137,42 @@
         style="padding: 0px;"
       >
         <div
-        style="flex-direction: column;"
+          style="flex-direction: column;"
           class="example-element-detail"
           [@detailExpand]="
             element == expandedElement ? 'expanded' : 'collapsed'
           "
         >
           <div class="example-element-description">
-          <p style="margin-bottom: 8px;font-weight: 300;" ><b style="font-weight: bold;">{{'IDEA_MANAGEMENT.LABEL.TELEPHONE' | translate}}:</b> {{ element.phoneNumber }}<br></p>
-          <p style="margin-bottom: 8px;font-weight: 300;" ><b style="font-weight: bold;">{{'IDEA_MANAGEMENT.LABEL.EMAIL' | translate}}:</b> {{ element.email }}<br></p>
-          <!-- <p style="margin-bottom: 8px;font-weight: 300;" ><b style="font-weight: bold;">{{'IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH' | translate}}:</b> {{ element.birthDay }}<br></p> -->
-          <p style="margin-bottom: 8px;font-weight: 300;" ><b style="font-weight: bold;">{{'IDEA_MANAGEMENT.LABEL.WORK_PLACE' | translate}}:</b> {{ element.jobAddress }}<br></p>
-          <p style="margin-bottom: 0px;font-weight: 300;" ><b style="font-weight: bold;">{{'IDEA_MANAGEMENT.LABEL.OFFICE' | translate}}:</b> {{ element.jobPosition }}<br></p>
+            <p style="margin-bottom: 8px; font-weight: 300;">
+              <b style="font-weight: bold;">
+                {{ 'IDEA_MANAGEMENT.LABEL.TELEPHONE' | translate }}:
+              </b>
+              {{ element.phoneNumber }}
+              <br />
+            </p>
+            <p style="margin-bottom: 8px; font-weight: 300;">
+              <b style="font-weight: bold;">
+                {{ 'IDEA_MANAGEMENT.LABEL.EMAIL' | translate }}:
+              </b>
+              {{ element.email }}
+              <br />
+            </p>
+            <!-- <p style="margin-bottom: 8px;font-weight: 300;" ><b style="font-weight: bold;">{{'IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH' | translate}}:</b> {{ element.birthDay }}<br></p> -->
+            <p style="margin-bottom: 8px; font-weight: 300;">
+              <b style="font-weight: bold;">
+                {{ 'IDEA_MANAGEMENT.LABEL.WORK_PLACE' | translate }}:
+              </b>
+              {{ element.jobAddress }}
+              <br />
+            </p>
+            <p style="margin-bottom: 0px; font-weight: 300;">
+              <b style="font-weight: bold;">
+                {{ 'IDEA_MANAGEMENT.LABEL.OFFICE' | translate }}:
+              </b>
+              {{ element.jobPosition }}
+              <br />
+            </p>
           </div>
         </div>
       </td>
@@ -143,7 +181,7 @@
     <tr
       mat-header-row
       *matHeaderRowDef="columnsToDisplayWithExpand"
-      style="background-color: #FF4D00"
+      style="background-color: #ff4d00;"
       class="example-element-row table-bordered"
     ></tr>
 
@@ -161,7 +199,7 @@
       class="example-detail-row"
     ></tr>
   </table>
-  <span>{{ "IDEA-DETAIL.AUTHOR_OUTSIDE" | translate }}</span>
+  <span>{{ 'IDEA-DETAIL.AUTHOR_OUTSIDE' | translate }}</span>
   <table
     mat-table
     [dataSource]="dataSource2"
@@ -173,9 +211,13 @@
         mat-header-cell
         *matHeaderCellDef
         aria-label="row actions"
-        style="width: 10%;border-top-left-radius: 8px; border-bottom-width:0px;"
+        style="
+          width: 10%;
+          border-top-left-radius: 8px;
+          border-bottom-width: 0px;
+        "
       ></th>
-      <td mat-cell *matCellDef="let element" style="text-align: center">
+      <td mat-cell *matCellDef="let element" style="text-align: center;">
         <i
           *ngIf="expandedElement !== element"
           class="fa fa-chevron-right"
@@ -199,9 +241,9 @@
         mat-header-cell
         *matHeaderCellDef
         aria-label="row actions"
-        style="width: 10%"
+        style="width: 10%;"
       ></th>
-      <td mat-cell *matCellDef="let element" style="text-align: center">
+      <td mat-cell *matCellDef="let element" style="text-align: center;">
         <i class="fa fa-user"></i>
       </td>
     </ng-container>
@@ -212,7 +254,11 @@
       <th mat-header-cell *matHeaderCellDef class="th-text">
         {{ column | translate }}
       </th>
-      <td mat-cell *matCellDef="let element" style="text-align: center;font-size: 12px;">
+      <td
+        mat-cell
+        *matCellDef="let element"
+        style="text-align: center; font-size: 12px;"
+      >
         {{ element[column] }}
       </td>
     </ng-container>
@@ -225,28 +271,60 @@
         [attr.colspan]="columnsToDisplayWithExpand2.length"
         style="padding: 0px;"
       >
-      <div
-      style="flex-direction: column;"
-        class="example-element-detail"
-        [@detailExpand]="
-          element == expandedElement ? 'expanded' : 'collapsed'
-        "
-      >
-        <div class="example-element-description">
-          <p style="margin-bottom: 8px;font-weight: 300;" ><b style="font-weight: bold;">{{'IDEA_MANAGEMENT.LABEL.TELEPHONE' | translate}}:</b> {{ element.phoneNumber }}<br></p>
-          <p  *ngIf="element.email" style="margin-bottom: 8px;font-weight: 300;" ><b style="font-weight: bold;">{{'IDEA_MANAGEMENT.LABEL.EMAIL' | translate}}:</b> {{ element.email }}<br></p>
-          <p *ngIf="element.jobAddress" style="margin-bottom: 8px;font-weight: 300;" ><b style="font-weight: bold;">{{'IDEA_MANAGEMENT.LABEL.WORK_PLACE' | translate}}:</b> {{ element.jobAddress }}<br></p>
-          <p *ngIf="element.jobPosition" style="margin-bottom: 0px;font-weight: 300;" ><b style="font-weight: bold;">{{'IDEA_MANAGEMENT.LABEL.OFFICE' | translate}}:</b> {{ element.jobPosition }}<br></p>
-       
+        <div
+          style="flex-direction: column;"
+          class="example-element-detail"
+          [@detailExpand]="
+            element == expandedElement ? 'expanded' : 'collapsed'
+          "
+        >
+          <div class="example-element-description">
+            <p style="margin-bottom: 8px; font-weight: 300;">
+              <b style="font-weight: bold;">
+                {{ 'IDEA_MANAGEMENT.LABEL.TELEPHONE' | translate }}:
+              </b>
+              {{ element.phoneNumber }}
+              <br />
+            </p>
+            <p
+              *ngIf="element.email"
+              style="margin-bottom: 8px; font-weight: 300;"
+            >
+              <b style="font-weight: bold;">
+                {{ 'IDEA_MANAGEMENT.LABEL.EMAIL' | translate }}:
+              </b>
+              {{ element.email }}
+              <br />
+            </p>
+            <p
+              *ngIf="element.jobAddress"
+              style="margin-bottom: 8px; font-weight: 300;"
+            >
+              <b style="font-weight: bold;">
+                {{ 'IDEA_MANAGEMENT.LABEL.WORK_PLACE' | translate }}:
+              </b>
+              {{ element.jobAddress }}
+              <br />
+            </p>
+            <p
+              *ngIf="element.jobPosition"
+              style="margin-bottom: 0px; font-weight: 300;"
+            >
+              <b style="font-weight: bold;">
+                {{ 'IDEA_MANAGEMENT.LABEL.OFFICE' | translate }}:
+              </b>
+              {{ element.jobPosition }}
+              <br />
+            </p>
+          </div>
         </div>
-      </div>
       </td>
     </ng-container>
 
     <tr
       mat-header-row
       *matHeaderRowDef="columnsToDisplayWithExpand2"
-      style="background-color: #00820D;height: 36px;"
+      style="background-color: #00820d; height: 36px;"
     ></tr>
     <tr
       mat-row
@@ -264,46 +342,69 @@
   </table>
 </div>
 <div class="info-panel">
-  <span>{{ "IDEA_MANAGEMENT.LABEL.BEFORE_APPLY_STATUS" | translate }}:</span>
-  <span
-    ><b>{{ ideaDetail?.beforeApplyStatus }} </b></span
-  >
-  <span>{{ "IDEA_MANAGEMENT.LABEL.IDEA_CONTENT" | translate }}:</span>
-  <span
-    ><b>{{ ideaDetail?.content }} </b>
+  <span>{{ 'IDEA_MANAGEMENT.LABEL.BEFORE_APPLY_STATUS' | translate }}:</span>
+  <span>
+    <b>{{ ideaDetail?.beforeApplyStatus }}</b>
   </span>
-  <span>{{ "IDEA_MANAGEMENT.LABEL.APPLY_RANGE" | translate }}:</span>
-  <span
-    ><b>{{ ideaDetail?.applyRange }}</b></span
-  >
-  <span>{{ "IDEA_MANAGEMENT.LABEL.EFFECTIVENESS" | translate }}:</span>
-  <span
-    ><b>{{ ideaDetail?.effectiveness }}</b></span
-  >
-  <span>{{ "IDEA_MANAGEMENT.LABEL.NEXT_STEP" | translate }}:</span>
-  <span
-    ><b>{{ ideaDetail?.nextStep }}</b></span
-  >
-  <span>{{ "IDEA_MANAGEMENT.LABEL.NOTE" | translate }}:</span>
-  <span
-    ><b>{{ ideaDetail?.note }}</b></span
-  >
-  <span>{{ "IDEA_MANAGEMENT.LABEL.DOCUMENTS" | translate }}:</span>
-  <span
-    ><b>{{ documentDTO?.name ? documentDTO?.name : ('CONTRIVANCE.DETAIL.DOCUMENTS_NOT_EXIST' | translate) }}</b></span
-  >
+  <span>{{ 'IDEA_MANAGEMENT.LABEL.IDEA_CONTENT' | translate }}:</span>
+  <span>
+    <b>{{ ideaDetail?.content }}</b>
+  </span>
+  <span>{{ 'IDEA_MANAGEMENT.LABEL.APPLY_RANGE' | translate }}:</span>
+  <span>
+    <b>{{ ideaDetail?.applyRange }}</b>
+  </span>
+  <span>{{ 'IDEA_MANAGEMENT.LABEL.EFFECTIVENESS' | translate }}:</span>
+  <span>
+    <b>{{ ideaDetail?.effectiveness }}</b>
+  </span>
+  <span>{{ 'IDEA_MANAGEMENT.LABEL.NEXT_STEP' | translate }}:</span>
+  <span>
+    <b>{{ ideaDetail?.nextStep }}</b>
+  </span>
+  <span>{{ 'IDEA_MANAGEMENT.LABEL.NOTE' | translate }}:</span>
+  <span>
+    <b>{{ ideaDetail?.note }}</b>
+  </span>
+  <span>{{ 'IDEA_MANAGEMENT.LABEL.DOCUMENTS' | translate }}:</span>
+  <span>
+    <b>
+      {{
+        documentDTO?.name
+          ? documentDTO?.name
+          : ('CONTRIVANCE.DETAIL.DOCUMENTS_NOT_EXIST' | translate)
+      }}
+    </b>
+  </span>
+  <span *ngIf="ideaDetail?.approveStatus == 3" style="color: red !important;">{{ 'IDEA_NEW.REASON' | translate }}:</span>
+  <span *ngIf="ideaDetail?.approveStatus == 3">
+    <b>{{ ideaDetail?.rejectReason }}</b>
+  </span>
 </div>
-<div *ngIf="documentDTO != null &&  documentDTO?.name != ''" (click)="handleFileDownload()" class="file">
-  <div class="upload-file" style="width: 80px;height: 28px;display: flex;align-items: center;">
-    <img style="width: 20px;" src="assets/img/icon/download.svg" alt="ic_camera" />
+<div
+  *ngIf="documentDTO != null && documentDTO?.name != ''"
+  (click)="handleFileDownload()"
+  class="file"
+>
+  <div
+    class="upload-file"
+    style="width: 80px; height: 28px; display: flex; align-items: center;"
+  >
+    <img
+      style="width: 20px;"
+      src="assets/img/icon/download.svg"
+      alt="ic_camera"
+    />
     <div class="upload-label">
-      {{ "IDEA_MANAGEMENT.BUTTON.DOWNLOAD_FILE" | translate }}
+      {{ 'IDEA_MANAGEMENT.BUTTON.DOWNLOAD_FILE' | translate }}
     </div>
   </div>
 </div>
 <div *ngIf="ideaDetail?.approveStatus == 0" class="bottom-box">
   <div (click)="apiApprove()" class="bottom-btn">
-    <img src="assets/img/icon/send message.svg">
-    <div class="btn2-text">{{'IDEA_MANAGEMENT.BUTTON.SEND_REQUEST_EVALUATE' | translate}}</div>
+    <img src="assets/img/icon/send message.svg" />
+    <div class="btn2-text">
+      {{ 'IDEA_MANAGEMENT.BUTTON.SEND_REQUEST_EVALUATE' | translate }}
+    </div>
   </div>
 </div>

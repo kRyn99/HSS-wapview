@@ -291,6 +291,9 @@
     <span><b>{{contrivanceData?.bonus ? contrivanceData?.bonus : ('CONTRIVANCE.DETAIL.CANNOT_CALCULATED' | translate)}}</b></span>
     <span>{{'CONTRIVANCE.DETAIL.ATTACHED_DOCUMENTS' | translate}}</span>
     <span><b>{{documentDTO?.name ? documentDTO?.name : ('CONTRIVANCE.DETAIL.DOCUMENTS_NOT_EXIST' | translate)}}</b></span>
+    
+    <span *ngIf="contrivanceData?.approveStatus == 3" style="color: red;">{{'IDEA_NEW.REASON' | translate}}:</span>
+    <span><b>{{contrivanceData?.rejectReason}}</b></span>
 </div>
 <div *ngIf="documentDTO !== null && documentDTO?.name != ''" (click)="handleFileDownload()" class="file">
     <div class="upload-file">

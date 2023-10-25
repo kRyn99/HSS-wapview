@@ -128,9 +128,10 @@ export class AddInsideAuthorComponent implements OnInit {
     this.phoneNumber = this.selectedStaffCodeSubject.value?.phoneNumber;
     this.email = this.selectedStaffCodeSubject.value?.email;
 
-  
+    console.log(this.phoneNumber);
+
     this.checkValidatePhone(this.phoneNumber);
-    if(this.checkPhoneFormat) {
+    if (this.checkPhoneFormat) {
       return;
     }
   }
@@ -156,18 +157,18 @@ export class AddInsideAuthorComponent implements OnInit {
       this.DataService.percentage.next(this.percentageValue);
     }
   }
-  checkPhoneFormat=false;
+  checkPhoneFormat = false;
   checkValidatePhone(phoneNumber: string) {
     const phoneNumberRegex = /^\d{8,15}$/;
     if (phoneNumberRegex.test(phoneNumber)) {
-     this.checkPhoneFormat = false;
+      this.checkPhoneFormat = false;
     } else {
       this.checkPhoneFormat = true;
     }
   }
   phoneNumberChange() {
     this.checkValidatePhone(this.phoneNumber);
-    if(this.checkPhoneFormat) {
+    if (this.checkPhoneFormat) {
       return;
     }
     this.selectedStaffCodeSubject.value.phoneNumber = this.phoneNumber;
@@ -281,7 +282,7 @@ export class AddInsideAuthorComponent implements OnInit {
       this.validateTemplate();
       return false;
     }
-    if(this.checkPhoneFormat){
+    if (this.checkPhoneFormat) {
       return false;
     }
     // if (

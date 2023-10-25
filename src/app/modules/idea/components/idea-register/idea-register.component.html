@@ -27,18 +27,34 @@
     1. {{ 'IDEA_MANAGEMENT.LABEL.IDEA' | translate }}
   </div>
   <div class="input-form">
-    <div class="input-name">{{"ADD-INSIDE-IDEA.LANGUAGE.SELECTED_LANGUAGE" | translate }}(<span
-      style="color: red"
-      >*</span
-    >)</div>
-    <select class="input-field" [(ngModel)]="selectedLanguage" (change)="onLanguageChange()">
-      <option [ngValue]="null">{{"ADD-INSIDE-IDEA.LANGUAGE.SELECTED_LANGUAGE" | translate }}</option>
-      <option value="VI">{{"ADD-INSIDE-IDEA.LANGUAGE.VI" | translate }}</option>
-      <option value="LA">{{"ADD-INSIDE-IDEA.LANGUAGE.LA" | translate }}</option>
-      <option value="EN">{{"ADD-INSIDE-IDEA.LANGUAGE.EN" | translate }}</option>
+    <div class="input-name">
+      {{ 'ADD-INSIDE-IDEA.LANGUAGE.SELECTED_LANGUAGE' | translate }}(
+      <span style="color: red;">*</span>
+      )
+    </div>
+    <select
+      class="input-field"
+      [(ngModel)]="selectedLanguage"
+      (change)="onLanguageChange()"
+    >
+      <option [ngValue]="null">
+        {{ 'ADD-INSIDE-IDEA.LANGUAGE.SELECTED_LANGUAGE' | translate }}
+      </option>
+      <option value="VI">
+        {{ 'ADD-INSIDE-IDEA.LANGUAGE.VI' | translate }}
+      </option>
+      <option value="LA">
+        {{ 'ADD-INSIDE-IDEA.LANGUAGE.LA' | translate }}
+      </option>
+      <option value="EN">
+        {{ 'ADD-INSIDE-IDEA.LANGUAGE.EN' | translate }}
+      </option>
     </select>
-    <div class="form-text text-danger" *ngIf="isLangTouched && !selectedLanguage">
-      {{ "ADD-INSIDE-IDEA.VALIDATE.EMPTY_LANG" | translate }}
+    <div
+      class="form-text text-danger"
+      *ngIf="isLangTouched && !selectedLanguage"
+    >
+      {{ 'ADD-INSIDE-IDEA.VALIDATE.EMPTY_LANG' | translate }}
     </div>
   </div>
 
@@ -84,7 +100,10 @@
           [required]="isStartDateTouched"
         />
 
-        <img src="assets/img/icon/icon-date.png"  (click)="toggleDatePicker(startDate)"/>
+        <img
+          src="assets/img/icon/icon-date.png"
+          (click)="toggleDatePicker(startDate)"
+        />
       </div>
       <div
         class="form-text text-danger"
@@ -94,7 +113,7 @@
       </div>
       <div
         class="form-text text-danger"
-        *ngIf="isStartDateTouched && checkStartDate"
+        *ngIf="isStartDateTouched && checkStartDate && duplicate"
       >
         {{ 'ADD-INSIDE-IDEA.VALIDATE.START_DAY' | translate }}
       </div>
@@ -123,12 +142,15 @@
           (ngModelChange)="endDateChange()"
           [required]="DataService.isEndDateTouched"
         />
-        <img src="assets/img/icon/icon-date.png" (click)="toggleDatePicker(endDate)" />
+        <img
+          src="assets/img/icon/icon-date.png"
+          (click)="toggleDatePicker(endDate)"
+        />
       </div>
       <!-- <div class="form-text text-danger" *ngIf="isEndDateTouched && !selectedEndDate">{{ "ADD-INSIDE-IDEA.VALIDATE.EMPTY_END_DATE" | translate }}</div> -->
       <div
         class="form-text text-danger"
-        *ngIf="DataService.isEndDateTouched && checkStartDate"
+        *ngIf="DataService.isEndDateTouched && checkStartDate && !duplicate"
       >
         {{ 'ADD-INSIDE-IDEA.VALIDATE.START_DAY' | translate }}
       </div>
@@ -289,9 +311,17 @@
           mat-header-cell
           *matHeaderCellDef
           aria-label="row actions"
-          style="width: 10%;border-top-left-radius: 8px; border-bottom-width:0px;"
+          style="
+            width: 10%;
+            border-top-left-radius: 8px;
+            border-bottom-width: 0px;
+          "
         ></th>
-        <td mat-cell *matCellDef="let element" style="text-align: center;font-size: 12px;">
+        <td
+          mat-cell
+          *matCellDef="let element"
+          style="text-align: center; font-size: 12px;"
+        >
           <i
             *ngIf="expandedElement !== element"
             class="fa fa-chevron-right"
@@ -329,7 +359,11 @@
         <th mat-header-cell *matHeaderCellDef class="th-text">
           {{ column | translate }}
         </th>
-        <td mat-cell *matCellDef="let element" style="text-align: center;font-size: 12px;height: 36px;">
+        <td
+          mat-cell
+          *matCellDef="let element"
+          style="text-align: center; font-size: 12px; height: 36px;"
+        >
           {{ element[column] }}
         </td>
       </ng-container>
@@ -343,7 +377,7 @@
           style="padding: 0px;"
         >
           <div
-          style="flex-direction: column;"
+            style="flex-direction: column;"
             class="example-element-detail"
             [@detailExpand]="
               element == expandedElement ? 'expanded' : 'collapsed'
@@ -374,18 +408,42 @@
    
             </div> -->
             <div
-            style="flex-direction: column;"
+              style="flex-direction: column;"
               class="example-element-detail"
               [@detailExpand]="
                 element == expandedElement ? 'expanded' : 'collapsed'
               "
             >
               <div class="example-element-description">
-              <p style="margin-bottom: 8px;font-weight: 300;" ><b style="font-weight: bold;">{{'IDEA_MANAGEMENT.LABEL.TELEPHONE' | translate}}:</b> {{ element.phoneNumber }}<br></p>
-              <p style="margin-bottom: 8px;font-weight: 300;" ><b style="font-weight: bold;">{{'IDEA_MANAGEMENT.LABEL.EMAIL' | translate}}:</b> {{ element.email }}<br></p>
-              <!-- <p style="margin-bottom: 8px;font-weight: 300;" ><b style="font-weight: bold;">{{'IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH' | translate}}:</b> {{ element.birthDay }}<br></p> -->
-              <p style="margin-bottom: 8px;font-weight: 300;" ><b style="font-weight: bold;">{{'IDEA_MANAGEMENT.LABEL.WORK_PLACE' | translate}}:</b> {{ element.jobAddress }}<br></p>
-              <p style="margin-bottom: 0px;font-weight: 300;" ><b style="font-weight: bold;">{{'IDEA_MANAGEMENT.LABEL.OFFICE' | translate}}:</b> {{ element.jobPosition }}<br></p>
+                <p style="margin-bottom: 8px; font-weight: 300;">
+                  <b style="font-weight: bold;">
+                    {{ 'IDEA_MANAGEMENT.LABEL.TELEPHONE' | translate }}:
+                  </b>
+                  {{ element.phoneNumber }}
+                  <br />
+                </p>
+                <p style="margin-bottom: 8px; font-weight: 300;">
+                  <b style="font-weight: bold;">
+                    {{ 'IDEA_MANAGEMENT.LABEL.EMAIL' | translate }}:
+                  </b>
+                  {{ element.email }}
+                  <br />
+                </p>
+                <!-- <p style="margin-bottom: 8px;font-weight: 300;" ><b style="font-weight: bold;">{{'IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH' | translate}}:</b> {{ element.birthDay }}<br></p> -->
+                <p style="margin-bottom: 8px; font-weight: 300;">
+                  <b style="font-weight: bold;">
+                    {{ 'IDEA_MANAGEMENT.LABEL.WORK_PLACE' | translate }}:
+                  </b>
+                  {{ element.jobAddress }}
+                  <br />
+                </p>
+                <p style="margin-bottom: 0px; font-weight: 300;">
+                  <b style="font-weight: bold;">
+                    {{ 'IDEA_MANAGEMENT.LABEL.OFFICE' | translate }}:
+                  </b>
+                  {{ element.jobPosition }}
+                  <br />
+                </p>
               </div>
             </div>
             <div class="example-element-description row">
@@ -429,19 +487,33 @@
         class="example-detail-row"
       ></tr>
     </table>
-    <div style="width: 100%;display: flex;justify-content: flex-end;margin-top: 8px;">
-      <button
-      (click)="AddInsideAuthor()"
- 
-      style="border-radius: 16px;border: 1px solid #FF4D00;padding: 4px 12px;width: 95px;display: flex;justify-content: center;background-color: #ffffff;"
+    <div
+      style="
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 8px;
+      "
     >
-    <div>
-      <i class="fas fa-plus" style="color: #000000;font-size: 10px;"></i>
-      <span style="font-size: 12px;">
-        {{ 'ACTION.ADD' | translate }}
-      </span>
-    </div>
-    </button>
+      <button
+        (click)="AddInsideAuthor()"
+        style="
+          border-radius: 16px;
+          border: 1px solid #ff4d00;
+          padding: 4px 12px;
+          width: 95px;
+          display: flex;
+          justify-content: center;
+          background-color: #ffffff;
+        "
+      >
+        <div>
+          <i class="fas fa-plus" style="color: #000000; font-size: 10px;"></i>
+          <span style="font-size: 12px;">
+            {{ 'ACTION.ADD' | translate }}
+          </span>
+        </div>
+      </button>
     </div>
   </div>
   <div class="input-form">
@@ -459,7 +531,11 @@
           mat-header-cell
           *matHeaderCellDef
           aria-label="row actions"
-          style="width: 10%;border-top-left-radius: 8px; border-bottom-width:0px;"
+          style="
+            width: 10%;
+            border-top-left-radius: 8px;
+            border-bottom-width: 0px;
+          "
         ></th>
         <td mat-cell *matCellDef="let element" style="text-align: center;">
           <i
@@ -499,7 +575,11 @@
         <th mat-header-cell *matHeaderCellDef class="th-text">
           {{ column | translate }}
         </th>
-        <td mat-cell *matCellDef="let element" style="text-align: center;font-size: 12px;">
+        <td
+          mat-cell
+          *matCellDef="let element"
+          style="text-align: center; font-size: 12px;"
+        >
           {{ element[column] }}
         </td>
       </ng-container>
@@ -513,7 +593,7 @@
           style="padding: 0px;"
         >
           <div
-          style="flex-direction: column;"
+            style="flex-direction: column;"
             class="example-element-detail"
             [@detailExpand]="
               element == expandedElement ? 'expanded' : 'collapsed'
@@ -540,11 +620,43 @@
               <br />
             </div> -->
             <div class="example-element-description">
-              <p style="margin-bottom: 8px;font-weight: 300;" ><b style="font-weight: bold;">{{'IDEA_MANAGEMENT.LABEL.TELEPHONE' | translate}}:</b> {{ element.phoneNumber }}<br></p>
-              <p  *ngIf="element.email" style="margin-bottom: 8px;font-weight: 300;" ><b style="font-weight: bold;">{{'IDEA_MANAGEMENT.LABEL.EMAIL' | translate}}:</b> {{ element.email }}<br></p>
-              <p *ngIf="element.jobAddress" style="margin-bottom: 8px;font-weight: 300;" ><b style="font-weight: bold;">{{'IDEA_MANAGEMENT.LABEL.WORK_PLACE' | translate}}:</b> {{ element.jobAddress }}<br></p>
-              <p *ngIf="element.jobPosition" style="margin-bottom: 0px;font-weight: 300;" ><b style="font-weight: bold;">{{'IDEA_MANAGEMENT.LABEL.OFFICE' | translate}}:</b> {{ element.jobPosition }}<br></p>
-           
+              <p style="margin-bottom: 8px; font-weight: 300;">
+                <b style="font-weight: bold;">
+                  {{ 'IDEA_MANAGEMENT.LABEL.TELEPHONE' | translate }}:
+                </b>
+                {{ element.phoneNumber }}
+                <br />
+              </p>
+              <p
+                *ngIf="element.email"
+                style="margin-bottom: 8px; font-weight: 300;"
+              >
+                <b style="font-weight: bold;">
+                  {{ 'IDEA_MANAGEMENT.LABEL.EMAIL' | translate }}:
+                </b>
+                {{ element.email }}
+                <br />
+              </p>
+              <p
+                *ngIf="element.jobAddress"
+                style="margin-bottom: 8px; font-weight: 300;"
+              >
+                <b style="font-weight: bold;">
+                  {{ 'IDEA_MANAGEMENT.LABEL.WORK_PLACE' | translate }}:
+                </b>
+                {{ element.jobAddress }}
+                <br />
+              </p>
+              <p
+                *ngIf="element.jobPosition"
+                style="margin-bottom: 0px; font-weight: 300;"
+              >
+                <b style="font-weight: bold;">
+                  {{ 'IDEA_MANAGEMENT.LABEL.OFFICE' | translate }}:
+                </b>
+                {{ element.jobPosition }}
+                <br />
+              </p>
             </div>
             <div class="example-element-description row">
               <div class="col-6">
@@ -591,19 +703,33 @@
         class="example-detail-row"
       ></tr>
     </table>
-    <div style="width: 100%;display: flex;justify-content: flex-end;margin-top: 8px;">
-      <button
-      (click)="AddOutsideAuthor()"
- 
-      style="border-radius: 16px;border: 1px solid #FF4D00;padding: 4px 12px;width: 95px;display: flex;justify-content: center;background-color: #ffffff;"
+    <div
+      style="
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 8px;
+      "
     >
-    <div>
-      <i class="fas fa-plus" style="color: #000000;font-size: 10px;"></i>
-      <span style="font-size: 12px;">
-        {{ 'ACTION.ADD' | translate }}
-      </span>
-    </div>
-    </button>
+      <button
+        (click)="AddOutsideAuthor()"
+        style="
+          border-radius: 16px;
+          border: 1px solid #ff4d00;
+          padding: 4px 12px;
+          width: 95px;
+          display: flex;
+          justify-content: center;
+          background-color: #ffffff;
+        "
+      >
+        <div>
+          <i class="fas fa-plus" style="color: #000000; font-size: 10px;"></i>
+          <span style="font-size: 12px;">
+            {{ 'ACTION.ADD' | translate }}
+          </span>
+        </div>
+      </button>
     </div>
   </div>
 </div>
@@ -804,24 +930,22 @@
 </div>
 <div *ngIf="this.DataService.showEditInsideAuthor" class="slide-up-div">
   <app-edit-inside-author
-  (handleEditInsideAuthor)="handleEditInsideAuthor()"
-  (handleEditInsideAuthorPopup)="handleEditInsideAuthorPopup()"
+    (handleEditInsideAuthor)="handleEditInsideAuthor()"
+    (handleEditInsideAuthorPopup)="handleEditInsideAuthorPopup()"
   ></app-edit-inside-author>
 </div>
 <div *ngIf="this.DataService.showAddOutsideAuthor" class="slide-up-div">
   <app-add-outside-author
-  (handleAddOutsideAuthor)="handleAddOutsideAuthor()"
-  (handleAddOutsideAuthorPopup)="handleAddOutsideAuthorPopup()"
+    (handleAddOutsideAuthor)="handleAddOutsideAuthor()"
+    (handleAddOutsideAuthorPopup)="handleAddOutsideAuthorPopup()"
   ></app-add-outside-author>
 </div>
 <div *ngIf="this.DataService.showEditOutsideAuthor" class="slide-up-div">
   <app-edit-outside-author
-  (handleEditOutsideAuthor)="handleEditOutsideAuthor()"
-  (handleEditOutsideAuthorPopup)="handleEditOutsideAuthorPopup()"
+    (handleEditOutsideAuthor)="handleEditOutsideAuthor()"
+    (handleEditOutsideAuthorPopup)="handleEditOutsideAuthorPopup()"
   ></app-edit-outside-author>
 </div>
 <div *ngIf="this.DataService.showDuplicateIdea" class="slide-up-div-duplicate">
-  <app-check-duplicate-idea
-
-  ></app-check-duplicate-idea>
+  <app-check-duplicate-idea></app-check-duplicate-idea>
 </div>

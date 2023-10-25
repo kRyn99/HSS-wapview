@@ -32,6 +32,7 @@ interface IdeaDetail {
   nextStep: string;
   note: string;
   approveStatus: any;
+  rejectReason:string;
 }
 interface document {
   name: string;
