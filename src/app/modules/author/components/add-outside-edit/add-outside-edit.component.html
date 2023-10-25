@@ -90,8 +90,12 @@
       (input)="changePhone()"
       [required]="phoneTouched"
     />
-    <div class="form-text text-danger" *ngIf="phoneTouched && !selectedPhoneNumber">{{ "ADD-INSIDE-IDEA.VALIDATE.PHONE" | translate }}</div>
-    <div class="form-text text-danger" *ngIf="checkPhoneFormat">{{"IDEA_NEW.PHONE_ERROR" | translate}}</div>
+    <div
+      class="form-text text-danger"
+      *ngIf="msgPhoneError && msgPhoneError.length > 0"
+    >
+      {{ msgPhoneError }}
+    </div>
   </div>
   <div class="info-box">
     <div class="info-title">{{ "CONTRIVANCE_MAMAGEMENT.LABEL.EMAIL" | translate }}</div>

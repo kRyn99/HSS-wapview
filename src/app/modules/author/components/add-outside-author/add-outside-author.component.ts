@@ -37,7 +37,7 @@ export class AddOutsideAuthorComponent implements OnInit {
   selectedEmail;
   selectedProfessionalQualification;
   selectedPercentage;
-  checkPhoneFormat = false;
+  msgPhoneError = '';
   constructor(
     private http: HttpClient,
     private config: NgSelectConfig,
@@ -78,7 +78,7 @@ export class AddOutsideAuthorComponent implements OnInit {
     let contributorDTO = null;
     contributorDTO =
     {
-      fullName: this.selectedStaffCodeSubject.value?.fullName ? this.selectedStaffCodeSubject.value?.fullName : this.selectedFullName.displayName,
+      fullName: this.selectedStaffCodeSubject.value?.fullName ? this.selectedStaffCodeSubject.value?.fullName : this.selectedFullName,
       percentage: this.DataService.percentageOut.value,
       phoneNumber: this.selectedPhoneNumber,
       email: this.selectedEmail,
@@ -87,7 +87,7 @@ export class AddOutsideAuthorComponent implements OnInit {
       professionalQualification:
         this.selectedProfessionalQualification,
       contributorId: this.selectedStaffCodeSubject.value?.contributorId,
-      // displayName:`${this.selectedFullName.displayName} - ${this.selectedPhoneNumber}`
+      //  :`${this.selectedFullName.displayName} - ${this.selectedPhoneNumber}`
     displayName:this.selectedStaffCodeSubject.value?.fullName ? `${this.selectedStaffCodeSubject.value?.fullName } - ${this.selectedPhoneNumber}` : `${this.selectedFullName.displayName} - ${this.selectedPhoneNumber}`
     }
     if (this.DataService.routerContrivance) {
@@ -135,12 +135,10 @@ export class AddOutsideAuthorComponent implements OnInit {
     this.selectedJobPosition = this.selectedStaffCodeSubject.value?.jobPosition;
     this.selectedJobAddress = this.selectedStaffCodeSubject.value?.jobAddress;
     this.selectedProfessionalQualification = this.selectedStaffCodeSubject.value?.professionalQualification
+    this.checkPhoneNumber();
   
-    this.selectedFullName=value;
-    this.checkValidatePhone(this.selectedPhoneNumber);
-    if(this.checkPhoneFormat) {
-      return;
-    }
+    // this.selectedFullName= value.displayName;
+
   }
   percentageValueChange(newValue: string) {
     const parsedValue = parseInt(newValue, 10);
@@ -168,22 +166,33 @@ export class AddOutsideAuthorComponent implements OnInit {
     this.selectedStaffCodeSubject.value.jobPosition = this.selectedJobPosition;
 
   }
-  phoneTouched = false;
+
   checkValidatePhone(phoneNumber: string) {
     const phoneNumberRegex = /^\d{8,15}$/;
     if (phoneNumberRegex.test(phoneNumber)) {
-     this.checkPhoneFormat = false;
+     return true;
     } else {
-      this.checkPhoneFormat = true;
+      return false;
     }
   }
+
+  checkPhoneNumber(){
+    if(!this.selectedPhoneNumber || this.selectedPhoneNumber.length ===0) {
+      this.msgPhoneError = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.PHONE`);
+      return false;
+    }
+    if(!this.checkValidatePhone(this.selectedPhoneNumber)) {
+      this.msgPhoneError = this.translateService.instant(`IDEA_NEW.PHONE_ERROR`);
+      return false;
+    }
+    this.msgPhoneError = '';
+    return true;
+  }
   changePhone() {
-    this.checkValidatePhone(this.selectedPhoneNumber);
-    if(this.checkPhoneFormat) {
-      return;
+    if(!this.checkPhoneNumber()){
+        return;
     }
     this.selectedStaffCodeSubject.value.phoneNumber = this.selectedPhoneNumber;
-    this.phoneTouched = true;
   }
   emailTouched = false;
   checkEmail = false;
@@ -215,15 +224,6 @@ export class AddOutsideAuthorComponent implements OnInit {
     if (
       !this.selectedStaffCodeSubject.value
     ) { this.isInputTouched = true }
-  
-   
-    if (
-      this.selectedPhoneNumber === undefined ||
-      this.selectedPhoneNumber === null ||
-      this.selectedPhoneNumber === ''
-    ) {
-      this.phoneTouched = true;
-    }
   
     // if (
     //   this.selectedProfessionalQualification === undefined ||
@@ -274,18 +274,13 @@ export class AddOutsideAuthorComponent implements OnInit {
       return false;
     }
     if (
-      this.selectedPhoneNumber === undefined ||
-      this.selectedPhoneNumber === null ||
-      this.selectedPhoneNumber === ''
+      !this.checkPhoneNumber()
     ) {
       // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
       // modalRef.componentInstance.type = 'fail';
       // modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
       // modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.PHONE`);
       // modalRef.componentInstance.closeIcon = false;
-      return false;
-    }
-    if(this.checkPhoneFormat) {
       return false;
     }
     if ((!isValidEmail(this.selectedEmail)) && this.selectedEmail

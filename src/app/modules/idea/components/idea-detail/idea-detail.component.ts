@@ -17,6 +17,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { DataService } from "../../../../shared/service/data.service";
 import { HomepageService } from "@app/modules/home/shared/service/homepage.service";
 import { NotificationService } from "@app/shared/service/notification.service";
+import { saveAs } from 'file-saver';
 interface IdeaDetail {
   ideaId: number;
   ideaName: string;
@@ -133,7 +134,7 @@ export class IdeaDetailComponent implements OnInit {
   }
 
   get backRoute() {
-    return this.backToPage
+    return this.backToPage;
   }
 
   ideaDetail: IdeaDetail;
@@ -197,7 +198,7 @@ export class IdeaDetailComponent implements OnInit {
     this.DataService.effectiveness.next(null);
     this.DataService.nextStep.next(null);
     this.DataService.note.next(null);
-    this.DataService.isEndDateTouched=false;
+    this.DataService.isEndDateTouched = false;
     this.router.navigate(["idea/edit"], { queryParams: { id: this.ideaId } });
     window.scrollTo(0, 0);
   }
@@ -217,15 +218,26 @@ export class IdeaDetailComponent implements OnInit {
     };
     return this.http.post<any>(url, request, { headers }).subscribe((res) => {
       if (res.errorCode === "0") {
-        debugger
-        let mimeType = res.data.typeFile;
-        const a = document.createElement("a");
-        a.href = "data:" + mimeType + ";base64," + res.data.fileContent;
-        a.download = this.documentDTO.name;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        a.remove();
+        debugger;
+        // let mimeType = res.data.typeFile;
+        // const a = document.createElement("a");
+        // console.log("data:" + mimeType + ";base64," + res.data.fileContent);
+
+        // a.href = "data:" + mimeType + ";base64," + res.data.fileContent;
+        // a.download = this.documentDTO.name;
+        // document.body.appendChild(a);
+        // a.click();
+        // document.body.removeChild(a);
+        // a.remove();
+        const byteCharacters = atob(res.data.fileContent);
+        const byteNumbers = new Array(byteCharacters.length);
+        for (let i = 0; i < byteCharacters.length; i++) {
+          byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+        const file = new Blob([byteArray], { type: res.data.typeFile });
+        saveAs(file, this.documentDTO.name);
+;
       } else {
         // show error
       }
@@ -243,7 +255,7 @@ export class IdeaDetailComponent implements OnInit {
       `ADD-INSIDE-IDEA.CONFIRM.CONFIRM`
     );
     modalRefSuccess.componentInstance.message = this.translateService.instant(
-      `IDEA_MANAGEMENT.MESSAGE.CONFIRM_EVALUATION_MESSAGE`,
+      `IDEA_MANAGEMENT.MESSAGE.CONFIRM_EVALUATION_MESSAGE`
     );
     modalRefSuccess.componentInstance.closeIcon = false;
     const url = `${environment.API_HOST_NAME}/api/request-approve-idea`;

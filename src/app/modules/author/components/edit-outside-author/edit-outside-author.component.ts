@@ -17,6 +17,7 @@ import { ContrivanceService } from "@app/shared/service/contrivance.service";
 })
 export class EditOutsideAuthorComponent implements OnInit {
   contributorDTO: any;
+  msgPhoneError: string = '';
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
@@ -129,8 +130,7 @@ export class EditOutsideAuthorComponent implements OnInit {
   onSelectedStaffCodeChange(value: any) {
     this.contributorDTO = value;
     this.fullName = this.contributorDTO.displayName;
-    this.checkValidatePhone(this.contributorDTO?.phoneNumber);
-    if(this.checkPhoneFormat){
+    if(this.checkPhoneNumber()){
       return;
     }
   }
@@ -159,24 +159,36 @@ export class EditOutsideAuthorComponent implements OnInit {
       this.contributorDTO.jobPosition = newValue;
     }
   }
-  phone;
   checkValidatePhone(phoneNumber: string) {
     const phoneNumberRegex = /^\d{8,15}$/;
     if (phoneNumberRegex.test(phoneNumber)) {
-     this.checkPhoneFormat = false;
+     return true;
     } else {
-      this.checkPhoneFormat = true;
+      return false;
     }
   }
+
+  checkPhoneNumber(){
+    if(!this.contributorDTO?.phoneNumber || this.contributorDTO?.phoneNumber.length ===0) {
+      this.msgPhoneError = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.PHONE`);
+      return false;
+    }
+    if(!this.checkValidatePhone(this.contributorDTO?.phoneNumber)) {
+      this.msgPhoneError = this.translateService.instant(`IDEA_NEW.PHONE_ERROR`);
+      return false;
+    }
+    this.msgPhoneError = '';
+    return true;
+  }
+
+  phone
   updatePhoneNumber(newValue: string) {
-    this.checkValidatePhone(newValue);
-    if(this.checkPhoneFormat){
+    this.contributorDTO.phoneNumber = newValue;
+    this.checkPhoneNumber();
+    if(!this.checkPhoneNumber()){
       return;
-    }
+  }
     this.phone = newValue;
-    if (this.contributorDTO) {
-      this.contributorDTO.phoneNumber = newValue;
-    }
   }
   checkEmail = false;
   updateEmail(newValue: string) {
@@ -239,10 +251,7 @@ export class EditOutsideAuthorComponent implements OnInit {
       return false;
     }
     if (
-      this.contributorDTO.phoneNumber === undefined ||
-      this.contributorDTO.phoneNumber === null ||
-      this.contributorDTO.phoneNumber === "" ||
-      this.contributorDTO.phoneNumber.trim() === ""
+     !this.checkPhoneNumber()
     ) {
       // const modalRef = this.modalService.open(MessagePopupComponent, {
       //   size: "sm",
@@ -258,9 +267,6 @@ export class EditOutsideAuthorComponent implements OnInit {
       //   `ADD-INSIDE-IDEA.VALIDATE.PHONE`
       // );
       // modalRef.componentInstance.closeIcon = false;
-      return false;
-    }
-    if(this.checkPhoneFormat){
       return false;
     }
     if (

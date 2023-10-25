@@ -31,9 +31,10 @@ export class EditOutsideEditComponent implements OnInit {
         private translateService: TranslateService,
         public contrivanceService: ContrivanceService
     ) { }
-    checkPhoneFormat = false;
+  
     oldNumber: number = 0;
     oldEmail: string = '';
+    msgPhoneError = '';
     token = JSON.parse(localStorage.getItem("tokenInLocalStorage"));
     ngOnInit() {
         // this.route.queryParams.subscribe((params) => {
@@ -115,8 +116,8 @@ export class EditOutsideEditComponent implements OnInit {
     onSelectedStaffCodeChange(value: any) {
         this.contributorDTO = value;
         this.fullName=this.contributorDTO.displayName;
-        this.checkValidatePhone(this.contributorDTO?.phoneNumber);
-        if(this.checkPhoneFormat){
+      
+        if(this.checkPhoneNumber()){
           return;
         }
     }
@@ -145,25 +146,37 @@ export class EditOutsideEditComponent implements OnInit {
             this.contributorDTO.jobPosition = newValue;
         }
     }
-    phone;
     checkValidatePhone(phoneNumber: string) {
         const phoneNumberRegex = /^\d{8,15}$/;
         if (phoneNumberRegex.test(phoneNumber)) {
-         this.checkPhoneFormat = false;
+         return true;
         } else {
-          this.checkPhoneFormat = true;
+          return false;
         }
       }
-    updatePhoneNumber(newValue: string) {
-        this.checkValidatePhone(newValue);
-        if(this.checkPhoneFormat){
+    
+      checkPhoneNumber(){     
+        if(!this.contributorDTO?.phoneNumber || this.contributorDTO?.phoneNumber.length ===0) {
+          this.msgPhoneError = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.PHONE`);
+          return false;
+        }
+        if(!this.checkValidatePhone(this.contributorDTO?.phoneNumber)) {
+          this.msgPhoneError = this.translateService.instant(`IDEA_NEW.PHONE_ERROR`);
+          return false;
+        }
+        this.msgPhoneError = '';
+        return true;
+      }
+    
+      phone
+      updatePhoneNumber(newValue: string) {
+        this.contributorDTO.phoneNumber = newValue;
+        if(!this.checkPhoneNumber()){
           return;
-        }
-        this.phone=newValue;
-        if (this.contributorDTO) {
-            this.contributorDTO.phoneNumber = newValue;
-        }
-    }
+      }
+        this.phone = newValue;
+    
+      }
     checkEmail = false;
     updateEmail(newValue: string) {
         if (this.contributorDTO) {
@@ -208,10 +221,7 @@ export class EditOutsideEditComponent implements OnInit {
             return false;
         }
         if (
-            this.contributorDTO.phoneNumber === undefined ||
-            this.contributorDTO.phoneNumber === null ||
-            this.contributorDTO.phoneNumber === '' ||
-            this.contributorDTO.phoneNumber.trim() === ''
+          !this.checkPhoneNumber()
         ) {
             // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
             // modalRef.componentInstance.type = 'fail';
@@ -220,9 +230,7 @@ export class EditOutsideEditComponent implements OnInit {
             // modalRef.componentInstance.closeIcon = false;
             return false;
         }
-        if(this.checkPhoneFormat){
-            return false;
-        }
+
 
         if ((!this.isValidEmail(this.contributorDTO.email)) && this.contributorDTO.email) {
             // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });

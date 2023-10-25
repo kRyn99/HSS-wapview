@@ -82,8 +82,12 @@
       maxlength="15"
       (input)="changePhone()"
     />
-    <div class="form-text text-danger" *ngIf=" !contributorDTO.phoneNumber">{{ "ADD-INSIDE-IDEA.VALIDATE.PHONE" | translate }}</div>
-    <div class="form-text text-danger" *ngIf="checkPhoneFormat">{{"IDEA_NEW.PHONE_ERROR" | translate}}</div>
+    <div
+    class="form-text text-danger"
+    *ngIf="msgPhoneError && msgPhoneError.length > 0"
+  >
+    {{ msgPhoneError }}
+  </div>
 
   </div>
   <div class="info-box">
