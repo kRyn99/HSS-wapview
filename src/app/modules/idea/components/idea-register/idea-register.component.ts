@@ -1,5 +1,5 @@
-import { Component, HostListener, OnInit } from "@angular/core";
-import { BsDatepickerConfig, BsLocaleService } from "ngx-bootstrap/datepicker";
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from "@angular/core";
+import { BsDatepickerConfig, BsDatepickerDirective, BsLocaleService } from "ngx-bootstrap/datepicker";
 import { MessagePopupComponent } from "@app/modules/common-items/components/message-popup/message-popup.component";
 import { TranslateService } from "@ngx-translate/core";
 import { Router } from "@angular/router";
@@ -102,6 +102,13 @@ export class IdeaRegisterComponent implements OnInit {
 
   isTypeOfString(element) {
     return typeof element == "string";
+  }
+  toggleDatePicker(datepickerInput: BsDatepickerDirective) {
+    if (datepickerInput.isOpen) {
+      datepickerInput.hide();
+    } else {
+      datepickerInput.show();
+    }
   }
 
   ngOnInit() {

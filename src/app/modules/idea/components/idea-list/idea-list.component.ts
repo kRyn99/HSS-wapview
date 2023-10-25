@@ -87,6 +87,7 @@ export class IdeaListComponent implements OnInit {
   specialtyId;
   changeSpecialty() {
     this.currentPage = 1;
+    this.listIdea=[]
     this.getListIdea();
   }
   listStatus: [];
@@ -108,6 +109,7 @@ export class IdeaListComponent implements OnInit {
   statusId;
   changeStatus() {
     this.currentPage = 1;
+    this.listIdea=[]
     this.getListIdea();
   }
   listIdea = [];
@@ -125,8 +127,6 @@ export class IdeaListComponent implements OnInit {
       ideaDTO: {
         fromDate: null,
         toDate: null,
-        // specialty: '' ? null : Number(this.specialtyId),
-        // approveStatus: '' ? null : Number(this.statusId)
         specialty:this.specialtyId ?  Number(this.specialtyId) : null,
         approveStatus: this.statusId ?  Number(this.statusId) :null
       },
@@ -135,6 +135,10 @@ export class IdeaListComponent implements OnInit {
     };
     return this.http.post<any>(url, requestBody, { headers }).subscribe(
       (response) => {
+        if(!response.data || response.data.length == 0){
+            this.listIdea=[]
+        }
+
         if(this.listIdea.length == 0 ){
           this.listIdea = response.data.listIdea;
           this.DataService.listIdeaService = this.listIdea;
