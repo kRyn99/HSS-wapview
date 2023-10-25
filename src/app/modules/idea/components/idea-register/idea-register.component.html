@@ -75,7 +75,7 @@
           [bsConfig]="bsConfig"
           class="date-text"
           style="background-color: white; border: white;"
-          #dprn="bsDatepicker"
+          #startDate="bsDatepicker"
           #vDate
           bsDatepicker
           autocomplete="off"
@@ -84,7 +84,7 @@
           [required]="isStartDateTouched"
         />
 
-        <img src="assets/img/icon/icon-date.png" />
+        <img src="assets/img/icon/icon-date.png"  (click)="toggleDatePicker(startDate)"/>
       </div>
       <div
         class="form-text text-danger"
@@ -107,7 +107,7 @@
       <div class="input-name">
         {{ 'IDEA_MANAGEMENT.LABEL.DATE_APPLY_TO' | translate }}
       </div>
-      <label class="date">
+      <div class="date">
         <input
           readonly
           type="text"
@@ -115,7 +115,7 @@
           [bsConfig]="bsConfig"
           class="date-text"
           style="background-color: white; border: white;"
-          #dprn="bsDatepicker"
+          #endDate="bsDatepicker"
           #vDate
           bsDatepicker
           autocomplete="off"
@@ -123,8 +123,8 @@
           (ngModelChange)="endDateChange()"
           [required]="DataService.isEndDateTouched"
         />
-        <img src="assets/img/icon/icon-date.png" />
-      </label>
+        <img src="assets/img/icon/icon-date.png" (click)="toggleDatePicker(endDate)" />
+      </div>
       <!-- <div class="form-text text-danger" *ngIf="isEndDateTouched && !selectedEndDate">{{ "ADD-INSIDE-IDEA.VALIDATE.EMPTY_END_DATE" | translate }}</div> -->
       <div
         class="form-text text-danger"

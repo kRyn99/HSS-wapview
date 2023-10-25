@@ -39,7 +39,7 @@ import { ContrivanceListNewComponent } from './component/contrivance-list-new/co
 
 @NgModule({
   declarations: [
-   
+    
     ContrivanceListNewComponent
   ],
   imports: [
