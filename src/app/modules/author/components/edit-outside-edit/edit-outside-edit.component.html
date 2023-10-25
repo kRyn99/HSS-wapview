@@ -40,7 +40,7 @@
     class="custom-class-eoe"
       [items]="listContributorOut"
       bindLabel="displayName"
-      [placeholder]="contributorDTO?.displayName"
+      [placeholder]="'MANAGE_CATEGORY.PLACEHOLDER.STAFF_CODE' | translate"
       [(ngModel)]="contributorDTO"
       (change)="onSelectedStaffCodeChange($event)"
       [addTag]="true"

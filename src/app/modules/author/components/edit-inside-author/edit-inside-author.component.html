@@ -41,7 +41,7 @@
       [items]="listStaff"
       bindLabel="displayName"
       [placeholder]="'MANAGE_CATEGORY.PLACEHOLDER.STAFF_CODE' | translate"
-      [(ngModel)]="contributorDTO"
+      [(ngModel)]="selectedStaffCode"
       (change)="onSelectedStaffCodeChange($event)"
     ></ng-select>
     <div class="form-text text-danger" *ngIf="!contributorDTO?.staffCode">{{ "ADD-INSIDE-IDEA.VALIDATE.STAFF-CODE" | translate }}</div>

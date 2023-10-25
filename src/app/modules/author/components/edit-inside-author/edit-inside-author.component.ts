@@ -65,7 +65,6 @@ export class EditInsideAuthorComponent implements OnInit {
         this.staffId = params.id;
       }
     });
-
     //////
     if (this.DataService.routerContrivance) {
       this.contributorDTO = {
@@ -79,6 +78,8 @@ export class EditInsideAuthorComponent implements OnInit {
           (item) => item.staffId == this.DataService.idEditInsideAuthor
         ),
       };
+
+      
     }
     this.staffId = this.DataService.idEditInsideAuthor;
     this.getListStaff();
@@ -145,6 +146,7 @@ export class EditInsideAuthorComponent implements OnInit {
       (response) => {
         // this.listStaff = response.data.listStaffDTO;
         this.listStaff = response.data.listStaffDTO.map((item) => {
+          
           item.displayName = `${item.staffCode} - ${item.fullName}`;
           return { ...item };
         });

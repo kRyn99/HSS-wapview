@@ -78,7 +78,7 @@ export class AddOutsideAuthorComponent implements OnInit {
     let contributorDTO = null;
     contributorDTO =
     {
-      fullName: this.selectedStaffCodeSubject.value?.fullName ? this.selectedStaffCodeSubject.value?.fullName : this.selectedFullName,
+      fullName: this.selectedStaffCodeSubject.value?.fullName ? this.selectedStaffCodeSubject.value?.fullName : this.selectedFullName.displayName,
       percentage: this.DataService.percentageOut.value,
       phoneNumber: this.selectedPhoneNumber,
       email: this.selectedEmail,
@@ -127,7 +127,7 @@ export class AddOutsideAuthorComponent implements OnInit {
     );
   }
   isInputTouched = false;
-  onSelectedStaffCodeChange(value: any) {
+  onSelectedStaffCodeChange(value: any) { 
     this.isInputTouched = true;
     this.setSelectedStaffCode(value);
     this.selectedPhoneNumber = value.phoneNumber;
@@ -136,7 +136,7 @@ export class AddOutsideAuthorComponent implements OnInit {
     this.selectedJobAddress = this.selectedStaffCodeSubject.value?.jobAddress;
     this.selectedProfessionalQualification = this.selectedStaffCodeSubject.value?.professionalQualification
     this.checkPhoneNumber();
-  
+    
     // this.selectedFullName= value.displayName;
 
   }
