@@ -1,5 +1,15 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from "@angular/core";
-import { BsDatepickerConfig, BsDatepickerDirective, BsLocaleService } from "ngx-bootstrap/datepicker";
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import {
+  BsDatepickerConfig,
+  BsDatepickerDirective,
+  BsLocaleService,
+} from "ngx-bootstrap/datepicker";
 import { MessagePopupComponent } from "@app/modules/common-items/components/message-popup/message-popup.component";
 import { TranslateService } from "@ngx-translate/core";
 import { Router } from "@angular/router";
@@ -52,7 +62,7 @@ export class IdeaRegisterComponent implements OnInit {
   showDropdown = false;
   // selectedStaffCode$ = this.getSelectedStaffCodeSubject();
   bsConfig: Partial<BsDatepickerConfig>;
-  bsFromConfig:Partial<BsDatepickerConfig>;
+  bsFromConfig: Partial<BsDatepickerConfig>;
   dataSource: any;
   columnsToDisplay = ["staffCode", "fullName", "percentage"];
   columnsToDisplayWithExpand = ["expand", ...this.columnsToDisplay];
@@ -93,7 +103,7 @@ export class IdeaRegisterComponent implements OnInit {
       dateInputFormat: "DD/MM/YYYY", // Định dạng ngày/tháng/năm
     };
     this.bsFromConfig = {
-      containerClass: 'theme-dark-blue',
+      containerClass: "theme-dark-blue",
       dateInputFormat: "DD/MM/YYYY", // Định dạng ngày/tháng/năm
     };
 
@@ -324,6 +334,7 @@ export class IdeaRegisterComponent implements OnInit {
   checkStartDate = false;
   checkNow = false;
   checkNow2 = false;
+  duplicate=false;
   startDateChange() {
     let now = new Date();
     now.setHours(0, 0, 0, 0);
@@ -337,6 +348,10 @@ export class IdeaRegisterComponent implements OnInit {
       this.checkNow = true;
     } else {
       this.checkNow = false;
+    }
+    if (this.isStartDateTouched && this.checkStartDate) {
+      // this.DataService.isEndDateTouched = false;
+      this.duplicate=!this.duplicate;
     }
     this.DataService.selectedStartDate.next(this.selectedStartDate);
   }
@@ -369,6 +384,10 @@ export class IdeaRegisterComponent implements OnInit {
         this.checkNow2 = false;
       }
       this.DataService.selectedEndDate.next(this.selectedEndDate);
+    }
+    if (this.DataService.isEndDateTouched && this.checkStartDate) {
+      // this.isStartDateTouched = false;
+      this.duplicate=!this.duplicate;
     }
   }
   isBeforeApplyStatusTouched = false;
@@ -1055,7 +1074,7 @@ export class IdeaRegisterComponent implements OnInit {
               if (response.errorCode == 0) {
                 this.DataService.ideaDTO.next(this.ideaDTO);
                 this.DataService.isFromAdd = true;
-             
+
                 this.DataService.showDuplicateIdea = true;
                 this.DataService.showBg = true;
                 if (

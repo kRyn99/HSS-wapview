@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
+import { BsDatepickerConfig, BsDatepickerDirective } from 'ngx-bootstrap/datepicker';
 import { PeriodicElement } from '@app/modules/idea/PeriodicElement';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -406,7 +406,13 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy {
     };
     this.contrivanceService.file.next(this.fileInfo);
   }
-
+  toggleDatePicker(datepickerInput: BsDatepickerDirective) {
+    if (datepickerInput.isOpen) {
+      datepickerInput.hide();
+    } else {
+      datepickerInput.show();
+    }
+  }
   validateBeforeCheckDuplicate() {
     const currentFileValue = this.contrivanceService.file.getValue();
     const fileName = currentFileValue?.name;

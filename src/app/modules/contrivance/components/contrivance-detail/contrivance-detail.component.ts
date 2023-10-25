@@ -18,6 +18,7 @@ import { ContrivanceService } from "@app/shared/service/contrivance.service";
 import { NotificationService } from "@app/shared/service/notification.service";
 import { saveAs } from 'file-saver';
 interface ContrivanceData {
+  rejectReason?:string;
   contrivanceName?: string;
   applyStartTime?: string;
   applyEndTime?: string;
@@ -43,6 +44,7 @@ interface Document {
   url: string;
   name: string;
   objId: number;
+  rejectReason:string;
 }
 @Component({
   selector: "app-contrivance-detail",

@@ -282,7 +282,6 @@ export class AddInsideAuthorComponent implements OnInit {
       this.validateTemplate();
       return false;
     }
-
     // if (
     //   this.email === undefined ||
     //   this.email === null ||

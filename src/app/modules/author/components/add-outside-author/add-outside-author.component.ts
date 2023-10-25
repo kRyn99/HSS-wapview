@@ -130,7 +130,7 @@ export class AddOutsideAuthorComponent implements OnInit {
   onSelectedStaffCodeChange(value: any) {
     this.isInputTouched = true;
     this.setSelectedStaffCode(value);
-    this.selectedPhoneNumber = this.selectedStaffCodeSubject.value?.phoneNumber;
+    this.selectedPhoneNumber = value.phoneNumber;
     this.selectedEmail = this.selectedStaffCodeSubject.value?.email;
     this.selectedJobPosition = this.selectedStaffCodeSubject.value?.jobPosition;
     this.selectedJobAddress = this.selectedStaffCodeSubject.value?.jobAddress;

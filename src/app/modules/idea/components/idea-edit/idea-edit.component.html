@@ -5,31 +5,31 @@
 <div class="nation-brand">
   <div class="nation">
     <div class="nation-text align-self-stretch">
-      {{ "IDEA_MANAGEMENT.LABEL.TEXT_HEADER" | translate }}
+      {{ 'IDEA_MANAGEMENT.LABEL.TEXT_HEADER' | translate }}
     </div>
     <div class="nation-text">
-      {{ "IDEA_MANAGEMENT.LABEL.SUB_TEXT_HEADER" | translate }}
+      {{ 'IDEA_MANAGEMENT.LABEL.SUB_TEXT_HEADER' | translate }}
     </div>
   </div>
-  <div class="line" style="width: 40%"></div>
+  <div class="line" style="width: 40%;"></div>
   <div class="form">
     <div class="form-name">
-      {{ "IDEA_MANAGEMENT.LABEL.TEXT_FORM_HEADER" | translate }}
+      {{ 'IDEA_MANAGEMENT.LABEL.TEXT_FORM_HEADER' | translate }}
     </div>
     <div class="form-for">
-      {{ "IDEA_MANAGEMENT.LABEL.SUB_TEXT_FORM_HEADER" | translate }}
+      {{ 'IDEA_MANAGEMENT.LABEL.SUB_TEXT_FORM_HEADER' | translate }}
     </div>
   </div>
 </div>
 <div class="line"></div>
 <div class="idea-form">
   <div class="header-text">
-    1. {{ "IDEA_MANAGEMENT.LABEL.IDEA" | translate }}
+    1. {{ 'IDEA_MANAGEMENT.LABEL.IDEA' | translate }}
   </div>
   <div class="input-form">
     <div class="input-name">
-      {{ "ADD-INSIDE-IDEA.LANGUAGE.SELECTED_LANGUAGE" | translate }}(
-      <span style="color: red">*</span>
+      {{ 'ADD-INSIDE-IDEA.LANGUAGE.SELECTED_LANGUAGE' | translate }}(
+      <span style="color: red;">*</span>
       )
     </div>
     <select
@@ -38,26 +38,26 @@
       (change)="onLanguageChange()"
     >
       <option [ngValue]="null">
-        {{ "ADD-INSIDE-IDEA.LANGUAGE.SELECTED_LANGUAGE" | translate }}
+        {{ 'ADD-INSIDE-IDEA.LANGUAGE.SELECTED_LANGUAGE' | translate }}
       </option>
       <option value="VI">
-        {{ "ADD-INSIDE-IDEA.LANGUAGE.VI" | translate }}
+        {{ 'ADD-INSIDE-IDEA.LANGUAGE.VI' | translate }}
       </option>
       <option value="LA">
-        {{ "ADD-INSIDE-IDEA.LANGUAGE.LA" | translate }}
+        {{ 'ADD-INSIDE-IDEA.LANGUAGE.LA' | translate }}
       </option>
       <option value="EN">
-        {{ "ADD-INSIDE-IDEA.LANGUAGE.EN" | translate }}
+        {{ 'ADD-INSIDE-IDEA.LANGUAGE.EN' | translate }}
       </option>
     </select>
     <div class="form-text text-danger" *ngIf="!selectedLanguage">
-      {{ "ADD-INSIDE-IDEA.VALIDATE.EMPTY_LANG" | translate }}
+      {{ 'ADD-INSIDE-IDEA.VALIDATE.EMPTY_LANG' | translate }}
     </div>
   </div>
   <div class="input-form">
     <div class="input-name">
-      {{ "IDEA_MANAGEMENT.LABEL.IDEA_NAME" | translate }} (
-      <span style="color: red">*</span>
+      {{ 'IDEA_MANAGEMENT.LABEL.IDEA_NAME' | translate }} (
+      <span style="color: red;">*</span>
       )
     </div>
     <input
@@ -68,14 +68,14 @@
       (input)="onInputValueChange()"
     />
     <div class="form-text text-danger" *ngIf="!ideaNameValue">
-      {{ "ADD-INSIDE-IDEA.VALIDATE.IDEA-NAME" | translate }}
+      {{ 'ADD-INSIDE-IDEA.VALIDATE.IDEA-NAME' | translate }}
     </div>
   </div>
-  <div style="display: flex; justify-content: space-between; width: 100%">
-    <div class="input-form" style="width: 49%">
+  <div style="display: flex; justify-content: space-between; width: 100%;">
+    <div class="input-form" style="width: 49%;">
       <div class="input-name">
-        {{ "IDEA_MANAGEMENT.LABEL.DATE_APPLY_FROM" | translate }} (
-        <span style="color: red">*</span>
+        {{ 'IDEA_MANAGEMENT.LABEL.DATE_APPLY_FROM' | translate }} (
+        <span style="color: red;">*</span>
         )
       </div>
       <label class="date">
@@ -85,7 +85,7 @@
           name="Date"
           [bsConfig]="bsConfig"
           class="date-text"
-          style="background-color: white; border: white"
+          style="background-color: white; border: white;"
           #startDate="bsDatepicker"
           #vDate
           bsDatepicker
@@ -99,18 +99,18 @@
         />
       </label>
       <div class="form-text text-danger" *ngIf="!applyStartTime">
-        {{ "ADD-INSIDE-IDEA.VALIDATE.EMPTY_START_DATE" | translate }}
+        {{ 'ADD-INSIDE-IDEA.VALIDATE.EMPTY_START_DATE' | translate }}
       </div>
-      <div class="form-text text-danger" *ngIf="checkStartDate">
-        {{ "ADD-INSIDE-IDEA.VALIDATE.START_DAY" | translate }}
+      <div class="form-text text-danger" *ngIf="checkStartDate && duplicate">
+        {{ 'ADD-INSIDE-IDEA.VALIDATE.START_DAY' | translate }}
       </div>
       <div class="form-text text-danger" *ngIf="checkNow">
-        {{ "ADD-INSIDE-IDEA.VALIDATE.APPLY_START_DAY" | translate }}
+        {{ 'ADD-INSIDE-IDEA.VALIDATE.APPLY_START_DAY' | translate }}
       </div>
     </div>
-    <div class="input-form" style="width: 49%">
+    <div class="input-form" style="width: 49%;">
       <div class="input-name">
-        {{ "IDEA_MANAGEMENT.LABEL.DATE_APPLY_TO" | translate }}
+        {{ 'IDEA_MANAGEMENT.LABEL.DATE_APPLY_TO' | translate }}
       </div>
       <label class="date">
         <input
@@ -119,7 +119,7 @@
           name="Date"
           [bsConfig]="bsFromConfig"
           class="date-text"
-          style="background-color: white; border: white"
+          style="background-color: white; border: white;"
           #endDate="bsDatepicker"
           #vDate
           bsDatepicker
@@ -136,11 +136,11 @@
       <!-- <div class="form-text text-danger" *ngIf="!applyEndTime">
       {{ "ADD-INSIDE-IDEA.VALIDATE.EMPTY_END_DATE" | translate }}
     </div> -->
-      <div class="form-text text-danger" *ngIf="checkStartDate">
-        {{ "ADD-INSIDE-IDEA.VALIDATE.START_DAY" | translate }}
+      <div class="form-text text-danger" *ngIf="checkStartDate && !duplicate">
+        {{ 'ADD-INSIDE-IDEA.VALIDATE.START_DAY' | translate }}
       </div>
       <div class="form-text text-danger" *ngIf="checkNow2">
-        {{ "ADD-INSIDE-IDEA.VALIDATE.APPLY_END_DAY" | translate }}
+        {{ 'ADD-INSIDE-IDEA.VALIDATE.APPLY_END_DAY' | translate }}
       </div>
     </div>
   </div>
@@ -195,12 +195,12 @@
   </div> -->
   <div class="input-form">
     <div class="input-name">
-      {{ "IDEA_MANAGEMENT.LABEL.UNIT_APPLY" | translate }} (
-      <span style="color: red">*</span>
+      {{ 'IDEA_MANAGEMENT.LABEL.UNIT_APPLY' | translate }} (
+      <span style="color: red;">*</span>
       )
     </div>
     <ng-select
-      style="width: 100%"
+      style="width: 100%;"
       [items]="listUnit"
       [multiple]="true"
       bindLabel="unitName"
@@ -240,13 +240,13 @@
       class="form-text text-danger"
       *ngIf="unitFieldTouched && !selectedUnitValue?.length"
     >
-      {{ "ADD-INSIDE-IDEA.VALIDATE.UNIT" | translate }}
+      {{ 'ADD-INSIDE-IDEA.VALIDATE.UNIT' | translate }}
     </div>
   </div>
   <div class="input-form">
     <div class="input-name">
-      {{ "IDEA_MANAGEMENT.LABEL.SPECIALTY" | translate }} (
-      <span style="color: red">*</span>
+      {{ 'IDEA_MANAGEMENT.LABEL.SPECIALTY' | translate }} (
+      <span style="color: red;">*</span>
       )
     </div>
     <select
@@ -255,26 +255,26 @@
       (change)="onSelectSpecialtyChange()"
     >
       <option [ngValue]="null">
-        {{ "IDEA_MANAGEMENT.PLACEHOLDER.SELECT_SPECIALTY" | translate }}
+        {{ 'IDEA_MANAGEMENT.PLACEHOLDER.SELECT_SPECIALTY' | translate }}
       </option>
       <ng-container *ngFor="let item of listSpecialty">
         <option [value]="item.value">{{ item.name }}</option>
       </ng-container>
     </select>
     <div class="form-text text-danger" *ngIf="!specialty">
-      {{ "ADD-INSIDE-IDEA.VALIDATE.SPECIALTY" | translate }}
+      {{ 'ADD-INSIDE-IDEA.VALIDATE.SPECIALTY' | translate }}
     </div>
   </div>
 </div>
 <!-- <div class="line"></div> -->
 <div class="idea-form">
   <div class="header-text">
-    2. {{ "IDEA_MANAGEMENT.LABEL.AUTHOR" | translate }}
+    2. {{ 'IDEA_MANAGEMENT.LABEL.AUTHOR' | translate }}
   </div>
   <div class="input-form">
     <div class="input-name">
-      {{ "IDEA_MANAGEMENT.LABEL.IN_GROUP" | translate }} (
-      <span style="color: red">*</span>
+      {{ 'IDEA_MANAGEMENT.LABEL.IN_GROUP' | translate }} (
+      <span style="color: red;">*</span>
       )
     </div>
     <table
@@ -297,7 +297,7 @@
         <td
           mat-cell
           *matCellDef="let element"
-          style="text-align: center; font-size: 12px"
+          style="text-align: center; font-size: 12px;"
         >
           <i
             *ngIf="expandedElement !== element"
@@ -322,9 +322,9 @@
           mat-header-cell
           *matHeaderCellDef
           aria-label="row actions"
-          style="width: 10%"
+          style="width: 10%;"
         ></th>
-        <td mat-cell *matCellDef="let element" style="text-align: center">
+        <td mat-cell *matCellDef="let element" style="text-align: center;">
           <i class="fa fa-user"></i>
         </td>
       </ng-container>
@@ -339,7 +339,7 @@
         <td
           mat-cell
           *matCellDef="let element"
-          style="text-align: center; font-size: 12px; height: 36px"
+          style="text-align: center; font-size: 12px; height: 36px;"
         >
           {{ element[column] }}
         </td>
@@ -351,10 +351,10 @@
           mat-cell
           *matCellDef="let element"
           [attr.colspan]="columnsToDisplayWithExpand.length"
-          style="padding: 0px"
+          style="padding: 0px;"
         >
           <div
-            style="flex-direction: column"
+            style="flex-direction: column;"
             class="example-element-detail"
             [@detailExpand]="
               element == expandedElement ? 'expanded' : 'collapsed'
@@ -385,37 +385,41 @@
             
             </div> -->
             <div
-              style="flex-direction: column"
+              style="flex-direction: column;"
               class="example-element-detail"
               [@detailExpand]="
                 element == expandedElement ? 'expanded' : 'collapsed'
               "
             >
               <div class="example-element-description">
-                <p style="margin-bottom: 8px; font-weight: 300">
-                  <b style="font-weight: bold"
-                    >{{ "IDEA_MANAGEMENT.LABEL.TELEPHONE" | translate }}:</b
-                  >
-                  {{ element.phoneNumber }}<br />
+                <p style="margin-bottom: 8px; font-weight: 300;">
+                  <b style="font-weight: bold;">
+                    {{ 'IDEA_MANAGEMENT.LABEL.TELEPHONE' | translate }}:
+                  </b>
+                  {{ element.phoneNumber }}
+                  <br />
                 </p>
-                <p style="margin-bottom: 8px; font-weight: 300">
-                  <b style="font-weight: bold"
-                    >{{ "IDEA_MANAGEMENT.LABEL.EMAIL" | translate }}:</b
-                  >
-                  {{ element.email }}<br />
+                <p style="margin-bottom: 8px; font-weight: 300;">
+                  <b style="font-weight: bold;">
+                    {{ 'IDEA_MANAGEMENT.LABEL.EMAIL' | translate }}:
+                  </b>
+                  {{ element.email }}
+                  <br />
                 </p>
                 <!-- <p style="margin-bottom: 8px;font-weight: 300;" ><b style="font-weight: bold;">{{'IDEA_MANAGEMENT.LABEL.DATE_OF_BIRTH' | translate}}:</b> {{ element.birthDay }}<br></p> -->
-                <p style="margin-bottom: 8px; font-weight: 300">
-                  <b style="font-weight: bold"
-                    >{{ "IDEA_MANAGEMENT.LABEL.WORK_PLACE" | translate }}:</b
-                  >
-                  {{ element.jobAddress }}<br />
+                <p style="margin-bottom: 8px; font-weight: 300;">
+                  <b style="font-weight: bold;">
+                    {{ 'IDEA_MANAGEMENT.LABEL.WORK_PLACE' | translate }}:
+                  </b>
+                  {{ element.jobAddress }}
+                  <br />
                 </p>
-                <p style="margin-bottom: 0px; font-weight: 300">
-                  <b style="font-weight: bold"
-                    >{{ "IDEA_MANAGEMENT.LABEL.OFFICE" | translate }}:</b
-                  >
-                  {{ element.jobPosition }}<br />
+                <p style="margin-bottom: 0px; font-weight: 300;">
+                  <b style="font-weight: bold;">
+                    {{ 'IDEA_MANAGEMENT.LABEL.OFFICE' | translate }}:
+                  </b>
+                  {{ element.jobPosition }}
+                  <br />
                 </p>
               </div>
             </div>
@@ -444,7 +448,7 @@
       <tr
         mat-header-row
         *matHeaderRowDef="columnsToDisplayWithExpand"
-        style="background-color: #ff4d00; height: 36px"
+        style="background-color: #ff4d00; height: 36px;"
       ></tr>
       <tr
         mat-row
@@ -452,7 +456,7 @@
         class="example-element-row"
         [class.example-expanded-row]="expandedElement === element"
         (click)="expandedElement = expandedElement === element ? null : element"
-        style="height: 36px"
+        style="height: 36px;"
       ></tr>
       <tr
         mat-row
@@ -460,24 +464,38 @@
         class="example-detail-row"
       ></tr>
     </table>
-    <div style="width: 100%;display: flex;justify-content: flex-end;margin-top: 8px;">
-      <button
-      (click)="AddInsideAuthor()"
- 
-      style="border-radius: 16px;border: 1px solid #FF4D00;padding: 4px 12px;width: 95px;display: flex;justify-content: center;background-color: #ffffff;"
+    <div
+      style="
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 8px;
+      "
     >
-    <div>
-      <i class="fas fa-plus" style="color: #000000;font-size: 10px;"></i>
-      <span style="font-size: 12px;">
-        {{ 'ACTION.ADD' | translate }}
-      </span>
-    </div>
-    </button>
+      <button
+        (click)="AddInsideAuthor()"
+        style="
+          border-radius: 16px;
+          border: 1px solid #ff4d00;
+          padding: 4px 12px;
+          width: 95px;
+          display: flex;
+          justify-content: center;
+          background-color: #ffffff;
+        "
+      >
+        <div>
+          <i class="fas fa-plus" style="color: #000000; font-size: 10px;"></i>
+          <span style="font-size: 12px;">
+            {{ 'ACTION.ADD' | translate }}
+          </span>
+        </div>
+      </button>
     </div>
   </div>
   <div class="input-form">
     <div class="input-name">
-      {{ "IDEA_MANAGEMENT.LABEL.OUT_GROUP" | translate }}
+      {{ 'IDEA_MANAGEMENT.LABEL.OUT_GROUP' | translate }}
     </div>
     <table
       mat-table
@@ -496,7 +514,7 @@
             border-bottom-width: 0px;
           "
         ></th>
-        <td mat-cell *matCellDef="let element" style="text-align: center">
+        <td mat-cell *matCellDef="let element" style="text-align: center;">
           <i
             *ngIf="expandedElement !== element"
             class="fa fa-chevron-right"
@@ -520,9 +538,9 @@
           mat-header-cell
           *matHeaderCellDef
           aria-label="row actions"
-          style="width: 10%"
+          style="width: 10%;"
         ></th>
-        <td mat-cell *matCellDef="let element" style="text-align: center">
+        <td mat-cell *matCellDef="let element" style="text-align: center;">
           <i class="fa fa-user"></i>
         </td>
       </ng-container>
@@ -537,7 +555,7 @@
         <td
           mat-cell
           *matCellDef="let element"
-          style="text-align: center; font-size: 12px"
+          style="text-align: center; font-size: 12px;"
         >
           {{ element[column] }}
         </td>
@@ -549,10 +567,10 @@
           mat-cell
           *matCellDef="let element"
           [attr.colspan]="columnsToDisplayWithExpand2.length"
-          style="padding: 0px"
+          style="padding: 0px;"
         >
           <div
-            style="flex-direction: column"
+            style="flex-direction: column;"
             class="example-element-detail"
             [@detailExpand]="
               element == expandedElement ? 'expanded' : 'collapsed'
@@ -579,38 +597,42 @@
               <br />
             </div> -->
             <div class="example-element-description">
-              <p style="margin-bottom: 8px; font-weight: 300">
-                <b style="font-weight: bold"
-                  >{{ "IDEA_MANAGEMENT.LABEL.TELEPHONE" | translate }}:</b
-                >
-                {{ element.phoneNumber }}<br />
+              <p style="margin-bottom: 8px; font-weight: 300;">
+                <b style="font-weight: bold;">
+                  {{ 'IDEA_MANAGEMENT.LABEL.TELEPHONE' | translate }}:
+                </b>
+                {{ element.phoneNumber }}
+                <br />
               </p>
               <p
                 *ngIf="element.email"
-                style="margin-bottom: 8px; font-weight: 300"
+                style="margin-bottom: 8px; font-weight: 300;"
               >
-                <b style="font-weight: bold"
-                  >{{ "IDEA_MANAGEMENT.LABEL.EMAIL" | translate }}:</b
-                >
-                {{ element.email }}<br />
+                <b style="font-weight: bold;">
+                  {{ 'IDEA_MANAGEMENT.LABEL.EMAIL' | translate }}:
+                </b>
+                {{ element.email }}
+                <br />
               </p>
               <p
                 *ngIf="element.jobAddress"
-                style="margin-bottom: 8px; font-weight: 300"
+                style="margin-bottom: 8px; font-weight: 300;"
               >
-                <b style="font-weight: bold"
-                  >{{ "IDEA_MANAGEMENT.LABEL.WORK_PLACE" | translate }}:</b
-                >
-                {{ element.jobAddress }}<br />
+                <b style="font-weight: bold;">
+                  {{ 'IDEA_MANAGEMENT.LABEL.WORK_PLACE' | translate }}:
+                </b>
+                {{ element.jobAddress }}
+                <br />
               </p>
               <p
                 *ngIf="element.jobPosition"
-                style="margin-bottom: 0px; font-weight: 300"
+                style="margin-bottom: 0px; font-weight: 300;"
               >
-                <b style="font-weight: bold"
-                  >{{ "IDEA_MANAGEMENT.LABEL.OFFICE" | translate }}:</b
-                >
-                {{ element.jobPosition }}<br />
+                <b style="font-weight: bold;">
+                  {{ 'IDEA_MANAGEMENT.LABEL.OFFICE' | translate }}:
+                </b>
+                {{ element.jobPosition }}
+                <br />
               </p>
             </div>
             <div class="example-element-description row">
@@ -642,7 +664,7 @@
       <tr
         mat-header-row
         *matHeaderRowDef="columnsToDisplayWithExpand2"
-        style="background-color: #00820d; height: 36px"
+        style="background-color: #00820d; height: 36px;"
       ></tr>
       <tr
         mat-row
@@ -650,7 +672,7 @@
         class="example-element-row"
         [class.example-expanded-row]="expandedElement === element"
         (click)="expandedElement = expandedElement === element ? null : element"
-        style="height: 36px"
+        style="height: 36px;"
       ></tr>
       <tr
         mat-row
@@ -658,19 +680,33 @@
         class="example-detail-row"
       ></tr>
     </table>
-    <div style="width: 100%;display: flex;justify-content: flex-end;margin-top: 8px;">
-      <button
-      (click)="AddOutsideAuthor()"
- 
-      style="border-radius: 16px;border: 1px solid #FF4D00;padding: 4px 12px;width: 95px;display: flex;justify-content: center;background-color: #ffffff;"
+    <div
+      style="
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 8px;
+      "
     >
-    <div>
-      <i class="fas fa-plus" style="color: #000000;font-size: 10px;"></i>
-      <span style="font-size: 12px;">
-        {{ 'ACTION.ADD' | translate }}
-      </span>
-    </div>
-    </button>
+      <button
+        (click)="AddOutsideAuthor()"
+        style="
+          border-radius: 16px;
+          border: 1px solid #ff4d00;
+          padding: 4px 12px;
+          width: 95px;
+          display: flex;
+          justify-content: center;
+          background-color: #ffffff;
+        "
+      >
+        <div>
+          <i class="fas fa-plus" style="color: #000000; font-size: 10px;"></i>
+          <span style="font-size: 12px;">
+            {{ 'ACTION.ADD' | translate }}
+          </span>
+        </div>
+      </button>
     </div>
   </div>
 </div>
@@ -678,128 +714,128 @@
 <!-- <div class="line"></div> -->
 <div class="idea-form">
   <div class="header-text">
-    3. {{ "IDEA_MANAGEMENT.LABEL.IDEA_DESCRIPTION" | translate }}
+    3. {{ 'IDEA_MANAGEMENT.LABEL.IDEA_DESCRIPTION' | translate }}
   </div>
   <div class="input-form">
     <div class="input-name">
-      3.1 {{ "IDEA_MANAGEMENT.LABEL.BEFORE_APPLY_STATUS" | translate }} (
-      <span style="color: red">*</span>
+      3.1 {{ 'IDEA_MANAGEMENT.LABEL.BEFORE_APPLY_STATUS' | translate }} (
+      <span style="color: red;">*</span>
       )
     </div>
     <textarea
       class="input-field"
-      style="height: 60px; padding-top: 5px"
+      style="height: 60px; padding-top: 5px;"
       rows="4"
       cols="50"
       [value]="beforeApplyStatus"
       [(ngModel)]="beforeApplyStatus"
       (input)="beforeApplyStatusChange()"
-      >{{ "" | translate }}</textarea
+      >{{ '' | translate }}</textarea
     >
     <div class="form-text text-danger" *ngIf="!beforeApplyStatus">
-      {{ "ADD-INSIDE-IDEA.VALIDATE.BEFORE_APPLY_STATUS" | translate }}
+      {{ 'ADD-INSIDE-IDEA.VALIDATE.BEFORE_APPLY_STATUS' | translate }}
     </div>
   </div>
   <div class="input-form">
     <div class="input-name">
-      3.2 {{ "IDEA_MANAGEMENT.LABEL.IDEA_CONTENT" | translate }} (
-      <span style="color: red">*</span>
+      3.2 {{ 'IDEA_MANAGEMENT.LABEL.IDEA_CONTENT' | translate }} (
+      <span style="color: red;">*</span>
       )
     </div>
     <textarea
       class="input-field"
-      style="height: 60px; padding-top: 5px"
+      style="height: 60px; padding-top: 5px;"
       rows="4"
       cols="50"
       [value]="content"
       [(ngModel)]="content"
       (input)="contentChange()"
-      >{{ "" | translate }}</textarea
+      >{{ '' | translate }}</textarea
     >
     <div class="form-text text-danger" *ngIf="!content">
-      {{ "ADD-INSIDE-IDEA.VALIDATE.CONTENT" | translate }}
+      {{ 'ADD-INSIDE-IDEA.VALIDATE.CONTENT' | translate }}
     </div>
   </div>
   <div class="input-form">
     <div class="input-name">
-      3.3 {{ "IDEA_MANAGEMENT.LABEL.APPLY_RANGE" | translate }} (
-      <span style="color: red">*</span>
+      3.3 {{ 'IDEA_MANAGEMENT.LABEL.APPLY_RANGE' | translate }} (
+      <span style="color: red;">*</span>
       )
     </div>
     <textarea
       class="input-field"
-      style="height: 60px; padding-top: 5px"
+      style="height: 60px; padding-top: 5px;"
       rows="4"
       cols="50"
       [value]="applyRange"
       [(ngModel)]="applyRange"
       (input)="applyRangeChange()"
-      >{{ "" | translate }}</textarea
+      >{{ '' | translate }}</textarea
     >
     <div class="form-text text-danger" *ngIf="!applyRange">
-      {{ "ADD-INSIDE-IDEA.VALIDATE.APPLY_RANGE" | translate }}
+      {{ 'ADD-INSIDE-IDEA.VALIDATE.APPLY_RANGE' | translate }}
     </div>
   </div>
   <div class="input-form">
     <div class="input-name">
-      3.4 {{ "IDEA_MANAGEMENT.LABEL.EFFECTIVENESS" | translate }} (
-      <span style="color: red">*</span>
+      3.4 {{ 'IDEA_MANAGEMENT.LABEL.EFFECTIVENESS' | translate }} (
+      <span style="color: red;">*</span>
       )
     </div>
     <textarea
       class="input-field"
-      style="height: 60px; padding-top: 5px"
+      style="height: 60px; padding-top: 5px;"
       rows="4"
       cols="50"
       [value]="effectiveness"
       [(ngModel)]="effectiveness"
       (input)="effectivenessChange()"
-      >{{ "" | translate }}</textarea
+      >{{ '' | translate }}</textarea
     >
     <div class="form-text text-danger" *ngIf="!effectiveness">
-      {{ "ADD-INSIDE-IDEA.VALIDATE.EFFECTIVENESS" | translate }}
+      {{ 'ADD-INSIDE-IDEA.VALIDATE.EFFECTIVENESS' | translate }}
     </div>
   </div>
   <div class="input-form">
     <div class="input-name">
-      3.5 {{ "IDEA_MANAGEMENT.LABEL.NEXT_STEP" | translate }}
+      3.5 {{ 'IDEA_MANAGEMENT.LABEL.NEXT_STEP' | translate }}
     </div>
     <textarea
       class="input-field"
-      style="height: 60px; padding-top: 5px"
+      style="height: 60px; padding-top: 5px;"
       rows="4"
       cols="50"
       [value]="nextStep"
       [(ngModel)]="nextStep"
       (input)="nextStepChange()"
-      >{{ "" | translate }}</textarea
+      >{{ '' | translate }}</textarea
     >
   </div>
   <div class="input-form">
     <div class="input-name">
-      3.6 {{ "IDEA_MANAGEMENT.LABEL.NOTE" | translate }}
+      3.6 {{ 'IDEA_MANAGEMENT.LABEL.NOTE' | translate }}
     </div>
     <textarea
       class="input-field"
-      style="height: 60px; padding-top: 5px"
+      style="height: 60px; padding-top: 5px;"
       rows="4"
       cols="50"
       [value]="note"
       [(ngModel)]="note"
       (input)="noteChange()"
-      >{{ "" | translate }}</textarea
+      >{{ '' | translate }}</textarea
     >
   </div>
 </div>
 <!-- <div class="line"></div> -->
-<div class="idea-form" style="gap: 8px">
+<div class="idea-form" style="gap: 8px;">
   <div class="header-text">
-    4. {{ "IDEA_MANAGEMENT.LABEL.DOCUMENTS" | translate }}
+    4. {{ 'IDEA_MANAGEMENT.LABEL.DOCUMENTS' | translate }}
   </div>
 
   <div class="file text-center">
     <div class="file-text">
-      <p style="text-align: center" class="font-weight-bolder fs-075">
+      <p style="text-align: center;" class="font-weight-bolder fs-075">
         {{ DataService.documentDTO.value?.name }}
       </p>
     </div>
@@ -810,30 +846,30 @@
       <img
         src="assets/img/icon/add file.svg"
         alt="ic_camera"
-        style="width: 20px"
+        style="width: 20px;"
       />
       <div class="upload-label">
-        {{ "IDEA_MANAGEMENT.BUTTON.CHOOSE_FILE" | translate }}
+        {{ 'IDEA_MANAGEMENT.BUTTON.CHOOSE_FILE' | translate }}
       </div>
     </div>
     <input
       type="file"
       (change)="onSelectFile($event)"
-      style="display: none"
+      style="display: none;"
       #selectAvatar
     />
     <span class="fs-075">
-      {{ "IDEA_MANAGEMENT.LABEL.FILE_TYPE" | translate }}:
+      {{ 'IDEA_MANAGEMENT.LABEL.FILE_TYPE' | translate }}:
       <b class="fs-075">
         {{
-          " .txt, .doc, .docx, .rar, .zip, .xls, .xlsx, .pdf, .jpg, .gif, .png, .ppt, .pptx."
+          ' .txt, .doc, .docx, .rar, .zip, .xls, .xlsx, .pdf, .jpg, .gif, .png, .ppt, .pptx.'
             | translate
         }}
       </b>
     </span>
     <span class="fs-075">
-      {{ "IDEA_MANAGEMENT.LABEL.MAX_STORAGE" | translate }}:
-      <b class="fs-075">{{ "25 MB" | translate }}</b>
+      {{ 'IDEA_MANAGEMENT.LABEL.MAX_STORAGE' | translate }}:
+      <b class="fs-075">{{ '25 MB' | translate }}</b>
     </span>
   </div>
 </div>
@@ -841,13 +877,13 @@
   <div (click)="duplicationCheck()" class="btn1">
     <img src="assets/img/icon/task check.svg" />
     <div class="btn1-text">
-      {{ "IDEA_MANAGEMENT.BUTTON.DUPLICATION_CHECK" | translate }}
+      {{ 'IDEA_MANAGEMENT.BUTTON.DUPLICATION_CHECK' | translate }}
     </div>
   </div>
   <div (click)="deleteIdea()" class="btn2">
     <img src="assets/img/icon/trash.svg" />
     <div class="btn2-text">
-      {{ "IDEA-DETAIL.EDIT.DELETE_IDEA_REGISTRATION" | translate }}
+      {{ 'IDEA-DETAIL.EDIT.DELETE_IDEA_REGISTRATION' | translate }}
     </div>
   </div>
 </div>

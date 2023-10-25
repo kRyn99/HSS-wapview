@@ -103,7 +103,7 @@
             [bsConfig]="bsConfig"
             class="date-text"
             style="background-color: white; border: white;"
-            #dprn="bsDatepicker"
+            #startDate="bsDatepicker"
             #vDate
             bsDatepicker
             autocomplete="off"
@@ -119,7 +119,10 @@
               )
             "
           />
-          <img src="assets/img/icon/icon-date.png" />
+          <img
+            src="assets/img/icon/icon-date.png"
+            (click)="toggleDatePicker(startDate)"
+          />
         </div>
         <small
           class="form-text text-danger"
@@ -170,7 +173,7 @@
             [bsConfig]="bsFromConfig"
             class="date-text"
             style="background-color: white; border: white;"
-            #dprn="bsDatepicker"
+            #endDate="bsDatepicker"
             #vDate
             bsDatepicker
             autocomplete="off"
@@ -186,7 +189,10 @@
               )
             "
           />
-          <img src="assets/img/icon/icon-date.png" />
+          <img
+            src="assets/img/icon/icon-date.png"
+            (click)="toggleDatePicker(endDate)"
+          />
         </div>
         <!-- <small
         class="form-text text-danger"
@@ -218,12 +224,12 @@
                   }
           }}
         </small>
-        <small
+        <!-- <small
           class="form-text text-danger"
           *ngIf="formUtils.controlHasError('startEnd', 'applyEndTime')"
         >
           {{ 'VALIDATION.FROM_DATE_BEFORE_TO_DATE' | translate }}
-        </small>
+        </small> -->
       </div>
     </div>
 
@@ -518,19 +524,33 @@
           class="example-detail-row"
         ></tr>
       </table>
-      <div style="width: 100%;display: flex;justify-content: flex-end;margin-top: 8px;">
-        <button
-        (click)="AddInsideAuthor()"
-   
-        style="border-radius: 16px;border: 1px solid #FF4D00;padding: 4px 12px;width: 95px;display: flex;justify-content: center;background-color: #ffffff;"
+      <div
+        style="
+          width: 100%;
+          display: flex;
+          justify-content: flex-end;
+          margin-top: 8px;
+        "
       >
-      <div>
-        <i class="fas fa-plus" style="color: #000000;font-size: 10px;"></i>
-        <span style="font-size: 12px;">
-          {{ 'ACTION.ADD' | translate }}
-        </span>
-      </div>
-      </button>
+        <button
+          (click)="AddInsideAuthor()"
+          style="
+            border-radius: 16px;
+            border: 1px solid #ff4d00;
+            padding: 4px 12px;
+            width: 95px;
+            display: flex;
+            justify-content: center;
+            background-color: #ffffff;
+          "
+        >
+          <div>
+            <i class="fas fa-plus" style="color: #000000; font-size: 10px;"></i>
+            <span style="font-size: 12px;">
+              {{ 'ACTION.ADD' | translate }}
+            </span>
+          </div>
+        </button>
       </div>
     </div>
     <div class="input-form">
@@ -722,19 +742,33 @@
           class="example-detail-row"
         ></tr>
       </table>
-      <div style="width: 100%;display: flex;justify-content: flex-end;margin-top: 8px;">
-        <button
-        (click)="AddOutsideAuthor()"
-   
-        style="border-radius: 16px;border: 1px solid #FF4D00;padding: 4px 12px;width: 95px;display: flex;justify-content: center;background-color: #ffffff;"
+      <div
+        style="
+          width: 100%;
+          display: flex;
+          justify-content: flex-end;
+          margin-top: 8px;
+        "
       >
-      <div>
-        <i class="fas fa-plus" style="color: #000000;font-size: 10px;"></i>
-        <span style="font-size: 12px;">
-          {{ 'ACTION.ADD' | translate }}
-        </span>
-      </div>
-      </button>
+        <button
+          (click)="AddOutsideAuthor()"
+          style="
+            border-radius: 16px;
+            border: 1px solid #ff4d00;
+            padding: 4px 12px;
+            width: 95px;
+            display: flex;
+            justify-content: center;
+            background-color: #ffffff;
+          "
+        >
+          <div>
+            <i class="fas fa-plus" style="color: #000000; font-size: 10px;"></i>
+            <span style="font-size: 12px;">
+              {{ 'ACTION.ADD' | translate }}
+            </span>
+          </div>
+        </button>
       </div>
     </div>
   </div>

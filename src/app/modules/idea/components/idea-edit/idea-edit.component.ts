@@ -870,6 +870,7 @@ export class IdeaEditComponent implements OnInit {
   onInputValueChange() {
     this.DataService.ideaName2.next(this.ideaNameValue);
   }
+  duplicate=false;
   selectStartDate() {
     let now = new Date();
     now.setHours(0, 0, 0, 0);
@@ -887,7 +888,9 @@ export class IdeaEditComponent implements OnInit {
     } else {
       this.checkNow = false;
     }
-
+    if(this.checkStartDate){
+      this.duplicate=!this.duplicate
+    }
     this.DataService.selectedStartDate.next(this.applyStartTime);
     this.getIdeaDTO();
   }
@@ -925,6 +928,9 @@ export class IdeaEditComponent implements OnInit {
         this.checkNow2 = false;
       }
       this.getIdeaDTO();
+    }
+    if(this.checkStartDate){
+      this.duplicate=!this.duplicate
     }
     this.DataService.selectedEndDate.next(this.applyEndTime);
   }
