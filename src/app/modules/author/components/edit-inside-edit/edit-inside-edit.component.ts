@@ -58,42 +58,42 @@ export class EditInsideEditComponent implements OnInit {
     //   }
     //   this.staffId = params.id;
     // });
-    if(this.DataService.routerContrivance){
+    if (this.DataService.routerContrivance) {
       this.contributorDTO = {
         ...this.contrivanceService.lstContributorDTOService.value.find(
           (item) => item.staffId == this.DataService.idEditInsideAuthor
         ),
       };
-    }
-    else {
+    } else {
       this.contributorDTO = {
         ...this.DataService.lstContributorDTOServiceEdit.value.find(
           (item) => item.staffId == this.DataService.idEditInsideAuthor
         ),
       };
-   
     }
     this.staffId = this.DataService.idEditInsideAuthor;
     console.log(this.staffId);
-    
+
     this.getListStaff();
   }
-  checkPhoneFormat=false;
+  checkPhoneFormat = false;
   checkValidatePhone(phoneNumber: string) {
     const phoneNumberRegex = /^\d{8,15}$/;
     if (phoneNumberRegex.test(phoneNumber)) {
-     this.checkPhoneFormat = false;
+      this.checkPhoneFormat = false;
     } else {
       this.checkPhoneFormat = true;
     }
   }
-  changePhone(){
+  changePhone() {
     this.checkValidatePhone(this.contributorDTO.phoneNumber);
-    if(this.checkPhoneFormat) {
+    console.log(this.contributorDTO.phoneNumber);
+
+    if (this.checkPhoneFormat) {
       return;
     }
   }
-  goBack(){
+  goBack() {
     this.DataService.showBg = false;
     this.DataService.showAddInsideAuthor = false;
     this.DataService.showEditInsideAuthor = false;
@@ -127,7 +127,10 @@ export class EditInsideEditComponent implements OnInit {
     return this.http.post<any>(url, requestBody, { headers }).subscribe(
       (response) => {
         // this.listStaff = response.data.listStaffDTO;
-        this.listStaff = response.data.listStaffDTO.map((item) => { item.displayName = `${item.staffCode} - ${item.fullName}`; return { ...item } });
+        this.listStaff = response.data.listStaffDTO.map((item) => {
+          item.displayName = `${item.staffCode} - ${item.fullName}`;
+          return { ...item };
+        });
 
         console.log(this.listStaff);
       },
@@ -142,7 +145,7 @@ export class EditInsideEditComponent implements OnInit {
     this.contributorDTO.staffId = value.id;
     this.contributorDTO.birthDay = this.contributorDTO.birthday;
     this.checkValidatePhone(this.contributorDTO.phoneNumber);
-    if(this.checkPhoneFormat) {
+    if (this.checkPhoneFormat) {
       return;
     }
   }
@@ -228,7 +231,7 @@ export class EditInsideEditComponent implements OnInit {
       // modalRef.componentInstance.closeIcon = false;
       return false;
     }
-    if(this.checkPhoneFormat){
+    if (this.checkPhoneFormat) {
       return false;
     }
     if (
