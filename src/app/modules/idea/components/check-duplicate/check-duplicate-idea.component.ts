@@ -177,6 +177,7 @@ export class CheckDuplicateComponentIdea implements OnInit {
       Authorization: `Bearer ` + this.token,
     });
     const currentFileValue = this.DataService.file.getValue();
+    
     const fileName = currentFileValue?.name;
     const fileUrl = currentFileValue?.url;
     const requestBody = {
@@ -186,8 +187,8 @@ export class CheckDuplicateComponentIdea implements OnInit {
           this.DataService.lstContributorDTOService.value
         ),
       documentDTO: {
-        url: fileUrl,
-        name: fileName,
+        url:this.DataService.documentDTO.value.url,
+        name: this.DataService.documentDTO.value.name 
       },
     };
     const modalRefSuccess = this.modalService.open(MessagePopupComponent, {
@@ -264,8 +265,8 @@ export class CheckDuplicateComponentIdea implements OnInit {
           this.DataService.lstContributorDTOServiceEdit.value
         ),
       documentDTO: {
-        url: fileUrl,
-        name: fileName,
+        url: this.DataService.documentDTO.value.url,
+        name: this.DataService.documentDTO.value.name,
       },
     };
     const modalRefSuccess = this.modalService.open(MessagePopupComponent, {

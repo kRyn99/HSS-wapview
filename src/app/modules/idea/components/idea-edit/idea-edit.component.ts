@@ -114,7 +114,7 @@ export class IdeaEditComponent implements OnInit {
   token = JSON.parse(localStorage.getItem("tokenInLocalStorage"));
   ideaDetail: IdeaDetail;
   listContributorDTO: [];
-  documentDTO;
+  // documentDTO;
   nextStep;
   note;
   applyStartTimeString;
@@ -140,8 +140,8 @@ export class IdeaEditComponent implements OnInit {
       (response) => {
         this.ideaDetail = response.data;
         this.listContributorDTO = response.data.listContributorDTO;
-        this.DataService.documentDTO = response.data.documentDTO;
-        console.log(this.DataService.documentDTO.url);
+        this.DataService.documentDTO.next(response.data.documentDTO);
+       
         
         // this.selectedSpecialtyValue = response.data.specialty;
         // this.selectedUnitValue = response.data.listUnitDTO;
@@ -508,11 +508,11 @@ export class IdeaEditComponent implements OnInit {
       // this.fileURL = file.name;
       // upload img
 
-      this.DataService.file.next(file);
-      this.DataService.file.subscribe((value) => {
-        this.documentDTO = value;
-      });
-
+      // this.DataService.file.next(file);
+      // this.DataService.file.subscribe((value) => {
+      //   this.documentDTO = value;
+      // });
+      this.DataService.documentDTO.next(file)
       const formData: FormData = new FormData();
       formData.append("listDocument", file);
       const url = `${environment.API_HOST_NAME}/api/upload-document`;
@@ -521,7 +521,7 @@ export class IdeaEditComponent implements OnInit {
         .subscribe((res) => {
           if (res.errorCode === "0" || res.errorCode === "200") {
             // const currentFileValue = this.DataService.file.value;
-            this.documentDTO.url = res.data;
+            this.DataService.documentDTO.value.url =res.data;
             // this.DataService.file.next(currentFileValue);
           } else {
             this.notificationService.notify("fail", res.description);
@@ -990,8 +990,8 @@ export class IdeaEditComponent implements OnInit {
             this.DataService.lstContributorDTOServiceEdit.value
           ),
           documentDTO: {
-            url: this.documentDTO?.url,
-            name: this.documentDTO?.name,
+            url: this.DataService.documentDTO.value.url,
+            name: this.DataService.documentDTO.value.url,
           },
           
       };
