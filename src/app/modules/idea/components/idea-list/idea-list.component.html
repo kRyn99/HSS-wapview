@@ -7,9 +7,13 @@
   >
   </app-title-nav-idea>
   <div>
-    <div class="container"  infinite-scroll [infiniteScrollDistance]="1"
-    [infiniteScrollThrottle]="500"
-    (scrolled)="onScroll()">
+    <div
+      class="container"
+      infinite-scroll
+      [infiniteScrollDistance]="1"
+      [infiniteScrollThrottle]="500"
+      (scrolled)="onScroll()"
+    >
       <div
         class="list-idea"
         style="
@@ -21,10 +25,7 @@
           margin-bottom: 8px;
         "
       >
-        <div
-          class="list-idea-text"
-          style="display: flex"
-        >
+        <div class="list-idea-text" style="display: flex">
           <!-- <span style="color: rgba(0, 0, 0, 0.6); font-size: 16px"
             >Danh sách</span
           > -->
@@ -83,7 +84,14 @@
       </div> -->
         </div>
       </div>
-      <div style="display: flex; align-items: center; height: 24px;justify-content: center;">
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          height: 24px;
+          justify-content: center;
+        "
+      >
         <div
           (click)="selectTab('MoiNhat')"
           [ngClass]="{ selectedTab: isMoiNhatSelected }"
@@ -116,7 +124,6 @@
                 background-color: transparent;
                 border: none;
                 text-align: center;
-                padding: 0px;
               "
               class="form-control"
               id="exampleFormControlSelect1"
@@ -152,7 +159,6 @@
                 background-color: transparent;
                 border: none;
                 text-align: center;
-                padding: 0px;
               "
               class="form-control"
               id="exampleFormControlSelect1"
@@ -167,7 +173,7 @@
           >
         </div>
       </div>
-  
+
       <div *ngIf="listIdea && listIdea.length > 0" class="list-all-idea">
         <div
           *ngFor="let item of listIdea"
