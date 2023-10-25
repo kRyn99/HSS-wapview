@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { IdeaNewRoutingModule } from './idea-new-routing.module';
 import { IdeaListNewComponent } from './component/idea-list-new/idea-list-new.component';
-import { IdeaDetailNewComponent } from './component/idea-detail-new/idea-detail-new.component';
 import { CommonItemsModule } from "@app/modules/common-items/common-items.module";
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { IdeaRoutingModule } from "@app/modules/idea/idea-routing.module";
@@ -31,7 +30,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
 @NgModule({
   declarations: [
     IdeaListNewComponent,
-    IdeaDetailNewComponent
   ],
   imports: [
     NgSelectModule,

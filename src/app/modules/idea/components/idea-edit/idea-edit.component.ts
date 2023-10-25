@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
-import { BsDatepickerConfig, BsLocaleService } from "ngx-bootstrap/datepicker";
+import { BsDatepickerConfig, BsDatepickerDirective, BsLocaleService } from "ngx-bootstrap/datepicker";
 import { ActivatedRoute, Router } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { TranslateService } from "@ngx-translate/core";
@@ -125,6 +125,16 @@ export class IdeaEditComponent implements OnInit {
     this.DataService.selectedLanguage.next(this.selectedLanguage);
     console.log(this.DataService.selectedLanguage.value);
   }
+
+
+  toggleDatePicker(datepickerInput: BsDatepickerDirective) {
+    if (datepickerInput.isOpen) {
+      datepickerInput.hide();
+    } else {
+      datepickerInput.show();
+    }
+  }
+
   getIdeaDetail() {
     const url = `${environment.API_HOST_NAME}/api/get-idea-detail`;
     const headers = new HttpHeaders({

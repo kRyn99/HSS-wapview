@@ -94,7 +94,6 @@ export class AddInsideAuthorComponent implements OnInit {
     }
   }
 
-  listStaff: [];
   listStaff2: [];
   lang = localStorage.getItem("lang");
   getListStaff() {
@@ -112,12 +111,10 @@ export class AddInsideAuthorComponent implements OnInit {
     };
     return this.http.post<any>(url, requestBody, { headers }).subscribe(
       (response) => {
-        this.listStaff = response.data.listStaffDTO;
         this.listStaff2 = response.data.listStaffDTO.map((item) => {
           item.displayName = `${item.staffCode} - ${item.fullName}`;
           return { ...item };
         });
-        console.log(this.listStaff);
       },
       (error) => {
         console.error(error.description);
