@@ -262,7 +262,7 @@ export class IdeaDetailComponent implements OnInit {
           (response) => {
             if (response.errorCode == 0) {
               this.notificationService.notify("success", response.description);
-              this.router.navigate(["idea"]);
+              this.router.navigate(["idea/list"]);
             } else {
               const modalRef = this.modalService.open(MessagePopupComponent, {
                 size: "sm",

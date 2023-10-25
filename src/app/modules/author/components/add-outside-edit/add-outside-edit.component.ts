@@ -141,7 +141,10 @@ export class AddOutsideEditComponent implements OnInit {
     this.selectedJobAddress = this.selectedStaffCodeSubject.value?.jobAddress;
     this.selectedProfessionalQualification =
       this.selectedStaffCodeSubject.value?.professionalQualification;
-    console.log(value);
+      this.checkValidatePhone(this.selectedPhoneNumber);
+      if(this.checkPhoneFormat) {
+        return;
+      }
   }
   percentageValueChange(newValue: string) {
     const parsedValue = parseInt(newValue, 10);

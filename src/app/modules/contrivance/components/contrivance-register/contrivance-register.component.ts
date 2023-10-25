@@ -52,6 +52,7 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
     displayOneMonthRange: false,
     displayMonths: 1,
   };
+  bsFromConfig:Partial<BsDatepickerConfig>;
   columnsToDisplay = ["staffCode", "fullName", "percentage"];
   columnsToDisplayWithExpand = ["expand", ...this.columnsToDisplay];
   columnsToDisplay2 = ["fullName", "percentage"];
@@ -104,7 +105,12 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
     private cdRef: ChangeDetectorRef,
     public formUtils: CommonFormUtils,
     private translateService: TranslateService
-  ) {}
+  ) {
+    this.bsFromConfig = {
+      containerClass: 'theme-dark-blue',
+      dateInputFormat: "DD/MM/YYYY", // Định dạng ngày/tháng/năm
+    };
+  }
 
   ngOnInit() {
     this.DataService.routerContrivance = true;

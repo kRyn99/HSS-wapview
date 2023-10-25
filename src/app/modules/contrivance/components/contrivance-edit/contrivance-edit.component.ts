@@ -38,6 +38,7 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy {
     displayOneMonthRange: false,
     displayMonths: 1,
   };
+  bsFromConfig:Partial<BsDatepickerConfig>;
   columnsToDisplay = ["staffCode", "fullName", "percentage"];
   columnsToDisplayWithExpand = [
     "expand",
@@ -94,7 +95,12 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy {
     public formUtils: CommonFormUtils,
     private datePipe: DatePipe,
     public DataService: DataService,
-  ) { }
+  ) { 
+    this.bsFromConfig = {
+      containerClass: 'theme-dark-blue',
+      dateInputFormat: "DD/MM/YYYY", // Định dạng ngày/tháng/năm
+    };
+  }
 
   ngOnInit() {
     this.DataService.routerContrivance=true;

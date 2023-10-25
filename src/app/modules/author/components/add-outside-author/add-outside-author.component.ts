@@ -137,8 +137,10 @@ export class AddOutsideAuthorComponent implements OnInit {
     this.selectedProfessionalQualification = this.selectedStaffCodeSubject.value?.professionalQualification
   
     this.selectedFullName=value;
-    console.log(this.selectedFullName);
-    console.log(value);
+    this.checkValidatePhone(this.selectedPhoneNumber);
+    if(this.checkPhoneFormat) {
+      return;
+    }
   }
   percentageValueChange(newValue: string) {
     const parsedValue = parseInt(newValue, 10);
@@ -281,6 +283,9 @@ export class AddOutsideAuthorComponent implements OnInit {
       // modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
       // modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.PHONE`);
       // modalRef.componentInstance.closeIcon = false;
+      return false;
+    }
+    if(this.checkPhoneFormat) {
       return false;
     }
     if ((!isValidEmail(this.selectedEmail)) && this.selectedEmail

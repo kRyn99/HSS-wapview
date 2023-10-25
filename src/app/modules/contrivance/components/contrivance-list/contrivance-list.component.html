@@ -29,7 +29,7 @@
             >Danh sách</span
           > -->
           <span style="color: #000000; font-size: 40px; font-weight: bold">
-            Sáng kiến
+            {{ 'IDEA_NEW.CONTRIVANCE' | translate }}
           </span>
         </div>
         <div
@@ -40,7 +40,7 @@
             src="../../../../../assets/img/icon/idea-add.png"
             alt="idea-add"
           />
-          <span style="color: #ff4d00; font-size: 12px">Tạo mới</span>
+          <span style="color: #ff4d00; font-size: 12px">{{ 'IDEA_NEW.CREATE' | translate }}</span>
         </div>
       </div>
       <div class="status-border">
@@ -95,7 +95,7 @@
             align-items: center;
           "
         >
-          <span style="font-size: 14px">Mới nhất</span>
+          <span style="font-size: 14px">{{ 'IDEA_NEW.NEWEST' | translate }}</span>
         </div>
         <div
           (click)="selectTab('LinhVuc')"
@@ -125,7 +125,7 @@
               [(ngModel)]="specialtyId"
               (change)="changeSpecialty()"
             >
-              <option [value]="null">Lĩnh vực</option>
+              <option [value]="null">{{ 'IDEA_NEW.FIELD' | translate }}</option>
               <option
                 *ngFor="let specialty of listSpecialty"
                 [value]="specialty.value"
@@ -163,7 +163,7 @@
               [(ngModel)]="statusId"
               (change)="changeStatus()"
             >
-              <option [value]="null">Trạng thái</option>
+              <option [value]="null">{{ 'IDEA_NEW.STATUS' | translate }}</option>
               <option *ngFor="let item of listStatus" [value]="item.value">
                 {{ item.name }}
               </option>
@@ -177,6 +177,7 @@
       >
         <div
           *ngFor="let item of listContrivance | async; let i = index"
+          (click)="viewDetail(item.contrivanceId)"
           style="
             width: 100%;
                 background-color: #ffffff;
@@ -199,7 +200,7 @@
             </div>
             <div style="margin-bottom: 12px">
               <span style="font-size: 14px; color: rgba(0, 0, 0, 0.6)">
-                Dựa trên ý tưởng số
+                {{ 'IDEA_NEW.IDEA_NUMBER' | translate }}
               </span>
               <span style="font-size: 14px; font-weight: bold">
                 : {{ item.ideaName }}
@@ -207,7 +208,7 @@
             </div>
             <div style="margin-bottom: 12px">
               <span style="font-size: 14px; color: rgba(0, 0, 0, 0.6)">
-                Đơn vị
+                {{ 'IDEA_NEW.UNIT' | translate }}
               </span>
               <span style="font-size: 14px; font-weight: bold">
                 : {{ item.unitNames | truncate : 30 }}
@@ -215,7 +216,7 @@
             </div>
             <div style="margin-bottom: 12px">
               <span style="font-size: 14px; color: rgba(0, 0, 0, 0.6)">
-                Lĩnh vực
+                {{ 'IDEA_NEW.FIELD' | translate }}
               </span>
               <span style="font-size: 14px; font-weight: bold">
                 : {{ item.specialtyName }}

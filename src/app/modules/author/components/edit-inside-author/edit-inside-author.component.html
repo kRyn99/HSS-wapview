@@ -30,7 +30,7 @@
     (click)="goBack()"
   />
   <span style="font-size: 16px; font-weight: 500;">
-    Sửa tác giả Trong tập đoàn
+    {{ 'IDEA_NEW.EDIT_INSIDE' | translate }}
   </span>
 </nav>
 <div class="body">
@@ -76,9 +76,12 @@
       [placeholder]="'MANAGE_CATEGORY.PLACEHOLDER.PHONE_NUMBER' | translate"
       [(ngModel)]="contributorDTO.phoneNumber"
       NumbersOnly
-      maxlength="12"
+      maxlength="15"
+      (input)="changePhone()"
     />
     <div class="form-text text-danger" *ngIf=" !contributorDTO.phoneNumber">{{ "ADD-INSIDE-IDEA.VALIDATE.PHONE" | translate }}</div>
+    <div class="form-text text-danger" *ngIf="checkPhoneFormat">{{"IDEA_NEW.PHONE_ERROR" | translate}}</div>
+
   </div>
   <!-- <div class="info-box">
     <div class="info-title">{{ "CONTRIVANCE_MAMAGEMENT.LABEL.EMAIL" | translate }}</div>

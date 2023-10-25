@@ -242,7 +242,7 @@ export class ContrivanceDetailComponent implements OnInit, OnDestroy {
             (res) => {
               if (res && res.errorCode === "0") {                
                 this.notificationService.notify("success", res.description);
-                this.router.navigate(["contrivance"]);
+                this.router.navigate(["contrivance/list"]);
               } else {
                 this.notificationService.notify("fail", res.description);
               }

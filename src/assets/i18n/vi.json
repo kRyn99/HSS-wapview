@@ -947,5 +947,25 @@
   "EDIT_AUTHOR_IN_GROUP": "Sửa tác giả trong tập đoàn",
   "EDIT_AUTHOR_OUTSIDE_GROUP": "Sửa tác giả ngoài tập đoàn",
   "CHOOSE_AUTHOR_NAME": "Chọn tên tác giả",
-  "STAFF_CODE_NOT_EXIST": "Mã nhân viên không tồn tại"
+  "STAFF_CODE_NOT_EXIST": "Mã nhân viên không tồn tại",
+  "IDEA_NEW": {
+    "NEWEST": "Mới nhất",
+    "FIELD": "Lĩnh vực",
+    "STATUS": "Trạng thái",
+    "IDEA": "Ý tưởng",
+    "CREATE": "Tạo mới",
+    "PICK_UINIT": "Chọn đơn vị",
+    "LIST_DUPLICATE": "Danh sách trùng lặp",
+    "CONTRIVANCE": "Sáng kiến",
+    "IDEA_NUMBER": "Dựa trên ý tưởng số",
+    "UNIT": "Đơn vị",
+    "ADD_INSIDE_AUTHOR": "Thêm tác giả Trong tập đoàn",
+    "PHONE_ERROR": "Số điện thoại sai định dạng",
+    "CONFIRM": "Xác nhận",
+    "ADD_OUTSIDE_AUTHOR": "Thêm tác giả Ngoài tập đoàn",
+    "EDIT_INSIDE": "Sửa tác giả Trong tập đoàn",
+    "EDIT_OUTSIDE": "Sửa tác giả Ngoài tập đoàn"
+  
+  }
+
 }

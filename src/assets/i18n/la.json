@@ -949,5 +949,24 @@
   "EDIT_AUTHOR_IN_GROUP": "ແກ້ໄຂຜູ້ຂຽນໃນບໍລິສັດ",
   "EDIT_AUTHOR_OUTSIDE_GROUP": "ແກ້ໄຂຜູ້ຂຽນນອກນອກບໍລິສັດ",
   "CHOOSE_AUTHOR_NAME": "ເລືອກຊື່ຜູ້ຂຽນ",
-  "STAFF_CODE_NOT_EXIST": "ບໍ່ມີລະຫັດພະນັກງານ"
+  "STAFF_CODE_NOT_EXIST": "ບໍ່ມີລະຫັດພະນັກງານ",
+  "IDEA_NEW": {
+    "NEWEST": "Latest",
+    "FIELD": "Field",
+    "STATUS": "Status",
+    "IDEA": "Idea",
+    "CREATE": "Create new",
+    "PICK_UINIT": "Pick unit",
+    "LIST_DUPLICATE": "List of duplicates",
+    "CONTRIVANCE": "Initiative",
+    "IDEA_NUMBER": "Based on number ideas",
+    "UNIT": "Unit",
+    "ADD_INSIDE_AUTHOR": "Add Author In Consortium",
+    "PHONE_ERROR": "Phone number is in wrong format",
+    "CONFIRM": "Confirm",
+    "ADD_OUTSIDE_AUTHOR": "Add author Outside the group",
+    "EDIT_INSIDE": "Edit author In corporation",
+    "EDIT_OUTSIDE": "Edit author Outside the group"
+ 
+  }
 }

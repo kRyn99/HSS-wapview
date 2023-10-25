@@ -170,7 +170,7 @@
           [placeholder]="'dd/mm/yyyy'"
           type="text"
           name="Date"
-          [bsConfig]="bsConfig"
+          [bsConfig]="bsFromConfig"
           class="date-text"
           style="background-color: white; border: white"
           #dprn="bsDatepicker"
@@ -236,7 +236,7 @@
       bindValue="unitId"
       formControlName="listUnitDTO"
       (change)="onNgSelectChange($event)"
-      [placeholder]="'Chọn đơn vị'"
+      [placeholder]="'IDEA_NEW.PICK_UINIT' | translate"
     
     >
       <ng-template
@@ -448,12 +448,20 @@
           class="example-detail-row"
         ></tr>
       </table>
-      <button class="btn btn-success btn-contributor-action mt-2" (click)="AddInsideAuthor()">
-        <img
-          src="assets/img/icon/plus.svg"
-        />
-        {{ 'ACTION.ADD' | translate }}
+      <div style="width: 100%;display: flex;justify-content: flex-end;margin-top: 8px;">
+        <button
+        (click)="AddInsideAuthor()"
+   
+        style="border-radius: 16px;border: 1px solid #FF4D00;padding: 4px 12px;width: 95px;display: flex;justify-content: center;background-color: #ffffff;"
+      >
+      <div>
+        <i class="fas fa-plus" style="color: #000000;font-size: 10px;"></i>
+        <span style="font-size: 12px;">
+          {{ 'ACTION.ADD' | translate }}
+        </span>
+      </div>
       </button>
+      </div>
     </div>
     <div class="input-form">
       <div class="input-name">
@@ -575,12 +583,20 @@
           class="example-detail-row"
         ></tr>
       </table>
-      <button class="btn btn-success btn-contributor-action mt-2" (click)="AddOutsideAuthor()">
-        <img
-          src="assets/img/icon/plus.svg"
-        />
-        {{ 'ACTION.ADD' | translate }}
+      <div style="width: 100%;display: flex;justify-content: flex-end;margin-top: 8px;">
+        <button
+        (click)="AddOutsideAuthor()"
+   
+        style="border-radius: 16px;border: 1px solid #FF4D00;padding: 4px 12px;width: 95px;display: flex;justify-content: center;background-color: #ffffff;"
+      >
+      <div>
+        <i class="fas fa-plus" style="color: #000000;font-size: 10px;"></i>
+        <span style="font-size: 12px;">
+          {{ 'ACTION.ADD' | translate }}
+        </span>
+      </div>
       </button>
+      </div>
     </div>
   </div>
   <!-- <div class="line"></div> -->

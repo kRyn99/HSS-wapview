@@ -167,7 +167,7 @@ export class ContrivanceListComponent implements OnInit {
         if (res && res.errorCode === "0") {
           if (res.data && res.data.listContrivancesDTO) {
             // this.listContrivance.next(res.data?.listContrivancesDTO);
-            // this.contrivanceDTO = res.data.recordInfoDTO;
+            this.contrivanceDTO = res.data.recordInfoDTO;
             if(this.listContrivance.value.length == 0 ){
               this.listContrivance.next(res.data?.listContrivancesDTO);
               // this.DataService.listIdeaService = this.listIdea;
