@@ -103,7 +103,7 @@
             [bsConfig]="bsConfig"
             class="date-text"
             style="background-color: white; border: white;"
-            #dprn="bsDatepicker"
+            #startDate="bsDatepicker"
             #vDate
             bsDatepicker
             autocomplete="off"
@@ -119,8 +119,10 @@
               )
             "
           />
-          <img src="assets/img/icon/icon-date.png" />
-          (click)="toggleDatePicker(startDate)"
+          <img
+            src="assets/img/icon/icon-date.png"
+            (click)="toggleDatePicker(startDate)"
+          />
         </div>
         <small
           class="form-text text-danger"
@@ -171,7 +173,7 @@
             [bsConfig]="bsFromConfig"
             class="date-text"
             style="background-color: white; border: white;"
-            #dprn="bsDatepicker"
+            #endDate="bsDatepicker"
             #vDate
             bsDatepicker
             autocomplete="off"
@@ -187,8 +189,10 @@
               )
             "
           />
-          <img src="assets/img/icon/icon-date.png" />
-          (click)="toggleDatePicker(endDate)"
+          <img
+            src="assets/img/icon/icon-date.png"
+            (click)="toggleDatePicker(endDate)"
+          />
         </div>
         <!-- <small
         class="form-text text-danger"
