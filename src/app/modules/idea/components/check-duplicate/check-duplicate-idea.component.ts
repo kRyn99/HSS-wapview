@@ -198,7 +198,7 @@ export class CheckDuplicateComponentIdea implements OnInit {
               this.DataService.showBg = false;
               this.DataService.showDuplicateIdea = false;
               this.notificationService.notify("success", response.description);
-              this.router.navigate(["/idea"]);
+              this.router.navigate(["/idea/list"]);
             } else {
               const modalRef = this.modalService.open(MessagePopupComponent, {
                 size: "sm",
@@ -276,7 +276,7 @@ export class CheckDuplicateComponentIdea implements OnInit {
               this.DataService.showBg = false;
               this.DataService.showDuplicateIdea = false;
               this.notificationService.notify("success", response.description);
-              this.router.navigate(["/idea"]);
+              this.router.navigate(["/idea/list"]);
             } else {
               const modalRef = this.modalService.open(MessagePopupComponent, {
                 size: "sm",
