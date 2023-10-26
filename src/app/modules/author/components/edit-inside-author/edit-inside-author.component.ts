@@ -425,7 +425,7 @@ export class EditInsideAuthorComponent implements OnInit {
         ) {
           if (
             this.contrivanceService.lstContributorDTOService.value[i].staffId ==
-            this.contributorDTO.staffId
+            this.staffId
           ) {
             this.contrivanceService.lstContributorDTOService.value[i] =
               this.contributorDTO;
