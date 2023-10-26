@@ -183,8 +183,8 @@ export class CheckDuplicateComponentIdea implements OnInit {
           this.DataService.lstContributorDTOService.value
         ),
       documentDTO: {
-        url:this.DataService.documentDTO.value ?this.DataService.documentDTO.value.url : '',
-        name: this.DataService.documentDTO.value ?  this.DataService.documentDTO.value.name:'' 
+        url:this.DataService.file.value ? this.DataService.file.value.url : '',
+        name: this.DataService.file.value ?  this.DataService.file.value.name:'' 
       },
     };
     const modalRefSuccess = this.modalService.open(MessagePopupComponent, {
