@@ -6,72 +6,74 @@
     createRoute="this"
   ></app-title-nav-idea>
   <div>
+    <div
+      class="container"
+      infinite-scroll
+      [infiniteScrollDistance]="1"
+      [infiniteScrollThrottle]="500"
+      (scrolled)="onScroll()"
+    >
       <div
-        class="container"
-        infinite-scroll
-        [infiniteScrollDistance]="1"
-        [infiniteScrollThrottle]="500"
-        (scrolled)="onScroll()"
+        class="list-idea"
+        style="
+          width: 100%;
+          height: auto;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 8px;
+        "
       >
-        <div
-          class="list-idea"
-          style="
-            width: 100%;
-            height: auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-          "
-        >
-          <div class="list-idea-text" style="display: flex">
-            <!-- <span style="color: rgba(0, 0, 0, 0.6); font-size: 16px"
+        <div class="list-idea-text" style="display: flex">
+          <!-- <span style="color: rgba(0, 0, 0, 0.6); font-size: 16px"
             >Danh sách</span
           > -->
-            <span style="color: #000000; font-size: 40px; font-weight: bold">
-              {{ 'IDEA_NEW.IDEA' | translate }}
-            </span>
+          <span style="color: #000000; font-size: 40px; font-weight: bold">
+            {{ "IDEA_NEW.IDEA" | translate }}
+          </span>
+        </div>
+        <div
+          style="display: flex; flex-direction: column; align-items: center"
+          (click)="handleCreate()"
+        >
+          <img
+            src="../../../../../assets/img/icon/idea-add.png"
+            alt="idea-add"
+          />
+          <span style="color: #ff4d00; font-size: 12px">{{
+            "IDEA_NEW.CREATE" | translate
+          }}</span>
+        </div>
+      </div>
+      <div class="status-border">
+        <div class="status-info">
+          <div
+            class="status-info-number"
+            style="border-right: 1px solid #929292"
+          >
+            <div class="status-text1">{{ recordInfoDTO?.totalNumber }}</div>
+            <div class="status-text2">
+              {{ "IDEA_MANAGEMENT.LABEL.TOTAL_NUMBER" | translate }}
+            </div>
           </div>
           <div
-            style="display: flex; flex-direction: column; align-items: center"
-            (click)="handleCreate()"
+            class="status-info-number"
+            style="border-right: 1px solid #929292"
           >
-            <img
-              src="../../../../../assets/img/icon/idea-add.png"
-              alt="idea-add"
-            />
-            <span style="color: #ff4d00; font-size: 12px">{{ 'IDEA_NEW.CREATE' | translate }}</span>
+            <div class="status-text1">{{ recordInfoDTO?.approveNumber }}</div>
+            <div class="status-text2" style="color: #00820d">
+              {{ "IDEA_MANAGEMENT.LABEL.APPROVE_NUMBER" | translate }}
+            </div>
           </div>
-        </div>
-        <div class="status-border">
-          <div class="status-info">
-            <div
-              class="status-info-number"
-              style="border-right: 1px solid #929292"
-            >
-              <div class="status-text1">{{ recordInfoDTO?.totalNumber }}</div>
-              <div class="status-text2">
-                {{ "IDEA_MANAGEMENT.LABEL.TOTAL_NUMBER" | translate }}
-              </div>
+          <div class="status-info-number">
+            <div class="status-text1">
+              {{ recordInfoDTO?.declinedNumber }}
             </div>
-            <div
-              class="status-info-number"
-              style="border-right: 1px solid #929292"
-            >
-              <div class="status-text1">{{ recordInfoDTO?.approveNumber }}</div>
-              <div class="status-text2" style="color: #00820d">
-                {{ "IDEA_MANAGEMENT.LABEL.APPROVE_NUMBER" | translate }}
-              </div>
+            <div class="status-text2" style="color: #da251d">
+              {{ "IDEA_MANAGEMENT.LABEL.DECLINED_NUMBER" | translate }}
             </div>
-            <div class="status-info-number">
-              <div class="status-text1">
-                {{ recordInfoDTO?.declinedNumber }}
-              </div>
-              <div class="status-text2" style="color: #da251d">
-                {{ "IDEA_MANAGEMENT.LABEL.DECLINED_NUMBER" | translate }}
-              </div>
-            </div>
-            <!-- <div class="status-info-number">
+          </div>
+          <!-- <div class="status-info-number">
         <div class="status-text1">{{ recordInfoDTO?.approveAwaitNumber }}</div>
         <div class="status-text2">
           {{ "IDEA_MANAGEMENT.LABEL.APPROVEAWAIT_NUMBER" | translate }}
@@ -83,29 +85,31 @@
           {{ "IDEA_MANAGEMENT.LABEL.CREATED_NUMBER" | translate }}
         </div>
       </div> -->
-          </div>
         </div>
-       
-          <div
-            style="
-              display: flex;
-              align-items: center;
-              height: 24px;
-              justify-content: center;
-            "
-          >
-            <div
-              (click)="selectTab('MoiNhat')"
-              [ngClass]="{ selectedTab: isMoiNhatSelected }"
-              style="
-                min-width: 114px;
+      </div>
+
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          height: 24px;
+          justify-content: center;
+        "
+      >
+        <div
+          (click)="selectTab('MoiNhat')"
+          [ngClass]="{ selectedTab: isMoiNhatSelected }"
+          style="
+            min-width: 114px;
 
             display: flex;
             justify-content: center;
             align-items: center;
           "
         >
-          <span style="font-size: 14px"> {{ 'IDEA_NEW.NEWEST' | translate }}</span>
+          <span style="font-size: 14px">
+            {{ "IDEA_NEW.NEWEST" | translate }}</span
+          >
         </div>
         <div
           (click)="selectTab('LinhVuc')"
@@ -135,7 +139,7 @@
               [(ngModel)]="specialtyId"
               (change)="changeSpecialty()"
             >
-              <option [value]="null">{{ 'IDEA_NEW.FIELD' | translate }}</option>
+              <option [value]="null">{{ "IDEA_NEW.FIELD" | translate }}</option>
               <option
                 *ngFor="let specialty of listSpecialty"
                 [value]="specialty.value"
@@ -173,7 +177,9 @@
               [(ngModel)]="statusId"
               (change)="changeStatus()"
             >
-              <option [value]="null">{{ 'IDEA_NEW.STATUS' | translate }}</option>
+              <option [value]="null">
+                {{ "IDEA_NEW.STATUS" | translate }}
+              </option>
               <option *ngFor="let item of listStatus" [value]="item.value">
                 {{ item.name }}
               </option>
@@ -181,7 +187,7 @@
           >
         </div>
       </div>
-  
+
       <div *ngIf="listIdea && listIdea.length > 0" class="list-all-idea">
         <div
           *ngFor="let item of listIdea"
@@ -207,17 +213,17 @@
               }}</span>
             </div>
             <div style="margin-bottom: 12px">
-              <span style="font-size: 14px; color: rgba(0, 0, 0, 0.6)"
-                >{{ 'IDEA_NEW.UNIT' | translate }}</span
-              >
+              <span style="font-size: 14px; color: rgba(0, 0, 0, 0.6)">{{
+                "IDEA_NEW.UNIT" | translate
+              }}</span>
               <span style="font-size: 14px; font-weight: bold"
                 >: {{ item.unitNames | truncate : 30 }}</span
               >
             </div>
             <div style="margin-bottom: 12px">
-              <span style="font-size: 14px; color: rgba(0, 0, 0, 0.6)"
-                >{{ 'IDEA_NEW.FIELD' | translate }}</span
-              >
+              <span style="font-size: 14px; color: rgba(0, 0, 0, 0.6)">{{
+                "IDEA_NEW.FIELD" | translate
+              }}</span>
               <span style="font-size: 14px; font-weight: bold"
                 >: {{ item.specialtyName }}</span
               >
@@ -234,8 +240,9 @@
               >{{ item.approveStatusName }}</span
             >
           </div>
-     
+        </div>
       </div>
-      <app-nav-menu></app-nav-menu> 
+    </div>
+    <app-nav-menu></app-nav-menu>
   </div>
 </div>
