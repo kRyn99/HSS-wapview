@@ -17,6 +17,7 @@ import { NgSelectConfig } from "@ng-select/ng-select";
 })
 export class EditInsideEditComponent implements OnInit {
   contributorDTO: any;
+  msgPhoneError = '';
   constructor(
     private config: NgSelectConfig,
     private http: HttpClient,
@@ -80,18 +81,29 @@ export class EditInsideEditComponent implements OnInit {
   checkValidatePhone(phoneNumber: string) {
     const phoneNumberRegex = /^\d{8,15}$/;
     if (phoneNumberRegex.test(phoneNumber)) {
-      this.checkPhoneFormat = false;
+     return true;
     } else {
-      this.checkPhoneFormat = true;
+      return false;
     }
   }
-  changePhone() {
-    this.checkValidatePhone(this.contributorDTO.phoneNumber);
-    console.log(this.contributorDTO.phoneNumber);
 
-    if (this.checkPhoneFormat) {
-      return;
+  checkPhoneNumber(){
+    if(!this.contributorDTO.phoneNumber || this.contributorDTO.phoneNumber.length ===0) {
+      this.msgPhoneError = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.PHONE`);
+      return false;
     }
+    if(!this.checkValidatePhone(this.contributorDTO.phoneNumber)) {
+      this.msgPhoneError = this.translateService.instant(`IDEA_NEW.PHONE_ERROR`);
+      return false;
+    }
+    this.msgPhoneError = '';
+    return true;
+  }
+  changePhone() {
+    if(!this.checkPhoneNumber()){
+        return;
+    }
+  
   }
   goBack() {
     this.DataService.showBg = false;
@@ -144,8 +156,7 @@ export class EditInsideEditComponent implements OnInit {
     this.contributorDTO = value;
     this.contributorDTO.staffId = value.id;
     this.contributorDTO.birthDay = this.contributorDTO.birthday;
-    this.checkValidatePhone(this.contributorDTO.phoneNumber);
-    if (this.checkPhoneFormat) {
+    if(this.checkPhoneNumber()) {
       return;
     }
   }
@@ -219,10 +230,7 @@ export class EditInsideEditComponent implements OnInit {
       return false;
     }
     if (
-      this.contributorDTO.phoneNumber === undefined ||
-      this.contributorDTO.phoneNumber === null ||
-      this.contributorDTO.phoneNumber === "" ||
-      this.contributorDTO.phoneNumber.trim() === ""
+        !this.checkPhoneNumber()
     ) {
       // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
       // modalRef.componentInstance.type = 'fail';
@@ -231,9 +239,7 @@ export class EditInsideEditComponent implements OnInit {
       // modalRef.componentInstance.closeIcon = false;
       return false;
     }
-    if (this.checkPhoneFormat) {
-      return false;
-    }
+
     if (
       this.contributorDTO.email === undefined ||
       this.contributorDTO.email === null ||

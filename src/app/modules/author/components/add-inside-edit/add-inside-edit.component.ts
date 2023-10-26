@@ -22,6 +22,7 @@ import { ContrivanceService } from "@app/shared/service/contrivance.service";
 })
 export class AddInsideEditComponent implements OnInit {
   public selectedStaffCodeSubject = new BehaviorSubject<any>({});
+  msgPhoneError = "";
   setSelectedStaffCode(code: any) {
     this.selectedStaffCodeSubject.next(code);
     this.DataService.selectedStaffCodeSubject.next(code);
@@ -115,10 +116,8 @@ export class AddInsideEditComponent implements OnInit {
     this.email = this.selectedStaffCodeSubject.value.email;
 
     this.birthday = this.selectedStaffCodeSubject.value.birthday;
-    this.checkValidatePhone(this.phoneNumber);
-    if(this.checkPhoneFormat) {
-      return;
-    }
+    this.checkPhoneNumber();
+  
   }
   
   percentageValue: string;
@@ -144,28 +143,37 @@ export class AddInsideEditComponent implements OnInit {
       this.DataService.percentage.next(this.percentageValue);
     }
   }
-  checkPhoneFormat=false;
   checkValidatePhone(phoneNumber: string) {
     const phoneNumberRegex = /^\d{8,15}$/;
     if (phoneNumberRegex.test(phoneNumber)) {
-     this.checkPhoneFormat = false;
+     return true;
     } else {
-      this.checkPhoneFormat = true;
+      return false;
     }
   }
-  phoneNumberChange() {
-    this.checkValidatePhone(this.phoneNumber);
-    if(this.checkPhoneFormat) {
-      return;
-    } 
-    this.selectedStaffCodeSubject.value.phoneNumber = this.phoneNumber;
-    this.phoneNumber = this.phoneNumber.replace(/\D/g, "");
-    if (this.phoneNumber.length > 12) {
-      this.phoneNumber = this.phoneNumber.slice(0, 12);
+
+  checkPhoneNumber(){
+    if(!this.phoneNumber || this.phoneNumber.length ===0) {
+      this.msgPhoneError = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.PHONE`);
+      return false;
     }
-    console.log(this.phoneNumber);
+    if(!this.checkValidatePhone(this.phoneNumber)) {
+      this.msgPhoneError = this.translateService.instant(`IDEA_NEW.PHONE_ERROR`);
+      return false;
+    }
+    this.msgPhoneError = '';
+    return true;
+  }
+  changePhone() {
+    if(!this.checkPhoneNumber()){
+        return;
+    }
     this.DataService.phoneNumber.next(this.phoneNumber);
+    this.selectedStaffCodeSubject.value.phoneNumber = this.phoneNumber;
   }
+
+
+
   checkEmail = false;
   emailChange() {
     console.log(this.email);
@@ -270,9 +278,7 @@ export class AddInsideEditComponent implements OnInit {
       return false;
     }
     if (
-      this.phoneNumber === undefined ||
-      this.phoneNumber === null ||
-      this.phoneNumber === ""
+      !this.checkPhoneNumber()
     ) {
       // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
       // modalRef.componentInstance.type = 'fail';

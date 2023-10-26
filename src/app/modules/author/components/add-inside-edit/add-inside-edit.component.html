@@ -52,7 +52,7 @@
       <input
         class="info-input"
         [placeholder]="
-          (selectedStaffCodeSubject | async)?.fullName || 'MANAGE_CATEGORY.PLACEHOLDER.FULL_NAME' | translate
+         'MANAGE_CATEGORY.PLACEHOLDER.FULL_NAME' | translate
         "
         style="background-color: #f3f3f3"
         [readonly]="!isEdit"
@@ -84,18 +84,21 @@
         type="text"
         class="info-input"
         [placeholder]="
-          (selectedStaffCodeSubject | async)?.phoneNumber ||
           'MANAGE_CATEGORY.PLACEHOLDER.PHONE_NUMBER' | translate
         "
         [(ngModel)]="phoneNumber"
         
-        (input)="phoneNumberChange()"
+        (input)="changePhone()"
         NumbersOnly
-        maxlength="12"
+        maxlength="15"
         [required]="isInputTouched"
       />
-      <div class="form-text text-danger" *ngIf="isInputTouched && !(selectedStaffCodeSubject | async)?.phoneNumber">{{ "ADD-INSIDE-IDEA.VALIDATE.PHONE" | translate }}</div>
-      <div class="form-text text-danger" *ngIf="checkPhoneFormat">{{'IDEA_NEW.PHONE_ERROR' | translate}}</div>
+      <div
+      class="form-text text-danger"
+      *ngIf="msgPhoneError && msgPhoneError.length > 0"
+    >
+      {{ msgPhoneError }}
+    </div>
 
     </div>
     <!-- <div class="info-box">

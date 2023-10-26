@@ -16,33 +16,35 @@ import { ContrivanceService } from "@app/shared/service/contrivance.service";
   styleUrls: ["./edit-outside-edit.component.scss"],
 })
 export class EditOutsideEditComponent implements OnInit {
-  contributorDTO: any;
-  constructor(
-    private http: HttpClient,
-    private route: ActivatedRoute,
-    public DataService: DataService,
-    private router: Router,
-    private modalService: NgbModal,
-    private translateService: TranslateService,
-    public contrivanceService: ContrivanceService
-  ) {}
-  checkPhoneFormat = false;
-  oldNumber: number = 0;
-  oldEmail: string = "";
-  token = JSON.parse(localStorage.getItem("tokenInLocalStorage"));
-  ngOnInit() {
-    // this.route.queryParams.subscribe((params) => {
-    //     if (params && params.for) {
-    //         this.backRoute = params.for;
-    //     }
-    //     if (params && params.phoneNumber) {
-    //         if (this.backRoute == "contrivance") {
-    //             this.contributorDTO = { ...this.contrivanceService.lstContributorDTOServiceOut.value.find((item) => (item.phoneNumber == Number(params.phoneNumber) && item.email == params.email)) }
-    //         }
-    //         else {
-    //             this.contributorDTO = { ...this.DataService.lstContributorDTOServiceOutEdit.value.find((item) => (item.phoneNumber == Number(params.phoneNumber) && item.email == params.email)) }
-    //         }
-    //     }
+    contributorDTO: any;
+    constructor(
+        private http: HttpClient,
+        private route: ActivatedRoute,
+        public DataService: DataService,
+        private router: Router,
+        private modalService: NgbModal,
+        private translateService: TranslateService,
+        public contrivanceService: ContrivanceService
+    ) { }
+  
+    oldNumber: number = 0;
+    oldEmail: string = '';
+    msgPhoneError = '';
+    token = JSON.parse(localStorage.getItem("tokenInLocalStorage"));
+    staffCode;
+    ngOnInit() {
+        // this.route.queryParams.subscribe((params) => {
+        //     if (params && params.for) {
+        //         this.backRoute = params.for;
+        //     }
+        //     if (params && params.phoneNumber) {
+        //         if (this.backRoute == "contrivance") {
+        //             this.contributorDTO = { ...this.contrivanceService.lstContributorDTOServiceOut.value.find((item) => (item.phoneNumber == Number(params.phoneNumber) && item.email == params.email)) }
+        //         }
+        //         else {
+        //             this.contributorDTO = { ...this.DataService.lstContributorDTOServiceOutEdit.value.find((item) => (item.phoneNumber == Number(params.phoneNumber) && item.email == params.email)) }
+        //         }
+        //     }
 
     // })
     if (this.DataService.routerContrivance) {
@@ -61,171 +63,179 @@ export class EditOutsideEditComponent implements OnInit {
             item.email == this.DataService.emailEditOutsideAuthor
         ),
       };
+      this.staffCode=this.contributorDTO.fullName
+      console.log(this.staffCode);
+      
     }
     this.oldNumber = this.contributorDTO.phoneNumber;
     this.oldEmail = this.contributorDTO.email;
 
-    if (!this.contributorDTO.displayName) {
-      this.contributorDTO.displayName = this.contributorDTO.fullName;
-    }
-
-    this.apiListContributorOut();
-  }
-  goBack() {
-    this.DataService.showBg = false;
-    this.DataService.showAddInsideAuthor = false;
-    this.DataService.showEditInsideAuthor = false;
-    this.DataService.showAddOutsideAuthor = false;
-    this.DataService.showEditOutsideAuthor = false;
-    this.DataService.showDuplicateIdea = false;
-    this.DataService.showAddInsideEdit = false;
-    this.DataService.showEditInsideEdit = false;
-    this.DataService.showAddOutsideEdit = false;
-    this.DataService.showEditOutsideEdit = false;
-    if (!this.DataService.showBg) {
-      document.body.style.overflow = "auto";
-    }
-  }
-  listContributorOut: [];
-  lang = localStorage.getItem("lang");
-  apiListContributorOut() {
-    const url = `${environment.API_HOST_NAME}/api/get-list-contributor-cms`;
-    const headers = new HttpHeaders({
-      "Accept-Language": this.lang,
-      Authorization: `Bearer ` + this.token,
-    });
-    const requestBody = {
-      userName: "hss_admin",
-      contributorDTO: {
-        fullName: "",
-        outsideCorp: 1,
-      },
-    };
-    return this.http.post<any>(url, requestBody, { headers }).subscribe(
-      (response) => {
-        this.listContributorOut = response.data.map((item) => {
-          item.displayName = `${item.fullName} - ${item.phoneNumber}`;
-          return { ...item };
-        });
-      },
-      (error) => {
-        console.error(error.data);
-      }
-    );
-  }
-  fullName;
-  onSelectedStaffCodeChange(value: any) {
-    this.contributorDTO = value;
-    this.fullName = this.contributorDTO.displayName;
-    this.checkValidatePhone(this.contributorDTO?.phoneNumber);
-    if (this.checkPhoneFormat) {
-      return;
-    }
-  }
-  percentageValueChange(newValue: string) {
-    const parsedValue = parseInt(newValue, 10);
-    if (!isNaN(parsedValue)) {
-      if (parsedValue >= 1) {
-        // Thay đổi điều kiện này để đảm bảo giá trị >= 1
-        if (parsedValue > 100) {
-          this.contributorDTO.percentage = "100";
-        } else {
-          this.contributorDTO.percentage = parsedValue.toString();
+        if(!this.contributorDTO.displayName){
+            this.contributorDTO.displayName=this.contributorDTO.fullName
         }
-      } else {
-        this.contributorDTO.percentage = "1"; // Nếu giá trị nhỏ hơn 1, đặt thành 1
+        
+        this.apiListContributorOut()
+    }
+    goBack(){
+        this.DataService.showBg = false;
+        this.DataService.showAddInsideAuthor = false;
+        this.DataService.showEditInsideAuthor = false;
+        this.DataService.showAddOutsideAuthor = false;
+        this.DataService.showEditOutsideAuthor = false;
+        this.DataService.showDuplicateIdea = false;
+        this.DataService.showAddInsideEdit = false;
+        this.DataService.showEditInsideEdit = false;
+        this.DataService.showAddOutsideEdit = false;
+        this.DataService.showEditOutsideEdit = false;
+        if (!this.DataService.showBg) {
+          document.body.style.overflow = "auto";
+        }
       }
-    }
-  }
-  updateJobAddress(newValue: string) {
-    if (this.contributorDTO) {
-      this.contributorDTO.jobAddress = newValue;
-    }
-  }
-  updateJobPosition(newValue: string) {
-    if (this.contributorDTO) {
-      this.contributorDTO.jobPosition = newValue;
-    }
-  }
-  phone;
-  checkValidatePhone(phoneNumber: string) {
-    const phoneNumberRegex = /^\d{8,15}$/;
-    if (phoneNumberRegex.test(phoneNumber)) {
-      this.checkPhoneFormat = false;
-    } else {
-      this.checkPhoneFormat = true;
-    }
-  }
-  updatePhoneNumber(newValue: string) {
-    console.log(this.contributorDTO?.phoneNumber);
+    listContributorOut: []
+    lang = localStorage.getItem('lang');
+    apiListContributorOut() {
+        const url = `${environment.API_HOST_NAME}/api/get-list-contributor-cms`;
+        const headers = new HttpHeaders({
+            'Accept-Language': this.lang,
+            Authorization: `Bearer ` + this.token,
+        });
+        const requestBody = {
+            userName: "hss_admin",
+            contributorDTO: {
+                fullName: '',
+                outsideCorp: 1,
+            }
+        };
+        return this.http.post<any>(url, requestBody, { headers }).subscribe(
+            (response) => {
+                this.listContributorOut = response.data.map((item) => { item.displayName = `${item.fullName} - ${item.phoneNumber}`; return { ...item } });
 
-    this.checkValidatePhone(newValue);
-    if (this.checkPhoneFormat) {
-      return;
+
+            },
+            (error) => {
+                console.error(error.data);
+            },
+        );
     }
-    this.phone = newValue;
-    if (this.contributorDTO) {
-      this.contributorDTO.phoneNumber = newValue;
+    fullName;
+    onSelectedStaffCodeChange(value: any) {
+        this.contributorDTO = value;
+        this.fullName=this.contributorDTO.displayName;
+      
+        if(this.checkPhoneNumber()){
+          return;
+        }
     }
-  }
-  checkEmail = false;
-  updateEmail(newValue: string) {
-    if (this.contributorDTO) {
-      this.contributorDTO.email = newValue;
-      if (!this.isValidEmail(this.contributorDTO.email)) {
-        this.checkEmail = true;
-      } else {
-        this.checkEmail = false;
+    percentageValueChange(newValue: string) {
+        const parsedValue = parseInt(newValue, 10);
+        if (!isNaN(parsedValue)) {
+            if (parsedValue >= 1) { // Thay đổi điều kiện này để đảm bảo giá trị >= 1
+                if (parsedValue > 100) {
+                    this.contributorDTO.percentage = '100';
+                } else {
+                    this.contributorDTO.percentage = parsedValue.toString();
+                }
+            } else {
+                this.contributorDTO.percentage = '1'; // Nếu giá trị nhỏ hơn 1, đặt thành 1
+            }
+
+        }
+    }
+    updateJobAddress(newValue: string) {
+        if (this.contributorDTO) {
+            this.contributorDTO.jobAddress = newValue;
+        }
+    }
+    updateJobPosition(newValue: string) {
+        if (this.contributorDTO) {
+            this.contributorDTO.jobPosition = newValue;
+        }
+    }
+    checkValidatePhone(phoneNumber: string) {
+        const phoneNumberRegex = /^\d{8,15}$/;
+        if (phoneNumberRegex.test(phoneNumber)) {
+         return true;
+        } else {
+          return false;
+        }
       }
+    
+      checkPhoneNumber(){     
+        if(!this.contributorDTO?.phoneNumber || this.contributorDTO?.phoneNumber.length ===0) {
+          this.msgPhoneError = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.PHONE`);
+          return false;
+        }
+        if(!this.checkValidatePhone(this.contributorDTO?.phoneNumber)) {
+          this.msgPhoneError = this.translateService.instant(`IDEA_NEW.PHONE_ERROR`);
+          return false;
+        }
+        this.msgPhoneError = '';
+        return true;
+      }
+    
+      phone
+      updatePhoneNumber(newValue: string) {
+        this.contributorDTO.phoneNumber = newValue;
+        if(!this.checkPhoneNumber()){
+          return;
+      }
+        this.phone = newValue;
+    
+      }
+    checkEmail = false;
+    updateEmail(newValue: string) {
+        if (this.contributorDTO) {
+            this.contributorDTO.email = newValue;
+            if (!this.isValidEmail(this.contributorDTO.email)) {
+                this.checkEmail = true;
+            } else {
+
+                this.checkEmail = false;
+            }
+        }
     }
-  }
-  updateProfessionalQualification(newValue: string) {
-    if (this.contributorDTO) {
-      this.contributorDTO.professionalQualification = newValue;
+    updateProfessionalQualification(newValue: string) {
+        if (this.contributorDTO) {
+            this.contributorDTO.professionalQualification = newValue;
+        }
     }
-  }
-  validate() {
-    if (
-      this.contributorDTO.percentage === undefined ||
-      this.contributorDTO.percentage === null ||
-      this.contributorDTO.percentage === ""
-    ) {
-      // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
-      // modalRef.componentInstance.type = 'fail';
-      // modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
-      // modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.PERCENT`);
-      // modalRef.componentInstance.closeIcon = false;
-      return false;
-    }
-    if (
-      this.contributorDTO.displayName === undefined ||
-      this.contributorDTO.displayName === null ||
-      this.contributorDTO.displayName === "" ||
-      this.contributorDTO.displayName.trim() === ""
-    ) {
-      // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
-      // modalRef.componentInstance.type = 'fail';
-      // modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
-      // modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.NAME`);
-      // modalRef.componentInstance.closeIcon = false;
-      return false;
-    }
-    if (
-      this.contributorDTO.phoneNumber === undefined ||
-      this.contributorDTO.phoneNumber === null ||
-      this.contributorDTO.phoneNumber === "" ||
-      this.contributorDTO.phoneNumber.trim() === ""
-    ) {
-      // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
-      // modalRef.componentInstance.type = 'fail';
-      // modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
-      // modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.PHONE`);
-      // modalRef.componentInstance.closeIcon = false;
-      return false;
-    }
-    if (this.checkPhoneFormat) {
-      return false;
-    }
+    validate() {
+        if (
+            this.contributorDTO.percentage === undefined ||
+            this.contributorDTO.percentage === null ||
+            this.contributorDTO.percentage === ''
+        ) {
+            // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
+            // modalRef.componentInstance.type = 'fail';
+            // modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
+            // modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.PERCENT`);
+            // modalRef.componentInstance.closeIcon = false;
+            return false;
+        }
+        if (
+            this.contributorDTO.displayName === undefined ||
+            this.contributorDTO.displayName === null ||
+            this.contributorDTO.displayName === '' ||
+            this.contributorDTO.displayName.trim() === ''
+        ) {
+            // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
+            // modalRef.componentInstance.type = 'fail';
+            // modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
+            // modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.NAME`);
+            // modalRef.componentInstance.closeIcon = false;
+            return false;
+        }
+        if (
+          !this.checkPhoneNumber()
+        ) {
+            // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
+            // modalRef.componentInstance.type = 'fail';
+            // modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
+            // modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.PHONE`);
+            // modalRef.componentInstance.closeIcon = false;
+            return false;
+        }
+
 
     if (
       !this.isValidEmail(this.contributorDTO.email) &&

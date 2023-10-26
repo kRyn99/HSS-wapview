@@ -31,6 +31,7 @@ export class EditInsideAuthorComponent implements OnInit {
     this.config.appendTo = "body";
     this.config.bindValue = "value";
   }
+  msgPhoneError = '';
   contributorDTO: any;
   token = JSON.parse(localStorage.getItem("tokenInLocalStorage"));
   listStaff: [];
@@ -64,7 +65,6 @@ export class EditInsideAuthorComponent implements OnInit {
         this.staffId = params.id;
       }
     });
-
     //////
     if (this.DataService.routerContrivance) {
       this.contributorDTO = {
@@ -78,25 +78,42 @@ export class EditInsideAuthorComponent implements OnInit {
           (item) => item.staffId == this.DataService.idEditInsideAuthor
         ),
       };
+
+      
     }
     this.staffId = this.DataService.idEditInsideAuthor;
     this.getListStaff();
   }
-  checkPhoneFormat=false;
+  
+
   checkValidatePhone(phoneNumber: string) {
     const phoneNumberRegex = /^\d{8,15}$/;
     if (phoneNumberRegex.test(phoneNumber)) {
-     this.checkPhoneFormat = false;
+     return true;
     } else {
-      this.checkPhoneFormat = true;
+      return false;
     }
   }
-  changePhone(){
-    this.checkValidatePhone(this.contributorDTO.phoneNumber);
-    if(this.checkPhoneFormat) {
-      return;
+
+  checkPhoneNumber(){
+    if(!this.contributorDTO.phoneNumber || this.contributorDTO.phoneNumber.length ===0) {
+      this.msgPhoneError = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.PHONE`);
+      return false;
     }
+    if(!this.checkValidatePhone(this.contributorDTO.phoneNumber)) {
+      this.msgPhoneError = this.translateService.instant(`IDEA_NEW.PHONE_ERROR`);
+      return false;
+    }
+    this.msgPhoneError = '';
+    return true;
   }
+  changePhone() {
+    if(!this.checkPhoneNumber()){
+        return;
+    }
+  
+  }
+
   goBack() {
     this.DataService.showBg = false;
     this.DataService.showAddInsideAuthor = false;
@@ -129,6 +146,7 @@ export class EditInsideAuthorComponent implements OnInit {
       (response) => {
         // this.listStaff = response.data.listStaffDTO;
         this.listStaff = response.data.listStaffDTO.map((item) => {
+          
           item.displayName = `${item.staffCode} - ${item.fullName}`;
           return { ...item };
         });
@@ -143,8 +161,7 @@ export class EditInsideAuthorComponent implements OnInit {
   onSelectedStaffCodeChange(value: any) {
     this.contributorDTO = value;
     this.contributorDTO.staffId = value.id;
-    this.checkValidatePhone(this.contributorDTO.phoneNumber);
-    if(this.checkPhoneFormat) {
+    if(this.checkPhoneNumber()) {
       return;
     }
   }
@@ -238,10 +255,7 @@ export class EditInsideAuthorComponent implements OnInit {
       return false;
     }
     if (
-      this.contributorDTO.phoneNumber === undefined ||
-      this.contributorDTO.phoneNumber === null ||
-      this.contributorDTO.phoneNumber === "" ||
-      this.contributorDTO.phoneNumber.trim() === ""
+      !this.checkPhoneNumber()
     ) {
       // const modalRef = this.modalService.open(MessagePopupComponent, {
       //   size: 'sm',
@@ -259,9 +273,7 @@ export class EditInsideAuthorComponent implements OnInit {
       // modalRef.componentInstance.closeIcon = false;
       return false;
     }
-    if(this.checkPhoneFormat){
-      return false;
-    }
+   
     // if (
     //   this.contributorDTO.email === undefined ||
     //   this.contributorDTO.email === null ||

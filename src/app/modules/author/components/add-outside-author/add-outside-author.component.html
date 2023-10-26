@@ -15,29 +15,29 @@
   <img src="../../../../../assets/img/icon/Line.png" alt="line" />
 </div>
 <nav
-  style="
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    padding: 12px 0px;
-  "
+  style="display: flex; width: 100%; justify-content: center; padding: 12px 0px"
 >
   <img
     width="24px"
-    style="position: absolute; left: 16px;"
+    style="position: absolute; left: 16px"
     src="../../../../../assets/img/icon/icon-back-2.png"
     alt="img"
     (click)="goBack()"
   />
-  <span style="font-size: 16px; font-weight: 500;">
-    {{ 'IDEA_NEW.ADD_OUTSIDE_AUTHOR' | translate }}
+  <span style="font-size: 16px; font-weight: 500">
+    {{ "IDEA_NEW.ADD_OUTSIDE_AUTHOR" | translate }}
   </span>
 </nav>
 <div class="body">
   <div class="info-box">
-    <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.FULL_NAME" | translate }}(<span style="color:red">*</span>)</div>
+    <div class="info-title">
+      {{ "IDEA_MANAGEMENT.LABEL.FULL_NAME" | translate }}(<span
+        style="color: red"
+        >*</span
+      >)
+    </div>
     <ng-select
-    class="custom-class-aoa"
+      class="custom-class-aoa"
       [items]="listContributorOut"
       bindLabel="displayName"
       [placeholder]="'MANAGE_CATEGORY.PLACEHOLDER.FULL_NAME' | translate"
@@ -47,7 +47,12 @@
       [addTagText]="'CHOOSE_AUTHOR_NAME' | translate"
       [required]="isInputTouched"
     ></ng-select>
-    <div class="form-text text-danger" *ngIf="isInputTouched && !selectedStaffCodeSubject.value">{{ "ADD-INSIDE-IDEA.VALIDATE.NAME" | translate }}</div>
+    <div
+      class="form-text text-danger"
+      *ngIf="isInputTouched && !selectedStaffCodeSubject.value"
+    >
+      {{ "ADD-INSIDE-IDEA.VALIDATE.NAME" | translate }}
+    </div>
   </div>
 
   <!-- <div class="info-box">
@@ -75,37 +80,47 @@
     />
   </div> -->
   <div class="info-box">
-    <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.PHONE" | translate }}(<span style="color:red">*</span>)</div>
+    <div class="info-title">
+      {{ "IDEA_MANAGEMENT.LABEL.PHONE" | translate }}(<span style="color: red"
+        >*</span
+      >)
+    </div>
     <input
-    type="text"
+      type="text"
       class="info-input"
       [placeholder]="
-        (selectedStaffCodeSubject | async)?.phoneNumber || 'MANAGE_CATEGORY.PLACEHOLDER.PHONE_NUMBER' | translate
+          'MANAGE_CATEGORY.PLACEHOLDER.PHONE_NUMBER'
           | translate
       "
       [(ngModel)]="selectedPhoneNumber"
       maxlength="15"
       NumbersOnly
       (input)="changePhone()"
-      [required]="phoneTouched"
     />
-    <div class="form-text text-danger" *ngIf="checkPhoneFormat">{{"IDEA_NEW.PHONE_ERROR" | translate}}</div>
-    <div class="form-text text-danger" *ngIf="phoneTouched && !selectedPhoneNumber">{{ "ADD-INSIDE-IDEA.VALIDATE.PHONE" | translate }}</div>
+    <div
+      class="form-text text-danger"
+      *ngIf="msgPhoneError && msgPhoneError.length > 0"
+    >
+      {{ msgPhoneError }}
+    </div>
   </div>
   <div class="info-box">
-    <div class="info-title">{{ "CONTRIVANCE_MAMAGEMENT.LABEL.EMAIL" | translate }}</div>
+    <div class="info-title">
+      {{ "CONTRIVANCE_MAMAGEMENT.LABEL.EMAIL" | translate }}
+    </div>
     <input
       class="info-input"
       [placeholder]="
-        (selectedStaffCodeSubject | async)?.email || 'MANAGE_CATEGORY.PLACEHOLDER.EMAIL' | translate
+          'MANAGE_CATEGORY.PLACEHOLDER.EMAIL' | translate
       "
       [(ngModel)]="selectedEmail"
       (input)="changeEmail()"
       [required]="emailTouched"
     />
     <!-- <div class="form-text text-danger" *ngIf="emailTouched && !selectedEmail">{{ "ADD-INSIDE-IDEA.VALIDATE.EMAIL" | translate }}</div> -->
-    <div class="form-text text-danger" *ngIf="checkEmail && selectedEmail">{{ "ADD-INSIDE-IDEA.VALIDATE.EMAIL_FORM" | translate }}</div>
-  
+    <div class="form-text text-danger" *ngIf="checkEmail && selectedEmail">
+      {{ "ADD-INSIDE-IDEA.VALIDATE.EMAIL_FORM" | translate }}
+    </div>
   </div>
   <!-- <div class="info-box">
     <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.QUALIFICATION" | translate }}</div>
@@ -121,7 +136,12 @@
     />
   </div> -->
   <div class="info-box">
-    <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.CONTRIBUTE_PERCENT" | translate }}(<span style="color:red">*</span>)</div>
+    <div class="info-title">
+      {{ "IDEA_MANAGEMENT.LABEL.CONTRIBUTE_PERCENT" | translate }}(<span
+        style="color: red"
+        >*</span
+      >)
+    </div>
     <input
       class="info-input"
       type="text"
@@ -133,7 +153,12 @@
       (input)="changePercentage()"
       [required]="percentageTouched"
     />
-    <div class="form-text text-danger" *ngIf="percentageTouched && !selectedPercentage">{{ "ADD-INSIDE-IDEA.VALIDATE.PERCENT" | translate }}</div>
+    <div
+      class="form-text text-danger"
+      *ngIf="percentageTouched && !selectedPercentage"
+    >
+      {{ "ADD-INSIDE-IDEA.VALIDATE.PERCENT" | translate }}
+    </div>
   </div>
 </div>
 <div class="bottom-box">

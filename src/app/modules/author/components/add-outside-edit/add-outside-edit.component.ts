@@ -38,7 +38,7 @@ export class AddOutsideEditComponent implements OnInit {
   selectedEmail;
   selectedProfessionalQualification;
   selectedPercentage;
-  checkPhoneFormat = false;
+  msgPhoneError = '';
   constructor(
     private http: HttpClient,
     private config: NgSelectConfig,
@@ -141,10 +141,8 @@ export class AddOutsideEditComponent implements OnInit {
     this.selectedJobAddress = this.selectedStaffCodeSubject.value?.jobAddress;
     this.selectedProfessionalQualification =
       this.selectedStaffCodeSubject.value?.professionalQualification;
-      this.checkValidatePhone(this.selectedPhoneNumber);
-      if(this.checkPhoneFormat) {
-        return;
-      }
+      this.selectedFullName= this.selectedStaffCodeSubject.value?.displayName;
+      this.checkPhoneNumber();
   }
   percentageValueChange(newValue: string) {
     const parsedValue = parseInt(newValue, 10);
@@ -175,18 +173,30 @@ export class AddOutsideEditComponent implements OnInit {
   checkValidatePhone(phoneNumber: string) {
     const phoneNumberRegex = /^\d{8,15}$/;
     if (phoneNumberRegex.test(phoneNumber)) {
-     this.checkPhoneFormat = false;
+     return true;
     } else {
-      this.checkPhoneFormat = true;
+      return false;
     }
   }
+
+  checkPhoneNumber(){
+    if(!this.selectedPhoneNumber || this.selectedPhoneNumber.length ===0) {
+      this.msgPhoneError = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.PHONE`);
+      return false;
+    }
+    if(!this.checkValidatePhone(this.selectedPhoneNumber)) {
+      this.msgPhoneError = this.translateService.instant(`IDEA_NEW.PHONE_ERROR`);
+      return false;
+    }
+    this.msgPhoneError = '';
+    return true;
+  }
+
   changePhone() {
-    this.checkValidatePhone(this.selectedPhoneNumber);
-    if(this.checkPhoneFormat) {
-      return;
+    if(!this.checkPhoneNumber()){
+        return;
     }
     this.selectedStaffCodeSubject.value.phoneNumber = this.selectedPhoneNumber;
-    this.phoneTouched = true;
   }
   emailTouched = false;
   checkEmail = false;
@@ -270,9 +280,7 @@ export class AddOutsideEditComponent implements OnInit {
       return false;
     }
     if (
-      this.selectedPhoneNumber === undefined ||
-      this.selectedPhoneNumber === null ||
-      this.selectedPhoneNumber === ""
+      !this.checkPhoneNumber()
     ) {
       // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
       // modalRef.componentInstance.type = 'fail';

@@ -16,7 +16,7 @@ import { first } from "rxjs/operators";
 import { Subscription } from "rxjs";
 import { ContrivanceService } from "@app/shared/service/contrivance.service";
 import { NotificationService } from "@app/shared/service/notification.service";
-
+import { saveAs } from 'file-saver';
 interface ContrivanceData {
   rejectReason?:string;
   contrivanceName?: string;
@@ -196,14 +196,23 @@ export class ContrivanceDetailComponent implements OnInit, OnDestroy {
       .subscribe(
         (res) => {
           if (res.errorCode === "0") {
-            let mimeType = res.data.typeFile;
-            const a = document.createElement("a");
-            a.href = "data:" + mimeType + ";base64," + res.data.fileContent;
-            a.download = this.documentDTO.name;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            a.remove();
+            // let mimeType = res.data.typeFile;
+            // const a = document.createElement("a");
+            // a.href = "data:" + mimeType + ";base64," + res.data.fileContent;
+            // a.download = this.documentDTO.name;
+            // document.body.appendChild(a);
+            // a.click();
+            // document.body.removeChild(a);
+            // a.remove();
+
+            const byteCharacters = atob(res.data.fileContent);
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++) {
+              byteNumbers[i] = byteCharacters.charCodeAt(i);
+            }
+            const byteArray = new Uint8Array(byteNumbers);
+            const file = new Blob([byteArray], { type: res.data.typeFile });
+            saveAs(file, this.documentDTO.name);
           } else {
             // show error
             this.notificationService.notify("fail", res.description);
