@@ -965,8 +965,8 @@
     "ADD_OUTSIDE_AUTHOR": "Thêm tác giả Ngoài tập đoàn",
     "EDIT_INSIDE": "Sửa tác giả Trong tập đoàn",
     "EDIT_OUTSIDE": "Sửa tác giả Ngoài tập đoàn",
-    "REASON":"Lý do từ chối"
-    
+    "REASON":"Lý do từ chối",
+    "FEEDBACK":"Phản hồi từ người phê duyệt"
   }
 
 }

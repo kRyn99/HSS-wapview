@@ -965,6 +965,7 @@
     "ADD_OUTSIDE_AUTHOR": "Add author Outside the group",
     "EDIT_INSIDE": "Edit author In corporation",
     "EDIT_OUTSIDE": "Edit author Outside the group",
-    "REASON": "Lý do từ chối"
+    "REASON": "Reason for refusal",
+    "FEEDBACK":"Feedback from approver"
   }
 }

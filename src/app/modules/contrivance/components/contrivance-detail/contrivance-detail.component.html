@@ -293,8 +293,11 @@
     <span><b>{{documentDTO?.name ? documentDTO?.name : ('CONTRIVANCE.DETAIL.DOCUMENTS_NOT_EXIST' | translate)}}</b></span>
     
     <span *ngIf="contrivanceData?.approveStatus == 3" style="color: red;">{{'IDEA_NEW.REASON' | translate}}:</span>
-    <span><b>{{contrivanceData?.rejectReason}}</b></span>
-</div>
+    <span *ngIf="contrivanceData?.approveStatus == 3"><b>{{contrivanceData?.rejectReason}}</b></span>
+    <span *ngIf="contrivanceData?.approveStatus == 2" style="color: #4bc8c1 !important;">{{ 'IDEA_NEW.FEEDBACK' | translate }}:</span>
+    <span *ngIf="contrivanceData?.approveStatus == 2 && contrivanceData?.rejectReason">
+      <b>{{ contrivanceData?.rejectReason }}</b>
+
 <div *ngIf="documentDTO !== null && documentDTO?.name != ''" (click)="handleFileDownload()" class="file">
     <div class="upload-file">
       <img  style="width: 20px;" src="assets/img/icon/download.svg" alt="ic_camera" />

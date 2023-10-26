@@ -376,6 +376,10 @@
       }}
     </b>
   </span>
+  <span *ngIf="ideaDetail?.approveStatus == 2" style="color: #4bc8c1 !important;">{{ 'IDEA_NEW.FEEDBACK' | translate }}:</span>
+  <span *ngIf="ideaDetail?.approveStatus == 2 && ideaDetail?.rejectReason">
+    <b>{{ ideaDetail?.rejectReason }}</b>
+  </span>
   <span *ngIf="ideaDetail?.approveStatus == 3" style="color: red !important;">{{ 'IDEA_NEW.REASON' | translate }}:</span>
   <span *ngIf="ideaDetail?.approveStatus == 3">
     <b>{{ ideaDetail?.rejectReason }}</b>
