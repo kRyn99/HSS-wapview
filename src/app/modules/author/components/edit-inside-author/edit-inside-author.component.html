@@ -41,6 +41,7 @@
       [items]="listStaff"
       bindLabel="displayName"
       [placeholder]="'MANAGE_CATEGORY.PLACEHOLDER.STAFF_CODE' | translate"
+      bindValue="fullName"
       [(ngModel)]="selectedStaffCode"
       (change)="onSelectedStaffCodeChange($event)"
     ></ng-select>

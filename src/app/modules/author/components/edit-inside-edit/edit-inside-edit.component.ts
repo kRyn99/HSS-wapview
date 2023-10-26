@@ -65,6 +65,7 @@ export class EditInsideEditComponent implements OnInit {
           (item) => item.staffId == this.DataService.idEditInsideAuthor
         ),
       };
+      this.selectedStaffCode = this.contributorDTO.fullName;
     }
     else {
       this.contributorDTO = {
@@ -72,7 +73,7 @@ export class EditInsideEditComponent implements OnInit {
           (item) => item.staffId == this.DataService.idEditInsideAuthor
         ),
       };
-   
+      this.selectedStaffCode = this.contributorDTO.fullName;
     }
     this.staffId = this.DataService.idEditInsideAuthor;
     console.log(this.staffId);

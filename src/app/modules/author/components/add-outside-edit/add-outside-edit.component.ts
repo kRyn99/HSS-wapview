@@ -74,11 +74,13 @@ export class AddOutsideEditComponent implements OnInit {
   }
   // listContributorOutDTO:[]
   getListContributorOut() {
+    console.log(this.selectedFullName);
+    
     let contributorDTO = null;
     contributorDTO = {
       fullName: this.selectedStaffCodeSubject.value?.fullName
         ? this.selectedStaffCodeSubject.value?.fullName
-        : this.selectedFullName.displayName,
+        : this.selectedStaffCodeSubject.value?.displayName,
       percentage: this.DataService.percentageOut.value,
       phoneNumber: this.selectedPhoneNumber,
       email: this.selectedEmail,
@@ -87,7 +89,7 @@ export class AddOutsideEditComponent implements OnInit {
       professionalQualification: this.selectedProfessionalQualification,
       displayName: this.selectedStaffCodeSubject.value?.fullName
         ? `${this.selectedStaffCodeSubject.value?.fullName} - ${this.selectedPhoneNumber}`
-        : `${this.selectedFullName.displayName} - ${this.selectedPhoneNumber}`,
+        : `${this.selectedStaffCodeSubject.value?.displayName} - ${this.selectedPhoneNumber}`,
     };
     if (this.DataService.routerContrivance) {
       this.contrivanceService.lstContributorDTOServiceOut.value.push(
@@ -141,7 +143,7 @@ export class AddOutsideEditComponent implements OnInit {
     this.selectedJobAddress = this.selectedStaffCodeSubject.value?.jobAddress;
     this.selectedProfessionalQualification =
       this.selectedStaffCodeSubject.value?.professionalQualification;
-      this.selectedFullName= this.selectedStaffCodeSubject.value?.displayName;
+
       this.checkPhoneNumber();
   }
   percentageValueChange(newValue: string) {

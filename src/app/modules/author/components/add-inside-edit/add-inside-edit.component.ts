@@ -23,6 +23,7 @@ import { ContrivanceService } from "@app/shared/service/contrivance.service";
 export class AddInsideEditComponent implements OnInit {
   public selectedStaffCodeSubject = new BehaviorSubject<any>({});
   msgPhoneError = "";
+  selectedFullName
   setSelectedStaffCode(code: any) {
     this.selectedStaffCodeSubject.next(code);
     this.DataService.selectedStaffCodeSubject.next(code);
@@ -114,7 +115,7 @@ export class AddInsideEditComponent implements OnInit {
     this.isInputTouched = true;
     this.phoneNumber = this.selectedStaffCodeSubject.value.phoneNumber;
     this.email = this.selectedStaffCodeSubject.value.email;
-
+this.selectedFullName =this.selectedStaffCodeSubject.value.fullName;
     this.birthday = this.selectedStaffCodeSubject.value.birthday;
     this.checkPhoneNumber();
   

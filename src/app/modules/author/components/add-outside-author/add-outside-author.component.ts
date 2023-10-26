@@ -75,10 +75,12 @@ export class AddOutsideAuthorComponent implements OnInit {
   }
   // listContributorOutDTO:[]
   getListContributorOut() {
+    console.log( this.selectedFullName);
+    
     let contributorDTO = null;
     contributorDTO =
     {
-      fullName: this.selectedStaffCodeSubject.value?.fullName ? this.selectedStaffCodeSubject.value?.fullName : this.selectedFullName.displayName,
+      fullName: this.selectedStaffCodeSubject.value?.fullName ? this.selectedStaffCodeSubject.value?.fullName : this.selectedStaffCodeSubject.value?.displayName,
       percentage: this.DataService.percentageOut.value,
       phoneNumber: this.selectedPhoneNumber,
       email: this.selectedEmail,
@@ -88,7 +90,7 @@ export class AddOutsideAuthorComponent implements OnInit {
         this.selectedProfessionalQualification,
       contributorId: this.selectedStaffCodeSubject.value?.contributorId,
       //  :`${this.selectedFullName.displayName} - ${this.selectedPhoneNumber}`
-    displayName:this.selectedStaffCodeSubject.value?.fullName ? `${this.selectedStaffCodeSubject.value?.fullName } - ${this.selectedPhoneNumber}` : `${this.selectedFullName.displayName} - ${this.selectedPhoneNumber}`
+    displayName:this.selectedStaffCodeSubject.value?.fullName ? `${this.selectedStaffCodeSubject.value?.fullName } - ${this.selectedPhoneNumber}` : `${this.selectedStaffCodeSubject.value?.displayName} - ${this.selectedPhoneNumber}`
     }
     if (this.DataService.routerContrivance) {
       this.contrivanceService.lstContributorDTOServiceOut.value.push(contributorDTO);
@@ -130,7 +132,7 @@ export class AddOutsideAuthorComponent implements OnInit {
   onSelectedStaffCodeChange(value: any) { 
     this.isInputTouched = true;
     this.setSelectedStaffCode(value);
-    this.selectedPhoneNumber = value.phoneNumber;
+    this.selectedPhoneNumber = this.selectedStaffCodeSubject.value?.phoneNumber;
     this.selectedEmail = this.selectedStaffCodeSubject.value?.email;
     this.selectedJobPosition = this.selectedStaffCodeSubject.value?.jobPosition;
     this.selectedJobAddress = this.selectedStaffCodeSubject.value?.jobAddress;

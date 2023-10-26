@@ -77,10 +77,10 @@
           align-items: center;
         "
       >
-        <span style="font-size: 14px">Mới nhất</span>
+        <span style="font-size: 14px">  {{ "IDEA_NEW.NEWEST" | translate }}</span>
       </div>
       <div
-        (click)="selectTab('LinhVuc')"
+        (click)="selectTab('LinhVuc')"IDEA_NEW
         [ngClass]="{ selectedTab: isLinhVucSelected }"
         style="
           width: 20%;
@@ -89,7 +89,7 @@
           align-items: center;
         "
       >
-        <span style="font-size: 14px">Lĩnh vực</span>
+        <span style="font-size: 14px"> {{ "IDEA_NEW.FIELD" | translate }}</span>
       </div>
       <div
         (click)="selectTab('TrangThai')"
@@ -101,7 +101,7 @@
           align-items: center;
         "
       >
-        <span style="font-size: 14px">Trạng thái</span>
+        <span style="font-size: 14px"> {{ "IDEA_NEW.STATUS" | translate }}</span>
       </div>
     </div>
     <div  *ngIf="listIdea && listIdea.length > 0" class="list-all-idea">

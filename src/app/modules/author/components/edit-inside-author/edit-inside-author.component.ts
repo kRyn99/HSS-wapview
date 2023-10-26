@@ -31,7 +31,7 @@ export class EditInsideAuthorComponent implements OnInit {
     this.config.appendTo = "body";
     this.config.bindValue = "value";
   }
-  msgPhoneError = '';
+  msgPhoneError = "";
   contributorDTO: any;
   token = JSON.parse(localStorage.getItem("tokenInLocalStorage"));
   listStaff: [];
@@ -72,6 +72,7 @@ export class EditInsideAuthorComponent implements OnInit {
           (item) => item.staffId == this.DataService.idEditInsideAuthor
         ),
       };
+      this.selectedStaffCode = this.contributorDTO.fullName;
     } else {
       this.contributorDTO = {
         ...this.DataService.lstContributorDTOService.value.find(
@@ -79,39 +80,43 @@ export class EditInsideAuthorComponent implements OnInit {
         ),
       };
 
-      
+      this.selectedStaffCode = this.contributorDTO.fullName;
     }
     this.staffId = this.DataService.idEditInsideAuthor;
     this.getListStaff();
   }
-  
 
   checkValidatePhone(phoneNumber: string) {
     const phoneNumberRegex = /^\d{8,15}$/;
     if (phoneNumberRegex.test(phoneNumber)) {
-     return true;
+      return true;
     } else {
       return false;
     }
   }
 
-  checkPhoneNumber(){
-    if(!this.contributorDTO.phoneNumber || this.contributorDTO.phoneNumber.length ===0) {
-      this.msgPhoneError = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.PHONE`);
+  checkPhoneNumber() {
+    if (
+      !this.contributorDTO.phoneNumber ||
+      this.contributorDTO.phoneNumber.length === 0
+    ) {
+      this.msgPhoneError = this.translateService.instant(
+        `ADD-INSIDE-IDEA.VALIDATE.PHONE`
+      );
       return false;
     }
-    if(!this.checkValidatePhone(this.contributorDTO.phoneNumber)) {
-      this.msgPhoneError = this.translateService.instant(`IDEA_NEW.PHONE_ERROR`);
+    if (!this.checkValidatePhone(this.contributorDTO.phoneNumber)) {
+      this.msgPhoneError =
+        this.translateService.instant(`IDEA_NEW.PHONE_ERROR`);
       return false;
     }
-    this.msgPhoneError = '';
+    this.msgPhoneError = "";
     return true;
   }
   changePhone() {
-    if(!this.checkPhoneNumber()){
-        return;
+    if (!this.checkPhoneNumber()) {
+      return;
     }
-  
   }
 
   goBack() {
@@ -146,7 +151,6 @@ export class EditInsideAuthorComponent implements OnInit {
       (response) => {
         // this.listStaff = response.data.listStaffDTO;
         this.listStaff = response.data.listStaffDTO.map((item) => {
-          
           item.displayName = `${item.staffCode} - ${item.fullName}`;
           return { ...item };
         });
@@ -161,7 +165,7 @@ export class EditInsideAuthorComponent implements OnInit {
   onSelectedStaffCodeChange(value: any) {
     this.contributorDTO = value;
     this.contributorDTO.staffId = value.id;
-    if(this.checkPhoneNumber()) {
+    if (this.checkPhoneNumber()) {
       return;
     }
   }
@@ -254,9 +258,7 @@ export class EditInsideAuthorComponent implements OnInit {
       // modalRef.componentInstance.closeIcon = false;
       return false;
     }
-    if (
-      !this.checkPhoneNumber()
-    ) {
+    if (!this.checkPhoneNumber()) {
       // const modalRef = this.modalService.open(MessagePopupComponent, {
       //   size: 'sm',
       //   backdrop: 'static',
@@ -273,7 +275,7 @@ export class EditInsideAuthorComponent implements OnInit {
       // modalRef.componentInstance.closeIcon = false;
       return false;
     }
-   
+
     // if (
     //   this.contributorDTO.email === undefined ||
     //   this.contributorDTO.email === null ||

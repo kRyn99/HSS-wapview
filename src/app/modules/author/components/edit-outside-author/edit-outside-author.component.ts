@@ -30,6 +30,7 @@ export class EditOutsideAuthorComponent implements OnInit {
   checkPhoneFormat = false;
   oldNumber: number = 0;
   oldEmail;
+  staffCode
   token = JSON.parse(localStorage.getItem("tokenInLocalStorage"));
   idContributorDTO: number;
   ngOnInit() {
@@ -65,6 +66,7 @@ export class EditOutsideAuthorComponent implements OnInit {
             item.email == this.DataService.emailEditOutsideAuthor
         ),
       };
+      this.staffCode = this.contributorDTO.displayName
     } else {
       this.contributorDTO = {
         ...this.DataService.lstContributorDTOServiceOut.value.find(
@@ -73,6 +75,10 @@ export class EditOutsideAuthorComponent implements OnInit {
             item.email == this.DataService.emailEditOutsideAuthor
         ),
       };
+      this.staffCode = this.contributorDTO.displayName
+      console.log(this.staffCode);
+      
+
     }
 
     this.oldNumber = this.contributorDTO.phoneNumber;
