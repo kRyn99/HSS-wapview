@@ -54,7 +54,7 @@ export class EditOutsideEditComponent implements OnInit {
             item.email == this.DataService.emailEditOutsideAuthor
         ),
       };
-      this.staffCode = this.contributorDTO.displayName;
+      this.staffCode = this.contributorDTO.fullName;
     } else {
       this.contributorDTO = {
         ...this.DataService.lstContributorDTOServiceOutEdit.value.find(
@@ -63,7 +63,7 @@ export class EditOutsideEditComponent implements OnInit {
             item.email == this.DataService.emailEditOutsideAuthor
         ),
       };
-      this.staffCode = this.contributorDTO.displayName
+      this.staffCode = this.contributorDTO.fullName
 
     }
     this.oldNumber = this.contributorDTO.phoneNumber;

@@ -42,7 +42,7 @@
       bindLabel="displayName"
       [placeholder]="'MANAGE_CATEGORY.PLACEHOLDER.STAFF_CODE' | translate"
       [(ngModel)]="staffCode"
-      bindValue="displayName"
+      bindValue="fullName"
       (change)="onSelectedStaffCodeChange($event)"
       
       [addTag]="true"
@@ -117,6 +117,8 @@
       (ngModelChange)="percentageValueChange($event)"
       maxlength="3"
     />
+    <div class="form-text text-danger" *ngIf="!contributorDTO?.percentage">{{ "ADD-INSIDE-IDEA.VALIDATE.PERCENT" | translate }}</div>
+
   </div>
 </div>
 <div (click)="editNew()" class="bottom-box">
