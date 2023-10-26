@@ -59,7 +59,7 @@ export class EditInsideEditComponent implements OnInit {
     //   }
     //   this.staffId = params.id;
     // });
-    if(this.DataService.routerContrivance){
+    if(this.DataService.routerContrivance){ 
       this.contributorDTO = {
         ...this.contrivanceService.lstContributorDTOService.value.find(
           (item) => item.staffId == this.DataService.idEditInsideAuthor
@@ -242,28 +242,7 @@ export class EditInsideEditComponent implements OnInit {
       return false;
     }
 
-    if (
-      this.contributorDTO.email === undefined ||
-      this.contributorDTO.email === null ||
-      this.contributorDTO.email === "" ||
-      this.contributorDTO.email.trim() === ""
-    ) {
-      // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
-      // modalRef.componentInstance.type = 'fail';
-      // modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
-      // modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.EMAIL`);
-      // modalRef.componentInstance.closeIcon = false;
-      return false;
-    } else {
-      if (!this.isValidEmail(this.contributorDTO.email)) {
-        // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
-        // modalRef.componentInstance.type = 'fail';
-        // modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
-        // modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.EMAIL_FORM`);
-        // modalRef.componentInstance.closeIcon = false;
-        return false;
-      }
-    }
+
     let hasDuplicate = false;
     let lstContributorDTO = [];
     if (this.DataService.routerContrivance) {
@@ -315,7 +294,7 @@ export class EditInsideEditComponent implements OnInit {
         ) {
           if (
             this.contrivanceService.lstContributorDTOService.value[i].staffId ==
-            this.contributorDTO.staffId
+            this.staffId
           ) {
             this.contrivanceService.lstContributorDTOService.value[i] =
               this.contributorDTO;
@@ -352,7 +331,7 @@ export class EditInsideEditComponent implements OnInit {
         ) {
           if (
             this.contrivanceService.lstContributorDTOService.value[i].staffId ==
-            this.contributorDTO.staffId
+            this.staffId
           ) {
             this.contrivanceService.lstContributorDTOService.value[i] =
               this.contributorDTO;
