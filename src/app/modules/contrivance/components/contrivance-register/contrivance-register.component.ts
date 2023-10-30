@@ -29,7 +29,8 @@ import { MatTableDataSource } from "@angular/material/table";
 import { TranslateService } from "@ngx-translate/core";
 import { MessagePopupComponent } from "@app/modules/common-items/components/message-popup/message-popup.component";
 import { DataService } from "../../../../shared/service/data.service";
-
+import { environment } from "@env/environment";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 @Component({
   selector: "app-contrivance-register",
   templateUrl: "./contrivance-register.component.html",
@@ -86,7 +87,7 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
   detailContrivance: any = null;
   mode: string = "add";
   selectedFile: File | undefined;
-
+  lang = localStorage.getItem("lang");
   selectedUnitValue: any[] = [];
   dataSource: any;
   dataSource2: any;
@@ -104,7 +105,8 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private cdRef: ChangeDetectorRef,
     public formUtils: CommonFormUtils,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private http: HttpClient,
   ) {
     this.bsFromConfig = {
       containerClass: 'theme-dark-blue',
@@ -113,6 +115,8 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.getListStaff();
+    this.apiListContributorOut();
     this.DataService.routerContrivance = true;
     const slu = this.getListUnit();
     this.subscriptions.push(slu);
@@ -137,6 +141,70 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
     });
     this.loadAddForm();
   }
+
+    
+  apiListContributorOut() {
+
+    const url = `${environment.API_HOST_NAME}/api/get-list-contributor-cms`;
+    const headers = new HttpHeaders({
+      'Accept-Language': this.lang,
+      Authorization: `Bearer ` + this.token,
+    });
+    const requestBody = {
+      userName: "hss_admin",
+      contributorDTO: {
+        fullName: '',
+        outsideCorp: 1,
+      }
+    };
+    
+    return this.http.post<any>(url, requestBody, { headers }).subscribe(
+      (response) => {
+        // this.listContributorOut = response.data;
+        let listStaff = response.data.map((item) => { item.displayName = `${item.fullName} - ${item.phoneNumber}`; return {...item} });
+        this.DataService.listStaffOut.next(listStaff);
+      
+      },
+      (error) => {
+        console.error(error.data);
+      
+
+      },
+    );
+  }
+  getListStaff() {
+    const url = `${environment.API_HOST_NAME}/api/get-list-staff`;
+    const headers = new HttpHeaders({
+      "Accept-Language": this.lang,
+      Authorization: `Bearer ` + this.token,
+    });
+    const requestBody = {
+      userName: "hss_admin",
+
+      staffDTO: {
+        staffCode: "",
+      },
+    };
+    
+    return this.http.post<any>(url, requestBody, { headers }).subscribe(
+      (response) => {
+        let listStaff = response.data.listStaffDTO.map((item) => {
+          item.displayName = `${item.staffCode} - ${item.fullName}`;
+          return { ...item };
+        });
+        this.DataService.listStaffIn.next(listStaff);
+
+      },
+      (error) => {
+        console.error(error.description);
+        
+      }
+    );
+  }
+
+  //end list staff
+
+
 
   listUnit: any[] = [];
   getListUnit() {

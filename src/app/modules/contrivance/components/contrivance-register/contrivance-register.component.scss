@@ -302,7 +302,7 @@ tr.example-element-row:not(.example-expanded-row):active {
 .slide-up-div-duplicate {
   display: block;
   position: fixed;
-  height: 600px;
+  max-height: 90vh;
   bottom: 0px;
   left: 0;
   width: 100%;

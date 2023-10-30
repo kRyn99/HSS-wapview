@@ -41,7 +41,7 @@
     </div>
     <ng-select
       class="custom-class-aia"
-      [items]="listStaff2"
+      [items]="DataService.listStaffIn | async"
       bindLabel="displayName"
       placeholder="{{
         'IDEA_MANAGEMENT.PLACEHOLDER.ENTER_STAFF_CODE' | translate
@@ -49,6 +49,7 @@
       [(ngModel)]="selectedStaffCode"
       (change)="onSelectedStaffCodeChange($event)"
       [required]="isInputTouched"
+      autofocus
     ></ng-select>
     <div
       class="form-text text-danger"

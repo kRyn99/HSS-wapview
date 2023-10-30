@@ -219,7 +219,6 @@ export class IdeaDetailComponent implements OnInit {
     };
     return this.http.post<any>(url, request, { headers }).subscribe((res) => {
       if (res.errorCode === "0") {
-        debugger;
         // let mimeType = res.data.typeFile;
         // const a = document.createElement("a");
         // console.log("data:" + mimeType + ";base64," + res.data.fileContent);

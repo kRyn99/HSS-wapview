@@ -56,7 +56,7 @@ export class AddInsideEditComponent implements OnInit {
   };
   minMode: BsDatepickerViewMode = "day";
   ngOnInit() {
-    this.getListStaff();
+    // this.getListStaff();
     this.route.queryParams.subscribe((params) => {
       if (params && params.for) {
         this.backRoute = params.for;
@@ -81,31 +81,31 @@ export class AddInsideEditComponent implements OnInit {
   listStaff: [];
   listStaff2: [];
   lang = localStorage.getItem("lang");
-  getListStaff() {
-    const url = `${environment.API_HOST_NAME}/api/get-list-staff`;
-    const headers = new HttpHeaders({
-      "Accept-Language": this.lang,
-      Authorization: `Bearer ` + this.token,
-    });
-    const requestBody = {
-      userName: "hss_admin",
+  // getListStaff() {
+  //   const url = `${environment.API_HOST_NAME}/api/get-list-staff`;
+  //   const headers = new HttpHeaders({
+  //     "Accept-Language": this.lang,
+  //     Authorization: `Bearer ` + this.token,
+  //   });
+  //   const requestBody = {
+  //     userName: "hss_admin",
 
-      staffDTO: {
-        staffCode: "",
-      },
-    };
-    return this.http.post<any>(url, requestBody, { headers }).subscribe(
-      (response) => {
-        this.listStaff = response.data.listStaffDTO;
-        this.listStaff2 = response.data.listStaffDTO.map((item) => { item.displayName = `${item.staffCode} - ${item.fullName}`; return {...item} });
+  //     staffDTO: {
+  //       staffCode: "",
+  //     },
+  //   };
+  //   return this.http.post<any>(url, requestBody, { headers }).subscribe(
+  //     (response) => {
+  //       this.listStaff = response.data.listStaffDTO;
+  //       this.listStaff2 = response.data.listStaffDTO.map((item) => { item.displayName = `${item.staffCode} - ${item.fullName}`; return {...item} });
 
-        console.log(this.listStaff);
-      },
-      (error) => {
-        console.error(error.description);
-      }
-    );
-  }
+  //       console.log(this.listStaff);
+  //     },
+  //     (error) => {
+  //       console.error(error.description);
+  //     }
+  //   );
+  // }
   goBackEdit() {
     alert("ok");
   }

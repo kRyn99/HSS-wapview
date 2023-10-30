@@ -6,6 +6,9 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class DataService {
+  listStaffIn= new BehaviorSubject<any>(null);
+  listStaffOut= new BehaviorSubject<any>(null);
+
   documentDTO= new BehaviorSubject<any>(null);
   routerContrivance:boolean=false;
   showDuplicateIdea:boolean=false;

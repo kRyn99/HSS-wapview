@@ -40,12 +40,13 @@
     <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.STAFF_CODE" | translate }}(<span style="color: red">*</span>)</div>
     <ng-select
     class="custom-class-eie"
-      [items]="listStaff"
+      [items]="DataService.listStaffIn | async"
       bindLabel="displayName"
       [placeholder]="contributorDTO?.staffCode"
       [(ngModel)]="selectedStaffCode"
       bindValue="fullName"
       (change)="onSelectedStaffCodeChange($event)"
+      autofocus
     ></ng-select>
     <div class="form-text text-danger" *ngIf="!contributorDTO?.staffCode">{{ "ADD-INSIDE-IDEA.VALIDATE.STAFF-CODE" | translate }}</div>
   </div>

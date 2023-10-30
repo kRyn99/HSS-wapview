@@ -54,7 +54,10 @@ export class EditOutsideEditComponent implements OnInit {
             item.email == this.DataService.emailEditOutsideAuthor
         ),
       };
-      this.staffCode = this.contributorDTO.fullName;
+      if(!this.contributorDTO.displayName){
+        this.contributorDTO.displayName= `${this.contributorDTO.fullName} - ${this.contributorDTO.phoneNumber}`;
+      }
+      this.staffCode = this.contributorDTO.displayName
     } else {
       this.contributorDTO = {
         ...this.DataService.lstContributorDTOServiceOutEdit.value.find(
@@ -63,17 +66,17 @@ export class EditOutsideEditComponent implements OnInit {
             item.email == this.DataService.emailEditOutsideAuthor
         ),
       };
-      this.staffCode = this.contributorDTO.fullName
+      if(!this.contributorDTO.displayName){
+        this.contributorDTO.displayName= `${this.contributorDTO.fullName} - ${this.contributorDTO.phoneNumber}`;
+      }
+      this.staffCode = this.contributorDTO.displayName
 
     }
     this.oldNumber = this.contributorDTO.phoneNumber;
     this.oldEmail = this.contributorDTO.email;
+    
 
-    if (!this.contributorDTO.displayName) {
-      this.contributorDTO.displayName = this.contributorDTO.fullName;
-    }
-
-    this.apiListContributorOut();
+    // this.apiListContributorOut();
   }
   goBack() {
     this.DataService.showBg = false;
@@ -92,31 +95,31 @@ export class EditOutsideEditComponent implements OnInit {
   }
   listContributorOut: [];
   lang = localStorage.getItem("lang");
-  apiListContributorOut() {
-    const url = `${environment.API_HOST_NAME}/api/get-list-contributor-cms`;
-    const headers = new HttpHeaders({
-      "Accept-Language": this.lang,
-      Authorization: `Bearer ` + this.token,
-    });
-    const requestBody = {
-      userName: "hss_admin",
-      contributorDTO: {
-        fullName: "",
-        outsideCorp: 1,
-      },
-    };
-    return this.http.post<any>(url, requestBody, { headers }).subscribe(
-      (response) => {
-        this.listContributorOut = response.data.map((item) => {
-          item.displayName = `${item.fullName} - ${item.phoneNumber}`;
-          return { ...item };
-        });
-      },
-      (error) => {
-        console.error(error.data);
-      }
-    );
-  }
+  // apiListContributorOut() {
+  //   const url = `${environment.API_HOST_NAME}/api/get-list-contributor-cms`;
+  //   const headers = new HttpHeaders({
+  //     "Accept-Language": this.lang,
+  //     Authorization: `Bearer ` + this.token,
+  //   });
+  //   const requestBody = {
+  //     userName: "hss_admin",
+  //     contributorDTO: {
+  //       fullName: "",
+  //       outsideCorp: 1,
+  //     },
+  //   };
+  //   return this.http.post<any>(url, requestBody, { headers }).subscribe(
+  //     (response) => {
+  //       this.listContributorOut = response.data.map((item) => {
+  //         item.displayName = `${item.fullName} - ${item.phoneNumber}`;
+  //         return { ...item };
+  //       });
+  //     },
+  //     (error) => {
+  //       console.error(error.data);
+  //     }
+  //   );
+  // }
   fullName;
   onSelectedStaffCodeChange(value: any) {
     this.contributorDTO = value;

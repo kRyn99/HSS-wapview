@@ -38,7 +38,7 @@
     <div class="info-title">{{ "IDEA_MANAGEMENT.LABEL.FULL_NAME" | translate }}(<span style="color:red">*</span>)</div>
     <ng-select
     class="custom-class-eoa"
-      [items]="listContributorOut"
+      [items]="DataService.listStaffOut | async"
       bindLabel="displayName"
       [placeholder]=" 'MANAGE_CATEGORY.PLACEHOLDER.FULL_NAME' | translate"
       [(ngModel)]="staffCode"
@@ -47,6 +47,7 @@
       [addTagText]="'Chọn tên tác giả'"
       (change)="onSelectedStaffCodeChange($event)"
       [addTag]="true"
+      autofocus
       [addTagText]="'CHOOSE_AUTHOR_NAME' | translate"
     ></ng-select>
     <div class="form-text text-danger" *ngIf="!contributorDTO?.displayName">{{ "ADD-INSIDE-IDEA.VALIDATE.NAME" | translate }}</div>

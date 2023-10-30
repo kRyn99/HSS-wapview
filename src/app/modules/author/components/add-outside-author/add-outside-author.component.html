@@ -38,7 +38,7 @@
     </div>
     <ng-select
       class="custom-class-aoa"
-      [items]="listContributorOut"
+      [items]="DataService.listStaffOut | async"
       bindLabel="displayName"
       [placeholder]="'MANAGE_CATEGORY.PLACEHOLDER.FULL_NAME' | translate"
       [(ngModel)]="selectedFullName"
@@ -46,6 +46,7 @@
       [addTag]="true"
       [addTagText]="'CHOOSE_AUTHOR_NAME' | translate"
       [required]="isInputTouched"
+      autofocus
     ></ng-select>
     <div
       class="form-text text-danger"

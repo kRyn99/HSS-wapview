@@ -78,7 +78,7 @@ export class EditInsideEditComponent implements OnInit {
     this.staffId = this.DataService.idEditInsideAuthor;
     console.log(this.staffId);
     
-    this.getListStaff();
+    // this.getListStaff();
   }
 
 
@@ -128,31 +128,31 @@ export class EditInsideEditComponent implements OnInit {
   listStaff: [];
   selectedStaffCode: any;
   lang = localStorage.getItem("lang");
-  getListStaff() {
-    const url = `${environment.API_HOST_NAME}/api/get-list-staff`;
-    const headers = new HttpHeaders({
-      "Accept-Language": this.lang,
-      Authorization: `Bearer ` + this.token,
-    });
-    const requestBody = {
-      userName: "hss_admin",
+  // getListStaff() {
+  //   const url = `${environment.API_HOST_NAME}/api/get-list-staff`;
+  //   const headers = new HttpHeaders({
+  //     "Accept-Language": this.lang,
+  //     Authorization: `Bearer ` + this.token,
+  //   });
+  //   const requestBody = {
+  //     userName: "hss_admin",
 
-      staffDTO: {
-        staffCode: "",
-      },
-    };
-    return this.http.post<any>(url, requestBody, { headers }).subscribe(
-      (response) => {
-        // this.listStaff = response.data.listStaffDTO;
-        this.listStaff = response.data.listStaffDTO.map((item) => { item.displayName = `${item.staffCode} - ${item.fullName}`; return { ...item } });
+  //     staffDTO: {
+  //       staffCode: "",
+  //     },
+  //   };
+  //   return this.http.post<any>(url, requestBody, { headers }).subscribe(
+  //     (response) => {
+  //       // this.listStaff = response.data.listStaffDTO;
+  //       this.listStaff = response.data.listStaffDTO.map((item) => { item.displayName = `${item.staffCode} - ${item.fullName}`; return { ...item } });
 
-        console.log(this.listStaff);
-      },
-      (error) => {
-        console.error(error.description);
-      }
-    );
-  }
+  //       console.log(this.listStaff);
+  //     },
+  //     (error) => {
+  //       console.error(error.description);
+  //     }
+  //   );
+  // }
 
   onSelectedStaffCodeChange(value: any) {
     this.contributorDTO = value;

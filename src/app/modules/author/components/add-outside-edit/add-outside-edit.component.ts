@@ -50,7 +50,7 @@ export class AddOutsideEditComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
   ngOnInit() {
-    this.apiListContributorOut();
+    // this.apiListContributorOut();
     this.route.queryParams.subscribe((params) => {
       if (params && params.for) {
         this.backRoute = params.for;
@@ -105,34 +105,34 @@ export class AddOutsideEditComponent implements OnInit {
   token = JSON.parse(localStorage.getItem("tokenInLocalStorage"));
   listContributorOut: [];
   lang = localStorage.getItem("lang");
-  apiListContributorOut() {
-    const url = `${environment.API_HOST_NAME}/api/get-list-contributor-cms`;
-    const headers = new HttpHeaders({
-      "Accept-Language": this.lang,
-      Authorization: `Bearer ` + this.token,
-    });
-    const requestBody = {
-      userName: "hss_admin",
-      contributorDTO: {
-        fullName: "",
-        outsideCorp: 1,
-      },
-    };
-    return this.http.post<any>(url, requestBody, { headers }).subscribe(
-      (response) => {
-        // this.listContributorOut = response.data;
-        this.listContributorOut = response.data.map((item) => {
-          item.displayName = `${item.fullName} - ${item.phoneNumber}`;
-          return { ...item };
-        });
+  // apiListContributorOut() {
+  //   const url = `${environment.API_HOST_NAME}/api/get-list-contributor-cms`;
+  //   const headers = new HttpHeaders({
+  //     "Accept-Language": this.lang,
+  //     Authorization: `Bearer ` + this.token,
+  //   });
+  //   const requestBody = {
+  //     userName: "hss_admin",
+  //     contributorDTO: {
+  //       fullName: "",
+  //       outsideCorp: 1,
+  //     },
+  //   };
+  //   return this.http.post<any>(url, requestBody, { headers }).subscribe(
+  //     (response) => {
+  //       // this.listContributorOut = response.data;
+  //       this.listContributorOut = response.data.map((item) => {
+  //         item.displayName = `${item.fullName} - ${item.phoneNumber}`;
+  //         return { ...item };
+  //       });
 
-        console.log(this.listContributorOut);
-      },
-      (error) => {
-        console.error(error.data);
-      }
-    );
-  }
+  //       console.log(this.listContributorOut);
+  //     },
+  //     (error) => {
+  //       console.error(error.data);
+  //     }
+  //   );
+  // }
   isInputTouched = false;
   onSelectedStaffCodeChange(value: any) {
     this.setSelectedStaffCode(value);

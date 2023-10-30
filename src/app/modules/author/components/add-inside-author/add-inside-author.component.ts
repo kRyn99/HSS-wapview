@@ -72,7 +72,7 @@ export class AddInsideAuthorComponent implements OnInit {
   minMode: BsDatepickerViewMode = "day";
   ngOnInit() {
     this.DataService.percentage.next(null);
-    this.getListStaff();
+    // this.getListStaff();
     this.route.queryParams.subscribe((params) => {
       if (params && params.for) {
         this.backRoute = params.for;
@@ -97,31 +97,31 @@ export class AddInsideAuthorComponent implements OnInit {
 
   listStaff2: [];
   lang = localStorage.getItem("lang");
-  getListStaff() {
-    const url = `${environment.API_HOST_NAME}/api/get-list-staff`;
-    const headers = new HttpHeaders({
-      "Accept-Language": this.lang,
-      Authorization: `Bearer ` + this.token,
-    });
-    const requestBody = {
-      userName: "hss_admin",
+  // getListStaff() {
+  //   const url = `${environment.API_HOST_NAME}/api/get-list-staff`;
+  //   const headers = new HttpHeaders({
+  //     "Accept-Language": this.lang,
+  //     Authorization: `Bearer ` + this.token,
+  //   });
+  //   const requestBody = {
+  //     userName: "hss_admin",
 
-      staffDTO: {
-        staffCode: "",
-      },
-    };
-    return this.http.post<any>(url, requestBody, { headers }).subscribe(
-      (response) => {
-        this.listStaff2 = response.data.listStaffDTO.map((item) => {
-          item.displayName = `${item.staffCode} - ${item.fullName}`;
-          return { ...item };
-        });
-      },
-      (error) => {
-        console.error(error.description);
-      }
-    );
-  }
+  //     staffDTO: {
+  //       staffCode: "",
+  //     },
+  //   };
+  //   return this.http.post<any>(url, requestBody, { headers }).subscribe(
+  //     (response) => {
+  //       this.listStaff2 = response.data.listStaffDTO.map((item) => {
+  //         item.displayName = `${item.staffCode} - ${item.fullName}`;
+  //         return { ...item };
+  //       });
+  //     },
+  //     (error) => {
+  //       console.error(error.description);
+  //     }
+  //   );
+  // }
   isInputTouched = false;
   onSelectedStaffCodeChange(value: any) {
     this.setSelectedStaffCode(value);

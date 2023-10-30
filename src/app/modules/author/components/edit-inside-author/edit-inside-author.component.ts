@@ -83,7 +83,7 @@ export class EditInsideAuthorComponent implements OnInit {
       this.selectedStaffCode = this.contributorDTO.fullName;
     }
     this.staffId = this.DataService.idEditInsideAuthor;
-    this.getListStaff();
+    // this.getListStaff();
   }
 
   checkValidatePhone(phoneNumber: string) {
@@ -134,34 +134,34 @@ export class EditInsideAuthorComponent implements OnInit {
       document.body.style.overflow = "auto";
     }
   }
-  getListStaff() {
-    const url = `${environment.API_HOST_NAME}/api/get-list-staff`;
-    const headers = new HttpHeaders({
-      "Accept-Language": this.lang,
-      Authorization: `Bearer ` + this.token,
-    });
-    const requestBody = {
-      userName: "hss_admin",
+  // getListStaff() {
+  //   const url = `${environment.API_HOST_NAME}/api/get-list-staff`;
+  //   const headers = new HttpHeaders({
+  //     "Accept-Language": this.lang,
+  //     Authorization: `Bearer ` + this.token,
+  //   });
+  //   const requestBody = {
+  //     userName: "hss_admin",
 
-      staffDTO: {
-        staffCode: "",
-      },
-    };
-    return this.http.post<any>(url, requestBody, { headers }).subscribe(
-      (response) => {
-        // this.listStaff = response.data.listStaffDTO;
-        this.listStaff = response.data.listStaffDTO.map((item) => {
-          item.displayName = `${item.staffCode} - ${item.fullName}`;
-          return { ...item };
-        });
+  //     staffDTO: {
+  //       staffCode: "",
+  //     },
+  //   };
+  //   return this.http.post<any>(url, requestBody, { headers }).subscribe(
+  //     (response) => {
+  //       // this.listStaff = response.data.listStaffDTO;
+  //       this.listStaff = response.data.listStaffDTO.map((item) => {
+  //         item.displayName = `${item.staffCode} - ${item.fullName}`;
+  //         return { ...item };
+  //       });
 
-        console.log(this.listStaff);
-      },
-      (error) => {
-        console.error(error.description);
-      }
-    );
-  }
+  //       console.log(this.listStaff);
+  //     },
+  //     (error) => {
+  //       console.error(error.description);
+  //     }
+  //   );
+  // }
   onSelectedStaffCodeChange(value: any) {
     this.contributorDTO = value;
     this.contributorDTO.staffId = value.id;

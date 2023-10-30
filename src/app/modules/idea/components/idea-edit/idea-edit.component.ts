@@ -96,7 +96,8 @@ export class IdeaEditComponent implements OnInit {
   }
   ngOnInit() {
     this.selectedLanguage = this.DataService.selectedLanguage.value;
-
+    this.getListStaff();
+    this.apiListContributorOut();
     this.getIdeaDetail();
     this.getListSpecialty();
 
@@ -139,6 +140,69 @@ export class IdeaEditComponent implements OnInit {
       datepickerInput.show();
     }
   }
+
+  //get list staff
+  
+  apiListContributorOut() {
+
+    const url = `${environment.API_HOST_NAME}/api/get-list-contributor-cms`;
+    const headers = new HttpHeaders({
+      'Accept-Language': this.lang,
+      Authorization: `Bearer ` + this.token,
+    });
+    const requestBody = {
+      userName: "hss_admin",
+      contributorDTO: {
+        fullName: '',
+        outsideCorp: 1,
+      }
+    };
+    
+    return this.http.post<any>(url, requestBody, { headers }).subscribe(
+      (response) => {
+        // this.listContributorOut = response.data;
+        let listStaff = response.data.map((item) => { item.displayName = `${item.fullName} - ${item.phoneNumber}`; return {...item} });
+        this.DataService.listStaffOut.next(listStaff);
+      
+      },
+      (error) => {
+        console.error(error.data);
+      
+
+      },
+    );
+  }
+  getListStaff() {
+    const url = `${environment.API_HOST_NAME}/api/get-list-staff`;
+    const headers = new HttpHeaders({
+      "Accept-Language": this.lang,
+      Authorization: `Bearer ` + this.token,
+    });
+    const requestBody = {
+      userName: "hss_admin",
+
+      staffDTO: {
+        staffCode: "",
+      },
+    };
+    
+    return this.http.post<any>(url, requestBody, { headers }).subscribe(
+      (response) => {
+        let listStaff = response.data.listStaffDTO.map((item) => {
+          item.displayName = `${item.staffCode} - ${item.fullName}`;
+          return { ...item };
+        });
+        this.DataService.listStaffIn.next(listStaff);
+
+      },
+      (error) => {
+        console.error(error.description);
+        
+      }
+    );
+  }
+
+  //end list staff
 
   getIdeaDetail() {
     const url = `${environment.API_HOST_NAME}/api/get-idea-detail`;
