@@ -44,8 +44,11 @@
       [(ngModel)]="selectedFullName"
       (change)="onSelectedStaffCodeChange($event)"
       [addTag]="true"
+      bindValue="displayName"
       [addTagText]="'CHOOSE_AUTHOR_NAME' | translate"
       [required]="isInputTouched"
+      (search)="onSearch($event)"
+      (blur)="onBlur()"
       autofocus
     ></ng-select>
     <div class="form-text text-danger" *ngIf="isInputTouched && !selectedStaffCodeSubject.value">{{ "ADD-INSIDE-IDEA.VALIDATE.NAME" | translate }}</div>

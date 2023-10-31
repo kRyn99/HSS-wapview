@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 import { ActivatedRoute, Router } from "@angular/router";
@@ -24,8 +24,10 @@ export class EditOutsideEditComponent implements OnInit {
     private router: Router,
     private modalService: NgbModal,
     private translateService: TranslateService,
-    public contrivanceService: ContrivanceService
+    public contrivanceService: ContrivanceService,
+    private cd: ChangeDetectorRef
   ) {}
+  searchValue: string = "";
   staffCode;
   oldNumber: number = 0;
   oldEmail: string = "";
@@ -78,6 +80,25 @@ export class EditOutsideEditComponent implements OnInit {
 
     // this.apiListContributorOut();
   }
+
+  onSearch(searchText: any) {
+    this.staffCode = '';
+    this.contributorDTO.displayName = searchText.term;
+    this.searchValue = searchText.term;
+  }
+
+  onBlur() {
+    // Xử lý khi hộp chọn mất focus
+    if (this.searchValue.length > 0) {
+      this.staffCode = this.searchValue;
+      this.fullName = this.searchValue;
+      this.contributorDTO.phoneNumber = '';
+      this.contributorDTO.email = '';
+      this.contributorDTO.percentage = '';
+      this.cd.detectChanges();
+    }
+  }
+
   goBack() {
     this.DataService.showBg = false;
     this.DataService.showAddInsideAuthor = false;
@@ -122,7 +143,8 @@ export class EditOutsideEditComponent implements OnInit {
   // }
   fullName;
   onSelectedStaffCodeChange(value: any) {
-    this.contributorDTO = value;
+    this.contributorDTO = value ? value : {};
+    this.searchValue = "";
     this.fullName = this.contributorDTO.displayName;
 
     if (this.checkPhoneNumber()) {

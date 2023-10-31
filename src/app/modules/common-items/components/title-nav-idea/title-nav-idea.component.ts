@@ -93,8 +93,6 @@ export class TitleNavIdeaComponent implements OnInit {
   }
 
   handleLinkRoute() {
-    console.log(this.linkRoute);
-    
     this.router.navigate([this.linkRoute]);
   }
 

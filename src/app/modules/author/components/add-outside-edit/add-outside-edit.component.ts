@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 import { environment } from "@env/environment";
@@ -38,7 +38,8 @@ export class AddOutsideEditComponent implements OnInit {
   selectedEmail;
   selectedProfessionalQualification;
   selectedPercentage;
-  msgPhoneError = '';
+  msgPhoneError = "";
+  searchValue = "";
   constructor(
     private http: HttpClient,
     private config: NgSelectConfig,
@@ -47,7 +48,8 @@ export class AddOutsideEditComponent implements OnInit {
     private modalService: NgbModal,
     private translateService: TranslateService,
     public contrivanceService: ContrivanceService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cd: ChangeDetectorRef
   ) {}
   ngOnInit() {
     // this.apiListContributorOut();
@@ -57,6 +59,24 @@ export class AddOutsideEditComponent implements OnInit {
       }
     });
   }
+
+  onSearch(searchText: any) {
+    this.selectedFullName = '';
+    this.searchValue = searchText.term;
+  }
+
+  onBlur() {
+    // Xử lý khi hộp chọn mất focus
+    if (this.searchValue.length > 0) {
+      this.selectedStaffCodeSubject.next({});
+      this.selectedFullName = this.searchValue;
+      this.selectedPhoneNumber = '';
+      this.selectedEmail = '';
+      this.selectedPercentage = '';
+      this.cd.detectChanges();
+    }
+  }
+
   goBack() {
     this.DataService.showBg = false;
     this.DataService.showAddInsideAuthor = false;
@@ -75,12 +95,14 @@ export class AddOutsideEditComponent implements OnInit {
   // listContributorOutDTO:[]
   getListContributorOut() {
     console.log(this.selectedFullName);
-    
+
     let contributorDTO = null;
     contributorDTO = {
       fullName: this.selectedStaffCodeSubject.value?.fullName
         ? this.selectedStaffCodeSubject.value?.fullName
-        : this.selectedStaffCodeSubject.value?.displayName,
+        : this.selectedStaffCodeSubject.value?.displayName
+        ? this.selectedStaffCodeSubject.value?.displayName
+        : this.selectedFullName,
       percentage: this.DataService.percentageOut.value,
       phoneNumber: this.selectedPhoneNumber,
       email: this.selectedEmail,
@@ -89,7 +111,11 @@ export class AddOutsideEditComponent implements OnInit {
       professionalQualification: this.selectedProfessionalQualification,
       displayName: this.selectedStaffCodeSubject.value?.fullName
         ? `${this.selectedStaffCodeSubject.value?.fullName} - ${this.selectedPhoneNumber}`
-        : `${this.selectedStaffCodeSubject.value?.displayName} - ${this.selectedPhoneNumber}`,
+        : `${
+            this.selectedStaffCodeSubject.value?.displayName
+              ? this.selectedStaffCodeSubject.value?.displayName
+              : this.selectedFullName
+          } - ${this.selectedPhoneNumber}`,
     };
     if (this.DataService.routerContrivance) {
       this.contrivanceService.lstContributorDTOServiceOut.value.push(
@@ -136,6 +162,7 @@ export class AddOutsideEditComponent implements OnInit {
   isInputTouched = false;
   onSelectedStaffCodeChange(value: any) {
     this.setSelectedStaffCode(value);
+    this.searchValue = '';
     this.isInputTouched = true;
     this.selectedPhoneNumber = this.selectedStaffCodeSubject.value?.phoneNumber;
     this.selectedEmail = this.selectedStaffCodeSubject.value?.email;
@@ -144,7 +171,7 @@ export class AddOutsideEditComponent implements OnInit {
     this.selectedProfessionalQualification =
       this.selectedStaffCodeSubject.value?.professionalQualification;
 
-      this.checkPhoneNumber();
+    this.checkPhoneNumber();
   }
   percentageValueChange(newValue: string) {
     const parsedValue = parseInt(newValue, 10);
@@ -175,28 +202,31 @@ export class AddOutsideEditComponent implements OnInit {
   checkValidatePhone(phoneNumber: string) {
     const phoneNumberRegex = /^\d{8,15}$/;
     if (phoneNumberRegex.test(phoneNumber)) {
-     return true;
+      return true;
     } else {
       return false;
     }
   }
 
-  checkPhoneNumber(){
-    if(!this.selectedPhoneNumber || this.selectedPhoneNumber.length ===0) {
-      this.msgPhoneError = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.PHONE`);
+  checkPhoneNumber() {
+    if (!this.selectedPhoneNumber || this.selectedPhoneNumber.length === 0) {
+      this.msgPhoneError = this.translateService.instant(
+        `ADD-INSIDE-IDEA.VALIDATE.PHONE`
+      );
       return false;
     }
-    if(!this.checkValidatePhone(this.selectedPhoneNumber)) {
-      this.msgPhoneError = this.translateService.instant(`IDEA_NEW.PHONE_ERROR`);
+    if (!this.checkValidatePhone(this.selectedPhoneNumber)) {
+      this.msgPhoneError =
+        this.translateService.instant(`IDEA_NEW.PHONE_ERROR`);
       return false;
     }
-    this.msgPhoneError = '';
+    this.msgPhoneError = "";
     return true;
   }
 
   changePhone() {
-    if(!this.checkPhoneNumber()){
-        return;
+    if (!this.checkPhoneNumber()) {
+      return;
     }
     this.selectedStaffCodeSubject.value.phoneNumber = this.selectedPhoneNumber;
   }
@@ -281,9 +311,7 @@ export class AddOutsideEditComponent implements OnInit {
       // modalRef.componentInstance.closeIcon = false;
       return false;
     }
-    if (
-      !this.checkPhoneNumber()
-    ) {
+    if (!this.checkPhoneNumber()) {
       // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
       // modalRef.componentInstance.type = 'fail';
       // modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);

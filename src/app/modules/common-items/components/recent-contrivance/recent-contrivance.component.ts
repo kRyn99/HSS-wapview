@@ -39,16 +39,6 @@ export class RecentContrivanceIdeaComponent implements OnInit {
   ) {}
   listData: any[] = [];
   ngOnChanges(): void {
-    // if (this.list && this.list.length > 0) {
-    //   this.list.sort(function (a, b) {
-    //     const dateA = new Date(a.updateDatetimeDate).getTime();
-    //     const dateB = new Date(b.updateDatetimeDate).getTime();
-    //     console.log(dateA - dateB);
-        
-    //     return dateA - dateB;
-    //   });
-    // }
-    // this.listData = [...this.list]
   }
 
   ngOnInit(): void {
@@ -61,13 +51,10 @@ export class RecentContrivanceIdeaComponent implements OnInit {
 
   ngAfterViewInit() {
     // Lấy phần tử pagination
-
     const paginationElement =
       this.el.nativeElement.querySelector(".swiper-pagination");
-
     // Lấy phần tử slideshow-header
     const slideshowHeader = this.el.nativeElement.querySelector(".progessbar");
-
     // Kiểm tra xem cả hai phần tử đều tồn tại
     if (paginationElement && slideshowHeader) {
       // Sử dụng Renderer2 để di chuyển phần tử pagination vào trong slideshow-header
@@ -84,7 +71,6 @@ export class RecentContrivanceIdeaComponent implements OnInit {
     initialSlide: 0,
   
   };
-  private subscriptions: Subscription[] = [];
   user: any;
   token: string;
   @Input() list: any[] = [];

@@ -79,9 +79,7 @@ export class TitleNavComponent {
     this.customEvent.emit();
   }
 
-  handleLinkRoute() {
-    console.log(this.linkRoute);
-    
+  handleLinkRoute() { 
     this.router.navigate([this.linkRoute]);
   }
 

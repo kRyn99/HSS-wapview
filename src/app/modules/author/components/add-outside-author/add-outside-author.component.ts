@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 import { environment } from "@env/environment";
@@ -30,7 +30,7 @@ export class AddOutsideAuthorComponent implements OnInit {
   getSelectedStaffCodeSubject() {
     return this.selectedStaffCodeSubject.asObservable();
   }
-  selectedFullName;
+  selectedFullName = '';
   selectedJobAddress;
   selectedJobPosition;
   selectedPhoneNumber;
@@ -38,6 +38,7 @@ export class AddOutsideAuthorComponent implements OnInit {
   selectedProfessionalQualification;
   selectedPercentage;
   msgPhoneError = '';
+  searchValue = '';
   constructor(
     private http: HttpClient,
     private config: NgSelectConfig,
@@ -47,6 +48,7 @@ export class AddOutsideAuthorComponent implements OnInit {
     private modalService: NgbModal,
     private translateService: TranslateService,
     private route: ActivatedRoute,
+    private cd: ChangeDetectorRef
   ) {
 
   }
@@ -75,12 +77,12 @@ export class AddOutsideAuthorComponent implements OnInit {
   }
   // listContributorOutDTO:[]
   getListContributorOut() {
-    console.log( this.selectedFullName);
+    console.log( this.selectedStaffCodeSubject);
     
     let contributorDTO = null;
     contributorDTO =
     {
-      fullName: this.selectedStaffCodeSubject.value?.fullName ? this.selectedStaffCodeSubject.value?.fullName : this.selectedStaffCodeSubject.value?.displayName,
+      fullName: this.selectedStaffCodeSubject.value?.fullName ? this.selectedStaffCodeSubject.value?.fullName : this.selectedStaffCodeSubject.value?.displayName ? this.selectedStaffCodeSubject.value?.displayName : this.selectedFullName,
       percentage: this.DataService.percentageOut.value,
       phoneNumber: this.selectedPhoneNumber,
       email: this.selectedEmail,
@@ -90,13 +92,17 @@ export class AddOutsideAuthorComponent implements OnInit {
         this.selectedProfessionalQualification,
       contributorId: this.selectedStaffCodeSubject.value?.contributorId,
       //  :`${this.selectedFullName.displayName} - ${this.selectedPhoneNumber}`
-    displayName:this.selectedStaffCodeSubject.value?.fullName ? `${this.selectedStaffCodeSubject.value?.fullName } - ${this.selectedPhoneNumber}` : `${this.selectedStaffCodeSubject.value?.displayName} - ${this.selectedPhoneNumber}`
+    displayName:this.selectedStaffCodeSubject.value?.fullName ? `${this.selectedStaffCodeSubject.value?.fullName } - ${this.selectedPhoneNumber}` : `${this.selectedStaffCodeSubject.value?.displayName ? this.selectedStaffCodeSubject.value?.displayName : this.selectedFullName} - ${this.selectedPhoneNumber}`
     }
+    console.log(contributorDTO);
+    
     if (this.DataService.routerContrivance) {
       this.contrivanceService.lstContributorDTOServiceOut.value.push(contributorDTO);
     } else {
       this.DataService.lstContributorDTOServiceOut.value.push(contributorDTO);
     }
+    console.log(this.contrivanceService.lstContributorDTOServiceOut.value);
+    
   }
   token = JSON.parse(localStorage.getItem('tokenInLocalStorage'));
   listContributorOut: [];
@@ -130,6 +136,7 @@ export class AddOutsideAuthorComponent implements OnInit {
   // }
   isInputTouched = false;
   onSelectedStaffCodeChange(value: any) { 
+    this.searchValue = '';
     this.isInputTouched = true;
     this.setSelectedStaffCode(value);
     this.selectedPhoneNumber = this.selectedStaffCodeSubject.value?.phoneNumber;
@@ -137,10 +144,27 @@ export class AddOutsideAuthorComponent implements OnInit {
     this.selectedJobPosition = this.selectedStaffCodeSubject.value?.jobPosition;
     this.selectedJobAddress = this.selectedStaffCodeSubject.value?.jobAddress;
     this.selectedProfessionalQualification = this.selectedStaffCodeSubject.value?.professionalQualification
+    
     this.checkPhoneNumber();
     
     // this.selectedFullName= value.displayName;
 
+  }
+
+  onSearch(searchText: any) {
+    this.searchValue = searchText.term
+  }
+  
+  onBlur() {
+    // Xử lý khi hộp chọn mất focus
+    if(this.searchValue.length >0){
+      this.selectedStaffCodeSubject.next({});
+      this.selectedFullName = this.searchValue;
+      this.selectedPhoneNumber = '';
+      this.selectedEmail = '';
+      this.selectedPercentage = '';  
+      this.cd.detectChanges();
+    } 
   }
   percentageValueChange(newValue: string) {
     const parsedValue = parseInt(newValue, 10);

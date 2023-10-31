@@ -277,10 +277,6 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy {
       }
       this.selectedUnit = [...unit]
       this.contrivanceService.selectedUnit.next(this.selectedUnit);
-      console.log(this.selectedUnit);
-
-      //  console.log(this.contrivanceService.contrivancesDTO.value.listUnitDTO);
-
       this.formUtils.setForm(
         this.fb.group({
           language: [contrivancesDTO.language, Validators.required],
@@ -328,8 +324,6 @@ export class ContrivanceEditComponent implements OnInit, OnDestroy {
   selectedUnit;
   onNgSelectChange(item) {
     this.selectedUnitValue = [...item]
-    console.log(this.selectedUnitValue);
-
     const unit = []
     for (let i = 0; i < this.selectedUnitValue.length; i++) {
       unit.push(this.selectedUnitValue[i].unitId);

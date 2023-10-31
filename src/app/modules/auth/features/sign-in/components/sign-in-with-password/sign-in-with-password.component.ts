@@ -181,7 +181,6 @@ export class SignInWithPasswordComponent implements OnInit, OnDestroy {
     const ip = this.getIpService.getClientPublicIP()
         .pipe(first())
         .subscribe(data => {
-          console.log(data);
           // const user = JSON.parse(localStorage.getItem('user'));
           // user.data.ip = data ? data : '';
           // localStorage.setItem('user', JSON.stringify(user));

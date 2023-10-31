@@ -177,7 +177,6 @@ this.selectedFullName =this.selectedStaffCodeSubject.value.fullName;
 
   checkEmail = false;
   emailChange() {
-    console.log(this.email);
     this.DataService.email.next(this.email);
     this.selectedStaffCodeSubject.value.email = this.email;
     if (!this.isValidEmail(this.email)) {

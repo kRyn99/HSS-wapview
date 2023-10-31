@@ -272,8 +272,6 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
 
   loadAddForm() {
     if (this.contrivanceService.contrivancesDTO.value) {
-      console.log(this.contrivanceService.selectedUnit.value);
-
       let contrivancesDTO = this.contrivanceService.contrivancesDTO.value;
       this.startDateModel = contrivancesDTO.applyStartTime;
       this.endDateModel = contrivancesDTO.applyEndTime;
@@ -576,8 +574,6 @@ export class ContrivanceRegisterComponent implements OnInit, OnDestroy {
   }
   AddInsideAuthor() {
     this.getContrivancesDTO();
-    console.log(this.contrivancesDTO);
-
     this.contrivanceService.contrivancesDTO.next(this.contrivancesDTO);
     this.DataService.showAddInsideAuthor = true;
     this.DataService.showBg = true;

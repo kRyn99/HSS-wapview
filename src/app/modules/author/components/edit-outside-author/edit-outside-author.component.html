@@ -47,6 +47,8 @@
       [addTagText]="'Chọn tên tác giả'"
       (change)="onSelectedStaffCodeChange($event)"
       [addTag]="true"
+      (search)="onSearch($event)"
+      (blur)="onBlur()"
       autofocus
       [addTagText]="'CHOOSE_AUTHOR_NAME' | translate"
     ></ng-select>

@@ -1,12 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { ActivatedRoute, Router } from "@angular/router";
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import { DataService } from "../../../../shared/service/data.service";
-import { environment } from "@env/environment";
-import { BehaviorSubject } from "rxjs";
-import { MessagePopupComponent } from "@app/modules/common-items/components/message-popup/message-popup.component";
 import { ContrivanceService } from "@app/shared/service/contrivance.service";
 import { NgSelectConfig } from "@ng-select/ng-select";
 
@@ -20,11 +15,8 @@ export class EditInsideEditComponent implements OnInit {
   msgPhoneError = '';
   constructor(
     private config: NgSelectConfig,
-    private http: HttpClient,
-    private route: ActivatedRoute,
     public DataService: DataService,
     private router: Router,
-    private modalService: NgbModal,
     private translateService: TranslateService,
     public contrivanceService: ContrivanceService
   ) {
@@ -36,29 +28,6 @@ export class EditInsideEditComponent implements OnInit {
   token = JSON.parse(localStorage.getItem("tokenInLocalStorage"));
   staffId;
   ngOnInit() {
-    console.log(this.DataService.lstContributorDTOServiceEdit.value);
-
-    // this.route.queryParams.subscribe((params) => {
-    //   if (params && params.for) {
-    //     this.backRoute = params.for;
-    //   }
-    //   if (params && params.id) {
-    //     if (this.backRoute == "contrivance") {
-    //       this.contributorDTO = {
-    //         ...this.contrivanceService.lstContributorDTOService.value.find(
-    //           (item) => item.staffId == Number(params.id)
-    //         ),
-    //       };
-    //     } else {
-    //       this.contributorDTO = {
-    //         ...this.DataService.lstContributorDTOServiceEdit.value.find(
-    //           (item) => item.staffId == Number(params.id)
-    //         ),
-    //       };
-    //     }
-    //   }
-    //   this.staffId = params.id;
-    // });
     if(this.DataService.routerContrivance){ 
       this.contributorDTO = {
         ...this.contrivanceService.lstContributorDTOService.value.find(
@@ -76,9 +45,7 @@ export class EditInsideEditComponent implements OnInit {
       this.selectedStaffCode = this.contributorDTO.fullName;
     }
     this.staffId = this.DataService.idEditInsideAuthor;
-    console.log(this.staffId);
-    
-    // this.getListStaff();
+
   }
 
 
@@ -110,6 +77,7 @@ export class EditInsideEditComponent implements OnInit {
     }
   
   }
+  
   goBack(){
     this.DataService.showBg = false;
     this.DataService.showAddInsideAuthor = false;
@@ -128,31 +96,6 @@ export class EditInsideEditComponent implements OnInit {
   listStaff: [];
   selectedStaffCode: any;
   lang = localStorage.getItem("lang");
-  // getListStaff() {
-  //   const url = `${environment.API_HOST_NAME}/api/get-list-staff`;
-  //   const headers = new HttpHeaders({
-  //     "Accept-Language": this.lang,
-  //     Authorization: `Bearer ` + this.token,
-  //   });
-  //   const requestBody = {
-  //     userName: "hss_admin",
-
-  //     staffDTO: {
-  //       staffCode: "",
-  //     },
-  //   };
-  //   return this.http.post<any>(url, requestBody, { headers }).subscribe(
-  //     (response) => {
-  //       // this.listStaff = response.data.listStaffDTO;
-  //       this.listStaff = response.data.listStaffDTO.map((item) => { item.displayName = `${item.staffCode} - ${item.fullName}`; return { ...item } });
-
-  //       console.log(this.listStaff);
-  //     },
-  //     (error) => {
-  //       console.error(error.description);
-  //     }
-  //   );
-  // }
 
   onSelectedStaffCodeChange(value: any) {
     this.contributorDTO = value;
