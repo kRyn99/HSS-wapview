@@ -23,7 +23,7 @@ import { ContrivanceService } from "@app/shared/service/contrivance.service";
 export class AddInsideEditComponent implements OnInit {
   public selectedStaffCodeSubject = new BehaviorSubject<any>({});
   msgPhoneError = "";
-  selectedFullName
+  selectedFullName;
   setSelectedStaffCode(code: any) {
     this.selectedStaffCodeSubject.next(code);
     this.DataService.selectedStaffCodeSubject.next(code);
@@ -63,7 +63,7 @@ export class AddInsideEditComponent implements OnInit {
       }
     });
   }
-  goBack(){
+  goBack() {
     this.DataService.showBg = false;
     this.DataService.showAddInsideAuthor = false;
     this.DataService.showEditInsideAuthor = false;
@@ -81,53 +81,24 @@ export class AddInsideEditComponent implements OnInit {
   listStaff: [];
   listStaff2: [];
   lang = localStorage.getItem("lang");
-  // getListStaff() {
-  //   const url = `${environment.API_HOST_NAME}/api/get-list-staff`;
-  //   const headers = new HttpHeaders({
-  //     "Accept-Language": this.lang,
-  //     Authorization: `Bearer ` + this.token,
-  //   });
-  //   const requestBody = {
-  //     userName: "hss_admin",
 
-  //     staffDTO: {
-  //       staffCode: "",
-  //     },
-  //   };
-  //   return this.http.post<any>(url, requestBody, { headers }).subscribe(
-  //     (response) => {
-  //       this.listStaff = response.data.listStaffDTO;
-  //       this.listStaff2 = response.data.listStaffDTO.map((item) => { item.displayName = `${item.staffCode} - ${item.fullName}`; return {...item} });
-
-  //       console.log(this.listStaff);
-  //     },
-  //     (error) => {
-  //       console.error(error.description);
-  //     }
-  //   );
-  // }
-  goBackEdit() {
-    alert("ok");
-  }
   isInputTouched = false;
   onSelectedStaffCodeChange(value: any) {
-    this.setSelectedStaffCode(value);
+    this.setSelectedStaffCode({...value});
     this.isInputTouched = true;
     this.phoneNumber = this.selectedStaffCodeSubject.value.phoneNumber;
     this.email = this.selectedStaffCodeSubject.value.email;
-this.selectedFullName =this.selectedStaffCodeSubject.value.fullName;
+    this.selectedFullName = this.selectedStaffCodeSubject.value.fullName;
     this.birthday = this.selectedStaffCodeSubject.value.birthday;
     this.checkPhoneNumber();
-  
   }
-  
+
   percentageValue: string;
   phoneNumber: string;
   email: string;
   birthday: string;
   percentageTouched = false;
   percentageValueChange(newValue: string) {
-   
     this.percentageTouched = true;
     const parsedValue = parseInt(newValue, 10);
     if (!isNaN(parsedValue)) {
@@ -147,33 +118,34 @@ this.selectedFullName =this.selectedStaffCodeSubject.value.fullName;
   checkValidatePhone(phoneNumber: string) {
     const phoneNumberRegex = /^\d{8,15}$/;
     if (phoneNumberRegex.test(phoneNumber)) {
-     return true;
+      return true;
     } else {
       return false;
     }
   }
 
-  checkPhoneNumber(){
-    if(!this.phoneNumber || this.phoneNumber.length ===0) {
-      this.msgPhoneError = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.PHONE`);
+  checkPhoneNumber() {
+    if (!this.phoneNumber || this.phoneNumber.length === 0) {
+      this.msgPhoneError = this.translateService.instant(
+        `ADD-INSIDE-IDEA.VALIDATE.PHONE`
+      );
       return false;
     }
-    if(!this.checkValidatePhone(this.phoneNumber)) {
-      this.msgPhoneError = this.translateService.instant(`IDEA_NEW.PHONE_ERROR`);
+    if (!this.checkValidatePhone(this.phoneNumber)) {
+      this.msgPhoneError =
+        this.translateService.instant(`IDEA_NEW.PHONE_ERROR`);
       return false;
     }
-    this.msgPhoneError = '';
+    this.msgPhoneError = "";
     return true;
   }
   changePhone() {
-    if(!this.checkPhoneNumber()){
-        return;
+    if (!this.checkPhoneNumber()) {
+      return;
     }
     this.DataService.phoneNumber.next(this.phoneNumber);
     this.selectedStaffCodeSubject.value.phoneNumber = this.phoneNumber;
   }
-
-
 
   checkEmail = false;
   emailChange() {
@@ -277,9 +249,7 @@ this.selectedFullName =this.selectedStaffCodeSubject.value.fullName;
       this.validateTemplate();
       return false;
     }
-    if (
-      !this.checkPhoneNumber()
-    ) {
+    if (!this.checkPhoneNumber()) {
       // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
       // modalRef.componentInstance.type = 'fail';
       // modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);

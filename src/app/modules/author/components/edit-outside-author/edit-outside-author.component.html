@@ -44,13 +44,12 @@
       [(ngModel)]="staffCode"
       bindValue="displayName"
       [addTag]="true"
-      [addTagText]="'Chọn tên tác giả'"
       (change)="onSelectedStaffCodeChange($event)"
       [addTag]="true"
       (search)="onSearch($event)"
       (blur)="onBlur()"
       autofocus
-      [addTagText]="'CHOOSE_AUTHOR_NAME' | translate"
+      [addTagText]="''"
     ></ng-select>
     <div class="form-text text-danger" *ngIf="!contributorDTO?.displayName">{{ "ADD-INSIDE-IDEA.VALIDATE.NAME" | translate }}</div>
     

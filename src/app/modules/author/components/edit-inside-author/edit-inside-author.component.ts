@@ -134,36 +134,9 @@ export class EditInsideAuthorComponent implements OnInit {
       document.body.style.overflow = "auto";
     }
   }
-  // getListStaff() {
-  //   const url = `${environment.API_HOST_NAME}/api/get-list-staff`;
-  //   const headers = new HttpHeaders({
-  //     "Accept-Language": this.lang,
-  //     Authorization: `Bearer ` + this.token,
-  //   });
-  //   const requestBody = {
-  //     userName: "hss_admin",
 
-  //     staffDTO: {
-  //       staffCode: "",
-  //     },
-  //   };
-  //   return this.http.post<any>(url, requestBody, { headers }).subscribe(
-  //     (response) => {
-  //       // this.listStaff = response.data.listStaffDTO;
-  //       this.listStaff = response.data.listStaffDTO.map((item) => {
-  //         item.displayName = `${item.staffCode} - ${item.fullName}`;
-  //         return { ...item };
-  //       });
-
-  //       console.log(this.listStaff);
-  //     },
-  //     (error) => {
-  //       console.error(error.description);
-  //     }
-  //   );
-  // }
   onSelectedStaffCodeChange(value: any) {
-    this.contributorDTO = value;
+    this.contributorDTO = {...value};
     this.contributorDTO.staffId = value.id;
     if (this.checkPhoneNumber()) {
       return;

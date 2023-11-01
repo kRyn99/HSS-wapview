@@ -52,7 +52,6 @@ export class IdeaListComponent implements OnInit {
   selectedSpecialty;
   onSpecialtyClick(specialty: { name: string }) {
     this.selectedSpecialty = specialty;
-    console.log(this.selectedSpecialty.name);
   }
   backToPage = "home";
   get backRoute() {
@@ -151,7 +150,6 @@ export class IdeaListComponent implements OnInit {
         }
      
         this.recordInfoDTO = response.data.recordInfoDTO;
-        console.log(this.recordInfoDTO);
       },
       (error) => {
         console.error(error.data);

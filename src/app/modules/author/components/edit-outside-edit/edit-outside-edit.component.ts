@@ -143,7 +143,7 @@ export class EditOutsideEditComponent implements OnInit {
   // }
   fullName;
   onSelectedStaffCodeChange(value: any) {
-    this.contributorDTO = value ? value : {};
+    this.contributorDTO = value ? {...value} : {};
     this.searchValue = "";
     this.fullName = this.contributorDTO.displayName;
 
@@ -274,6 +274,7 @@ export class EditOutsideEditComponent implements OnInit {
       // modalRef.componentInstance.closeIcon = false;
       return false;
     }
+    debugger
     let hasDuplicate = false;
     let lstContributorDTO = [];
     if (this.DataService.routerContrivance) {
@@ -299,7 +300,7 @@ export class EditOutsideEditComponent implements OnInit {
 
       if (this.contributorDTO.email && this.contributorDTO.email !== "") {
         let listDuplicate = lstContributorDTO.filter((item) => {
-          return item.email == this.contributorDTO.email;
+          return item.email.toLowerCase() == this.contributorDTO.email.toLowerCase();
         });
 
         if (listDuplicate.length > 1) {

@@ -148,8 +148,6 @@ export class IdeaRegisterComponent implements OnInit {
       this.selectedUnit = value;
     });
 
-    console.log(this.DataService.lstContributorDTOServiceOut.value);
-
     // this.selectedUnitValue = this.DataService.selectedUnitValue$.value;
     this.selectedSpecialtyValue = this.DataService.selectedSpecialtyValue.value;
     if (this.DataService.selectedStartDate.value) {
@@ -160,7 +158,6 @@ export class IdeaRegisterComponent implements OnInit {
     } else {
       this.selectedEndDate = null;
     }
-    console.log(this.DataService.isEndDateTouched);
 
     // this.selectedEndDate = this.DataService.selectedEndDate.value;
     this.beforeApplyStatus = this.DataService.beforeApplyStatus.value;
@@ -177,7 +174,6 @@ export class IdeaRegisterComponent implements OnInit {
   onLanguageChange() {
     this.isLangTouched = true;
     this.DataService.selectedLanguage.next(this.selectedLanguage);
-    console.log(this.DataService.selectedLanguage.value);
   }
   toggleDropdown() {
     this.DataService.showDropdown = !this.DataService.showDropdown;
@@ -1092,6 +1088,10 @@ export class IdeaRegisterComponent implements OnInit {
       });
 
       this.getIdeaDTO();
+      console.log(this.DataService.lstContributorDTOServiceOut.value);
+      console.log(this.DataService.lstContributorDTOService.value);
+
+      
       const requestBody = {
         ideaDTO: { ...this.ideaDTO },
         lstContributorDTO:
@@ -1180,7 +1180,6 @@ export class IdeaRegisterComponent implements OnInit {
     this.dataSource2 = new MatTableDataSource(
       this.DataService.lstContributorDTOServiceOut.value
     );
-    console.log(this.dataSource);
   }
   handleAddInsideAuthorPopup() {
     this.DataService.showBg = false;
@@ -1274,7 +1273,6 @@ export class IdeaRegisterComponent implements OnInit {
     this.dataSource2 = new MatTableDataSource(
       this.DataService.lstContributorDTOServiceOut.value
     );
-    console.log(this.DataService.lstContributorDTOServiceOut.value);
   }
   handleEditOutsideAuthorPopup() {
     this.DataService.showBg = false;

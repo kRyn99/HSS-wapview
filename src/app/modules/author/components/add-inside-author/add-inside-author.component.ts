@@ -124,7 +124,7 @@ export class AddInsideAuthorComponent implements OnInit {
   // }
   isInputTouched = false;
   onSelectedStaffCodeChange(value: any) {
-    this.setSelectedStaffCode(value);
+    this.setSelectedStaffCode({...value});
     this.isInputTouched = true;
     this.phoneNumber = this.selectedStaffCodeSubject.value?.phoneNumber;
     this.email = this.selectedStaffCodeSubject.value?.email;
@@ -198,9 +198,6 @@ export class AddInsideAuthorComponent implements OnInit {
 
   birthdayChange(): void {
     this.selectedStaffCodeSubject.value.birthday = this.birthday;
-    console.log(this.birthday);
-    // event.preventDefault();
-
     this.DataService.birthday.next(this.birthday);
   }
 

@@ -70,7 +70,6 @@ export class IdeaListNewComponent implements OnInit {
         this.DataService.listIdeaService = this.listIdea;
         this.backupListIdea = [...this.listIdea];
         this.recordInfoDTO = response.data.recordInfoDTO;
-        console.log(this.recordInfoDTO);
       },
       (error) => {
         console.error(error.data);

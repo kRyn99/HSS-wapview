@@ -75,8 +75,6 @@ export class CheckDuplicateComponentIdea implements OnInit {
     }
   }
   ngOnInit() {
-    console.log(this.DataService.ideaDTO);
-
     this.checkDuplicate();
   }
 
@@ -242,8 +240,6 @@ export class CheckDuplicateComponentIdea implements OnInit {
       delete newItem.displayName;
       newList.push(newItem);   
     }
-    console.log(newList);
-    console.log(this.DataService.lstContributorDTOServiceOutEdit.value);
     
     const url = `${environment.API_HOST_NAME}/api/update-idea`;
 

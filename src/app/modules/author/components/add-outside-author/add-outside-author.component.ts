@@ -1,11 +1,17 @@
-import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+} from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 import { environment } from "@env/environment";
 import { NgSelectConfig } from "@ng-select/ng-select";
 import { ActivatedRoute, Router } from "@angular/router";
-import { TranslateService } from '@ngx-translate/core';
-import { MessagePopupComponent } from "../../../../modules/common-items/components/message-popup/message-popup.component"
+import { TranslateService } from "@ngx-translate/core";
+import { MessagePopupComponent } from "../../../../modules/common-items/components/message-popup/message-popup.component";
 
 import {
   BsDatepickerConfig,
@@ -14,31 +20,30 @@ import {
 import { DataService } from "../../../../shared/service/data.service";
 import { BehaviorSubject } from "rxjs";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { ContrivanceService } from '@app/shared/service/contrivance.service';
+import { ContrivanceService } from "@app/shared/service/contrivance.service";
 @Component({
-  selector: 'app-add-outside-author',
-  templateUrl: './add-outside-author.component.html',
-  styleUrls: ['./add-outside-author.component.scss']
+  selector: "app-add-outside-author",
+  templateUrl: "./add-outside-author.component.html",
+  styleUrls: ["./add-outside-author.component.scss"],
 })
 export class AddOutsideAuthorComponent implements OnInit {
   public selectedStaffCodeSubject = new BehaviorSubject<any>({});
   setSelectedStaffCode(code: any) {
     this.selectedStaffCodeSubject.next(code);
-    // this.DataService.selectedStaffCodeSubject.next(code);
   }
 
   getSelectedStaffCodeSubject() {
     return this.selectedStaffCodeSubject.asObservable();
   }
-  selectedFullName = '';
+  selectedFullName = "";
   selectedJobAddress;
   selectedJobPosition;
   selectedPhoneNumber;
   selectedEmail;
   selectedProfessionalQualification;
   selectedPercentage;
-  msgPhoneError = '';
-  searchValue = '';
+  msgPhoneError = "";
+  searchValue = "";
   constructor(
     private http: HttpClient,
     private config: NgSelectConfig,
@@ -49,18 +54,15 @@ export class AddOutsideAuthorComponent implements OnInit {
     private translateService: TranslateService,
     private route: ActivatedRoute,
     private cd: ChangeDetectorRef
-  ) {
-
-  }
+  ) {}
   ngOnInit() {
-    // this.apiListContributorOut();
     this.route.queryParams.subscribe((params) => {
       if (params && params.for) {
         this.backRoute = params.for;
       }
-    })
+    });
   }
-  goBack(){
+  goBack() {
     this.DataService.showBg = false;
     this.DataService.showAddInsideAuthor = false;
     this.DataService.showEditInsideAuthor = false;
@@ -77,146 +79,125 @@ export class AddOutsideAuthorComponent implements OnInit {
   }
   // listContributorOutDTO:[]
   getListContributorOut() {
-    console.log( this.selectedStaffCodeSubject);
-    
     let contributorDTO = null;
-    contributorDTO =
-    {
-      fullName: this.selectedStaffCodeSubject.value?.fullName ? this.selectedStaffCodeSubject.value?.fullName : this.selectedStaffCodeSubject.value?.displayName ? this.selectedStaffCodeSubject.value?.displayName : this.selectedFullName,
+    contributorDTO = {
+      fullName: this.selectedStaffCodeSubject.value?.fullName
+        ? this.selectedStaffCodeSubject.value?.fullName
+        : this.selectedStaffCodeSubject.value?.displayName
+        ? this.selectedStaffCodeSubject.value?.displayName
+        : this.selectedFullName,
       percentage: this.DataService.percentageOut.value,
       phoneNumber: this.selectedPhoneNumber,
       email: this.selectedEmail,
       jobPosition: this.selectedJobPosition,
       jobAddress: this.selectedJobAddress,
-      professionalQualification:
-        this.selectedProfessionalQualification,
+      professionalQualification: this.selectedProfessionalQualification,
       contributorId: this.selectedStaffCodeSubject.value?.contributorId,
-      //  :`${this.selectedFullName.displayName} - ${this.selectedPhoneNumber}`
-    displayName:this.selectedStaffCodeSubject.value?.fullName ? `${this.selectedStaffCodeSubject.value?.fullName } - ${this.selectedPhoneNumber}` : `${this.selectedStaffCodeSubject.value?.displayName ? this.selectedStaffCodeSubject.value?.displayName : this.selectedFullName} - ${this.selectedPhoneNumber}`
-    }
-    console.log(contributorDTO);
-    
+      displayName: this.selectedStaffCodeSubject.value?.fullName
+        ? `${this.selectedStaffCodeSubject.value?.fullName} - ${this.selectedPhoneNumber}`
+        : `${
+            this.selectedStaffCodeSubject.value?.displayName
+              ? this.selectedStaffCodeSubject.value?.displayName
+              : this.selectedFullName
+          } - ${this.selectedPhoneNumber}`,
+    };
+
+
     if (this.DataService.routerContrivance) {
-      this.contrivanceService.lstContributorDTOServiceOut.value.push(contributorDTO);
+      this.contrivanceService.lstContributorDTOServiceOut.value.push(
+        contributorDTO
+      );
     } else {
       this.DataService.lstContributorDTOServiceOut.value.push(contributorDTO);
     }
-    console.log(this.contrivanceService.lstContributorDTOServiceOut.value);
-    
+
   }
-  token = JSON.parse(localStorage.getItem('tokenInLocalStorage'));
+  token = JSON.parse(localStorage.getItem("tokenInLocalStorage"));
   listContributorOut: [];
-  lang = localStorage.getItem('lang');
-  // apiListContributorOut() {
+  lang = localStorage.getItem("lang");
 
-  //   const url = `${environment.API_HOST_NAME}/api/get-list-contributor-cms`;
-  //   const headers = new HttpHeaders({
-  //     'Accept-Language': this.lang,
-  //     Authorization: `Bearer ` + this.token,
-  //   });
-  //   const requestBody = {
-  //     userName: "hss_admin",
-  //     contributorDTO: {
-  //       fullName: '',
-  //       outsideCorp: 1,
-  //     }
-  //   };
-  //   return this.http.post<any>(url, requestBody, { headers }).subscribe(
-  //     (response) => {
-  //       // this.listContributorOut = response.data;
-  //       this.listContributorOut = response.data.map((item) => { item.displayName = `${item.fullName} - ${item.phoneNumber}`; return {...item} });
-
-  //       console.log(this.listContributorOut);
-
-  //     },
-  //     (error) => {
-  //       console.error(error.data);
-  //     },
-  //   );
-  // }
   isInputTouched = false;
-  onSelectedStaffCodeChange(value: any) { 
-    this.searchValue = '';
+  onSelectedStaffCodeChange(value: any) {
+    this.searchValue = "";
     this.isInputTouched = true;
-    this.setSelectedStaffCode(value);
+    this.setSelectedStaffCode({...value});
     this.selectedPhoneNumber = this.selectedStaffCodeSubject.value?.phoneNumber;
     this.selectedEmail = this.selectedStaffCodeSubject.value?.email;
     this.selectedJobPosition = this.selectedStaffCodeSubject.value?.jobPosition;
     this.selectedJobAddress = this.selectedStaffCodeSubject.value?.jobAddress;
-    this.selectedProfessionalQualification = this.selectedStaffCodeSubject.value?.professionalQualification
-    
-    this.checkPhoneNumber();
-    
-    // this.selectedFullName= value.displayName;
+    this.selectedProfessionalQualification =
+      this.selectedStaffCodeSubject.value?.professionalQualification;
 
+    this.checkPhoneNumber();
   }
 
   onSearch(searchText: any) {
-    this.searchValue = searchText.term
+    this.searchValue = searchText.term;
   }
-  
+
   onBlur() {
     // Xử lý khi hộp chọn mất focus
-    if(this.searchValue.length >0){
+    if (this.searchValue.length > 0) {
       this.selectedStaffCodeSubject.next({});
       this.selectedFullName = this.searchValue;
-      this.selectedPhoneNumber = '';
-      this.selectedEmail = '';
-      this.selectedPercentage = '';  
+      this.selectedPhoneNumber = "";
+      this.selectedEmail = "";
+      this.selectedPercentage = "";
       this.cd.detectChanges();
-    } 
+    }
   }
   percentageValueChange(newValue: string) {
     const parsedValue = parseInt(newValue, 10);
     if (!isNaN(parsedValue)) {
-      if (parsedValue >= 1) { // Thay đổi điều kiện này để đảm bảo giá trị >= 1
+      if (parsedValue >= 1) {
+        // Thay đổi điều kiện này để đảm bảo giá trị >= 1
         if (parsedValue > 100) {
-          this.selectedPercentage = '100';
+          this.selectedPercentage = "100";
         } else {
           this.selectedPercentage = parsedValue.toString();
         }
       } else {
-        this.selectedPercentage = '1'; // Nếu giá trị nhỏ hơn 1, đặt thành 1
+        this.selectedPercentage = "1"; // Nếu giá trị nhỏ hơn 1, đặt thành 1
       }
-      this.DataService.percentageOut.next(this.selectedPercentage)
+      this.DataService.percentageOut.next(this.selectedPercentage);
     }
   }
- 
+
   changeJobAddress() {
     this.selectedStaffCodeSubject.value.jobAddress = this.selectedJobAddress;
-
-
   }
- 
+
   changeJobPosition() {
     this.selectedStaffCodeSubject.value.jobPosition = this.selectedJobPosition;
-
   }
 
   checkValidatePhone(phoneNumber: string) {
     const phoneNumberRegex = /^\d{8,15}$/;
     if (phoneNumberRegex.test(phoneNumber)) {
-     return true;
+      return true;
     } else {
       return false;
     }
   }
 
-  checkPhoneNumber(){
-    if(!this.selectedPhoneNumber || this.selectedPhoneNumber.length ===0) {
-      this.msgPhoneError = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.PHONE`);
+  checkPhoneNumber() {
+    if (!this.selectedPhoneNumber || this.selectedPhoneNumber.length === 0) {
+      this.msgPhoneError = this.translateService.instant(
+        `ADD-INSIDE-IDEA.VALIDATE.PHONE`
+      );
       return false;
     }
-    if(!this.checkValidatePhone(this.selectedPhoneNumber)) {
-      this.msgPhoneError = this.translateService.instant(`IDEA_NEW.PHONE_ERROR`);
+    if (!this.checkValidatePhone(this.selectedPhoneNumber)) {
+      this.msgPhoneError =
+        this.translateService.instant(`IDEA_NEW.PHONE_ERROR`);
       return false;
     }
-    this.msgPhoneError = '';
+    this.msgPhoneError = "";
     return true;
   }
   changePhone() {
-    if(!this.checkPhoneNumber()){
-        return;
+    if (!this.checkPhoneNumber()) {
+      return;
     }
     this.selectedStaffCodeSubject.value.phoneNumber = this.selectedPhoneNumber;
   }
@@ -232,13 +213,13 @@ export class AddOutsideAuthorComponent implements OnInit {
     if (!this.isValidEmail(this.selectedStaffCodeSubject.value.email)) {
       this.checkEmail = true;
     } else {
-
       this.checkEmail = false;
     }
   }
   qualificationTouched = false;
   changeQualification() {
-    this.selectedStaffCodeSubject.value.professionalQualification = this.selectedProfessionalQualification;
+    this.selectedStaffCodeSubject.value.professionalQualification =
+      this.selectedProfessionalQualification;
     this.qualificationTouched = true;
   }
   percentageTouched = false;
@@ -246,11 +227,10 @@ export class AddOutsideAuthorComponent implements OnInit {
     this.percentageTouched = true;
   }
   validateTemplate() {
+    if (!this.selectedStaffCodeSubject.value) {
+      this.isInputTouched = true;
+    }
 
-    if (
-      !this.selectedStaffCodeSubject.value
-    ) { this.isInputTouched = true }
-  
     // if (
     //   this.selectedProfessionalQualification === undefined ||
     //   this.selectedProfessionalQualification === null ||
@@ -261,35 +241,31 @@ export class AddOutsideAuthorComponent implements OnInit {
     if (
       this.selectedPercentage === undefined ||
       this.selectedPercentage === null ||
-      this.selectedPercentage === ''
+      this.selectedPercentage === ""
     ) {
       this.percentageTouched = true;
     }
-
   }
   validate() {
     function isValidEmail(email: string): boolean {
-
       const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
       return emailRegex.test(email);
     }
     let hasDuplicate = false;
-    if (
-      !this.selectedStaffCodeSubject.value
-    ) {
+    if (!this.selectedStaffCodeSubject.value) {
       // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
       // modalRef.componentInstance.type = 'fail';
       // modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
       // modalRef.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.NAME`);
       // modalRef.componentInstance.closeIcon = false;
-      this.validateTemplate()
+      this.validateTemplate();
       return false;
     }
     if (
       this.selectedPercentage === undefined ||
       this.selectedPercentage === null ||
-      this.selectedPercentage === ''
+      this.selectedPercentage === ""
     ) {
       // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
       // modalRef.componentInstance.type = 'fail';
@@ -299,9 +275,7 @@ export class AddOutsideAuthorComponent implements OnInit {
       this.percentageTouched = true;
       return false;
     }
-    if (
-      !this.checkPhoneNumber()
-    ) {
+    if (!this.checkPhoneNumber()) {
       // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
       // modalRef.componentInstance.type = 'fail';
       // modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
@@ -309,8 +283,7 @@ export class AddOutsideAuthorComponent implements OnInit {
       // modalRef.componentInstance.closeIcon = false;
       return false;
     }
-    if ((!isValidEmail(this.selectedEmail)) && this.selectedEmail
-    ) {
+    if (!isValidEmail(this.selectedEmail) && this.selectedEmail) {
       // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
       // modalRef.componentInstance.type = 'fail';
       // modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
@@ -318,7 +291,7 @@ export class AddOutsideAuthorComponent implements OnInit {
       // modalRef.componentInstance.closeIcon = false;
       this.checkEmail = true;
       return false;
-    };
+    }
 
     // if (
     //   this.selectedProfessionalQualification === undefined ||
@@ -334,12 +307,25 @@ export class AddOutsideAuthorComponent implements OnInit {
     // }
     let lstContributorDTO = [];
     if (this.DataService.routerContrivance) {
-      lstContributorDTO = this.contrivanceService.lstContributorDTOServiceOut.value;
+      lstContributorDTO =
+        this.contrivanceService.lstContributorDTOServiceOut.value;
     } else {
       lstContributorDTO = this.DataService.lstContributorDTOServiceOut.value;
     }
+
+    let staffCheck = {
+      phoneNumber: this.selectedStaffCodeSubject.value.phoneNumber
+        ? this.selectedStaffCodeSubject.value.phoneNumber
+        : this.selectedPhoneNumber,
+      email: this.selectedStaffCodeSubject.value.email
+        ? this.selectedStaffCodeSubject.value.email
+        : this.selectedEmail,
+      fullName: this.selectedStaffCodeSubject.value.fullName
+        ? this.selectedStaffCodeSubject.value.fullName
+        : this.selectedFullName,
+    };
     lstContributorDTO.forEach(item => {
-      if (item.phoneNumber == this.selectedStaffCodeSubject.value?.phoneNumber || (this.selectedStaffCodeSubject.value?.email && item.email == this.selectedStaffCodeSubject.value?.email)) {
+      if (item.phoneNumber == staffCheck.phoneNumber || (staffCheck.email && item.email.toLowerCase() == staffCheck.email.toLowerCase())) {
         // const modalRef = this.modalService.open(MessagePopupComponent, { size: 'sm', backdrop: 'static', keyboard: false, centered: true });
         // modalRef.componentInstance.type = 'fail';
         // modalRef.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.VALIDATE.ERROR`);
@@ -349,8 +335,7 @@ export class AddOutsideAuthorComponent implements OnInit {
         hasDuplicate = true;
         return;
       }
-
-    })
+    });
     if (hasDuplicate) {
       return false;
     }
@@ -361,15 +346,19 @@ export class AddOutsideAuthorComponent implements OnInit {
   addNew() {
     if (this.validate()) {
       const modalRefSuccess = this.modalService.open(MessagePopupComponent, {
-        size: 'sm',
-        backdrop: 'static',
+        size: "sm",
+        backdrop: "static",
         keyboard: false,
         centered: true,
       });
 
-      modalRefSuccess.componentInstance.type = 'confirm';
-      modalRefSuccess.componentInstance.title = this.translateService.instant(`ADD-INSIDE-IDEA.CONFIRM.CONFIRM`);
-      modalRefSuccess.componentInstance.message = this.translateService.instant(`ADD-INSIDE-IDEA.CONFIRM.CONFIRM-ADD`);
+      modalRefSuccess.componentInstance.type = "confirm";
+      modalRefSuccess.componentInstance.title = this.translateService.instant(
+        `ADD-INSIDE-IDEA.CONFIRM.CONFIRM`
+      );
+      modalRefSuccess.componentInstance.message = this.translateService.instant(
+        `ADD-INSIDE-IDEA.CONFIRM.CONFIRM-ADD`
+      );
       modalRefSuccess.componentInstance.closeIcon = false;
 
       // Xử lý khi modal được đóng
@@ -387,19 +376,17 @@ export class AddOutsideAuthorComponent implements OnInit {
           // Thực hiện các tác vụ khác nếu cần
         }
       });
-
     }
   }
   @Output() handleAddOutsideAuthorPopup = new EventEmitter<void>();
   @Output() handleAddOutsideAuthor = new EventEmitter<void>();
-  add(){
-    if (this.validate()){
+  add() {
+    if (this.validate()) {
       this.handleAddOutsideAuthor.emit();
-      this.DataService.showBg=false;
-      this.DataService.showAddOutsideAuthor=false;
+      this.DataService.showBg = false;
+      this.DataService.showAddOutsideAuthor = false;
       document.body.style.overflow = "auto";
       this.getListContributorOut();
     }
-  
   }
 }

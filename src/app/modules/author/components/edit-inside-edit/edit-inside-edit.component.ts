@@ -98,7 +98,7 @@ export class EditInsideEditComponent implements OnInit {
   lang = localStorage.getItem("lang");
 
   onSelectedStaffCodeChange(value: any) {
-    this.contributorDTO = value;
+    this.contributorDTO = {...value};
     this.contributorDTO.staffId = value.id;
     this.contributorDTO.birthDay = this.contributorDTO.birthday;
     if(this.checkPhoneNumber()) {
@@ -131,10 +131,7 @@ export class EditInsideEditComponent implements OnInit {
       this.checkEmail = false;
     }
   }
-  // changeBirthDay(){
-  //     console.log(this.contributorDTO.birthDay);
 
-  // }
   validate() {
     if (
       this.contributorDTO.staffCode === undefined ||

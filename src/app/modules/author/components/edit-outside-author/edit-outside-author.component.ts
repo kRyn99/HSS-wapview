@@ -83,8 +83,6 @@ export class EditOutsideAuthorComponent implements OnInit {
     this.oldNumber = this.contributorDTO.phoneNumber;
 
     this.oldEmail = this.contributorDTO.email;
-
-    // this.apiListContributorOut();
   }
 
   onSearch(searchText: any) {
@@ -122,38 +120,11 @@ export class EditOutsideAuthorComponent implements OnInit {
   }
   lang = localStorage.getItem("lang");
   listContributorOut: [];
-  // apiListContributorOut() {
-  //   const url = `${environment.API_HOST_NAME}/api/get-list-contributor-cms`;
-  //   const headers = new HttpHeaders({
-  //     "Accept-Language": this.lang,
-  //     Authorization: `Bearer ` + this.token,
-  //   });
-  //   const requestBody = {
-  //     userName: "hss_admin",
-  //     contributorDTO: {
-  //       fullName: "",
-  //       outsideCorp: 1,
-  //     },
-  //   };
-  //   return this.http.post<any>(url, requestBody, { headers }).subscribe(
-  //     (response) => {
-  //       // this.listContributorOut = response.data;
-  //       this.listContributorOut = response.data.map((item) => {
-  //         item.displayName = `${item.fullName} - ${item.phoneNumber}`;
-  //         return { ...item };
-  //       });
 
-  //       console.log(this.listContributorOut);
-  //     },
-  //     (error) => {
-  //       console.error(error.data);
-  //     }
-  //   );
-  // }
   fullName;
   onSelectedStaffCodeChange(value: any) {
     this.searchValue = '';
-    this.contributorDTO = value ? value : {};
+    this.contributorDTO = value ? {...value} : {};
     this.fullName = this.contributorDTO.displayName;
     if (this.checkPhoneNumber()) {
       return;
@@ -343,7 +314,7 @@ export class EditOutsideAuthorComponent implements OnInit {
       }
       if (this.contributorDTO.email && this.contributorDTO.email !== "") {
         let listDuplicate = lstContributorDTO.filter((item) => {
-          return item.email == this.contributorDTO.email;
+          return item.email.toLowerCase() == this.contributorDTO.email.toLowerCase();
         });
 
         if (listDuplicate.length > 1) {

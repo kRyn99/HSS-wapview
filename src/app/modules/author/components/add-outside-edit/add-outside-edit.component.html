@@ -45,7 +45,7 @@
       (change)="onSelectedStaffCodeChange($event)"
       [addTag]="true"
       bindValue="displayName"
-      [addTagText]="'CHOOSE_AUTHOR_NAME' | translate"
+      [addTagText]="''"
       [required]="isInputTouched"
       (search)="onSearch($event)"
       (blur)="onBlur()"
@@ -85,7 +85,7 @@
     <input
       class="info-input"
       [placeholder]="
-        (selectedStaffCodeSubject | async)?.phoneNumber || 'MANAGE_CATEGORY.PLACEHOLDER.PHONE_NUMBER'
+        'MANAGE_CATEGORY.PLACEHOLDER.PHONE_NUMBER'
           | translate
       "
       [(ngModel)]="selectedPhoneNumber"

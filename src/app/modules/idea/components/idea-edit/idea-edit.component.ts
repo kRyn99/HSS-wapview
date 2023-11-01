@@ -129,7 +129,6 @@ export class IdeaEditComponent implements OnInit {
   selectedLanguage: string = "";
   onLanguageChange() {
     this.DataService.selectedLanguage.next(this.selectedLanguage);
-    console.log(this.DataService.selectedLanguage.value);
   }
 
 
@@ -324,7 +323,6 @@ export class IdeaEditComponent implements OnInit {
           });
         } else {
           this.selectedUnitValue = response.data.listUnitDTO;
-          console.log(this.selectedUnitValue);
         }
         if (this.DataService.selectedUnitValueEdit.value) {
           this.DataService.selectedUnitValueEdit.subscribe((value) => {
@@ -336,8 +334,6 @@ export class IdeaEditComponent implements OnInit {
             unit.push(response.data.listUnitDTO[i].unitId);
           }
           this.selectedUnit = [...unit];
-          // this.selectedUnit = response.data.listUnitDTO.unitId;
-          console.log(this.selectedUnit);
         }
         if (this.DataService.selectedSpecialtyValueEdit.value) {
           this.specialty = this.DataService.selectedSpecialtyValueEdit.value;
@@ -464,7 +460,6 @@ export class IdeaEditComponent implements OnInit {
     }
 
     this.DataService.selectedUnitValueEdit.next(this.selectedUnitValue);
-    console.log(this.selectedUnitValue);
   }
 
   lstContributorDTO: any[] = [];
@@ -963,7 +958,6 @@ export class IdeaEditComponent implements OnInit {
     this.DataService.isEndDateTouched = true;
     let now = new Date();
     now.setHours(0, 0, 0, 0);
-    console.log(this.applyEndTime);
     if (this.applyEndTime === null && this.applyEndTime === undefined) {
       if (this.applyStartTime > this.applyEndTime) {
         this.checkStartDate = false;
@@ -1058,7 +1052,6 @@ export class IdeaEditComponent implements OnInit {
       note: this.note,
       listUnitDTO: updatedListUnitDTO,
     };
-    console.log(this.ideaDTO);
   }
   validateBeforeCheckDuplicate() {
     if (this.validate()) {

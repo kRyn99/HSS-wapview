@@ -58,9 +58,7 @@ export class ContrivanceListNewComponent implements OnInit  {
         if (res && res.errorCode === "0") {
           if (res.data && res.data.listContrivancesDTO) {
             this.listContrivance.next(res.data?.listContrivancesDTO);
-            this.contrivanceDTO = res.data.recordInfoDTO;
-            console.log(this.listContrivance.value);
-            
+            this.contrivanceDTO = res.data.recordInfoDTO;    
           }
         } else {
           this.listContrivance.next([]);

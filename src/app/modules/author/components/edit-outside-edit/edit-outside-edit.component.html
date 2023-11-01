@@ -48,7 +48,7 @@
       autofocus
       (search)="onSearch($event)"
       (blur)="onBlur()"
-      [addTagText]="'CHOOSE_AUTHOR_NAME' | translate"
+      [addTagText]="''"
     ></ng-select>
     <div class="form-text text-danger" *ngIf="!contributorDTO?.displayName">{{ "ADD-INSIDE-IDEA.VALIDATE.NAME" | translate }}</div>
 

@@ -162,7 +162,6 @@ export class IdeaDetailComponent implements OnInit {
         }
         this.listContributorDTO = response.data.listContributorDTO;
         this.documentDTO = response.data.documentDTO;
-        console.log(this.ideaDetail);
         const listContributorIn = response.data.listContributorDTO.filter(
           (contributor) => contributor.staffCode
         );
@@ -219,16 +218,6 @@ export class IdeaDetailComponent implements OnInit {
     };
     return this.http.post<any>(url, request, { headers }).subscribe((res) => {
       if (res.errorCode === "0") {
-        // let mimeType = res.data.typeFile;
-        // const a = document.createElement("a");
-        // console.log("data:" + mimeType + ";base64," + res.data.fileContent);
-
-        // a.href = "data:" + mimeType + ";base64," + res.data.fileContent;
-        // a.download = this.documentDTO.name;
-        // document.body.appendChild(a);
-        // a.click();
-        // document.body.removeChild(a);
-        // a.remove();
         const byteCharacters = atob(res.data.fileContent);
         const byteNumbers = new Array(byteCharacters.length);
         for (let i = 0; i < byteCharacters.length; i++) {

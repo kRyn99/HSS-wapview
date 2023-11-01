@@ -1,4 +1,10 @@
-import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from "@angular/core";
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+} from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 import { environment } from "@env/environment";
@@ -40,6 +46,7 @@ export class AddOutsideEditComponent implements OnInit {
   selectedPercentage;
   msgPhoneError = "";
   searchValue = "";
+  listStaffOut = [];
   constructor(
     private http: HttpClient,
     private config: NgSelectConfig,
@@ -61,7 +68,7 @@ export class AddOutsideEditComponent implements OnInit {
   }
 
   onSearch(searchText: any) {
-    this.selectedFullName = '';
+    this.selectedFullName = "";
     this.searchValue = searchText.term;
   }
 
@@ -70,9 +77,9 @@ export class AddOutsideEditComponent implements OnInit {
     if (this.searchValue.length > 0) {
       this.selectedStaffCodeSubject.next({});
       this.selectedFullName = this.searchValue;
-      this.selectedPhoneNumber = '';
-      this.selectedEmail = '';
-      this.selectedPercentage = '';
+      this.selectedPhoneNumber = "";
+      this.selectedEmail = "";
+      this.selectedPercentage = "";
       this.cd.detectChanges();
     }
   }
@@ -92,10 +99,8 @@ export class AddOutsideEditComponent implements OnInit {
       document.body.style.overflow = "auto";
     }
   }
-  // listContributorOutDTO:[]
-  getListContributorOut() {
-    console.log(this.selectedFullName);
 
+  getListContributorOut() {
     let contributorDTO = null;
     contributorDTO = {
       fullName: this.selectedStaffCodeSubject.value?.fullName
@@ -131,38 +136,11 @@ export class AddOutsideEditComponent implements OnInit {
   token = JSON.parse(localStorage.getItem("tokenInLocalStorage"));
   listContributorOut: [];
   lang = localStorage.getItem("lang");
-  // apiListContributorOut() {
-  //   const url = `${environment.API_HOST_NAME}/api/get-list-contributor-cms`;
-  //   const headers = new HttpHeaders({
-  //     "Accept-Language": this.lang,
-  //     Authorization: `Bearer ` + this.token,
-  //   });
-  //   const requestBody = {
-  //     userName: "hss_admin",
-  //     contributorDTO: {
-  //       fullName: "",
-  //       outsideCorp: 1,
-  //     },
-  //   };
-  //   return this.http.post<any>(url, requestBody, { headers }).subscribe(
-  //     (response) => {
-  //       // this.listContributorOut = response.data;
-  //       this.listContributorOut = response.data.map((item) => {
-  //         item.displayName = `${item.fullName} - ${item.phoneNumber}`;
-  //         return { ...item };
-  //       });
 
-  //       console.log(this.listContributorOut);
-  //     },
-  //     (error) => {
-  //       console.error(error.data);
-  //     }
-  //   );
-  // }
   isInputTouched = false;
   onSelectedStaffCodeChange(value: any) {
-    this.setSelectedStaffCode(value);
-    this.searchValue = '';
+    this.setSelectedStaffCode({...value});
+    this.searchValue = "";
     this.isInputTouched = true;
     this.selectedPhoneNumber = this.selectedStaffCodeSubject.value?.phoneNumber;
     this.selectedEmail = this.selectedStaffCodeSubject.value?.email;
@@ -225,6 +203,7 @@ export class AddOutsideEditComponent implements OnInit {
   }
 
   changePhone() {
+    debugger
     if (!this.checkPhoneNumber()) {
       return;
     }
@@ -349,11 +328,23 @@ export class AddOutsideEditComponent implements OnInit {
       lstContributorDTO =
         this.DataService.lstContributorDTOServiceOutEdit.value;
     }
+
+    let staffCheck = {
+      phoneNumber: this.selectedStaffCodeSubject.value.phoneNumber
+        ? this.selectedStaffCodeSubject.value.phoneNumber
+        : this.selectedPhoneNumber,
+      email: this.selectedStaffCodeSubject.value.email
+        ? this.selectedStaffCodeSubject.value.email
+        : this.selectedEmail,
+      fullName: this.selectedStaffCodeSubject.value.fullName
+        ? this.selectedStaffCodeSubject.value.fullName
+        : this.selectedFullName,
+    };
     let duplicate = lstContributorDTO.some((item) => {
       return (
-        item.phoneNumber == this.selectedStaffCodeSubject.value?.phoneNumber ||
-        (this.selectedStaffCodeSubject.value?.email &&
-          item.email == this.selectedStaffCodeSubject.value.email)
+        item.phoneNumber == staffCheck.phoneNumber ||
+        (staffCheck.email &&
+          item.email.toLowerCase() == staffCheck.email.toLowerCase())
       );
     });
     if (duplicate) {
