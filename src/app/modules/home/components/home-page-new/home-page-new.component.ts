@@ -27,6 +27,51 @@ export class HomePageNewComponent implements OnInit {
   get backRoute() {
     return this.backToPage;
   }
+
+  goBack() {
+    let links = [];
+    if(localStorage.getItem("deeplink")) {
+      const modalRefError = this.modalService.open(MessagePopupComponent, {
+        size: "sm",
+        backdrop: "static",
+        keyboard: false,
+        centered: true,
+      });
+      modalRefError.componentInstance.type = "confirm";
+      modalRefError.componentInstance.title =
+        this.translateService.instant(`COMMON.CONFIRMATION`);
+      modalRefError.componentInstance.message =
+        this.translateService.instant(`COMMON.CONFIRM_BACK_TO_HOME`);
+      modalRefError.componentInstance.closeIcon = false;
+      modalRefError.result.then(
+        () => {
+
+          let links = [];
+          if (localStorage.getItem("deeplink")) {
+            links.push(localStorage.getItem("deeplink"));
+            window.open(links.join(""), "_self");
+          }
+          // this.accountService.logout();
+        },
+        () => {}
+      );
+
+    }else {
+      const modalRefError = this.modalService.open(MessagePopupComponent, {
+        size: "sm",
+        backdrop: "static",
+        keyboard: false,
+        centered: true,
+      });
+      modalRefError.componentInstance.type = "fail";
+      modalRefError.componentInstance.title =
+        this.translateService.instant(`COMMON.ERROR`);
+      modalRefError.componentInstance.message =
+        this.translateService.instant(`COMMON.DEEP_LINK_ERROR`);
+      modalRefError.componentInstance.closeIcon = false;
+    }
+
+  }
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -35,6 +80,14 @@ export class HomePageNewComponent implements OnInit {
     public HomepageService: HomepageService,
     public contrivanceService: ContrivanceService
   ) {}
+
+    //check deeplink
+     isDeepLink(string) {
+      // Sử dụng biểu thức chính quy để kiểm tra
+      const pattern = /^(?!https?:\/\/).*:\/\//;
+      return pattern.test(string);
+    }
+
   tokenLogin() {
     const TokenLogin = {
       tokenAutoLogin: this.token,
@@ -145,12 +198,31 @@ export class HomePageNewComponent implements OnInit {
     }
     this.route.queryParams.subscribe((params) => {
       if (params && params.token) {
+        if (params.deeplink && this.isDeepLink(params.deeplink)) {
+          localStorage.setItem("deeplink", params.deeplink);
+        }else {
+          if(!localStorage.getItem("deeplink") || !this.isDeepLink(localStorage.getItem("deeplink")) ){
+            const modalRefError = this.modalService.open(MessagePopupComponent, {
+              size: "sm",
+              backdrop: "static",
+              keyboard: false,
+              centered: true,
+            });
+            modalRefError.componentInstance.type = "fail";
+            modalRefError.componentInstance.title =
+              this.translateService.instant(`COMMON.ERROR`);
+            modalRefError.componentInstance.message =
+              this.translateService.instant(`COMMON.DEEP_LINK_ERROR`);
+            modalRefError.componentInstance.closeIcon = false;
+            return;
+          }     
+        }
         this.token = params.token;
         if (!localStorage.getItem("tokenInLocalStorage")) {
           this.tokenLogin();
         }
       }
-      if (params && params.lang) {
+      if (params.lang) {
         localStorage.setItem("lang", params.lang);
         this.translateService.use(params.lang);
         this.translateService.setDefaultLang(params.lang);

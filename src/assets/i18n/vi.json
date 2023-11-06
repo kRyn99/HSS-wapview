@@ -96,6 +96,8 @@
     "QR": "QR bank"
   },
   "COMMON": {
+    "CONFIRM_BACK_TO_HOME": "Bạn có chắc muốn quay lại ứng dụng?",
+    "DEEP_LINK_ERROR": "Deep link trống hoặc không đúng định dạng, vui lòng kiểm tra lại!",
     "LOCK_OR_DELETE_ACCOUNT_OR_END_SESSION": "Tài khoản của bạn có thể đã bị xóa, tạm thời bị khóa hoặc phiên làm việc đã hết hạn.",
     "ERROR_SERVICE": "Có lỗi xảy ra, vui lòng thử lại!",
     "SELECT_ALL": "Tất cả",

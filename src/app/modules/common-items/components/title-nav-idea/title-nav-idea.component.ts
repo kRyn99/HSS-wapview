@@ -56,7 +56,8 @@ export class TitleNavIdeaComponent implements OnInit {
   handleBack() {
     if(this.isBackHome){
     this.homeService.isIdeaChecked.next(false);
-    this.homeService.isContrivanceChecked.next(false)
+    this.homeService.isContrivanceChecked.next(false);
+    this.applyChange.emit();
     }
     this.router.navigate([this.backRoute]);
   }

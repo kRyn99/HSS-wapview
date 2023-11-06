@@ -3,8 +3,8 @@ export const environment = {
   defaultLang: 'la',
   // API_HOST_NAME: 'http://10.120.44.68:8996/hss-ws',
   // API_HOST_NAME: 'http://10.120.137.102:8995/hss-ws',
-  // API_HOST_NAME: 'https://hss.unitel.com.la:8995/hss-ws',
-  API_HOST_NAME: 'http://upoint-uat.uid.com.la:8996/hss-ws',
+  API_HOST_NAME: 'https://hss.unitel.com.la:8995/hss-ws',
+  // API_HOST_NAME: 'http://upoint-uat.uid.com.la:8996/hss-ws',
 
   WS_BASE_URL: 'http://localhost:8081/ws-notification',
   HOST_UNITEL: 'http://10.120.8.116:8123/ApiGateway',

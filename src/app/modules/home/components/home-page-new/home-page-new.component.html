@@ -13,8 +13,8 @@
 </div> -->
 <app-title-nav-idea
   [title]="'IDEA_MANAGEMENT.TITLE.LIST_IDEA' | translate"
-  [backRoute]="backRoute"
-  isBackHome="true"
+  backRoute="home"
+  [isBackHome]="true"  [applyWhenBack]="true" (applyChange)="goBack()"
   createRoute="this"
 ></app-title-nav-idea>
 <div class="home-container">

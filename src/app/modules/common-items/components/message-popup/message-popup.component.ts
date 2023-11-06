@@ -27,7 +27,7 @@ export class MessagePopupComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.undoWarning = '<span><br>' + this.translate.instant('COMMON.UNABLE_UNDO') + '</span>';
+    // this.undoWarning = '<span><br>' + this.translate.instant('COMMON.UNABLE_UNDO') + '</span>';
     switch (this.type) {
       case 'fail': {
         this.closeIconSrc = this.defaultIconSrc + 'icon-error-20px.svg';

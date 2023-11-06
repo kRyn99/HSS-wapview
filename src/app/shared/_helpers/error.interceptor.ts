@@ -53,6 +53,11 @@ export class ErrorInterceptor implements HttpInterceptor {
             modalRefError.result.then(
               () => {
                 this.router.navigate(["/home/homepage"]);
+                let links = [];
+                if (localStorage.getItem("deeplink")) {
+                  links.push(localStorage.getItem("deeplink"));
+                  window.open(links.join(""), "_self");
+                }
                 // this.accountService.logout();
               },
               () => {}

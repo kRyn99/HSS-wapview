@@ -96,6 +96,8 @@
     "QR": "QR bank"
   },
   "COMMON": {
+    "CONFIRM_BACK_TO_HOME": "Are you sure you want to return to the application?",
+    "DEEP_LINK_ERROR": "The deep link is empty or not in the correct format, please check again!",
     "LOCK_OR_DELETE_ACCOUNT_OR_END_SESSION": "Your account may have been deleted, temporarily locked or your woking session has been expired",
     "ERROR_SERVICE": "An error occurred, please try again!",
     "SELECT_ALL": "Select all",
