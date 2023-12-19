@@ -196,7 +196,14 @@ export class HomePageNewComponent implements OnInit {
     if (localStorage.getItem("tokenInLocalStorage")) {
       this.getListIdea();
     }
-    this.route.queryParams.subscribe((params) => {
+    this.route.queryParams.subscribe( async (params) => {
+      if (params.lang) {
+        this.translateService.setDefaultLang(params.lang);
+        try {
+          await this.translateService.use(params.lang).toPromise();
+        } catch (err) {
+        }
+      }
       if (params && params.token) {
         if (params.deeplink && this.isDeepLink(params.deeplink)) {
           localStorage.setItem("deeplink", params.deeplink);
@@ -222,11 +229,7 @@ export class HomePageNewComponent implements OnInit {
           this.tokenLogin();
         }
       }
-      if (params.lang) {
-        localStorage.setItem("lang", params.lang);
-        this.translateService.use(params.lang);
-        this.translateService.setDefaultLang(params.lang);
-      }
+
     });
   }
 }
