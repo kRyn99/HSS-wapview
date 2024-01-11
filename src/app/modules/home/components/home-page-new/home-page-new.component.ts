@@ -17,6 +17,7 @@ import { ContrivanceService } from "@app/shared/service/contrivance.service";
 export class HomePageNewComponent implements OnInit {
   private subscriptions: Subscription[] = [];
   user: any;
+  levelKey: any;
   token: string;
   listIdea: any[] = [];
   subListIdea: any[] = [];
@@ -30,7 +31,7 @@ export class HomePageNewComponent implements OnInit {
 
   goBack() {
     let links = [];
-    if(localStorage.getItem("deeplink")) {
+    if (localStorage.getItem("deeplink")) {
       const modalRefError = this.modalService.open(MessagePopupComponent, {
         size: "sm",
         backdrop: "static",
@@ -40,12 +41,12 @@ export class HomePageNewComponent implements OnInit {
       modalRefError.componentInstance.type = "confirm";
       modalRefError.componentInstance.title =
         this.translateService.instant(`COMMON.CONFIRMATION`);
-      modalRefError.componentInstance.message =
-        this.translateService.instant(`COMMON.CONFIRM_BACK_TO_HOME`);
+      modalRefError.componentInstance.message = this.translateService.instant(
+        `COMMON.CONFIRM_BACK_TO_HOME`
+      );
       modalRefError.componentInstance.closeIcon = false;
       modalRefError.result.then(
         () => {
-
           let links = [];
           if (localStorage.getItem("deeplink")) {
             links.push(localStorage.getItem("deeplink"));
@@ -55,8 +56,7 @@ export class HomePageNewComponent implements OnInit {
         },
         () => {}
       );
-
-    }else {
+    } else {
       const modalRefError = this.modalService.open(MessagePopupComponent, {
         size: "sm",
         backdrop: "static",
@@ -66,11 +66,11 @@ export class HomePageNewComponent implements OnInit {
       modalRefError.componentInstance.type = "fail";
       modalRefError.componentInstance.title =
         this.translateService.instant(`COMMON.ERROR`);
-      modalRefError.componentInstance.message =
-        this.translateService.instant(`COMMON.DEEP_LINK_ERROR`);
+      modalRefError.componentInstance.message = this.translateService.instant(
+        `COMMON.DEEP_LINK_ERROR`
+      );
       modalRefError.componentInstance.closeIcon = false;
     }
-
   }
   constructor(
     private route: ActivatedRoute,
@@ -81,17 +81,20 @@ export class HomePageNewComponent implements OnInit {
     public contrivanceService: ContrivanceService
   ) {}
 
-    //check deeplink
-     isDeepLink(string) {
-      // Sử dụng biểu thức chính quy để kiểm tra
-      const pattern = /^(?!https?:\/\/).*:\/\//;
-      return pattern.test(string);
-    }
+  //check deeplink
+  isDeepLink(string) {
+    // Sử dụng biểu thức chính quy để kiểm tra
+    const pattern = /^(?!https?:\/\/).*:\/\//;
+    return pattern.test(string);
+  }
 
   tokenLogin() {
     const TokenLogin = {
       tokenAutoLogin: this.token,
     };
+    if (this.levelKey) {
+      TokenLogin["levelKey"] = this.levelKey;
+    }
     const autoToken = this.HomepageService.redirectList(TokenLogin)
       .pipe(first())
       .subscribe(
@@ -196,25 +199,36 @@ export class HomePageNewComponent implements OnInit {
     if (localStorage.getItem("tokenInLocalStorage")) {
       this.getListIdea();
     }
-    this.route.queryParams.subscribe( async (params) => {
+    this.route.queryParams.subscribe(async (params) => {
       if (params.lang) {
         this.translateService.setDefaultLang(params.lang);
+        localStorage.setItem("lang", params.lang);
         try {
           await this.translateService.use(params.lang).toPromise();
-        } catch (err) {
-        }
+        } catch (err) {}
       }
       if (params && params.token) {
+        if (params.levelKey) {
+          this.levelKey = params.levelKey;
+        } else {
+          this.levelKey = null;
+        }
         if (params.deeplink && this.isDeepLink(params.deeplink)) {
           localStorage.setItem("deeplink", params.deeplink);
-        }else {
-          if(!localStorage.getItem("deeplink") || !this.isDeepLink(localStorage.getItem("deeplink")) ){
-            const modalRefError = this.modalService.open(MessagePopupComponent, {
-              size: "sm",
-              backdrop: "static",
-              keyboard: false,
-              centered: true,
-            });
+        } else {
+          if (
+            !localStorage.getItem("deeplink") ||
+            !this.isDeepLink(localStorage.getItem("deeplink"))
+          ) {
+            const modalRefError = this.modalService.open(
+              MessagePopupComponent,
+              {
+                size: "sm",
+                backdrop: "static",
+                keyboard: false,
+                centered: true,
+              }
+            );
             modalRefError.componentInstance.type = "fail";
             modalRefError.componentInstance.title =
               this.translateService.instant(`COMMON.ERROR`);
@@ -222,14 +236,12 @@ export class HomePageNewComponent implements OnInit {
               this.translateService.instant(`COMMON.DEEP_LINK_ERROR`);
             modalRefError.componentInstance.closeIcon = false;
             return;
-          }     
+          }
         }
         this.token = params.token;
-        if (!localStorage.getItem("tokenInLocalStorage")) {
-          this.tokenLogin();
-        }
-      }
 
+        this.tokenLogin();
+      }
     });
   }
 }
